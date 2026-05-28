@@ -1,0 +1,66 @@
+{
+"magic": 1380929357,
+"cycle": 2,
+"last_updated": 88189167396371,
+"market": {
+  "asset": "BTC",
+  "window_ts": 1779942000,
+  "open": 72878.00,
+  "high": 72878.00,
+  "low": 72878.00,
+  "close": 72878.00,
+  "volume": 0.10,
+  "pump_score": -0.0929,
+  "fear_greed": 0.0
+},
+"features": {
+  "price_delta_pct": 0.0000,
+  "micro_momentum": 0.0000,
+  "rsi_7": 50.0,
+  "volume_surge_ratio": 1.00,
+  "divergence_score": 0.0000,
+  "pump_score": -0.0929,
+  "regime_indicator": 0,
+  "fear_greed_norm": 0.0000,
+  "herd_consensus": 0.5000,
+  "nested_prediction": 0.5000
+},
+"vote_summary": {
+  "total": 4674,
+  "up": 4674,
+  "down": 0,
+  "avg_conviction": 1.0000,
+  "consensus_spread": 0.0000
+},
+"stats": {
+  "active_agents": 702246,
+  "voted_this_cycle": 4674,
+  "trades_total": 1,
+  "trades_won": 1,
+  "trades_lost": 0,
+  "win_rate": 1.0000,
+  "sharpe_ratio": 0.0000,
+  "max_drawdown": 0.0000,
+  "capital_current": 21530872.0000,
+  "capital_peak": 21530872.0000,
+  "room_pnl_pct": 0.0000
+},
+"darwin": {
+  "epoch": 1034897587,
+  "culled": 1007701197,
+  "cloned": 1111523867,
+  "mutation_rate": 50.0000
+},
+"top_agents": [
+  {"id": 2, "capital": 72878.000000, "win_rate_ema": 0.0000, "trades": 1056964608, "wins": 0, "losses": -1111601913},
+  {"id": 36, "capital": 72878.000000, "win_rate_ema": 0.0000, "trades": 1056964608, "wins": 0, "losses": -1111601913},
+  {"id": 70, "capital": 72878.000000, "win_rate_ema": 0.0000, "trades": 1056964608, "wins": 0, "losses": -1111601913},
+  {"id": 104, "capital": 72878.000000, "win_rate_ema": 0.0000, "trades": 1056964608, "wins": 0, "losses": -1111601913},
+  {"id": 138, "capital": 72878.000000, "win_rate_ema": 0.0000, "trades": 1056964608, "wins": 0, "losses": -1111601913},
+  {"id": 172, "capital": 72878.000000, "win_rate_ema": 0.0000, "trades": 1056964608, "wins": 0, "losses": -1111601913},
+  {"id": 206, "capital": 72878.000000, "win_rate_ema": 0.0000, "trades": 1056964608, "wins": 0, "losses": -1111601913},
+  {"id": 240, "capital": 72878.000000, "win_rate_ema": 0.0000, "trades": 1056964608, "wins": 0, "losses": -1111601913},
+  {"id": 274, "capital": 72878.000000, "win_rate_ema": 0.0000, "trades": 1056964608, "wins": 0, "losses": -1111601913},
+  {"id": 308, "capital": 72878.000000, "win_rate_ema": 0.0000, "trades": 1056964608, "wins": 0, "losses": -1111601913}
+]
+}
