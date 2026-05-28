@@ -1,0 +1,16 @@
+Remote State Backup
+Timestamp: 2026-05-28T04:37:32Z
+Host: DESKTOP-4ECJU9J
+Money Room: /home/wubu2/.hermes/pm_logs
+Cells closed: 45/300 (15.0%)
+Files:
+-rw-rw-r-- 1 wubu2 wubu2 2.3K May 28 00:37 /home/wubu2/.hermes/backups/remote/snapshots/2026-05-28T04:37:32Z/goal-mantra.md
+-rw-rw-r-- 1 wubu2 wubu2 386K May 28 00:37 /home/wubu2/.hermes/backups/remote/snapshots/2026-05-28T04:37:32Z/gene_pool.npy.gz
+-rw-rw-r-- 1 wubu2 wubu2 103K May 28 00:37 /home/wubu2/.hermes/backups/remote/snapshots/2026-05-28T04:37:32Z/room_log_tail.csv
+-rw-rw-r-- 1 wubu2 wubu2 43K May 28 00:37 /home/wubu2/.hermes/backups/remote/snapshots/2026-05-28T04:37:32Z/money-room-vault.md
+-rw-rw-r-- 1 wubu2 wubu2 1.3M May 28 00:37 /home/wubu2/.hermes/backups/remote/snapshots/2026-05-28T04:37:32Z/room_state.bin.gz
+-rw-rw-r-- 1 wubu2 wubu2 26K May 28 00:37 /home/wubu2/.hermes/backups/remote/snapshots/2026-05-28T04:37:32Z/portfolios_top100.json
+-rw-rw-r-- 1 wubu2 wubu2 2.3K May 28 00:37 /home/wubu2/.hermes/backups/remote/snapshots/2026-05-28T04:37:32Z/room_snapshot.json
+-rw-rw-r-- 1 wubu2 wubu2 4.1K May 28 00:37 /home/wubu2/.hermes/backups/remote/snapshots/2026-05-28T04:37:32Z/state.md
+-rw-rw-r-- 1 wubu2 wubu2 8.1K May 28 00:37 /home/wubu2/.hermes/backups/remote/snapshots/2026-05-28T04:37:32Z/payout_ledger.py
+-rw-rw-r-- 1 wubu2 wubu2 876 May 28 00:37 /home/wubu2/.hermes/backups/remote/snapshots/2026-05-28T04:37:32Z/market_feed.json
