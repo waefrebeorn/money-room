@@ -1,7 +1,7 @@
 {
   "version": 5,
-  "cycle": 5,
-  "last_updated": 1780079644,
+  "cycle": 2510,
+  "last_updated": 1780079729,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -19,24 +19,24 @@
     "source": "Kraken+Coinbase WebSocket"
   },
   "vote_summary": {
-    "total": 4514,
-    "up": 1904,
-    "down": 2610,
+    "total": 1051,
+    "up": 0,
+    "down": 1051,
     "avg_conviction": 0.62,
     "consensus_spread": 0.14999999999999999
   },
   "stats": {
     "active_agents": 153000,
     "total_rooms": 16,
-    "voted_this_cycle": 4514,
-    "trades_total": 4310,
-    "trades_won": 0,
-    "trades_lost": 4310,
-    "win_rate": 0.0,
-    "sharpe_ratio": 0.0,
+    "voted_this_cycle": 1051,
+    "trades_total": 12810,
+    "trades_won": 5756,
+    "trades_lost": 7054,
+    "win_rate": 0.44929999999999998,
+    "sharpe_ratio": 91.438400000000001,
     "max_drawdown": -0.183,
     "capital_current": 124989.87,
-    "capital_peak": 50.0,
+    "capital_peak": 1.0,
     "room_pnl_pct": 0.0,
     "genome_mean_pnl": 1510.04,
     "total_genomes": 10000,
@@ -58,9 +58,9 @@
   },
   "darwin": {
     "epoch": 0,
-    "culled": 1056964608,
-    "cloned": -1,
-    "mutation_rate": 0.0
+    "culled": 1051,
+    "cloned": 1051,
+    "mutation_rate": 0.29999999999999999
   },
   "rooms": [
     {
@@ -188,16 +188,16 @@
     }
   },
   "features": {
-    "price_delta_pct": 0.0,
-    "micro_momentum": 0.0,
-    "rsi_7": 50.0,
-    "volume_surge_ratio": 1.0,
+    "price_delta_pct": 0.029700000000000001,
+    "micro_momentum": 0.035000000000000003,
+    "rsi_7": 74.400000000000006,
+    "volume_surge_ratio": 3.7400000000000002,
     "divergence_score": 0.0,
-    "pump_score": -0.98350000000000004,
+    "pump_score": 0.20000000000000001,
     "regime_indicator": 0,
-    "fear_greed_norm": 0.5,
-    "herd_consensus": 53.930900000000001,
-    "nested_prediction": 0.5
+    "fear_greed_norm": 0.29999999999999999,
+    "herd_consensus": 0.0,
+    "nested_prediction": 0.56759999999999999
   },
   "top_agents": [
     {
@@ -228,13 +228,13 @@
     "btc_wr": 0.47499999999999998,
     "btc_wr_detail": "C engine v2 BTC 1-min",
     "genome_mean_pnl": 1510.04,
-    "ecosystem_trades": 4310,
+    "ecosystem_trades": 12810,
     "prs_merged": 60,
     "prs_merged_detail": "RustChain bounties"
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T18:34:04+00:00",
+    "generated_at": "2026-05-29T18:35:29+00:00",
     "global_sentiment": {
       "mean": 0.046666666865348816,
       "direction": "neutral",
@@ -1675,8 +1675,8 @@
   },
   "history": {
     "today": {
-      "cycles": 5,
-      "avg_win_rate": 0.0,
+      "cycles": 8,
+      "avg_win_rate": 0.0020249999999999999,
       "avg_sharpe": 0.0,
       "cap_change": 0.0
     },
@@ -1760,11 +1760,11 @@
     "yesterday": {
       "note": "Engine log stale \u2014 no fresh room_log data"
     },
-    "generated": "2026-05-29T18:34:04Z"
+    "generated": "2026-05-29T18:35:29Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780079644,
+    "generated_at": 1780079729,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
@@ -1777,17 +1777,17 @@
     },
     "t2_engine_health": {
       "status": "operational",
-      "cycle": 5,
-      "vote_total": 4514,
-      "vote_up": 1904,
-      "vote_down": 2610,
-      "vote_anomaly": false,
-      "vote_note": "normal",
+      "cycle": 2510,
+      "vote_total": 1051,
+      "vote_up": 0,
+      "vote_down": 1051,
+      "vote_anomaly": true,
+      "vote_note": "ALL VOTES ONE DIRECTION \u2014 may indicate stale config or NaN features",
       "avg_conviction": 0.5,
       "active_agents": 153000,
       "rooms_active": 16,
-      "win_rate": 0.0,
-      "sharpe": 0.0,
+      "win_rate": 0.44929999999999998,
+      "sharpe": 91.438400000000001,
       "capital_current": 124989.87,
       "capital_healthy": true,
       "darwin_epochs": 0,
