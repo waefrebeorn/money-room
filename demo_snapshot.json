@@ -1,7 +1,7 @@
 {
   "version": 5,
   "cycle": 605499,
-  "last_updated": 1780078173,
+  "last_updated": 1780078223,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -234,7 +234,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T18:09:33+00:00",
+    "generated_at": "2026-05-29T18:10:23+00:00",
     "global_sentiment": {
       "mean": 0.046666666865348816,
       "direction": "neutral",
@@ -1757,11 +1757,11 @@
     "today": {
       "note": "No engine cycles today yet"
     },
-    "generated": "2026-05-29T18:09:33Z"
+    "generated": "2026-05-29T18:10:23Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780078173,
+    "generated_at": 1780078223,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
