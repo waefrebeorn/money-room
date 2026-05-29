@@ -443,15 +443,15 @@ footer a:hover { color: var(--accent); }
         <div class="status-row"><span class="label">Capital</span><span class="value" id="t2Capital">--</span></div>
         <div class="status-row"><span class="label">Darwin Epochs</span><span class="value" id="t2Darwin">--</span></div>
       </div>
-      <div class="verify-tier" id="t3Panel">
-        <h3><span class="dot" id="t3Dot"></span> T3 — Output Pipeline</h3>
-        <div class="status-row"><span class="label">Dashboard</span><span class="value" id="t3Dashboard">--</span></div>
-        <div class="status-row"><span class="label">Snapshot Ver</span><span class="value" id="t3Version">--</span></div>
-        <div class="status-row"><span class="label">Website</span><span class="value" id="t3Website">--</span></div>
-        <div class="status-row"><span class="label">Deploy</span><span class="value" id="t3Deploy">--</span></div>
-        <div class="status-row"><span class="label">Generated</span><span class="value" id="t3Generated">--</span></div>
-      </div>
-    </div>
+        <div class="verify-tier" id="t3Panel">
+          <h3><span class="dot" id="t3Dot"></span> T3 — Output Pipeline</h3>
+          <div class="status-row"><span class="label">Dashboard</span><span class="value" id="t3Dashboard">--</span></div>
+          <div class="status-row"><span class="label">Snapshot Ver</span><span class="value" id="t3Version">--</span></div>
+          <div class="status-row"><span class="label">Website</span><span class="value" id="t3Website">--</span></div>
+          <div class="status-row"><span class="label">Deploy</span><span class="value" id="t3Deploy">--</span></div>
+          <div class="status-row"><span class="label">Generated</span><span class="value" id="t3Generated">--</span></div>
+          <div class="status-row"><span class="label">API Calls</span><span class="value" id="t2ApiCalls">--</span></div>
+        </div>
     <div class="verify-conf-bar">
       <div class="big-score"><span class="num" id="verifyScore">-</span><span class="den">/<span id="verifyTotal">8</span></span></div>
       <div class="big-label" id="verifyLabel">System Confidence</div>
@@ -853,6 +853,16 @@ function renderVerification(data) {
   document.getElementById('t3Deploy').textContent = t3.deploy_schedule || '--';
   const gen = v.generated_at;
   document.getElementById('t3Generated').textContent = gen ? new Date(gen*1000).toLocaleString() : '--';
+  // API usage tracking
+  const st = data.stats || {};
+  const apiEl = document.getElementById('t2ApiCalls');
+  if (apiEl) {
+    if (st.api_active) {
+      apiEl.innerHTML = '<span style="color:var(--bullish)">' + (st.api_calls_24h || 0) + ' calls</span>';
+    } else {
+      apiEl.innerHTML = '<span style="color:var(--text-quaternary)">offline</span>';
+    }
+  }
   document.getElementById('t3Dot').className = 'dot ' + (t3.status === 'operational' ? 'green' : 'red');
 
   // Confidence score
