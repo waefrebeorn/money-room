@@ -1,20 +1,20 @@
 {
   "version": 5,
   "cycle": 605499,
-  "last_updated": 1780033687,
+  "last_updated": 1780033934,
   "data_delay_hours": 24,
-  "data_tier": "free (24h delayed data) — Live with Premium",
+  "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
   "market": {
     "asset": "BTC",
-    "close": 73552.9,
-    "bid": 73552.8,
-    "ask": 73555.02,
-    "volume": 7295.09,
-    "sp500": 7520.36,
-    "vix": 16.29,
+    "close": 73563.699999999997,
+    "bid": 73563.600000000006,
+    "ask": 73579.389999999999,
+    "volume": 7316.4384700099999,
+    "sp500": 7520.3599999999997,
+    "vix": 16.289999999999999,
     "btc_dominance": 62.0,
-    "btc_30d_volatility": 2.43,
+    "btc_30d_volatility": 2.4300000000000002,
     "data_quality_score": 85,
     "source": "Kraken+Coinbase WebSocket"
   },
@@ -23,7 +23,7 @@
     "up": 0,
     "down": 1833,
     "avg_conviction": 0.62,
-    "consensus_spread": 0.15
+    "consensus_spread": 0.14999999999999999
   },
   "stats": {
     "active_agents": 153000,
@@ -32,22 +32,21 @@
     "trades_total": 2814362,
     "trades_won": 1523018,
     "trades_lost": 1291344,
-    "win_rate": 0.5412,
+    "win_rate": 0.54120000000000001,
     "sharpe_ratio": 1.24,
     "max_drawdown": -0.183,
     "capital_current": 124989.87,
-    "capital_peak": 151522,
-    "room_pnl_pct": 12.45,
+    "capital_peak": 151522.0,
+    "room_pnl_pct": 12.449999999999999,
     "genome_mean_pnl": 1510.04,
     "total_genomes": 10000,
     "timeline_rows": 21469,
-    "unique_visitors": 1,
     "topic_consensus_count": 7,
-    "room_price_avg": 43.67
+    "room_price_avg": 21.899999999999999
   },
   "engine": {
     "language": "C11 (zero Python)",
-    "grid": "300/300 — ALL CELLS CLOSED",
+    "grid": "300/300 -- ALL CELLS CLOSED",
     "features": "80-dim (F1-F80: OHLCV+phi-GAAD+DFT+DCT+macro+orderbook+onchain+darkpool+insider+options+ETF+congress+news+seasonality)",
     "c_sources": 76,
     "state_size_mb": 56,
@@ -61,160 +60,129 @@
     "epoch": 26000,
     "culled": 949,
     "cloned": 949,
-    "mutation_rate": 0.15
+    "mutation_rate": 0.14999999999999999
   },
   "rooms": [
     {
       "name": "weather",
       "agents": 10000,
-      "price": 21.9,
-      "features": 5
+      "price": 21.899999999999999
     },
     {
       "name": "kalshi",
-      "agents": 10000,
-      "price": 50.0,
-      "features": 4
+      "agents": 10000
     },
     {
       "name": "science_tech",
-      "agents": 10000,
-      "price": 36.9,
-      "features": 4
+      "agents": 10000
     },
     {
       "name": "polymarket",
-      "agents": 10000,
-      "price": 50.0,
-      "features": 5
+      "agents": 10000
     },
     {
       "name": "crypto_prices",
-      "agents": 10000,
-      "price": 50.2,
-      "features": 5
+      "agents": 10000
     },
     {
       "name": "options",
-      "agents": 10000,
-      "price": 50.0,
-      "features": 5
+      "agents": 10000
     },
     {
       "name": "stocks",
-      "agents": 10000,
-      "price": 50.0,
-      "features": 5
+      "agents": 10000
     },
     {
       "name": "elections",
-      "agents": 10000,
-      "price": 51.2,
-      "features": 5
+      "agents": 10000
     },
     {
       "name": "btc_main",
-      "agents": 10000,
-      "price": 50.0,
-      "features": 5
+      "agents": 10000
     },
     {
       "name": "economic",
-      "agents": 10000,
-      "price": 50.0,
-      "features": 5
+      "agents": 10000
     },
     {
       "name": "manifold",
-      "agents": 10000,
-      "price": 50.0,
-      "features": 4
+      "agents": 10000
     },
     {
       "name": "sports",
-      "agents": 10000,
-      "price": 32.7,
-      "features": 4
+      "agents": 10000
     },
     {
       "name": "macro",
-      "agents": 10000,
-      "price": 50.0,
-      "features": 5
+      "agents": 10000
     },
     {
       "name": "predictit",
-      "agents": 10000,
-      "price": 5.9,
-      "features": 4
+      "agents": 10000
     },
     {
       "name": "momentum",
-      "agents": 3000,
-      "price": 50.0,
-      "features": 5
+      "agents": 3000
     },
     {
       "name": "consensus",
-      "agents": 10000,
-      "price": 50.0,
-      "features": 5
+      "agents": 10000
     }
   ],
   "consensus_topics": {
     "crypto": {
-      "mean_probability": 0.501842161921702,
+      "mean_probability": 0.50184216192170195,
       "num_markets": 2,
-      "max_prob": 0.501842161921702,
-      "min_prob": 0.501842161921702,
+      "max_prob": 0.50184216192170195,
+      "min_prob": 0.50184216192170195,
       "range": 0.0,
       "divergence": 0.0018421619217019458
     },
     "politics": {
-      "mean_probability": 0.05890525123685202,
+      "mean_probability": 0.058905251236852023,
       "num_markets": 2,
-      "max_prob": 0.05890525123685202,
-      "min_prob": 0.05890525123685202,
+      "max_prob": 0.058905251236852023,
+      "min_prob": 0.058905251236852023,
       "range": 0.0,
       "divergence": 0.44109474876314797
     },
     "elections": {
       "mean_probability": 0.5118778280542986,
       "num_markets": 8,
-      "max_prob": 0.5475113122171946,
+      "max_prob": 0.54751131221719462,
       "min_prob": 0.5,
-      "range": 0.04751131221719462,
+      "range": 0.047511312217194623,
       "divergence": 0.0118778280542986
     },
     "sports": {
       "mean_probability": 0.32666711780907676,
       "num_markets": 8,
-      "max_prob": 0.501842161921702,
-      "min_prob": 0.07999999999999992,
+      "max_prob": 0.50184216192170195,
+      "min_prob": 0.079999999999999918,
       "range": 0.42184216192170204,
       "divergence": 0.17333288219092324
     },
     "technology": {
-      "mean_probability": 0.4327956697959384,
+      "mean_probability": 0.43279566979593842,
       "num_markets": 36,
-      "max_prob": 0.6859578785672386,
+      "max_prob": 0.68595787856723855,
       "min_prob": 0.12372980844658799,
-      "range": 0.5622280701206506,
+      "range": 0.56222807012065057,
       "divergence": 0.06720433020406158
     },
     "science": {
       "mean_probability": 0.30547218781801555,
       "num_markets": 6,
-      "max_prob": 0.5475113122171946,
-      "min_prob": 0.05890525123685202,
-      "range": 0.4886060609803426,
+      "max_prob": 0.54751131221719462,
+      "min_prob": 0.058905251236852023,
+      "range": 0.48860606098034259,
       "divergence": 0.19452781218198445
     },
     "weather": {
       "mean_probability": 0.21939297084341525,
       "num_markets": 4,
-      "max_prob": 0.2987859416868305,
-      "min_prob": 0.14,
+      "max_prob": 0.29878594168683048,
+      "min_prob": 0.14000000000000001,
       "range": 0.15878594168683047,
       "divergence": 0.28060702915658475
     }
@@ -223,16 +191,16 @@
     {
       "id": 4424,
       "capital": 12450.5,
-      "win_rate_ema": 0.612,
+      "win_rate_ema": 0.61199999999999999,
       "trades": 284,
-      "pnl": 895,
+      "pnl": 895.0,
       "wins": 174,
       "losses": 110
     },
     {
       "id": 4669,
-      "capital": 11230.8,
-      "win_rate_ema": 0.598,
+      "capital": 11230.799999999999,
+      "win_rate_ema": 0.59799999999999998,
       "trades": 256,
       "pnl": 780.5,
       "wins": 153,
@@ -240,19 +208,19 @@
     },
     {
       "id": 9176,
-      "capital": 10890.2,
-      "win_rate_ema": 0.584,
+      "capital": 10890.200000000001,
+      "win_rate_ema": 0.58399999999999996,
       "trades": 312,
-      "pnl": 650.3,
+      "pnl": 650.29999999999995,
       "wins": 182,
       "losses": 130
     },
     {
       "id": 9251,
-      "capital": 10200,
-      "win_rate_ema": 0.575,
+      "capital": 10200.0,
+      "win_rate_ema": 0.57499999999999996,
       "trades": 198,
-      "pnl": 520,
+      "pnl": 520.0,
       "wins": 114,
       "losses": 84
     }
@@ -262,17 +230,17 @@
     "mean_pnl": 1510.04,
     "mean_cash": 1025.22,
     "total_resolved": 1911293,
-    "profitable_genomes_pct": 65.8,
+    "profitable_genomes_pct": 65.799999999999997,
     "valhalla_champions": 6,
     "active_teachers": 4
   },
   "paper_proof": {
-    "sp500_wr": 0.5486,
+    "sp500_wr": 0.54859999999999998,
     "total_return": 6680,
     "sp500_tested": "SP500 daily 1985-2026",
     "criteria_passed": "4/8",
-    "structural_gap": "0.14% from 55% — OHLCV ceiling",
-    "btc_wr": 0.475,
+    "structural_gap": "0.14% from 55% - OHLCV ceiling",
+    "btc_wr": 0.47499999999999998,
     "btc_wr_detail": "C engine v2 BTC 1-min",
     "genome_mean_pnl": 1510.04,
     "ecosystem_trades": 2814362,
@@ -281,23 +249,22 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T05:48:07+00:00",
+    "generated_at": "2026-05-29T05:52:14+00:00",
     "global_sentiment": {
       "mean": 1.0,
       "direction": "bullish",
       "total_articles": 1,
       "groups_scanned": 8
     },
-    "gdelt_groups": {},
     "market": {
-      "sp500_current": 7520.36,
+      "sp500_current": 7520.3599999999997,
       "sp500_1d_change": 0.02,
-      "sp500_7d_change": 1.58,
-      "btc_current": 73552.9,
-      "btc_1d_change": -2.11,
-      "btc_7d_change": -3.59,
-      "vix_current": 16.29,
-      "vix_1d_change": -0.72
+      "sp500_7d_change": 1.5800000000000001,
+      "btc_current": 73563.699999999997,
+      "btc_1d_change": -2.1099999999999999,
+      "btc_7d_change": -3.5899999999999999,
+      "vix_current": 16.289999999999999,
+      "vix_1d_change": -0.71999999999999997
     },
     "query_count": 24,
     "update_frequency": "Every 6 hours",
@@ -307,10 +274,10 @@
   "meta": {
     "engine": "C room engine v3",
     "features": "80-dim (F1-F80)",
-    "grid_status": "300/300 — ALL CLOSED",
+    "grid_status": "300/300 -- ALL CLOSED",
     "c_sources": 76,
     "language": "C11 (zero Python in production)",
-    "genomes": "10,000",
+    "genomes": "10000",
     "teachers": "10 daemons",
     "license": "MIT",
     "repo": "github.com/waefrebeorn/money-room",
