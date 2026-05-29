@@ -489,6 +489,11 @@ footer a:hover { color: var(--accent); }
       <div class="global-stat"><div class="val" id="gdMarkets">--</div><div class="lbl">Markets Tracked</div></div>
     </div>
 
+    <!-- T185: Sentiment engine gauge (from sentiment_features.json) -->
+    <div id="sentimentGauge" style="margin-bottom:24px">
+      <div style="text-align:center;padding:12px;color:var(--text-quaternary);font-size:12px">Loading sentiment data...</div>
+    </div>
+
     <div class="gdelt-grid" id="gdeltGrid">
       <!-- Injected by JS -->
     </div>
@@ -958,7 +963,32 @@ function fetchDeployAge() {
 }
 loadSnapshot();
 fetchDeployAge();
-setInterval(fetchDeployAge, 60000); // update every minute
+setInterval(fetchDeployAge, 60000);
+
+/* T185: Sentiment panel — fetch live sentiment features */
+function loadSentiment() {
+  var el = document.getElementById('sentimentGauge');
+  if (!el) return;
+  fetch('https://waefrebeorn.github.io/money-room/data/sentiment_features.json')
+    .then(function(r) { if (!r.ok) throw Error('no data'); return r.json(); })
+    .then(function(d) {
+      var cs = d.composite_sentiment || 0.5;
+      var cv = d.composite_volume || 0.5;
+      var ss = d.sentiment_score || 0;
+      var pct = Math.round(cs * 100);
+      var color = cs > 0.55 ? 'var(--bullish)' : cs < 0.45 ? 'var(--bearish)' : 'var(--neutral)';
+      var label = cs > 0.65 ? 'Bullish' : cs > 0.55 ? 'Slightly Bullish' : cs > 0.45 ? 'Neutral' : cs > 0.35 ? 'Slightly Bearish' : 'Bearish';
+      el.innerHTML = '<div style="display:flex;align-items:center;gap:12px;padding:16px;background:var(--bg-panel);border:1px solid var(--border-subtle);border-radius:var(--radius-lg)">'
+        + '<div style="font-size:32px;font-weight:700;color:'+color+'">'+pct+'</div>'
+        + '<div><div style="color:var(--text-primary);font-weight:600;font-size:14px">'+label+'</div>'
+        + '<div style="font-size:11px;color:var(--text-tertiary)">Score: '+ss.toFixed(4)+' · Vol: '+cv.toFixed(3)+'</div></div>'
+        + '<div style="flex:1;height:8px;background:var(--bg-elevated);border-radius:4px;overflow:hidden">'
+        + '<div style="height:100%;width:'+pct+'%;background:'+color+';border-radius:4px;transition:width 0.5s"></div></div></div>';
+    })
+    .catch(function() { /* silent */ });
+}
+loadSentiment();
+setInterval(loadSentiment, 120000);
 </script>
 
 <!-- ═══ DONATION / PRICING FOOTER ═══ -->
