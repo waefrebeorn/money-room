@@ -1,7 +1,7 @@
 {
   "version": 5,
   "cycle": 605499,
-  "last_updated": 1780059642,
+  "last_updated": 1780061168,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -40,7 +40,7 @@
     "room_pnl_pct": 0.0,
     "genome_mean_pnl": 1510.04,
     "total_genomes": 10000,
-    "timeline_rows": 33754,
+    "timeline_rows": 35509,
     "topic_consensus_count": 7,
     "room_price_avg": 14.0
   },
@@ -131,16 +131,16 @@
   ],
   "consensus_topics": {
     "crypto": {
-      "mean_probability": 0.50181789531514365,
-      "num_markets": 17,
+      "mean_probability": 0.50179526040054279,
+      "num_markets": 20,
       "max_prob": 0.51000000000000001,
       "min_prob": 0.5,
       "range": 0.010000000000000009,
-      "divergence": 0.0018178953151436472
+      "divergence": 0.0017952604005427863
     },
     "politics": {
-      "mean_probability": 0.058905251236852023,
-      "num_markets": 9,
+      "mean_probability": 0.058905251236852016,
+      "num_markets": 10,
       "max_prob": 0.058905251236852023,
       "min_prob": 0.058905251236852023,
       "range": 0.0,
@@ -148,39 +148,39 @@
     },
     "elections": {
       "mean_probability": 0.5,
-      "num_markets": 9,
+      "num_markets": 10,
       "max_prob": 0.5,
       "min_prob": 0.5,
       "range": 0.0,
       "divergence": 0.0
     },
     "sports": {
-      "mean_probability": 0.41176643753031095,
-      "num_markets": 27,
+      "mean_probability": 0.41213578161362258,
+      "num_markets": 30,
       "max_prob": 0.51000000000000001,
       "min_prob": 0.20541742783280065,
       "range": 0.30458257216719936,
-      "divergence": 0.088233562469689053
+      "divergence": 0.087864218386377424
     },
     "technology": {
-      "mean_probability": 0.44614581155626165,
-      "num_markets": 126,
+      "mean_probability": 0.46413538812970612,
+      "num_markets": 111,
       "max_prob": 0.74101517220163904,
-      "min_prob": 0.12372980844658799,
-      "range": 0.61728536375505105,
-      "divergence": 0.053854188443738349
+      "min_prob": 0.14000000000000001,
+      "range": 0.60101517220163903,
+      "divergence": 0.035864611870293883
     },
     "science": {
-      "mean_probability": 0.17637033005143948,
-      "num_markets": 22,
-      "max_prob": 0.31,
+      "mean_probability": 0.085936834157901335,
+      "num_markets": 15,
+      "max_prob": 0.14000000000000001,
       "min_prob": 0.058905251236852023,
-      "range": 0.25109474876314797,
-      "divergence": 0.32362966994856052
+      "range": 0.081094748763147984,
+      "divergence": 0.41406316584209868
     },
     "weather": {
-      "mean_probability": 0.14000000000000001,
-      "num_markets": 9,
+      "mean_probability": 0.14000000000000004,
+      "num_markets": 10,
       "max_prob": 0.14000000000000001,
       "min_prob": 0.14000000000000001,
       "range": 0.0,
@@ -234,7 +234,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T13:00:42+00:00",
+    "generated_at": "2026-05-29T13:26:08+00:00",
     "global_sentiment": {
       "mean": 0.063333332538604736,
       "direction": "bullish",
@@ -1757,11 +1757,11 @@
     "today": {
       "note": "No engine cycles today yet"
     },
-    "generated": "2026-05-29T13:00:42Z"
+    "generated": "2026-05-29T13:26:08Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780059642,
+    "generated_at": 1780061168,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
