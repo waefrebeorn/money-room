@@ -460,6 +460,17 @@ footer a:hover { color: var(--accent); }
   </div>
 </section>
 
+<!-- ═══ 8-CRITERIA PAPER PROOF ═══ -->
+<section class="verify-section" id="paperProof" style="border-top:1px solid var(--border-subtle)">
+  <div class="container">
+    <div class="verify-header">
+      <h2>📋 <span>Paper Proof</span> — 8-Criteria Framework</h2>
+      <p>Academic validation: 4/8 criteria met. <span id="paperCriteriaPassed" style="color:var(--orange)">C1-C3,C5,C8 not met</span></p>
+    </div>
+    <div class="criteria-grid" id="criteriaGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px"></div>
+  </div>
+</section>
+
 <!-- ═══ GDELT GLOBAL SENTIMENT PANEL ═══ -->
 <section class="gdelt-section" id="sentiment">
   <div class="container">
@@ -582,6 +593,7 @@ function loadSnapshot(idx) {
     .then(snap => {
       renderLive(snap);
       renderVerification(snap);
+      renderCriteria(snap);
       renderYesterday(snap);
       setTimeout(() => loadSnapshot(0), 15000);
     })
@@ -863,6 +875,32 @@ function renderVerification(data) {
     note.className = 'verify-note warn';
     note.innerHTML = '⚠️ ' + (total - passed) + ' check(s) failed — review tiers above.';
   }
+}
+
+/* ═══ 8-CRITERIA PAPER PROOF RENDERER ═══ */
+function renderCriteria(data) {
+  var pp = data.paper_proof || {};
+  var criteria = pp.criteria || [];
+  var grid = document.getElementById('criteriaGrid');
+  if (!grid || criteria.length === 0) return;
+  var passed = 0, total = criteria.length;
+  var html = '';
+  for (var i = 0; i < criteria.length; i++) {
+    var c = criteria[i];
+    var ok = c.pass;
+    if (ok) passed++;
+    html += '<div style="background:var(--bg-panel);border:1px solid ' + (ok ? 'var(--bullish)' : 'var(--bearish)') + '33;border-radius:var(--radius-md);padding:14px">'
+      + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'
+      + '<span style="color:' + (ok ? 'var(--bullish)' : 'var(--bearish)') + ';font-size:16px">' + (ok ? '✅' : '❌') + '</span>'
+      + '<strong style="color:var(--text-primary);font-size:13px">' + c.name + '</strong>'
+      + '<span style="color:var(--text-tertiary);font-size:12px;margin-left:auto">' + (c.value !== undefined ? c.value.toFixed(2) : '--') + '</span>'
+      + '</div>'
+      + '<p style="color:var(--text-tertiary);font-size:11px;line-height:1.4;margin:0">' + (c.explanation || '') + '</p>'
+      + '</div>';
+  }
+  grid.innerHTML = html;
+  var el = document.getElementById('paperCriteriaPassed');
+  if (el) el.innerHTML = passed + '/' + total + ' passed (' + (passed >= 4 ? 'needs 5/8 for viability' : 'needs 5/8 for viability') + ')';
 }
 
 /* ═══ YESTERDAY DATA RENDERER ═══ */
