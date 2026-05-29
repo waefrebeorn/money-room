@@ -390,6 +390,31 @@ footer a:hover { color: var(--accent); }
   </div>
 </div>
 
+<!-- ═══ YESTERDAY'S DATA PANEL ═══ -->
+<section class="verify-section" id="yesterday" style="background:var(--bg-page);border-bottom:1px solid var(--border-subtle);padding:32px 0;">
+  <div class="container">
+    <div class="verify-header">
+      <h2>📅 <span>Yesterday's</span> Data Snapshot</h2>
+      <p>Polymarket prediction prices from yesterday and daily engine stats.</p>
+    </div>
+    <div class="verify-grid" id="yesterdayGrid" style="grid-template-columns:1fr 1fr;">
+      <div class="verify-tier">
+        <h3>📊 Polymarket Predictions</h3>
+        <div id="yesterdayPolymarket"><div class="status-row"><span class="label">Loading...</span></div></div>
+      </div>
+      <div class="verify-tier">
+        <h3>⚙️ Engine Daily Stats</h3>
+        <div class="status-row"><span class="label">Yesterday WR</span><span class="value" id="yWR">--</span></div>
+        <div class="status-row"><span class="label">Yesterday Sharpe</span><span class="value" id="ySharpe">--</span></div>
+        <div class="status-row"><span class="label">Yesterday Cycles</span><span class="value" id="yCycles">--</span></div>
+        <div class="status-row"><span class="label">Cap Change</span><span class="value" id="yCapChange">--</span></div>
+        <div class="status-row"><span class="label">BTC Candles</span><span class="value" id="yBtcCandles">--</span></div>
+        <div class="status-row"><span class="label">Polymarket Markets</span><span class="value" id="yPolyCount">--</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ WORLD MODEL VERIFICATION ═══ -->
 <section class="verify-section" id="verify">
   <div class="container">
@@ -555,6 +580,7 @@ function loadSnapshot(idx) {
     .then(snap => {
       renderLive(snap);
       renderVerification(snap);
+      renderYesterday(snap);
       setTimeout(() => loadSnapshot(0), 15000);
     })
     .catch(() => {
@@ -823,6 +849,34 @@ function renderVerification(data) {
     note.className = 'verify-note warn';
     note.innerHTML = '⚠️ ' + (total - passed) + ' check(s) failed — review tiers above.';
   }
+}
+
+/* ═══ YESTERDAY DATA RENDERER ═══ */
+function renderYesterday(data) {
+  const h = data.history || {};
+  // Polymarket
+  const pm = h.polymarket || [];
+  const polyEl = document.getElementById('yesterdayPolymarket');
+  if (pm.length > 0) {
+    let html = pm.slice(0, 8).map((m, i) => {
+      const price = m.yes_price || 0;
+      const pct = (price * 100).toFixed(1);
+      const color = price > 0.5 ? 'var(--bullish)' : price > 0.1 ? 'var(--orange)' : 'var(--text-quaternary)';
+      return '<div class="status-row"><span class="label" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;font-size:11px">' + (m.market || '?').replace(/_/g,' ').trim() + '</span><span class="value" style="color:'+color+'">$' + price.toFixed(3) + ' (' + pct + '%)</span></div>';
+    }).join('');
+    polyEl.innerHTML = html;
+  } else {
+    polyEl.innerHTML = '<div class="status-row"><span class="label">No polymarket data from yesterday</span></div>';
+  }
+  // Engine daily stats
+  const y = h.yesterday || {};
+  document.getElementById('yWR').innerHTML = y.avg_win_rate ? '<span style="color:' + (y.avg_win_rate > 0.5 ? 'var(--bullish)' : 'var(--bearish)') + '">' + pct(y.avg_win_rate) + '</span>' : y.note || '--';
+  document.getElementById('ySharpe').textContent = y.avg_sharpe ? y.avg_sharpe.toFixed(2) : '--';
+  document.getElementById('yCycles').textContent = y.cycles || '--';
+  document.getElementById('yCapChange').innerHTML = y.cap_change !== undefined ? (y.cap_change >= 0 ? '<span style="color:var(--bullish)">+$' : '<span style="color:var(--bearish)">-$') + Math.abs(y.cap_change).toFixed(2) + '</span>' : '--';
+  const btc = h.btc || {};
+  document.getElementById('yBtcCandles').textContent = btc.candles_yesterday ? fmt(btc.candles_yesterday) + ' candles' : '--';
+  document.getElementById('yPolyCount').textContent = h.polymarket_markets_yesterday ? fmt(h.polymarket_markets_yesterday) + ' markets' : (pm.length ? pm.length + ' shown' : '--');
 }
 
 loadSnapshot();
