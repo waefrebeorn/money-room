@@ -290,7 +290,7 @@ footer a:hover { color: var(--accent); }
 .verify-header h2 { font-size: 28px; font-weight: 700; color: var(--text-primary); }
 .verify-header h2 span { color: var(--accent); }
 .verify-header p { font-size: 14px; color: var(--text-tertiary); max-width: 600px; margin: 8px auto 0; }
-.verify-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+.verify-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 16px; }
 .verify-tier { background: var(--bg-page); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 20px; }
 .verify-tier h3 { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 .verify-tier .status-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.03); }
@@ -449,6 +449,15 @@ footer a:hover { color: var(--accent); }
         <div class="status-row"><span class="label">Website</span><span class="value" id="t3Website">--</span></div>
         <div class="status-row"><span class="label">Deploy</span><span class="value" id="t3Deploy">--</span></div>
         <div class="status-row"><span class="label">Generated</span><span class="value" id="t3Generated">--</span></div>
+      </div>
+      <div class="verify-tier" id="t4Panel">
+        <h3><span class="dot" id="t4Dot"></span> T4 — Collector Health</h3>
+        <div class="status-row"><span class="label">Total</span><span class="value" id="t4Total">--</span></div>
+        <div class="status-row"><span class="label">Healthy</span><span class="value" id="t4Ok">--</span></div>
+        <div class="status-row"><span class="label">Stale</span><span class="value" id="t4Stale">--</span></div>
+        <div class="status-row"><span class="label">Timeout/Fail</span><span class="value" id="t4Fail">--</span></div>
+        <div class="status-row"><span class="label">Missing</span><span class="value" id="t4Missing">--</span></div>
+        <div class="status-row" id="t4StatusRow"><span class="label">Health</span><span class="value" id="t4StatusText">--</span></div>
       </div>
     </div>
     <div class="verify-conf-bar">
@@ -841,6 +850,29 @@ function renderVerification(data) {
   const gen = v.generated_at;
   document.getElementById('t3Generated').textContent = gen ? new Date(gen*1000).toLocaleString() : '--';
   document.getElementById('t3Dot').className = 'dot ' + (t3.status === 'operational' ? 'green' : 'red');
+
+  // T4
+  const t4 = v.t4_collector_health || {};
+  document.getElementById('t4Total').textContent = t4.total || '--';
+  document.getElementById('t4Ok').textContent = t4.ok || '0';
+  document.getElementById('t4Stale').textContent = t4.stale || '0';
+  const fail = (t4.fail || 0) + (t4.timeout || 0);
+  document.getElementById('t4Fail').textContent = fail > 0 ? fail : '0';
+  document.getElementById('t4Missing').textContent = t4.missing || '0';
+  const t4s = t4.status || 'unknown';
+  let t4Class = 'yellow';
+  if (t4s === 'healthy') t4Class = 'green';
+  else if (t4s === 'degraded') t4Class = 'red';
+  else if (t4s === 'error') t4Class = 'red';
+  document.getElementById('t4StatusText').textContent = t4s.charAt(0).toUpperCase() + t4s.slice(1);
+  document.getElementById('t4StatusText').style.color = t4Class === 'green' ? 'var(--bullish)' : t4Class === 'red' ? 'var(--bearish)' : 'var(--orange)';
+  document.getElementById('t4Dot').className = 'dot ' + t4Class;
+  // Show collector detail if stale
+  const t4Note = document.getElementById('t4StatusRow');
+  if (t4.collectors && t4.stale > 0 && t4.collectors.length <= 40) {
+    const staleNames = t4.collectors.filter(c => c.stale).map(c => c.name).join(', ');
+    if (staleNames) t4Note.innerHTML = '<span class="label">Stale List</span><span class="value" style="font-size:10px">' + staleNames.substring(0,60) + '</span>';
+  }
 
   // Confidence score
   const passed = v.passed_checks || 0;
