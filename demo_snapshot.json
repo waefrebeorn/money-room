@@ -1,16 +1,16 @@
 {
   "version": 5,
   "cycle": 605499,
-  "last_updated": 1780034358,
+  "last_updated": 1780035295,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
   "market": {
     "asset": "BTC",
-    "close": 73558.300000000003,
-    "bid": 73558.300000000003,
-    "ask": 73576.970000000001,
-    "volume": 7332.9661210699996,
+    "close": 73586.699999999997,
+    "bid": 73586.600000000006,
+    "ask": 73591.619999999995,
+    "volume": 7135.4369450699996,
     "sp500": 7520.3599999999997,
     "vix": 16.289999999999999,
     "btc_dominance": 62.0,
@@ -22,22 +22,22 @@
     "total": 1833,
     "up": 0,
     "down": 1833,
-    "avg_conviction": 0.62,
-    "consensus_spread": 0.14999999999999999
+    "avg_conviction": 0.0,
+    "consensus_spread": 0.0
   },
   "stats": {
     "active_agents": 153000,
     "total_rooms": 16,
-    "voted_this_cycle": 3501,
-    "trades_total": 2814362,
-    "trades_won": 1523018,
-    "trades_lost": 1291344,
-    "win_rate": 0.54120000000000001,
-    "sharpe_ratio": 1.24,
-    "max_drawdown": -0.183,
-    "capital_current": 124989.87,
-    "capital_peak": 151522.0,
-    "room_pnl_pct": 12.449999999999999,
+    "voted_this_cycle": 1833,
+    "trades_total": 35116,
+    "trades_won": 27969,
+    "trades_lost": 7147,
+    "win_rate": 0.79649999999999999,
+    "sharpe_ratio": 0.0,
+    "max_drawdown": 0.0,
+    "capital_current": 0.0,
+    "capital_peak": 0.0,
+    "room_pnl_pct": 0.0,
     "genome_mean_pnl": 1510.04,
     "total_genomes": 10000,
     "timeline_rows": 21469,
@@ -57,10 +57,10 @@
     "dashboard": "C HTTP server port 9090 (1.1MB RAM)"
   },
   "darwin": {
-    "epoch": 26000,
-    "culled": 949,
-    "cloned": 949,
-    "mutation_rate": 0.14999999999999999
+    "epoch": 245,
+    "culled": 1586,
+    "cloned": 1586,
+    "mutation_rate": 0.050000000000000003
   },
   "rooms": [
     {
@@ -187,6 +187,18 @@
       "divergence": 0.28060702915658475
     }
   },
+  "features": {
+    "price_delta_pct": 0.0074000000000000003,
+    "micro_momentum": 0.0011000000000000001,
+    "rsi_7": 46.299999999999997,
+    "volume_surge_ratio": 26.23,
+    "divergence_score": 1.0,
+    "pump_score": 0.20000000000000001,
+    "regime_indicator": 0,
+    "fear_greed_norm": 0.29999999999999999,
+    "herd_consensus": 0.0,
+    "nested_prediction": 0.57410000000000005
+  },
   "top_agents": [
     {
       "id": 4424,
@@ -196,33 +208,6 @@
       "pnl": 895.0,
       "wins": 174,
       "losses": 110
-    },
-    {
-      "id": 4669,
-      "capital": 11230.799999999999,
-      "win_rate_ema": 0.59799999999999998,
-      "trades": 256,
-      "pnl": 780.5,
-      "wins": 153,
-      "losses": 103
-    },
-    {
-      "id": 9176,
-      "capital": 10890.200000000001,
-      "win_rate_ema": 0.58399999999999996,
-      "trades": 312,
-      "pnl": 650.29999999999995,
-      "wins": 182,
-      "losses": 130
-    },
-    {
-      "id": 9251,
-      "capital": 10200.0,
-      "win_rate_ema": 0.57499999999999996,
-      "trades": 198,
-      "pnl": 520.0,
-      "wins": 114,
-      "losses": 84
     }
   ],
   "ecosystem": {
@@ -243,24 +228,35 @@
     "btc_wr": 0.47499999999999998,
     "btc_wr_detail": "C engine v2 BTC 1-min",
     "genome_mean_pnl": 1510.04,
-    "ecosystem_trades": 2814362,
+    "ecosystem_trades": 35116,
     "prs_merged": 60,
     "prs_merged_detail": "RustChain bounties"
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T05:59:18+00:00",
+    "generated_at": "2026-05-29T06:14:55+00:00",
     "global_sentiment": {
       "mean": 1.0,
       "direction": "bullish",
       "total_articles": 1,
-      "groups_scanned": 8
+      "groups_scanned": 1,
+      "confidence": 0.20000000000000001
     },
+    "headlines": [
+      "The Stock Market Is Sounding the Alarm Right Now , and History Is Clear on What Comes Next",
+      "The Stock Market Is Sounding the Alarm Right Now , and History Is Clear on What Comes Next",
+      "Why Patient Investors Should Not Read Too Much Into Late May Volatility",
+      "US Stock Market Today | Dow Jones | Nasdaq Live : US stocks set for higher open as AI optimism outweighs Middle East ris",
+      "US Stock Market Today Live Updates : S & P 500 , Nasdaq futures muted after Nvidia earnings ; Brent crude oil dips",
+      "US Stock Market : Goldman Sachs raises S & P 500 target to 8 , 000 on AI - driven earnings optimism",
+      "Goldman Sachs raises S & P 500 year - end forecast to 8 , 000 on strong corporate earnings : Report",
+      "India Inc shined in Q4 but is a Q1 earnings downgrade nightmare looming ? "
+    ],
     "market": {
       "sp500_current": 7520.3599999999997,
       "sp500_1d_change": 0.02,
       "sp500_7d_change": 1.5800000000000001,
-      "btc_current": 73558.300000000003,
+      "btc_current": 73586.699999999997,
       "btc_1d_change": -2.1099999999999999,
       "btc_7d_change": -3.5899999999999999,
       "vix_current": 16.289999999999999,
@@ -277,7 +273,7 @@
     "grid_status": "300/300 -- ALL CLOSED",
     "c_sources": 76,
     "language": "C11 (zero Python in production)",
-    "genomes": "10000",
+    "genomes": "10,000",
     "teachers": "10 daemons",
     "license": "MIT",
     "repo": "github.com/waefrebeorn/money-room",
