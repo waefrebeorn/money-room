@@ -470,7 +470,7 @@ footer a:hover { color: var(--accent); }
 
 <script>
 // ═══ DATA LOADER — try demo → try live → offline ═══
-const PATHS = ['demo_snapshot.json', 'room_snapshot.json'];
+const PATHS = ['demo_snapshot.json?t=' + Date.now(), 'room_snapshot.json?t=' + Date.now()];
 
 function loadSnapshot(idx) {
   idx = idx || 0;
