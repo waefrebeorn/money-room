@@ -1,7 +1,7 @@
 {
   "version": 5,
   "cycle": 605499,
-  "last_updated": 1780058633,
+  "last_updated": 1780059151,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -234,7 +234,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T12:43:53+00:00",
+    "generated_at": "2026-05-29T12:52:31+00:00",
     "global_sentiment": {
       "mean": 0.063333332538604736,
       "direction": "bullish",
@@ -1673,9 +1673,95 @@
     "data_source": "Google News RSS",
     "sentiment_method": "Lexicon-based (19K terms)"
   },
+  "history": {
+    "polymarket": [
+      {
+        "market": "_will-person-a-win-the-2028-democratic-presidential-nominati",
+        "yes_price": 0.0064999999999999997,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-lebron-james-win-the-2028-democratic-presidential-nomi",
+        "yes_price": 0.0074999999999999997,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-phil-murphy-win-the-2028-democratic-presidential-nomin",
+        "yes_price": 0.0064999999999999997,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-bernie-sanders-win-the-2028-democratic-presidential-no",
+        "yes_price": 0.0074999999999999997,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-liz-cheney-win-the-2028-democratic-presidential-nomina",
+        "yes_price": 0.0074999999999999997,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-hillary-clinton-win-the-2028-democratic-presidential-n",
+        "yes_price": 0.0074999999999999997,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-barack-obama-win-the-2028-democratic-presidential-nomi",
+        "yes_price": 0.0064999999999999997,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-jon-stewart-win-the-2028-democratic-presidential-nomin",
+        "yes_price": 0.016500000000000001,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-jared-polis-win-the-2028-democratic-presidential-nomin",
+        "yes_price": 0.0074999999999999997,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-john-fetterman-win-the-2028-democratic-presidential-no",
+        "yes_price": 0.0085000000000000006,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-roy-cooper-win-the-2028-democratic-presidential-nomina",
+        "yes_price": 0.0094999999999999998,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-zohran-mamdani-win-the-2028-democratic-presidential-no",
+        "yes_price": 0.0074999999999999997,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-gina-raimondo-win-the-2028-democratic-presidential-nom",
+        "yes_price": 0.0074999999999999997,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-rahm-emanuel-win-the-2028-democratic-presidential-nomi",
+        "yes_price": 0.022499999999999999,
+        "ts": 1780012500
+      },
+      {
+        "market": "_will-mark-kelly-win-the-2028-democratic-presidential-nomina",
+        "yes_price": 0.020500000000000001,
+        "ts": 1780012500
+      }
+    ],
+    "yesterday": {
+      "note": "Engine log stale \u2014 no fresh room_log data"
+    },
+    "today": {
+      "note": "No engine cycles today yet"
+    },
+    "generated": "2026-05-29T12:52:31Z"
+  },
   "verification": {
     "version": 1,
-    "generated_at": 1780058633,
+    "generated_at": 1780059151,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
