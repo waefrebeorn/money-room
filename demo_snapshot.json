@@ -1,7 +1,7 @@
 {
   "version": 5,
-  "cycle": 2510,
-  "last_updated": 1780079729,
+  "cycle": 17365,
+  "last_updated": 1780082142,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -19,28 +19,28 @@
     "source": "Kraken+Coinbase WebSocket"
   },
   "vote_summary": {
-    "total": 1051,
-    "up": 0,
-    "down": 1051,
+    "total": 1578,
+    "up": 36,
+    "down": 1542,
     "avg_conviction": 0.62,
     "consensus_spread": 0.14999999999999999
   },
   "stats": {
     "active_agents": 153000,
     "total_rooms": 16,
-    "voted_this_cycle": 1051,
-    "trades_total": 12810,
-    "trades_won": 5756,
-    "trades_lost": 7054,
-    "win_rate": 0.44929999999999998,
-    "sharpe_ratio": 91.438400000000001,
+    "voted_this_cycle": 1578,
+    "trades_total": 279242,
+    "trades_won": 150301,
+    "trades_lost": 128941,
+    "win_rate": 0.53820000000000001,
+    "sharpe_ratio": 1.24,
     "max_drawdown": -0.183,
     "capital_current": 124989.87,
-    "capital_peak": 1.0,
+    "capital_peak": 151522.0,
     "room_pnl_pct": 0.0,
     "genome_mean_pnl": 1510.04,
     "total_genomes": 10000,
-    "timeline_rows": 44294,
+    "timeline_rows": 46047,
     "topic_consensus_count": 7,
     "room_price_avg": 14.0
   },
@@ -57,10 +57,10 @@
     "dashboard": "C HTTP server port 9090 (1.1MB RAM)"
   },
   "darwin": {
-    "epoch": 0,
-    "culled": 1051,
-    "cloned": 1051,
-    "mutation_rate": 0.29999999999999999
+    "epoch": 144,
+    "culled": 1623,
+    "cloned": 1,
+    "mutation_rate": 0.050000000000000003
   },
   "rooms": [
     {
@@ -131,12 +131,12 @@
   ],
   "consensus_topics": {
     "crypto": {
-      "mean_probability": 0.48571428571428577,
-      "num_markets": 21,
+      "mean_probability": 0.48333333333333339,
+      "num_markets": 24,
       "max_prob": 0.5,
       "min_prob": 0.40000000000000002,
       "range": 0.099999999999999978,
-      "divergence": 0.014285714285714235
+      "divergence": 0.016666666666666607
     },
     "politics": {
       "mean_probability": 0.058905251236852009,
@@ -155,28 +155,28 @@
       "divergence": 0.0
     },
     "sports": {
-      "mean_probability": 0.35521996049363658,
-      "num_markets": 34,
+      "mean_probability": 0.35441034098062357,
+      "num_markets": 36,
       "max_prob": 0.5,
       "min_prob": 0.18129361851880357,
       "range": 0.31870638148119645,
-      "divergence": 0.14478003950636342
+      "divergence": 0.14558965901937643
     },
     "technology": {
-      "mean_probability": 0.45213481848802273,
-      "num_markets": 131,
+      "mean_probability": 0.45321720259483955,
+      "num_markets": 135,
       "max_prob": 0.74101517220163904,
       "min_prob": 0.13902626275198754,
       "range": 0.60198890944965155,
-      "divergence": 0.047865181511977273
+      "divergence": 0.046782797405160448
     },
     "science": {
-      "mean_probability": 0.096669700974551867,
-      "num_markets": 23,
+      "mean_probability": 0.10040193017142839,
+      "num_markets": 24,
       "max_prob": 0.18624320169958836,
       "min_prob": 0.058905251236852023,
       "range": 0.12733795046273633,
-      "divergence": 0.40333029902544815
+      "divergence": 0.3995980698285716
     },
     "weather": {
       "mean_probability": 0.1398608946788554,
@@ -188,16 +188,16 @@
     }
   },
   "features": {
-    "price_delta_pct": 0.029700000000000001,
-    "micro_momentum": 0.035000000000000003,
-    "rsi_7": 74.400000000000006,
-    "volume_surge_ratio": 3.7400000000000002,
+    "price_delta_pct": 0.0041999999999999997,
+    "micro_momentum": 0.0032000000000000002,
+    "rsi_7": 40.0,
+    "volume_surge_ratio": 0.22,
     "divergence_score": 0.0,
     "pump_score": 0.20000000000000001,
     "regime_indicator": 0,
     "fear_greed_norm": 0.29999999999999999,
-    "herd_consensus": 0.0,
-    "nested_prediction": 0.56759999999999999
+    "herd_consensus": 4.4955999999999996,
+    "nested_prediction": 0.5726
   },
   "top_agents": [
     {
@@ -228,15 +228,15 @@
     "btc_wr": 0.47499999999999998,
     "btc_wr_detail": "C engine v2 BTC 1-min",
     "genome_mean_pnl": 1510.04,
-    "ecosystem_trades": 12810,
+    "ecosystem_trades": 279242,
     "prs_merged": 60,
     "prs_merged_detail": "RustChain bounties"
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T18:35:29+00:00",
+    "generated_at": "2026-05-29T19:15:42+00:00",
     "global_sentiment": {
-      "mean": 0.046666666865348816,
+      "mean": 0.01666666567325592,
       "direction": "neutral",
       "total_articles": 100,
       "groups_scanned": 1,
@@ -244,16 +244,9 @@
     },
     "headlines": [
       {
-        "title": "Dow Jones Futures Rise As Dell, NetApp Surge On Earnings; Oil Falls On U.S.-Iran Deal Hopes - Investor's Business Daily",
+        "title": "Stock Market Today: Stock Market News And Analysis - Investor's Business Daily",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOb29jV3JMWnE1OGNqUy0tM3NPck1odVZVR1ZSbURfWExuNzBLbTRDRGF6bUdxNmhPMXdjR3lPU0RFUGM5YWdwYUlVSmJYZ0pnNF9ucDREbHdCRGMwUTZnTU8zRk1LX1gyWHJ1NVVmdmZnQmc4MW91dGJRRUhYUktpbzZtX3h6aXpXVWRpS1Z2UGhNUlg3RkNmc3ZyOEdrRTRfRWxYcHRZN3F6Y2M5OFVCdw?oc=5",
-        "sentiment": 1.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Even as stock market hits highs, most Americans are cutting back on spending, survey shows - PBS",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPU3lOel9RY3pfOFNlQ0x3WXpEZUtDSzhHQnR2QndTYlZiejA0NlFXT21aNng4b1I3STZUNW9ZM1dMYUdVWGs5WmR2akowRmFRWEh0YUZGQ0RmeThCM2xIMm84Tm1vcjBON01vXzhhb3RDLVVJQUVsd2ZrbVAxblQtbXZYaFlEY0t5T2hCV1hBT1YtRHhoRjMyYVFxSUtSa3pibENfUmpGa3lZUVZiRTRkeDZ4WHpHV3owNzNXZ3hwWU1xMjA?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE8zdGl1MmxTM2JJa2pLNlFSWVhuZUd1ekRIeVpDcGVqckVJcloxaWlnRHJ3b0hqb291NXk4dlo0SmRQNlhDaGpubDh6ZWNTUHZiYVhjOVJINUxSYXE0NHRiNVE2OW51R2h4N1daaXRIdzVBR1UxT0g4?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -265,23 +258,30 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "An Iran deal could actually trigger a painful stock-market selloff, despite Wall Street\u2019s optimism - MarketWatch",
+        "title": "Here are the stock market's warning signs - Axios",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPUTlUeklXbnpGWnBhUlVmVDZzWV85eEVEUXlhdlFnSXVnYWVIMl82bk10aklfZFlNMFNjZklXWk1TalpyOTdyV2JqaEVlOHZVOHZjZzlpR2FYczU4UWhnRTFwNTMxdG0tQ0R5aUZsMEdVelVRVFAydXRmZzAwaGxEeS05ZmNGNTdOa3pGV3FhVGRFSXcwNGp2WUZTU21maTRBRFVaTFFMbVAtb2VTcEVmNmxMeHRmdV9remEwRmt6N0xoNXdzV0RwdDhLZkMtcUZZNTBzc0Jn?oc=5",
-        "sentiment": 1.0,
+        "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9xQVYwcHg5clp3OUN3Z3BMLWhlYUY4aXg0bzIzTkhxcl81cDJXZFZnbFFlZlhGTVoyTG1ieHNNMUNDQ2hPdFlwemEzN01oaWMyVWtfbEljS3dLRkdoby13Yg?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Trump stock trades fuel accusations of corruption and profiting off presidency - PBS",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOSGVhdzhrb1I1T3BNQVpUdG9nMTNWamNsTDJVbFBmekVWRjFUcHlVYV9NMkJzT1JQM1VCT3lxVFViMTNSdFZ1NVd0UEVnWmtMRURBYXZXemJHVm94MmNBb0lQaEUxZ2NBS0RtV2s1VGV3MmtkVUJVcWtQOGU2NmgyNklDOGdyRlctUVVjOGJoZHdLa0lHTU1vbEdfV0hCclloX0FXODgxSjgyR21jV0t4SW9n?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Stocks are booming despite the Iran war, inflation and the country's dour mood. Here's why. - CBS News",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBQWnI0bTNUbkE1dnZ4eURMSUJGTmc0ZEFqa2lzTHpaMlk3dVpubHB3aURJcFhrejN5REdvQWlyV25ab1JveXNCbExQaUtDSU5FVkRWMVRSdmRCTzlJaERfTldDQ0lfZzctNEpzcGtEWEEzNGY4WDhEcjlYMTd5dw?oc=5",
+        "sentiment": -1.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
         "title": "Dell Shares Roaring: 8 Key Items Shaping the Stock Market Friday - TheStreet Pro",
         "source": "Google News",
         "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQdi1Sem0yVmY5eHQ1RTJLXzJnYldUb0FvMXBvMmxLQlZjeHFIalRxVzFpZ1A0V0wtU2F0cE9KbUJKRHJYbDdTYVA5U2wwcG1DVFp4QlUyQjhuamw0UnVZX0RRZkE1azBfUWt3Ni1MaGVEUU91TVhEdzlmUGpQRS1KUDFQZHdQQjhfTHktYWxDTDRDUUhYUE1lTGpyc3NsSVky?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Here are the stock market's warning signs - Axios",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9xQVYwcHg5clp3OUN3Z3BMLWhlYUY4aXg0bzIzTkhxcl81cDJXZFZnbFFlZlhGTVoyTG1ieHNNMUNDQ2hPdFlwemEzN01oaWMyVWtfbEljS3dLRkdoby13Yg?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -300,9 +300,23 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Trump stock trades fuel accusations of corruption and profiting off presidency - PBS",
+        "title": "Dow Jones Futures Rise As Dell, NetApp Surge On Earnings; Oil Falls On U.S.-Iran Deal Hopes - Investor's Business Daily",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOSGVhdzhrb1I1T3BNQVpUdG9nMTNWamNsTDJVbFBmekVWRjFUcHlVYV9NMkJzT1JQM1VCT3lxVFViMTNSdFZ1NVd0UEVnWmtMRURBYXZXemJHVm94MmNBb0lQaEUxZ2NBS0RtV2s1VGV3MmtkVUJVcWtQOGU2NmgyNklDOGdyRlctUVVjOGJoZHdLa0lHTU1vbEdfV0hCclloX0FXODgxSjgyR21jV0t4SW9n?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOb29jV3JMWnE1OGNqUy0tM3NPck1odVZVR1ZSbURfWExuNzBLbTRDRGF6bUdxNmhPMXdjR3lPU0RFUGM5YWdwYUlVSmJYZ0pnNF9ucDREbHdCRGMwUTZnTU8zRk1LX1gyWHJ1NVVmdmZnQmc4MW91dGJRRUhYUktpbzZtX3h6aXpXVWRpS1Z2UGhNUlg3RkNmc3ZyOEdrRTRfRWxYcHRZN3F6Y2M5OFVCdw?oc=5",
+        "sentiment": 1.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Stock Market Hits Highs On Iran Deal Hopes; Dell, NetApp, Okta Lead Earnings Winners: Weekly Review - Investor's Business Daily",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOMVhWVjlNT2xHNkpKV0JkMy1aNDJLeGtFQVB2c2xBN0JuMjd2Q09oMjBNNVptcG45RHA4d2N0OG9hZGE1NXJSV1ZYbDRRN3dNejJtZk94ajBQXzJrZkoxM3hONWQzcjJqUEhpUTZqeFdGbHZfSkpoLXJCVU12TExTRzZPbFhsYTZ2alNuLUllRGhhZVBpZlg5XzltR2Z4MEhNX0hzNFVuMm9lLVFXX3hFSmNUa2dNTnpNSENjQjRXc3JMcGZDQVE?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Locking in tax-free gains: The gold loophole to turn TSP profits into hard assets - Federal News Network",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPQlhkNkxsUGhzQURHbGVBSVQzX0tFSjdaZmkzOW53OFNrUzVOLUo3V01FMno2YzhXLXZhZ3BqaDF6dU9xTFlhNElocTYyaUszOXlWSTFvZjVyWl9uMzVncFNPdXBacUVRTXdfOW5mSXd3RTFpcmlrTjcwNEFqQi1sVXBiVExNU2VDc3E5aXRELTdfdklRWUlXTjRQdGJTVHkyRElsYmJRZFNuc1RLTmx6NE1XaHdxYmY5UV9Bc2wtZjBiS0o1bGJRX0RkUDJtbERvdmVB?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -314,37 +328,9 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Stocks are booming despite the Iran war, inflation and the country's dour mood. Here's why. - CBS News",
+        "title": "Dell, Rocket Lab, Palantir, and More Stocks That Explain the Market Today - Barron's",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBQWnI0bTNUbkE1dnZ4eURMSUJGTmc0ZEFqa2lzTHpaMlk3dVpubHB3aURJcFhrejN5REdvQWlyV25ab1JveXNCbExQaUtDSU5FVkRWMVRSdmRCTzlJaERfTldDQ0lfZzctNEpzcGtEWEEzNGY4WDhEcjlYMTd5dw?oc=5",
-        "sentiment": -1.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Opinion: The Stock Market May Have Dodged a Bullet With Jerome Powell Staying at the Fed - The Motley Fool",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOdm43OTN4QXV2THMzZVJuRWVra2hmUkU5NnpQRG5HWUNnQldYX1hwNHNuYmlVQV9hWklrVzFGSVJhUTVVVkc0VVVqeU83R1ExcXVKcHhXd0hMN0pGYlBxUnpfbGN0U3haTXVxa0hyd1FabDkyeXQ5bFEzc0dyNjlPVlFfNW9pdm5LZ3Y5cnRHMW1pNUFGTm5r?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Could SpaceX & other mega IPOs crowd out the stock market? - Yahoo Finance",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQR0JfQVAyTy03Z2ZlRmhoaVRXRWtmWE5QempSOTc3ZE1DUjh4Wkh3RTFaSVFUYjc3S2ZoLU0zbXVycVlic3RiT29jQTdJNHlkejBud2cxb2lPNHg5aFNMd1lrVm5LRFV2NjBwVE1CcHN4bWVvcHF5UUN1Xzh1TVJIcg?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "The Stock Market May Be in Trouble: President Trump Put Fed Chair Kevin Warsh in a Tough Spot - The Motley Fool",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNX2cxSmRrTkxCR01vMzZvdmNhUHhIRkVjUk1LcElyQ2Q2MmhRRTItQ245VU40SWJvUTZlUHRDdTlOYWotNHZYQjI0aWpkMjZWOHBDV1JJakxVeUh6WFBuaThmUWxydmM0dWFGYTJfTDNsanBEd001Y2dpSFQzcjVnM3VjQXRlWkpjbjN0MUFZUDNnVDdR?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Weekly market commentary - blackrock.com",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQLWJDTjBBalYwVHVpc0VxV1BwRE1xeUt1RWlLQ1VJdnJQRXNnb3p6MnFNbjRBV0s0TnlldW4wSVIycFRQeVNISWJ3VV9wMWdjX1ZndE1Tc24tNzc0anNYWjl0SVBsRDhSa0dVTWlyVVYxX0w5b2JhTFB0Tm9Vb2FwYVZubTU1SVJlcy0zMEpXOEM4ZlhiSU1QazdVQVlldw?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1uUmNJOGRlRGFELVFoSV82R2RMREg4eGt5Q2RSX3pFRFZYSW02YzlVTWRJZ1JDb2g3cklXcjVnd0RJUXR0Uk9FSVpCM2hwZ2ZqNnF0Z2JDdDNFdWdOT1owRWRKQUg?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -356,16 +342,9 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Sandburg sophomores strike gold in stock market game - Southwest Regional Publishing",
+        "title": "Meet the Newest Member of the Stock Market's Exclusive $1 Trillion Club (Hint: It's an AI Semiconductor Powerhouse) - The Motley Fool",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOS05icHJfeXVOTlJXT0xad2lWLUhPMThMQmFZc05KZnVMVmFRT19TTjRFOEY0ajR4bGY3S0laV19jVHNnRWJTb2ZyUExIaGZBTkZTYl95amZEVUNNRlp1WjhJTmpsbFU5T2U5OU0tQzBobkdQNEtuYy00RTRGY3hBU0szWk8zR2M3cFA2cFB0aC1MczZadEt3eXJPZ2RvUVVXVThUZmVRMA?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "\u2018Tell the story well\u2019: China pushes brokerages to shape stock market narrative - South China Morning Post",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPWWlnX0FGSGVTZXBYVzJNR1oyNk8wVHFiNVNJQmd5SkFXMkZndURwbW1sdmtPaElTNVF4b3h0V3pSc015VVd4NnJubmxrZXVqbEZrbm1DajNpOWVHa1Fqb1hjZnh3Sk9neUpnLUF1SzZOVjJJQW5EMzZ2UHR5R1paenQyeVZGdWVraUk0T1daT2k2cGMyM1QzREM4c2tDSE5sVV9TRTNNTW5lU1VLNll6TGZBZlRKZUnSAbcBQVVfeXFMT1J5ZlBHTXZqdGJPbHNQalZRbHJQa1RSMmJtMWFkOTNETEQ4eDE4VDJjdm9EdGo2OFI3d28tVE8tclFMWjRhX1JMTUh5SUU4OWs2Tzluc05ULVQtV1QyVzNLUENoS0FFd01PejQzVTUyOHpYYzFyaEZ4Rko0emktZmxIdXd4S210V2xjY1BZY19iRlc2a2VyRXVJYzk0ckxudFlIMHBLRktzNEpKalFQWXFoRHBvT1JR?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOZzVHSDB6OVpWcENLX0F5ZXVtWGk1eEpaMGROYVBDcFNZLUZMa2F2QzFaWU8ySV9qRjR0OTUxc3JyTWpTRWtMc2MwakZFWks3Smd5dm9tSTNabzNPN1NhTE15M29qUFUzV3EzM2hDWmFyRDh2MWVBMDNxSHNEZE5YOVNmM2J0ZTVWLVBsWjJ4R2stZw?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -377,44 +356,37 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "There's a record disconnect unfolding in the trading pits right now - CNBC",
+        "title": "Could SpaceX & other mega IPOs crowd out the stock market? - Yahoo Finance",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQeklpNEdGZEs1aXJRZno2SHdzOGdSSGNONWdxUUVMdHpSYmg2MExnVUpiaDVFY3F3cTFTeEdzT2xKUGNZNGNlVlZ5RV9SeTAxVUl0dlhpckZXa3lKY3V4ak9BdGhwZzNpdHdYLUthUlMtSUtUNXl2dnVCdmhIS2VSZ0NLbkNTVWMyN044RS16SlZDLW81QlJqYWdENWppOTA1ZFMyUEhn0gGrAUFVX3lxTE4tMTQ4Z0JmTGIwR0hrcm5ZVkEwV0RPdVN2Q25Tbk9SMWNPZmd0MkdWS0tRY0NhQy1tT0F4THlocV94S3h6cUg1bm1leHdIN2hWRklrMUlndTJyampVVFV5a1BkaUxoUm9yQjVIZjdYQVdKbnZpV3lQaHZieS1fd2NYZm1LWmtHSWk3Ti13WXV2V1lqbi1XejBYQlk5SFlQQzZzWHhIMUxHVnljUQ?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQR0JfQVAyTy03Z2ZlRmhoaVRXRWtmWE5QempSOTc3ZE1DUjh4Wkh3RTFaSVFUYjc3S2ZoLU0zbXVycVlic3RiT29jQTdJNHlkejBud2cxb2lPNHg5aFNMd1lrVm5LRFV2NjBwVE1CcHN4bWVvcHF5UUN1Xzh1TVJIcg?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Sky-High I.P.O. Pricing Isn\u2019t Great for Real People - The New York Times",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOcjZxSTJ3UHdVM1pzZWVfZ2ZoT05GY2d0cFJqcm52aUlTYUN1Ri1iS2x3STh4c2pyRjdQbEk1bEZUUjNrQjExTnBOODlrMkRqR09SZ2c5MW44akNDdXdNSzU2SXY0YTRNR2wzaEU3TFFkSUpnSUFxOUhwZWVVOWh2cXF1d3l4eGM5eWRv?oc=5",
         "sentiment": 1.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Has the US Stock Market Become Too Important to Fail? - Investing.com",
+        "title": "Goldman Sachs Sees Two Risks Facing the Stock Market\u2014Here's What To Know - Investopedia",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNNDVILU9MZWZ0alJfNDJTMV83TnBJWThRMGMyb0VtRzdacUMyOFdWbHhnbnIwa3RZYXp6VGgtU2tvczY0VkRITnhna1FBYWJMeGZQeFg4QVBMQUpLaTRiT0k1TlNmc1ZOc1gtQ3YxM2FIVWgtYWF3MGZXbUtvWFpZM2d2T1dEUWdEanZlRXpiVk9PZ0dZcmJwVmRHYlZHdw?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPaE9GWHVGeGkyRHJSRF9vek81M0hGdW8zMzhaandpdU1YLU5CRlBUUHgwczBzLWd1eW5jMXExMERadXI3NDB4cldUbTFpV21wRTVHZnE5Q2NDanRWbFdTRENqdzZXeHk1MnR4NTByYW9TQ0x0SjZNbVlpQjJxY0lKMGdmX1hVeldwdnJyVmRfdERDYThTNFB4c1Z1a1AxejNtMElPTm5rRWpQVFR1Qjdj?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Meet the Newest Member of the Stock Market's Exclusive $1 Trillion Club (Hint: It's an AI Semiconductor Powerhouse) - The Motley Fool",
+        "title": "The Stock Market May Be in Trouble: President Trump Put Fed Chair Kevin Warsh in a Tough Spot - The Motley Fool",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOZzVHSDB6OVpWcENLX0F5ZXVtWGk1eEpaMGROYVBDcFNZLUZMa2F2QzFaWU8ySV9qRjR0OTUxc3JyTWpTRWtMc2MwakZFWks3Smd5dm9tSTNabzNPN1NhTE15M29qUFUzV3EzM2hDWmFyRDh2MWVBMDNxSHNEZE5YOVNmM2J0ZTVWLVBsWjJ4R2stZw?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNX2cxSmRrTkxCR01vMzZvdmNhUHhIRkVjUk1LcElyQ2Q2MmhRRTItQ245VU40SWJvUTZlUHRDdTlOYWotNHZYQjI0aWpkMjZWOHBDV1JJakxVeUh6WFBuaThmUWxydmM0dWFGYTJfTDNsanBEd001Y2dpSFQzcjVnM3VjQXRlWkpjbjN0MUFZUDNnVDdR?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Dell, AST SpaceMobile, and More Stocks That Explain the Market Today - Barron's",
+        "title": "Sandburg sophomores strike gold in stock market game - Southwest Regional Publishing",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1uUmNJOGRlRGFELVFoSV82R2RMREg4eGt5Q2RSX3pFRFZYSW02YzlVTWRJZ1JDb2g3cklXcjVnd0RJUXR0Uk9FSVpCM2hwZ2ZqNnF0Z2JDdDNFdWdOT1owRWRKQUg?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "The Stock Market May Be in Trouble: President Trump Put Fed Chair Kevin Warsh in a Tough Spot - Yahoo Finance",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxORWFId3l2VmdicjNrTGpJZ25yN1N5bGhHY3B1bm1sWmxuNzFKLVdxTHNmR1VwenQ1aGw0WS1RU18xa3doaVRyZ3g0eklMS2FISE9uYzItZk9GbkNrOVVvZVZPMEt5djdMVGc0VXo2WWF5WTloRm9iWEQtU0s4TVZ4MmNXcjNzd3BpeDY4RmhBWHBRQ0NxQUtYTjlRN3pHajVQ?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Parma students place 5th nationally in Stock Market Game - FOX 8 News",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPZWVFUTBTbEZKWDJIWTRTbHZjWjFrNkVXaUF6YkVaczRtV29VMm9qUTJDNEFYOGhsNXRjVUJIdzVnWnNOT05aMHZZdS1saXhOaDQtc2pqSEtPOWtzLXBBU29kblVLbnF5bF8tZEdoRG5vOXptQ21ZdkZFRDh1ZXdvRGppVXU5Z9IBiwFBVV95cUxNd19ya3NUZWo4c0xqMDNCVjRPNFM4VFRUQTBfYjZ3SXVReWY4aHB4dVJHUF83V0E1TXprRWRsZWVBTU5jcl8zZ2poUXBIcm0yb3B6VnNhOVM5bzZ4cDcwV0swWFNvV0k4aG5GWDJIc21PU2htejFzTjZtTU5LR0twUnBpSFk4UEhCM2ZN?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOS05icHJfeXVOTlJXT0xad2lWLUhPMThMQmFZc05KZnVMVmFRT19TTjRFOEY0ajR4bGY3S0laV19jVHNnRWJTb2ZyUExIaGZBTkZTYl95amZEVUNNRlp1WjhJTmpsbFU5T2U5OU0tQzBobkdQNEtuYy00RTRGY3hBU0szWk8zR2M3cFA2cFB0aC1MczZadEt3eXJPZ2RvUVVXVThUZmVRMA?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -426,16 +398,16 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "US Stock Market Today S&P 500 Futures Edge Lower As Inflation Jitters Build - simplywall.st",
+        "title": "\u2018Tell the story well\u2019: China pushes brokerages to shape stock market narrative - South China Morning Post",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOOW5oT2pJOEd0bEFnQXF1ZzE3a3FfdkdnV1VHRUVzX1ZJTmRKZVJsOE9WSHd2WEpNVC1fNUU5S1N6UmIycGhMOGs3SHprODVLcDNoU3hNNmlGUFlod3ZXMXpRbDdOOGUtNzJKS3BZXzNMSXRWYmVfbzFoeVJDdk5rSnhteFFZUlZYX2U2QU9DdDQtRFBkZld5QUhRVUVacTB0OVZmYmV0WTZibUJyQnJrQmZKMWxKNTN6YlBSTURWcU1QcnZDSGZJ0gHMAUFVX3lxTFBHaUxtbF9QWjdvUDE3cTdBeS0yWGpTUmpjMjdZQlEzNXVXS1hFNmtteGI5bHcxc3ZxdUxwSl85aDlYTmRYejVvLUdlaUVZYkNEZ0d5aXkxaGFDVG50Tzdld1FNX2k0TlFTM0wwaXNDakRjeC1vcTVHeVAxb2hMeVB2UHdFT204YlZKektpU2Q0S2MtenZqSU9ndFdqLVgwdUtCdEZQQUJ0MGx1SmQzU2lqQWFmUE9FWENrYlFyekRza1RGWUZ5R2I0RnZubg?oc=5",
-        "sentiment": -1.0,
+        "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPWWlnX0FGSGVTZXBYVzJNR1oyNk8wVHFiNVNJQmd5SkFXMkZndURwbW1sdmtPaElTNVF4b3h0V3pSc015VVd4NnJubmxrZXVqbEZrbm1DajNpOWVHa1Fqb1hjZnh3Sk9neUpnLUF1SzZOVjJJQW5EMzZ2UHR5R1paenQyeVZGdWVraUk0T1daT2k2cGMyM1QzREM4c2tDSE5sVV9TRTNNTW5lU1VLNll6TGZBZlRKZUnSAbcBQVVfeXFMT1J5ZlBHTXZqdGJPbHNQalZRbHJQa1RSMmJtMWFkOTNETEQ4eDE4VDJjdm9EdGo2OFI3d28tVE8tclFMWjRhX1JMTUh5SUU4OWs2Tzluc05ULVQtV1QyVzNLUENoS0FFd01PejQzVTUyOHpYYzFyaEZ4Rko0emktZmxIdXd4S210V2xjY1BZY19iRlc2a2VyRXVJYzk0ckxudFlIMHBLRktzNEpKalFQWXFoRHBvT1JR?oc=5",
+        "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Goldman Sachs Sees Two Risks Facing the Stock Market\u2014Here's What To Know - Investopedia",
+        "title": "The Stock Market May Be in Trouble: President Trump Put Fed Chair Kevin Warsh in a Tough Spot - Yahoo Finance",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPaE9GWHVGeGkyRHJSRF9vek81M0hGdW8zMzhaandpdU1YLU5CRlBUUHgwczBzLWd1eW5jMXExMERadXI3NDB4cldUbTFpV21wRTVHZnE5Q2NDanRWbFdTRENqdzZXeHk1MnR4NTByYW9TQ0x0SjZNbVlpQjJxY0lKMGdmX1hVeldwdnJyVmRfdERDYThTNFB4c1Z1a1AxejNtMElPTm5rRWpQVFR1Qjdj?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxORWFId3l2VmdicjNrTGpJZ25yN1N5bGhHY3B1bm1sWmxuNzFKLVdxTHNmR1VwenQ1aGw0WS1RU18xa3doaVRyZ3g0eklMS2FISE9uYzItZk9GbkNrOVVvZVZPMEt5djdMVGc0VXo2WWF5WTloRm9iWEQtU0s4TVZ4MmNXcjNzd3BpeDY4RmhBWHBRQ0NxQUtYTjlRN3pHajVQ?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -447,37 +419,51 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Why investors should brace for a stock correction after earnings season wraps up - Business Insider",
+        "title": "7 Ways 2026 Stock Market Volatility Has The Potential To Derail Retirement Readiness - The National Law Review",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQY2cyUF9ncHJjeVcxNXFUZW1QdXBHWl9hRVJUY2d3N25xVmVKb2RhTE9GYjlJYndwSlYyMndmX0FSODNDaGhCUEZGTUtSa2IyQmRDQ3ZxOHI3Z3A2X1dFUUdseW1qd2pwZ1RQc19TQXR2bGdGcy1nWEdvakZyRFQxTHJ5ck9McHNDR2c0SHJ1aU5NRnF5OFpDWlpkNDZSVVI0MTNN?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPWmExb0wzWkJZWm1QSnhqUlBGeVpXeThuUWhmUG5fQXFyZWN0dk0zRHYzMmw0czA1d1pObVZGbUxTRElJVXFFZzNNOElnYWdLS1IteC00b0c4dWpnM3FrSGtCXzBkcTIxZnBYUE1DWTNxVGRGMzMtU3d5Q0JiLTFLUXhrQ0JMeDhOTi1Ib0VPRG1zRkdSRkNEV0ttUTgyU3JRREFjSFVtVmVEb3M?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Stock Market Today, May 28: Rigetti Computing Extends Gains on Quantum Optimism - The Motley Fool",
+        "title": "A Century of Stock Market Winners\u2014and Why Most Stocks Failed to Deliver - Wealth Management",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNeXVpcTZvRWhfczJ0Q21hU01YVkFrcXZBYmROcUpaY0JRdkdnQkM5VjQ5a1BlbkY1TWdpWlhKdDNYZ1EwcnJoVF9rMDViUy1WYjZZX0xlbjFsY2ZKUnJWSzdQSnBocUJQQWJtRnR2RWRjR29Da3hQVTktOVpLS1FzZ291eWRwNEV6My1sUDRtLWFFRWNEc0V5amY1V1lHOHhfcEdQOFI3YVZHYi1GSWRaWmw1WmVTcklWNklxTDVnb21Na20wMlVPcFFxMHJzRnRKU0tDWQ?oc=5",
-        "sentiment": 1.0,
+        "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNNDZQY1FTYUNhbFgwek9BdTVZU3NhZldnVEFyM2Z2OUFZekluYnF6ZjJ6eUJ2Vno0NnZfMzFjMjFYZ2ZDRGNIV0prcE5LcGxRb2tGUHJzNnlCb1JFUVYwOWtFdE45YUo4dXpkUXdLTDVTS1hhcEdGSGkxNkUyMm96ZUZVRl9CbHpfTUtLemVndnI4YnNjYXlkVVRSQjhDaGItLTQyWnNiUHdKNU90X2RMZ2dUcnBPU0Jhc2ZzamNnSkdkOGM?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Parma students place 5th nationally in Stock Market Game - FOX 8 News",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPZWVFUTBTbEZKWDJIWTRTbHZjWjFrNkVXaUF6YkVaczRtV29VMm9qUTJDNEFYOGhsNXRjVUJIdzVnWnNOT05aMHZZdS1saXhOaDQtc2pqSEtPOWtzLXBBU29kblVLbnF5bF8tZEdoRG5vOXptQ21ZdkZFRDh1ZXdvRGppVXU5Z9IBiwFBVV95cUxNd19ya3NUZWo4c0xqMDNCVjRPNFM4VFRUQTBfYjZ3SXVReWY4aHB4dVJHUF83V0E1TXprRWRsZWVBTU5jcl8zZ2poUXBIcm0yb3B6VnNhOVM5bzZ4cDcwV0swWFNvV0k4aG5GWDJIc21PU2htejFzTjZtTU5LR0twUnBpSFk4UEhCM2ZN?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "This Magnificent Stock Could Deliver Market\u2011Beating Returns for Years - The Motley Fool",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPbFBBTC03UFJ3OVhBSlZZay1PeEFKMzRCLXlQR0Yza3pibGtLd2hlSjJ3eWp1RnpwY2EtT1ZEVUVPTnFUWmdFclRaUHVlckJFd1BPU2xnLTFfZ0U3U1M2ZDc5MGtEcGpraU5fOENrLUFPYXQ3YmU5Skt2ZmZoOHNkaEJ5ZWF4THBtb3cxalVfYXU0RUQ3V2QyUA?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "US Stock Market Today S&P 500 Futures Edge Lower As Inflation Jitters Build - simplywall.st",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOOW5oT2pJOEd0bEFnQXF1ZzE3a3FfdkdnV1VHRUVzX1ZJTmRKZVJsOE9WSHd2WEpNVC1fNUU5S1N6UmIycGhMOGs3SHprODVLcDNoU3hNNmlGUFlod3ZXMXpRbDdOOGUtNzJKS3BZXzNMSXRWYmVfbzFoeVJDdk5rSnhteFFZUlZYX2U2QU9DdDQtRFBkZld5QUhRVUVacTB0OVZmYmV0WTZibUJyQnJrQmZKMWxKNTN6YlBSTURWcU1QcnZDSGZJ0gHMAUFVX3lxTFBHaUxtbF9QWjdvUDE3cTdBeS0yWGpTUmpjMjdZQlEzNXVXS1hFNmtteGI5bHcxc3ZxdUxwSl85aDlYTmRYejVvLUdlaUVZYkNEZ0d5aXkxaGFDVG50Tzdld1FNX2k0TlFTM0wwaXNDakRjeC1vcTVHeVAxb2hMeVB2UHdFT204YlZKektpU2Q0S2MtenZqSU9ndFdqLVgwdUtCdEZQQUJ0MGx1SmQzU2lqQWFmUE9FWENrYlFyekRza1RGWUZ5R2I0RnZubg?oc=5",
+        "sentiment": -1.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "5 Reasons the Stock Market Is About to Drop \u2014 and Why I Won\u2019t Sell a Thing - Money Talks News",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQZWc3T1ZuM01tOExzTDRReFd5a045Z2pXUHo5YS1MS2sxRW16MlA0WG4wOW9KOS04cUJ5WXdwREZnUGY0SFFpM0EwWkl3N3dSbWlIX1loY0dINEI3WWVCLThYaF9BbkI5WVo2Vjlob0hHNnVvTW1jOXphOHg4NmdkWlR1cWc1aXJqWUEybW11RV80OVVmYzJHTU1zemtFS1lhU1hZ?oc=5",
+        "sentiment": -1.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
         "title": "How to Reduce Stock Market Stress - A Wealth of Common Sense",
         "source": "Google News",
         "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOd1VmZmVmS2JiYzg4SndaTEdWdUV0M0Vod1BXOTIzRjVIWmpTWXlSZ3d0dmc1S1dPc3FIdDRjamdFSmJFcjY4QXVXU2pLQjVuTnhZSEd5YTFmRllXZlZnWE95UWNoZjlCWEpfN1cwYmpPQktoTGdtQWxhLXZ3XzRCMA?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Parma students place 5th in national Stock Market Game competition - FOX 8 News",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQQnlTR19mVEZmdk9rdlZUSHJRWnN6ZzBMVlNsaTJ5Wmp0NFBqYXBpM1JhUzJ1ME5HUENpSFdOYnFaclI1Q3N1ZnZIeG9Rc3JRYlhNNFlFdEV3ckpqaEFwVEJ5NGlONDJ0WXJRQXFxOU5zX3piTGlHNkxwalcySkhSM2trcEFrZmdYZXcxTjV5UnVYeVFZOVY3Ykt1LTZDc1ct?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Stock Market Today, May 28: Ondas Surges As Trump Administration Considers Funding Deals With Drone Stocks - The Motley Fool",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPSzdZLUFiQ2pIUk95TEhDQnRmSVNvSVJKQ2VmQnQ3S2dmMm96Y3F2SDFJalZ4Q3dRaHphclRYcGVGYzZ6V0hObXhXUENrU2x1aFJuT2ZuU0ZCdklLb1J1VUxhdEktS09CUTBNOHNmcXg2ZXJFbGNHQjlLNEdPaGJrU2lvZDZZZFlJazZQOTdZcVIwdUp3VldKTE54d0JIRXh4OUR3c3g0ajRFOEI1YWRobEpUZWlkcG1Pbk5JaDN0N1JvU2lHZEJQblFvVkt2ZFlyNS1kZXhCQ1JmR0VIb2NmOXFwQktneFhoLXpLWm5CX1Y2elpCQVVyQQ?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -489,16 +475,9 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Stocks Set for Historic Weekly Run on US-Iran Bets: Markets Wrap - Bloomberg.com",
+        "title": "Adobe Systems (ADBE) Beats Stock Market Upswing: What Investors Need to Know - Yahoo Finance",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQS3R1U0FoSWY2aUpubVNqdlJBTURUYklRMnpWWlB4RGsxd0tvRTVXbTdKR0NCdW9BMkxicmxuNjdfUWhrNEV4YnM0UDlSS1NRUV9ZT0NSSjZUbGZNVkNEWUlvVVU5dmxQX2dNbXNEeWxjcWZMTUdUZUNua3FKTTZDZ014dEJPaGlTSm9XNjRWekx6WnJBaHBTTk5lUWNiRkFoc04wTHVlTjlNaW9jREloV1g3VQ?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Why SoundHound AI (SOUN) Stock Is Up Today - Yahoo Finance",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxONS04VW8xWDFKcUlsOU5xSkZqZTR2dUFLd3p5dXcycGRmVFBMSUYtU2RjY01nOXFUSFFmdHVOUklBWHYxcV85eXU3WnR0X2NqMHhVUnEySnRSTTZvcVRrZ3I1V2I4cl96bVhUZlViUjJwOWIxTm9QZXItdk5qa1VyNXZFeF9Sa0F2ZnM2X0pkejdXTFI0VnVESA?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNYmxfc09pV1JaQ0tJNFVsUGItM2FTVVYyYlR5WWtfa21tLWRHOUxTOWh3M29yYmczOTNhZktHME5MQXZQZm5pdnpMOHZuQUNLRkpMMG14cUVwSGlEcmRzV0xTeTd5TGFqenp4UkZrcXJmZVlTTjdIZHNGX0hBTG82cWxhSi1idXFGbmoyekVFc0tpdHYzRFBfQnN1bw?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -517,16 +496,16 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Meet the Newest Member of the Stock Market's Exclusive $1 Trillion Club (Hint: It's an AI Semiconductor Powerhouse) - The Globe and Mail",
+        "title": "10 Bizarre Superstitions That Drive the Stock Market - Listverse",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiogJBVV95cUxPMjh1Wmlhelc0anNiQnNNck5BS2pNVWFfaXg0OUZjd0ZPMmFteWJDTkNMSl91S3l5a2VRQU5YTW5TSldXZ2FYZ0FycDFleVRIb2p3dXJLUEJMSmlPQjJuYTBncTFhaDd5ZjlfdVQ2SkpEX096T1Y1Z2ZLN3FEeTB6SGFyVGZhZmVOa2lNMDU0THZheGVMck9XUUU5WWlDWVZQT0VJaVZLUnktNFpjanQxOGY0UXc4MExOUWM0bjBvejFYVHVGZmtsUDEtYlVPa21Pa2wwV2RMRGtnY19YenNvYTYxeHBOMzJMcUNHcXd5Mnh6RElTMmc2Q0xOaW9yNVhXTXB5MGZyZy1UU3Y1ektvUnQ1bERCVTVlQkZ4cExOVzlHZw?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOQzZTSWJqM0Y3ZmloLXlreFJjb3pMOE9iRjNLVUZkQTNVZzdfLXJXRk5tSFBHWGMxeE1TdVY5cXI1QkEzODhkTXh1ZUYzNzR1TmtBTU5XSmctQkg1alIwb0pVaUJMdnIyZHJ6bXhzdzBOUWNpdGp3UnZHMWJTMEhoZEpvd0ZnNVpfMTRKZi05RQ?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Stagflation Warning Signs Are Flashing, but the AI Boom Is Letting Investors Ignore Them (for Now) - inc.com",
+        "title": "Stock Market Today, May 28: Rigetti Computing Extends Gains on Quantum Optimism - The Motley Fool",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPZjY4aWNTblp1RjRyNkFxclBrcE1sbjI2WVBBcUdHOU5sQzZHb2ZqeEJFTlRYY3VNRXNGbm0xUC11Nl82MmpWRFNvMTFjRmdpd1NheWtPamR5RlY4eHQ2RXBIcUxpOFlNTFBuR05GUDBxamsyOHRya0FIbGhDejg5UG1xcldLV1k?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNeXVpcTZvRWhfczJ0Q21hU01YVkFrcXZBYmROcUpaY0JRdkdnQkM5VjQ5a1BlbkY1TWdpWlhKdDNYZ1EwcnJoVF9rMDViUy1WYjZZX0xlbjFsY2ZKUnJWSzdQSnBocUJQQWJtRnR2RWRjR29Da3hQVTktOVpLS1FzZ291eWRwNEV6My1sUDRtLWFFRWNEc0V5amY1V1lHOHhfcEdQOFI3YVZHYi1GSWRaWmw1WmVTcklWNklxTDVnb21Na20wMlVPcFFxMHJzRnRKU0tDWQ?oc=5",
         "sentiment": 1.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -538,16 +517,44 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "10 Bizarre Superstitions That Drive the Stock Market - Listverse",
+        "title": "Parma students place 5th in national Stock Market Game competition - FOX 8 News",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOQzZTSWJqM0Y3ZmloLXlreFJjb3pMOE9iRjNLVUZkQTNVZzdfLXJXRk5tSFBHWGMxeE1TdVY5cXI1QkEzODhkTXh1ZUYzNzR1TmtBTU5XSmctQkg1alIwb0pVaUJMdnIyZHJ6bXhzdzBOUWNpdGp3UnZHMWJTMEhoZEpvd0ZnNVpfMTRKZi05RQ?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQQnlTR19mVEZmdk9rdlZUSHJRWnN6ZzBMVlNsaTJ5Wmp0NFBqYXBpM1JhUzJ1ME5HUENpSFdOYnFaclI1Q3N1ZnZIeG9Rc3JRYlhNNFlFdEV3ckpqaEFwVEJ5NGlONDJ0WXJRQXFxOU5zX3piTGlHNkxwalcySkhSM2trcEFrZmdYZXcxTjV5UnVYeVFZOVY3Ykt1LTZDc1ct?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Stock Market Today, May 28: Caesars Entertainment Jumps After Fertitta Entertainment Agrees to Acquire Company for Cash - The Motley Fool",
+        "title": "Why Super Micro Computer Stock Popped Today - Yahoo Finance",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxQWmhfeXhYaTE3bm5Fb2M3MTJSR3BLanZwdXBPRHVzSFU4MjRXYjctRjY1UngwS3g1aWZ6cDFtMW5ESVNVWDF5QlZWQ3ZfYWxlM3JLMDdFeFdNR01JbVNlc29uNWhKZGt4blhwNWVXT0ZRODNLNy1BY2ZZODBMWFpGSVlrTGI4VXBLWGN1dEtfTVhGM2xPdXctUWY1MGFTVlQxQ2plR1VtQ0FMMXh3aWlQeFdaVFF1TnlPcHFOTEhrdFJsM0VuVU9SQ096VDZRY0k3QlQwZktDS05Uc3NveWJyOXZKaTlZMmRoRm9aOHhIUzVtczJQTU5qYnFHVXBzU2dMbVJoYjJKUnExdw?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQUTY1Y045WFY2V0FyWHVCSTlkRTZ3ZlJyY3l6N21Fbzk1SnZwVEhCdmxCdEVlTnE2bDFOZEQ2X0NhQnIwR0hXc0s0Y2dlcGtybFcyY1ozVlZMbzBZRzc1amRaUG1fNkxFNktzbGJ1WjZhMGF6LW1RR1lQTlUxR2FHRW02VTFVMmdYbXlfc1FfMnFkOFI2Q0tZbVJjRQ?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Market Awaits Chicago Business Barometer - Yahoo Finance",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQYkhUYlppREN6RlZ5SGFnVjFNTWFrNUF1akVWY0dkZ2E0amxjOFFNdTJNak9UR2Q1Mkc1SzFCdjhUZ3JjUF9iVVZGNDVrM043XzdLLTMxaEFLVDA1RFV6UFFqaEpvYjR0empkbjh4QXN1MUF1NnMwZmE1OS1pWDBIelFKSHBGYTFjTU1vTE9ERGlZcEJId1FFRnRiSUkwVW9NTEtDSmVBdFo?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Stock Market Today, May 28: Ondas Surges As Trump Administration Considers Funding Deals With Drone Stocks - The Motley Fool",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPSzdZLUFiQ2pIUk95TEhDQnRmSVNvSVJKQ2VmQnQ3S2dmMm96Y3F2SDFJalZ4Q3dRaHphclRYcGVGYzZ6V0hObXhXUENrU2x1aFJuT2ZuU0ZCdklLb1J1VUxhdEktS09CUTBNOHNmcXg2ZXJFbGNHQjlLNEdPaGJrU2lvZDZZZFlJazZQOTdZcVIwdUp3VldKTE54d0JIRXh4OUR3c3g0ajRFOEI1YWRobEpUZWlkcG1Pbk5JaDN0N1JvU2lHZEJQblFvVkt2ZFlyNS1kZXhCQ1JmR0VIb2NmOXFwQktneFhoLXpLWm5CX1Y2elpCQVVyQQ?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Meet the Newest Member of the Stock Market's Exclusive $1 Trillion Club (Hint: It's an AI Semiconductor Powerhouse) - The Globe and Mail",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMinwJBVV95cUxPbEFjRlNHTmNadThLODJlcXJmWGpPZi1GTE9iVjhLUElrVnhPOE8tbkZkYmdINFBhUEI3UmpzZTNBMk9yZ2pwaWY1NUlVNjF1SWJJV1Fxa3h6T21EM3RtY3lkMVNkcko1eXZsWUxjbjd5QkpoSjdIa1o4QkYyQWRtZG5iQ2Q2Y1g5ZlRubjZ5VFNJQkVKb2s1ZW5KVjZfbnJLRmxNdjVwLTVQaENTMV9YZW84TlZVUFhzY1FQY0dvaTdWaUZFTjJSZFpoMWgxVTNDTVMyRDNwSnRTaWtHOE5IVkNMUG11LWZYV25vbVpQdlZTbmJBd0VnMUFlbUx0dFNjNmptd2F5SXlxTk9PUm51ZF9Mdkk0Q01qZ2g1TU1kOA?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Stock Market Today, May 28: Super Micro Computer Jumps After Collaboration With Taiwanese Authorities Thwarts Illegal Export Attempt - The Motley Fool",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMimwJBVV95cUxQRHhTZXZIWXhWNkR4TDAzU3NPaHVBV1U5MFB0X0gwTmtLSG11WHR3dF8tS19BaXcwWnc1cmxaRElhSUJjbVFXSHpNaU11NUFuQVdUMFA2YXo3ajVQNWhSU3liSUs3MVI1Y0ZHQU5MN09mdEtfbU1pblJvMFp5bTZGbUJzZTdHRzZ1OGxONHEwMThlZDh3WE52Z2NTRXZadUJzcDFJX2JlWkRGTGNoaEdfbjhab1N3dzM2MEltbU5VN2tZY2pEampuSDNoNUJTNjBQODdkRVFRT1pKVnVnQWdsaW1wcm9pUEI1Z2V3VlJpQW9aS1EyTWxhYTZmTGV6ZVNiSU1ZWFRYRWZhTVlVMTNDMDgzYkpDQUFLelhz?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -559,6 +566,20 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
+        "title": "Want to Build Life-Changing Wealth in the Stock Market? Here's Warren Buffett's Best Advice. - Yahoo Finance",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNVWhEbURLaHlVdGcwTDJHaEs0aEw5bGxXa3RmbHVPVWJtbkNXNjZNS2NSVFdpTnlOZFdjdXhTY3JMNGNOMjJWcUV2Q3oteW5YX3BVLXpESGhlbUhWLVlHWmZqT2plZ0k1RThDbFVESXF2VFhnM091VUsyYWN1YmpSME1nV201Z0MwcnprVHM5TmZJa2VwWkVuemNfd2k?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Stocks Set for Historic Weekly Run on US-Iran Bets: Markets Wrap - Bloomberg.com",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQS3R1U0FoSWY2aUpubVNqdlJBTURUYklRMnpWWlB4RGsxd0tvRTVXbTdKR0NCdW9BMkxicmxuNjdfUWhrNEV4YnM0UDlSS1NRUV9ZT0NSSjZUbGZNVkNEWUlvVVU5dmxQX2dNbXNEeWxjcWZMTUdUZUNua3FKTTZDZ014dEJPaGlTSm9XNjRWekx6WnJBaHBTTk5lUWNiRkFoc04wTHVlTjlNaW9jREloV1g3VQ?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
         "title": "Stock market futures edge higher Friday on U.S.-Iran peace deal hopes - eciks.org",
         "source": "Google News",
         "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOUWNaTDJjblVfMW1WUV84d01WaF9UV2M5YmV4VTBGZHdPZjFHN05FQjJtbDdYUlFIcUJQenoxZmpaV1B1QUJINDlPY3lWTHlIYTg0LWMyUzRIcW92M3l0NzVsaTVzV1RSMHZLU2ZYSlNCWFRWdjFKSHZYNENicHZFRzc0dDk4UmlmaE5fd2dqdTdSWXE2ZlBzU0ZtdkJtZw?oc=5",
@@ -566,16 +587,9 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Stock Market Today, May 28: Super Micro Computer Jumps After Collaboration With Taiwanese Authorities Thwarts Illegal Export Attempt - Yahoo Finance",
+        "title": "Stock Market Today, May 28: Caesars Entertainment Jumps After Fertitta Entertainment Agrees to Acquire Company for Cash - The Motley Fool",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQdFVwcHhnYmFQN0NYbV9vM25uQnBGQUcxdjFHN01wajFna0ZNWnNhSHVfeFJGNV9rSHR6UW5veFNoQjNPODd3NkJBVU5HV2owRmM0VkgxWHJMbWxNZ1FjSXBCSFVzRW1GVGg3aXB2U05sUy1YLVFJLWRFOXg1TnRsblNGSmZVdDJucDYtR2NERUF4aXkz?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "The wealthiest investors are pulling money out of the U.S. in the 'de-dollarization' trade - CNBC",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNYmZGNFVPWmZNQWxveFJQZHBzNWxocG52SlhMczVacWtJSXJSVUVnSmlhX2ZsUUZHenJFdU0xaWl0VVBfd0dvUVZjT2QyM1pVcG1PV2gyeTJLYmpGVE1Ga3ZTZi13ZEdaZDkwSFpvdFJYOHlXZkxkcWxPYUx0UFpIbFFKeGZKVHPSAYwBQVVfeXFMUDdRQWExWUp0Q2lLV21fTVY0eDNleG9seFFPbjVZX2ZxTWZtV0FvN0xEaDhHMFE3VHZXOXVqQTRkRVFYS2pLb0VNRHZxWm9uTjFjUjdsRERfRmU4SlY1ZkJjRWNvVkVzSERIc3pJY3Q2UUU4cTNQSFoteFIxTzRaaDQyUXB4WklyaERaMlQ?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxQWmhfeXhYaTE3bm5Fb2M3MTJSR3BLanZwdXBPRHVzSFU4MjRXYjctRjY1UngwS3g1aWZ6cDFtMW5ESVNVWDF5QlZWQ3ZfYWxlM3JLMDdFeFdNR01JbVNlc29uNWhKZGt4blhwNWVXT0ZRODNLNy1BY2ZZODBMWFpGSVlrTGI4VXBLWGN1dEtfTVhGM2xPdXctUWY1MGFTVlQxQ2plR1VtQ0FMMXh3aWlQeFdaVFF1TnlPcHFOTEhrdFJsM0VuVU9SQ096VDZRY0k3QlQwZktDS05Uc3NveWJyOXZKaTlZMmRoRm9aOHhIUzVtczJQTU5qYnFHVXBzU2dMbVJoYjJKUnExdw?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -587,9 +601,16 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Stock Market Today: S&P 500, Dow Futures Inch Up - State Street SPDR S&P 500 ETF Trust (ARCA:SPY) - Benzinga",
+        "title": "Why inflation, not growth, is what really matters for the stock market - MarketWatch",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMimAJBVV95cUxOYVU1RkhoS1hfQzhSb3lsUlFPNzRvSmhra3ZHX1ByaEhWNmtrODhsc2pHVGFhVHlSSjZqSi03ZmtWRDZpVUV6ZW5fY1VXNlJjZEljV0pGdnlDSXloUjRSdk96cDFlcUhkU0JxNW5sQUdEVm1xNXBiYllmYm9yaVBmdjQ3a1FaSnRWZFFwR1Y3OUlBWXFYeFM5OURMY2x2UnBxWUloNGNwQ0pURlNzbENYNWhKTmpBV2hNLXNvcTM4MHNpNm1wSHhieTBMOFo4X0QwU0RpRE82VDdlUTVFcmFyNjNjZFVlZ2g2WGFXbE1fYVBWNDNqNG56Y2Z2VTNqb0Q0WnozR3RkQUIxSmJaV2JBamJxc3IyWUVH?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQNHc2UVdYZDR3ZlZyVDd4OWl2UXJnZ0Q1Qk5MSXc3SHFMQ0JEdkJxWU9sUWdHYW40MHhVSVBGdHlwMHFWdFkzM3c2Yk1Tb05FbURMNFNPVUdMTkFiWXV5TWVnajQySXdoUEkxb0JzMDVpN25xM2lpWDdUWElXLXMtQ2VTdUhvZ2xEd2xqMGRwV1JVd1Jxd0pfWldLU2N2d1Vic2Voek5aVElsaEF0WFJOZA?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Genius Group stock jumps 116%; company says no undisclosed developments - Stock Titan",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQSVRqaHNEV0cxbk9nTDl6NTl5NFUtVmJObktEVVQ0dGV0Zl9vSXNkM19GWTMzSGtIOVhuLXRfR25VdExPVXppNDBCOWZQdkc0cHBtRnlocWxQU2NnbEdNM1FEamp5eWhHR3FnMlQ0dXFhdjVYT0pDUHY3aTM4dV8xNTVVaDdMa3pXOXhxRDd4bDNXbTJJcjUwMnJyczFUZGlReEFWSw?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -608,30 +629,16 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Genius Group stock jumps 116%; company says no undisclosed developments - Stock Titan",
+        "title": "Stock Market Today, May 27: Boston Scientific Plunges After Reiterating Underwhelming Full Year Growth Guidance - Yahoo Finance",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQSVRqaHNEV0cxbk9nTDl6NTl5NFUtVmJObktEVVQ0dGV0Zl9vSXNkM19GWTMzSGtIOVhuLXRfR25VdExPVXppNDBCOWZQdkc0cHBtRnlocWxQU2NnbEdNM1FEamp5eWhHR3FnMlQ0dXFhdjVYT0pDUHY3aTM4dV8xNTVVaDdMa3pXOXhxRDd4bDNXbTJJcjUwMnJyczFUZGlReEFWSw?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Want to Build Life-Changing Wealth in the Stock Market? Here's Warren Buffett's Best Advice. - Yahoo Finance",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNVWhEbURLaHlVdGcwTDJHaEs0aEw5bGxXa3RmbHVPVWJtbkNXNjZNS2NSVFdpTnlOZFdjdXhTY3JMNGNOMjJWcUV2Q3oteW5YX3BVLXpESGhlbUhWLVlHWmZqT2plZ0k1RThDbFVESXF2VFhnM091VUsyYWN1YmpSME1nV201Z0MwcnprVHM5TmZJa2VwWkVuemNfd2k?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "We asked four market pros whether they'd buy SpaceX stock at its IPO - Yahoo Finance",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQcTdFN3RTeURtWnlSQlE5MUlPZkNvWXNHVWlpRmFLUjl5UzRXakpNV01RdEtQdmdSekRfOWVPV2FJV3RvSm05dTR1OXVGLThXWklkb3c1LUdOM3J6WjVsV2NnQnM0TDRybzZwdUtCODVvaGtDRkhmZ3NEVXNETHFkdEdRcmNrUEctTUp2bnFmcWtOc2c0VzRscFFrcw?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNN2thOUQ5Z2kxcTZVS1VsbXBWeVJDSVgyWDFUQWVmblBwaE5JelhvcHp4aHViR01tdjA5R1pkRXpkNklwMWo3eE1IRjVnTTU4Sk56SS14ZXdQMXliLUNTZnpQV0NkbExRWWR5bkEtNnpoX3YteFhyd0JIZk50X18tVERURHg2R1N0ZTdtR19vZDFFc0tT?oc=5",
         "sentiment": 1.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Adobe Systems (ADBE) Beats Stock Market Upswing: What Investors Need to Know - Yahoo Finance",
+        "title": "Stocks Under the Trump Administration: What is Driving Markets in 2026? - U.S. Bank",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNYmxfc09pV1JaQ0tJNFVsUGItM2FTVVYyYlR5WWtfa21tLWRHOUxTOWh3M29yYmczOTNhZktHME5MQXZQZm5pdnpMOHZuQUNLRkpMMG14cUVwSGlEcmRzV0xTeTd5TGFqenp4UkZrcXJmZVlTTjdIZHNGX0hBTG82cWxhSi1idXFGbmoyekVFc0tpdHYzRFBfQnN1bw?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPcUowVHR1VXAzd0Zfamw1MkVSejFsRGo1bkdGdHhjNVBZVFdwU3VpcE5neGJOeWl6RmdQVkFsYlcxNEVTRGg3WHNYSGR1d1BpTjV4T2NqdWdER3ZtQ0RVbU40WTcyRXRaTEM5bFZteVlYNE5EYkM1M1BaR0lYTGlUeFlTeDhVMzRaWFFqZEZhcGc3RFJoZy1qZy1mTGViQQ?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -643,66 +650,17 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Is the stock market open today? What to know about Memorial Day hours - Detroit Free Press",
+        "title": "Trump Calls It His Bull Market. The Numbers Say It Belongs to This Person Instead - 24/7 Wall St.",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNTERla2tzRXdWZUdYVDRPVXpKSFh6NXpjZUxfTUZoeXRydTRzUGlXSU1xWXo2b0QyWnNpdXdMUXNDWWJZbWE1WFpLVVJKNHNLdXVZcGh6N21OV3Z5Sm5QWVZ4d3NCLU5TR0Fyc3pSSHk4Mkk1ckJqc25mMjIzV1dVVW96cTkxVkVlQmgzY0hFZ0YzWnh4ZGY1RmxIenlNVDBEaE5iZkh4MzU3ZEV3dm43cHlQSnd6Z2hQV3otTA?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOTnh4Q1JyNDM5eFdaSkh2X18yRmZFR3NfRHVTenFock1RSmdLQlpGQXdnNk9mM1BBVlNSMDdldzVxeVlVREx1dTF6NGk4eFkxa3VkS0kyQkREUG5WS3hOZjE3VFhTWVJmWHJpMDYwUk5FUHphdlU1TUVkaWdSWDA0bmV0cUpIaDg1eHhDN0NKYU8zTU5pa25Yd09XZVZQYmhHV0k2QW1UcGwwN25BNm9rSXNTdmZUNU14S0tQWk1IeWE4dw?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Nasdaq Adds 242 Points as Snowflake Keeps the Tech Rally Alive: Stock Market Today - Kiplinger",
+        "title": "We asked four market pros whether they'd buy SpaceX stock at its IPO - Yahoo Finance",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPb0I3QTBPaXV5X2QyR2Y5ZjA1Wl84YzRmaWJ5SWhHZTQxcW5Cc2dMaTVLZXNaNEEyRnc5eE5CV0x6NVNnWFoyVzlYaXlJN1d2djl1c2hrUk84c0oyQk50V1VkUGdIT3FLTlpwLXBzNE5RUmk1cjNBUUVQRk9TOXZCaEFDclNHZ2xPVTlyS0QzMG9YdWtsSTZIYXNHRVpMdFFFaFlCT09VVQ?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQcTdFN3RTeURtWnlSQlE5MUlPZkNvWXNHVWlpRmFLUjl5UzRXakpNV01RdEtQdmdSekRfOWVPV2FJV3RvSm05dTR1OXVGLThXWklkb3c1LUdOM3J6WjVsV2NnQnM0TDRybzZwdUtCODVvaGtDRkhmZ3NEVXNETHFkdEdRcmNrUEctTUp2bnFmcWtOc2c0VzRscFFrcw?oc=5",
         "sentiment": 1.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Why inflation, not growth, is what really matters for the stock market - MarketWatch",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQNHc2UVdYZDR3ZlZyVDd4OWl2UXJnZ0Q1Qk5MSXc3SHFMQ0JEdkJxWU9sUWdHYW40MHhVSVBGdHlwMHFWdFkzM3c2Yk1Tb05FbURMNFNPVUdMTkFiWXV5TWVnajQySXdoUEkxb0JzMDVpN25xM2lpWDdUWElXLXMtQ2VTdUhvZ2xEd2xqMGRwV1JVd1Jxd0pfWldLU2N2d1Vic2Voek5aVElsaEF0WFJOZA?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "European Penny Stocks With Market Caps Under \u20AC200M - Yahoo Finance",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPdVh6QVVFSmZxR3lEa2dqdlVtZDJGelJKZUlaaVBRVUtzbm1Cblk4RUV1YzgxNkd4dUpETHp2cHBfdF9mdUtuVnVQWEhNakRlRGJBc1AxRlZyRGRpXzY1UmxFZGh6NEtRbF8yWVhDeWJ4WFdPdkl1YmRFQlEyaTktS09fbXllZmhHd1Zha25USVBiRXJGYXZaQS04ZTBHRlE?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Stock Market Today, May 27: Boston Scientific Plunges After Reiterating Underwhelming Full Year Growth Guidance - Yahoo Finance",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNN2thOUQ5Z2kxcTZVS1VsbXBWeVJDSVgyWDFUQWVmblBwaE5JelhvcHp4aHViR01tdjA5R1pkRXpkNklwMWo3eE1IRjVnTTU4Sk56SS14ZXdQMXliLUNTZnpQV0NkbExRWWR5bkEtNnpoX3YteFhyd0JIZk50X18tVERURHg2R1N0ZTdtR19vZDFFc0tT?oc=5",
-        "sentiment": 1.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Stock Market Under the Trump Administration: What is Driving Markets in 2026? - U.S. Bank",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPcUowVHR1VXAzd0Zfamw1MkVSejFsRGo1bkdGdHhjNVBZVFdwU3VpcE5neGJOeWl6RmdQVkFsYlcxNEVTRGg3WHNYSGR1d1BpTjV4T2NqdWdER3ZtQ0RVbU40WTcyRXRaTEM5bFZteVlYNE5EYkM1M1BaR0lYTGlUeFlTeDhVMzRaWFFqZEZhcGc3RFJoZy1qZy1mTGViQQ?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "rYojbaba Rings the Nasdaq Stock Market Opening Bell, Celebrating Its Mission to \u201CFight Poverty\u201D on the Global Stage - GlobeNewswire",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMikgJBVV95cUxPRXFCT3JRWGljcV83RENhRFZXSFRvTzU4VEw5N3NSVGZVOGlGQndYTXV1Zk5LMXNsdkY1T0MyWEpoWnRLWFU2dl9zejBkSktXTnZWc2ozWFdTbk1kd2xmNm4xMUdSWjZQMkdJUENCN1BYV0xsTE1IQVZGejk5Zm1RY2FsZDVMeWlFbWJTQ3lucndnUVlWaVBhUkVxdUFfNVZ4RkZZNUNTYkhNX05aMXVabjFRQy16c0NLRW9fT1N5YjZuS0pOQ0hpWjVJMzRFUUZMOFNKejNOS1dVSXVfMWx4RXRYN1V6eEloMkZBckNPR3BLZmdBS1dPQ0FSZjAyTTBxTlJzb2JWQXhmTmtxX3ZNaG1n?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Dell and 6 More Stocks That Explain the Market Today - Barron's",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNRGtST1VGaTFqQ3hKRUZVUHpFN2JDVWJMOVRSMUpXMnFJVEhTMGhsNEFiRHp6bWtaeldHdDg0d0J5Umg0TzN0dkN5SDA2S0tDal9wd1NTYU1tMUlLcFBFZFE1NHVWQkZEZ1BsS3ZlcFBXU2Zyb0t4RnhPcE1Lb2Z5V0k1NFUwZ3VKU0VhZ1h4Si1WcUxYR3Q0aVBVTTRxcURJTXQzVl9CQjBWUVkxblpQU3pVYUNwWnM?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Dell and 6 More Stocks That Explain the Market Today -- Barrons.com - Moomoo",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNbktNVE5jSmpyR25fMl9wRzljckRONHVfWnZFZVRrVXZlZndXSkR5czlJSXN3VUdJNjlDV2hrbWRnQmczanppdkpPRklfVU5VT1dlLTJWeTd0eTdJVWZBUnA1ZExNNHI4WmpqbFJhZERjV2xtbUY5WlRkSlA0c0xyMm95SlY0dEc5b1FvNkl4ckx4YmV2V1R6dndR?oc=5",
-        "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
@@ -720,17 +678,17 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Meet the Newest Member of the Stock Market's Exclusive $1 Trillion Club (Hint: It's an AI Semiconductor Powerhouse) - AOL.com",
+        "title": "Stock market hits highs on Iran deal hopes; Dell, NetApp, Okta lead earnings winners: Weekly review - MSN",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQRnJKdXJndk9MMU15X2g2SkF6NXIzMm1MVFpVZTRGQ1pVSFBwdVNOZTFLeE0yOFM5cmI1akFzRVg0UmdXTkF2by1QckI0WFdObUdCTGZRQ3I2clAwY00xeHlQQTFQbFZqRGZweExQVGU4RjFQQTB3Sk00RlBKVWRCNGZR?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMigwJBVV95cUxPeVVLakRJNTdGNDg2ZHg3NFlESVlyUGJlQWVtYnoydlRvby1NT0RJcThSLUIzVTZFN0R6LXNYb2diV3paZllSOGJneGtDNHJtbFdkX1pWY2hqcWltREJjMkgydWJGWlBWQ2pzaHZzZ3JZVmZkclpBd3FTMHF1UVdCNnNGNWs3RkE4bWRiUkVYT0ZsejF6LTYxX1JGQTJpVkU2Sm93NmdpVHNpMWxqMmZ2cXpPdGJ2YkIzU2NGYTh2YVAxNnBid1ZjVkthcmRhX19hSVZydE9zcE9rV3l4MEJ0MjhJSVdIMWpIRWpNb3RrNUdFbS1GaERrbkVqR1J3WFI1ZDZN?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "War, inflation and Trump\u2019s tariffs have shaken the US. Why does the stock market keep going up? - The Guardian",
+        "title": "European Penny Stocks With Market Caps Under \u20AC200M - Yahoo Finance",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPLWNBam1MNTNBbWdTdFZwNmF2eVZHb1U5bnFBTEdpU01DRzV0enRkN0FEdlprbjJ4Nmt0am1SdWdlZHpsb2ZqN2dnRmp1d2FBdE1RbU5fWnpNbHQ1OEhwanhzV0hFXzg0ZUZlS1lRVGhIUjZjZzFjTHRPUlZ4SDN2bnVKRXBqRXNRUzhBN2dHUVY5bEp2TE1ldTFOclVvY1g1YU42Y2piN0dzUlk?oc=5",
-        "sentiment": -1.0,
+        "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPdVh6QVVFSmZxR3lEa2dqdlVtZDJGelJKZUlaaVBRVUtzbm1Cblk4RUV1YzgxNkd4dUpETHp2cHBfdF9mdUtuVnVQWEhNakRlRGJBc1AxRlZyRGRpXzY1UmxFZGh6NEtRbF8yWVhDeWJ4WFdPdkl1YmRFQlEyaTktS09fbXllZmhHd1Zha25USVBiRXJGYXZaQS04ZTBHRlE?oc=5",
+        "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
@@ -748,10 +706,10 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Tech sector surges while communication services face downturn - investingLive",
+        "title": "Dell and 6 More Stocks That Explain the Market Today - Barron's",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPTzBjRjdiazJNYUJXbzBja2dmcDJSLXNLSGY3NERYbFFMeDNGakJhcDNfUUg5RzY1X0RIQ3JhNjllNWk1dUNfNE5ZTWJZVmpDX1FmdjVKYko1SDUzNnFtUmRSdEg0SktnbnVjeUJ5S2JqODhISHJiTk5YcTllR1RSa1J2VTdGSndzaXpMT1pLNTRFR0NaRE1JSDh0emZIQmRuS19uUk1zbEJqR1lwSVRxRFpPNzJhLV9Y?oc=5",
-        "sentiment": -1.0,
+        "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNRGtST1VGaTFqQ3hKRUZVUHpFN2JDVWJMOVRSMUpXMnFJVEhTMGhsNEFiRHp6bWtaeldHdDg0d0J5Umg0TzN0dkN5SDA2S0tDal9wd1NTYU1tMUlLcFBFZFE1NHVWQkZEZ1BsS3ZlcFBXU2Zyb0t4RnhPcE1Lb2Z5V0k1NFUwZ3VKU0VhZ1h4Si1WcUxYR3Q0aVBVTTRxcURJTXQzVl9CQjBWUVkxblpQU3pVYUNwWnM?oc=5",
+        "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
@@ -769,16 +727,37 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "These 10 large-cap U.S. stocks rank among the market's cheapest names (PFE:NYSE) - Seeking Alpha",
+        "title": "Nasdaq Adds 242 Points as Snowflake Keeps the Tech Rally Alive: Stock Market Today - Kiplinger",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNTHc2TGpIejF5Y1ZIeFhxOW9lZWYtdU9qWE9PbHRYMUlvTG9wMkxscXFhUHRZeUtMZ2NIeEY0NnBqSVp2Nk1acmhMZGdKOGx3a1JWazVxY2lIZGJJYTNPcUMwM216dXJNOVhTdnJTY1d3X05tMTV1MTdjbUZLRFgxVEdGeFVqcE5zamttZ0JsSFNwblBzRmdVd0lLVTViNDRoOExQY1BmeFQ?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPb0I3QTBPaXV5X2QyR2Y5ZjA1Wl84YzRmaWJ5SWhHZTQxcW5Cc2dMaTVLZXNaNEEyRnc5eE5CV0x6NVNnWFoyVzlYaXlJN1d2djl1c2hrUk84c0oyQk50V1VkUGdIT3FLTlpwLXBzNE5RUmk1cjNBUUVQRk9TOXZCaEFDclNHZ2xPVTlyS0QzMG9YdWtsSTZIYXNHRVpMdFFFaFlCT09VVQ?oc=5",
+        "sentiment": 1.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "GE Vernova (GEV) Stock Sinks As Market Gains: What You Should Know - Yahoo Finance",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNYl9yMnVlMlhrZWpVOFpBeG1aMzA4M0w5M0d5Rk9CN3ZEZGtBU2JpQ1I1YzU5SXJrWkFJb3c1b3lkQkMzNXZWWm4yRGtGRVJxU0I5OWZnZDNtNkJ2clFjVEFXWXZVeldkZlQ0dE9LS3p2SUUzc3V1RzhMeURSMVVnNm4wcUZOSjdOWkUyS3dqczFWdkJ1YlE?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "THIS WEEK ON WALL STREET: Stock market on a winning streak - FOX 17 West Michigan News",
+        "title": "War, inflation and Trump\u2019s tariffs have shaken the US. Why does the stock market keep going up? - The Guardian",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOclFLTHRVQVMxb1lzc182MjBodTZNdllBRVU3MEstTHRvXzd5VnZ4TEowREtKMGNucjM1aTlEWklubkpQbGlvUTVqUVdqU2xzZ0ozUk1mdFdNUTBIUTVWcXVUczFjX0JpRDFJRFZXaWpkaGlhN3hqUTNOandpdXR2bDRYb3BQSzZRZ1dlbjBTVTA5d3kydnFQR18wQ1p4Yld0ZVI0SHd3?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPLWNBam1MNTNBbWdTdFZwNmF2eVZHb1U5bnFBTEdpU01DRzV0enRkN0FEdlprbjJ4Nmt0am1SdWdlZHpsb2ZqN2dnRmp1d2FBdE1RbU5fWnpNbHQ1OEhwanhzV0hFXzg0ZUZlS1lRVGhIUjZjZzFjTHRPUlZ4SDN2bnVKRXBqRXNRUzhBN2dHUVY5bEp2TE1ldTFOclVvY1g1YU42Y2piN0dzUlk?oc=5",
+        "sentiment": -1.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Meet the Newest Member of the Stock Market's Exclusive $1 Trillion Club (Hint: It's an AI Semiconductor Powerhouse) - AOL.com",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQRnJKdXJndk9MMU15X2g2SkF6NXIzMm1MVFpVZTRGQ1pVSFBwdVNOZTFLeE0yOFM5cmI1akFzRVg0UmdXTkF2by1QckI0WFdObUdCTGZRQ3I2clAwY00xeHlQQTFQbFZqRGZweExQVGU4RjFQQTB3Sk00RlBKVWRCNGZR?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Stock market today: Dow rises as US.-Iran deal hopes persist; Dell soars 34% on earnings news (live coverage) - MSN",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMijgJBVV95cUxPZW5GWE9YeVV4Y1RYRWluNTJoQ3pybm9lcHdqZkQxRnVYeW5tNUdyOXhSUzlScURTaE1MRE9fZjlFYWkzQkJYbkhlUEJodFV3ZEJ0TTlJX2pkRTNnRmZPT3F1LVU0ZmtUWFZjTHczRm40SldYc3VVLXY0b2h5WUt5a2RfUV8ydldlNnlrN0R1ZzQzUEszUlNnQ1VVSDh0TzR0SHJyQXdlc3BZM0Q4cjFtTkZNRk5SXzFlWkhfbHhqUDlNeG9yVHdBVTUyOHRnbHJkVEdJbXZVWXM4Z21XcVdCWVZXajBLb2FNUGx0TmEwM3NOcG5ObGprUUREQ2hLaTFyNmU2eW1hbzM2Mk5BeVE?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -790,23 +769,9 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Are Hot IPOs a Sign of a Market Top? One Analyst Thinks So. Here's What Investors Should Do. - Yahoo Finance",
+        "title": "THIS WEEK ON WALL STREET: Stock market on a winning streak - FOX 17 West Michigan News",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOOTVtOVhfTWZ2WWd1Ylk1ckVmUUd2QV8yODFya0JJTXc1MnZENWlnRUx3Z1ZhVGFvdFYzRV8tR21uc094WWVfSnVMSXM5REU3dzBBV3FJOHVDOV9HXzBBVVNyT0cwUE5rUm9zLVhKWnplbzJsR0J4aGhUa3FuWld5WnlIb2VwaUQ3dThaRkRFOF81V2c?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Best 3 Blue Chip Stocks to Buy After a Market Pullback -- Including Microsoft (MSFT) Stock - The Motley Fool",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNR3VORW1LOUpFS1NtWkdjcTNHYnUwVUtNbExiZW1fN3FlczBCT2J0UVlXeS15VzJ2OWlvNFJqWDNpdHduVTFHVVhyRFpPOGhWdjg5aGprRTdlVTNVTzdLRGdwLWVnVVFGdm44bmpHVWFiajVkN3dZQlRLMmFkck1jQnoxT0p5STM2UnE4NzB1ZmtMb1g1bUZpRQ?oc=5",
-        "sentiment": 1.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "Carnival (CCL) Outpaces Stock Market Gains: What You Should Know - Yahoo Finance",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOOFZLNjR4YjhZaklMVlBXcVlST3Z0ZFE0Y01FVTlLRUs2VjJqRTMwTW1rNFFqRnB6aVNNQ0h6Vk4wYkZ2V0lLU240ekdlUDd4WWQySjZQeEJlZDRYMDZ2SFRuMlVzT0ZLcU9GdTByV3JOaVBBTXpJVHZSeWRaVV9VbF9PeDYzLWtKeWl5MU5TWWlDTkFuYUQ3dXVYTU8tOTB2?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOclFLTHRVQVMxb1lzc182MjBodTZNdllBRVU3MEstTHRvXzd5VnZ4TEowREtKMGNucjM1aTlEWklubkpQbGlvUTVqUVdqU2xzZ0ozUk1mdFdNUTBIUTVWcXVUczFjX0JpRDFJRFZXaWpkaGlhN3hqUTNOandpdXR2bDRYb3BQSzZRZ1dlbjBTVTA5d3kydnFQR18wQ1p4Yld0ZVI0SHd3?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -818,16 +783,23 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Micron stock jumps after company tops $1 trillion in market cap - Yahoo Finance",
+        "title": "Dow Jones Tops 51,000, Dell Jumps 28% On Blowout AI Sales: Stock Market Today - Benzinga",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQeDlyVkpGOFQyMENRZXpacU96NUprb0VUNmFRSmtOLVQxcjlUR2xOZk1hSHlIUkV3Q1FLc0ZxMjhSbDRpMXRLUjhSVjFrV081TEtEWWQtbGZ4OFRPeHRTMTR6WTAxd3Q3eE91X2hMNW5rcFI3Q09zNWFZeWpMZUVCeXNhdk9MWHhqM3dHVFZlOUJ1SkRHSmR1NU5wNkdUWUxrb05McklTYjVkMmpUd0Z1WDQ3UmhKR2sxQ1Nz?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNMmJfRk9Ha01YVXVZeXFaZl9Ec3hGakcxZHRlczFrYXZJSEdNQ1hvUGFLd2tEZ3hndDFRZjcyNGlvQ0hrakJWVy1vRXBFTjcySHF5eGRLQTdTeDJVSW12THZMcXM0SHZiVGlvRlI3YTEya3EySHE4eHN1OUFBMmdoM2xUUU9lbVEyTkh1YkIzN3BXdm9JZmdCdEtjZDRsVU5ZVzRpamt0d1RXQV9wWkNMSlFSV0syNlUyMmNVY1VKcENrUmR4ZGcwb0kwck1INmlYQ1hqVXd1RnExNTdlTXlPQTF6cF84NFRQTGgzeGcteTBzSkE?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Stock Market Today, May 26: Intuitive Machines Reverses Lower After NASA Rover Awards Go to Astrolab, Lunar Outpost - Yahoo Finance",
+        "title": "SpaceX files for IPO that could make Elon Musk a trillionaire - BBC",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNb25fYm9YSnhfTUJPaF9zTWZvR0JGZHNyMTRzN0lWMEdSVXp6RDVRcnZWc0psSUxQU0ctMm9GOUFJSHhsaTY5XzZ6YUhPZURvRFF0cmsxS2d1UlhQMXJRc3l4aUg3MktSRzUtMXlZRzJSSzlRaUlNbkRqbHNaTzJxeWhXY2J2T2tPb1hIQmE3WHZSblZX?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9qTFlzUGxtdkFUb2gwZ3ZZRFd0TW1MZnlhbENtY1RZT25ZNGFaNUJPTnFYZElOZTg4QnZSbDh2dG5HT0hBYzlkNnlRNWJvSUZRT0gyYzZqcm1FUQ?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Micron stock jumps after company tops $1 trillion in market cap - Yahoo Finance",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQeDlyVkpGOFQyMENRZXpacU96NUprb0VUNmFRSmtOLVQxcjlUR2xOZk1hSHlIUkV3Q1FLc0ZxMjhSbDRpMXRLUjhSVjFrV081TEtEWWQtbGZ4OFRPeHRTMTR6WTAxd3Q3eE91X2hMNW5rcFI3Q09zNWFZeWpMZUVCeXNhdk9MWHhqM3dHVFZlOUJ1SkRHSmR1NU5wNkdUWUxrb05McklTYjVkMmpUd0Z1WDQ3UmhKR2sxQ1Nz?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -839,16 +811,16 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "SpaceX files for IPO that could make Elon Musk a trillionaire - BBC",
+        "title": "Stock Market Today, May 26: Intuitive Machines Reverses Lower After NASA Rover Awards Go to Astrolab, Lunar Outpost - Yahoo Finance",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9qTFlzUGxtdkFUb2gwZ3ZZRFd0TW1MZnlhbENtY1RZT25ZNGFaNUJPTnFYZElOZTg4QnZSbDh2dG5HT0hBYzlkNnlRNWJvSUZRT0gyYzZqcm1FUQ?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNb25fYm9YSnhfTUJPaF9zTWZvR0JGZHNyMTRzN0lWMEdSVXp6RDVRcnZWc0psSUxQU0ctMm9GOUFJSHhsaTY5XzZ6YUhPZURvRFF0cmsxS2d1UlhQMXJRc3l4aUg3MktSRzUtMXlZRzJSSzlRaUlNbkRqbHNaTzJxeWhXY2J2T2tPb1hIQmE3WHZSblZX?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Dell and 6 more stocks that explain the market today - MSN",
+        "title": "rYojbaba Rings the Nasdaq Stock Market Opening Bell, Celebrating Its Mission to \u201CFight Poverty\u201D on the Global Stage - GlobeNewswire",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPTERicXU3MEtnd00xb3kyeFZSSTJ3NTd6RjhaUHBqR1BNdHRVdDBiYTg5dzl3QjFzczJob1NZWlhIUkdaN3YyZDgzTmhIUS1UNW1Gc3NGeVZTSGw5cDdGX0Z0N0JfU25yc3lreWZGLUVXelZjT0VVajNrYTVmVk5Nbjd1SVBoakp5eUdiRDFXeHlVeGwwT19VeDVyLTlBLWxTVVV5MFN5WXFtazVCcTNVaUVnVkpna1BoSml3eF94cDZaSnlXM21VeTA3cmk?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMikgJBVV95cUxPRXFCT3JRWGljcV83RENhRFZXSFRvTzU4VEw5N3NSVGZVOGlGQndYTXV1Zk5LMXNsdkY1T0MyWEpoWnRLWFU2dl9zejBkSktXTnZWc2ozWFdTbk1kd2xmNm4xMUdSWjZQMkdJUENCN1BYV0xsTE1IQVZGejk5Zm1RY2FsZDVMeWlFbWJTQ3lucndnUVlWaVBhUkVxdUFfNVZ4RkZZNUNTYkhNX05aMXVabjFRQy16c0NLRW9fT1N5YjZuS0pOQ0hpWjVJMzRFUUZMOFNKejNOS1dVSXVfMWx4RXRYN1V6eEloMkZBckNPR3BLZmdBS1dPQ0FSZjAyTTBxTlJzb2JWQXhmTmtxX3ZNaG1n?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -860,6 +832,20 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
+        "title": "Best 3 Blue Chip Stocks to Buy After a Market Pullback -- Including Microsoft (MSFT) Stock - The Motley Fool",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNR3VORW1LOUpFS1NtWkdjcTNHYnUwVUtNbExiZW1fN3FlczBCT2J0UVlXeS15VzJ2OWlvNFJqWDNpdHduVTFHVVhyRFpPOGhWdjg5aGprRTdlVTNVTzdLRGdwLWVnVVFGdm44bmpHVWFiajVkN3dZQlRLMmFkck1jQnoxT0p5STM2UnE4NzB1ZmtMb1g1bUZpRQ?oc=5",
+        "sentiment": 1.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "Is the stock market open or closed on Memorial Day 2026? See schedule - Yahoo Finance",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOeFh5Ukk2aVhnd3Rrc0pzc3BndER2ZEFOdGV0UTY1VGctQlF3QzE1V2NjUVM1bjdwcG41LW84VmhJMUVqaFdVZWV4alJQTUVsR1pyNVgwLURPMjJzSkZiVTFETHAzWXNfV0JjUy1maHVvWVRqbkR1d2xmYkllM0dyVWFFUW1rb252NkE4R3NWb2NaVXA2NHRWSVhZRW52dVk?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
         "title": "PepsiCo (PEP) Stock Slides as Market Rises: Facts to Know Before You Trade - Yahoo Finance",
         "source": "Google News",
         "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNRVZhZ1dyZmNQckswZTdfMjVCc1RGa050VEdXQ2xoN1RLZ2lLUlZqOVZic1JTRjBRSlJLZXJJZDR2OHUtcjJNaXRJWFRsSDFldl9WVlNvMVQzOWpSVlVVT1BjVkthUXBhVWJmMWl1YTA3QkZSZFFIVXpiOWZwcE40UzFyMXF5aHdMSjdobFRqdXZzUzNlbzJ4TEs0SlA?oc=5",
@@ -867,16 +853,9 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "SPCE Stock Jumps 12% Pre-Market Today: Retail Pins Hope On The 'Only Space Tourism' Bet After Blue Origin Test Explosion - Yahoo Finance",
+        "title": "Stock Market News for May 18, 2026 - Yahoo Finance",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPa2VmSGptd1U0YzFSM3N6RFp1am54Z0VwZHlta0RTaVRacmxtMEJJcm92SmhuRWlUcjBoSF95cDNKRzgxTm5BbXpBTnZDUEJ4WUVCUllXLWJRWi1IVEZoeXVJQXRGeTZtME5aYzN1WXJ5OEFxbUtZbWpqMjZzSGVYUU5Sa1ItYVNhVjlMV3pWYkxRUQ?oc=5",
-        "sentiment": 0.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "This 'lazy' ETF could be the single easiest way to invest your money - Fox Business",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPYWtzSFlLM3JJbjBaTjZhYVFFUkcybkZ4NVI2a3BxcWtHZVFHNE4xYm9WUjlyWE1Rcld4V1RNNzFrRHA2d2JIUXhhUnlwTllyRjNHTEw4M3RpWTE3MHFiallfMmhVaEJVX3JWNHVQSmVaQnpZRENsNDhNaXpFUmtzbDVQNTJUODI4TS1RaGhIUlZoRWs1bjFabWpsS0hVYVk0N0ZXZ9IBqgFBVV95cUxQcXVON1c3eFRRa0h1ZHlJMkc5MHBDekl4Qm0zb3JHVHhPa3RkMnZnMFZrb1VNYUdHaXlvejd2UnFWNzhESXhYYS1tSG85c1NDWXEzeTBOUkl2a2JPVzBUWWlTM2cxTGpFbXJTWXRyZXhGaWFROWRiSWVfelhpbzVEZE43SU10UzJLeGhKVDdfRTduSk16UmhiR3RDZUd4ZHlGQ1JudEQwejluUQ?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQNWpMa0JSaXRNZ0owUzF0RTFIR3lyMjNxNzJVOUJHV2hIOU5DQjhJMW1WcFNjbW5MZ0Y2Y2JTT0JEZHJDX2k0RXpGcGF1eUlXb1NkV203Q280dmluYmh6eWRPY1dTMGZOR2ZTcHY3cTFqWmozbDl0RnVBTEVyQ1FxN3oxeHdFS1AyYVRZRC1TUHN0b2c?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
@@ -888,10 +867,31 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "GE Vernova (GEV) Stock Sinks As Market Gains: What You Should Know - Yahoo Finance",
+        "title": "SPCE Stock Jumps 12% Pre-Market Today: Retail Pins Hope On The 'Only Space Tourism' Bet After Blue Origin Test Explosion - Yahoo Finance",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNYl9yMnVlMlhrZWpVOFpBeG1aMzA4M0w5M0d5Rk9CN3ZEZGtBU2JpQ1I1YzU5SXJrWkFJb3c1b3lkQkMzNXZWWm4yRGtGRVJxU0I5OWZnZDNtNkJ2clFjVEFXWXZVeldkZlQ0dE9LS3p2SUUzc3V1RzhMeURSMVVnNm4wcUZOSjdOWkUyS3dqczFWdkJ1YlE?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPa2VmSGptd1U0YzFSM3N6RFp1am54Z0VwZHlta0RTaVRacmxtMEJJcm92SmhuRWlUcjBoSF95cDNKRzgxTm5BbXpBTnZDUEJ4WUVCUllXLWJRWi1IVEZoeXVJQXRGeTZtME5aYzN1WXJ5OEFxbUtZbWpqMjZzSGVYUU5Sa1ItYVNhVjlMV3pWYkxRUQ?oc=5",
         "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "5 Things to Know Before the Stock Market Opens - Yahoo Finance",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPZ19yNWdzTmdWZHZKUWlibmlEXzU4VEg0QkFqTkFNWHJFZzBrODlhaWF0ZGV6c2pLRm1Ya3dyYUxTNXFzVTl1MzhHZGIwZHRQSlJYeVVJb2swUGdvUHAxeGZmOHNtcG8yRGprV2I0UHdGYVlWLS1BMDc3VTdNNUg3WndXeWJwZ1AxU0ZaV001X2VqOTdwQ3c?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "The Stock Market Is Doing Something for Only the 4th Time in 156 Years -- and History Is Very Clear About What Happens Next - Yahoo Finance",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQazA0blVTbFdMLThZc0FEZFpYNzdYcDJadkhhRmtIZTB3M0dFWHZ6akR5MEU1VWNfZGxBNkRObjVGMFNfWXU4aGRTSVc3eEQ5aXE4MGlSOGh0UXZvdnBUN3cwQ011MDhwY01PZDM4cjdwejY2YW9ZaEFDVzFNWFRDSWwyaWhid3lwRDVxZ2tsVmx0VWRNcHRuZWJEbmc0NTg?oc=5",
+        "sentiment": 0.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
+        "title": "US Stock Market Today S&P 500 Futures Inch Higher As Inflation Worries Ease - Yahoo Finance",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQMVVSY0hWY0thQWlhVG0wa2g2TjlRaVh3bXdRdXc0SnpfdlZHOVJEeXlJMlBhcGVzUklPQ29JWG9ZN3FMUzRRMWFOZDVNMFdNTVk4UTJNcXR4M2ZzakRIdG4wOHZKNUI3ak1NS2xrWXlLcTFoN202NENrSFM5bHI4N293aGdkV0NCejZUQzFSUEg2dw?oc=5",
+        "sentiment": -1.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
@@ -916,6 +916,13 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
+        "title": "High School Students Participate in High-Stakes Stock Market Simulation at Hofstra - Hofstra University News",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxONVREWi03Ulk1UHRSbk1OX1hkckRJV0xLeFU4MDRoMUpTSlJ0M3BZT3R6ZWVsTDMtaXpqR1ZRbnBtOElLRWJZREFhdVZIbzdLb3ZOY3pEdERGbkJtTDBMWTVsOTFSaHJacGVjRjdZZ1NtUWViOXIybGtFak9BZWcwRWNSUnQtWHhvVWpzMzI5VFpQS3pjUmlicGpHVEwzN2pEV2tackQ1RFFqcnh3UDQtRUQ0NHo1NkRCTGhn?oc=5",
+        "sentiment": 1.0,
+        "topic": "stock+market+OR+economy+OR+inflation"
+      },
+      {
         "title": "Ecopetrol (EC) Stock Declines While Market Improves: Some Information for Investors - Yahoo Finance",
         "source": "Google News",
         "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQMjFCRWYxNWNkUkh0Y1EzZWxXMFREX3NrMWhkYW43WTMtSG5wU3ZKMFBTckNnSml1c2RfUW9nWFdPTWdrLUJ6dDkwbUV2ZUpDTVQxRG9iQTVDdHdZM1BJYW1hLVIyaVZicnNYTkhjYi1zbXNLX1JKYURVOVFlQzFGQXVHVGNwN2h3YjJzaENHeDBTZE9sUVYyUHI0MWE0M28?oc=5",
@@ -923,23 +930,16 @@
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Market Indexes Rise on Microsoft Momentum - Yahoo Finance",
+        "title": "Iran Conflict: Seven Takeaways for Investors - Morgan Stanley",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPSUFWa296QXAwQ3Z5OThJcElzMlVKV3Rla1MzX3k3TUxEcHhsWHNud1p2WTBlc2I5Z0JObGlZOTRETE9wSXNDYkxaSjZsX3JKV0RRTEQxSlEtbDduTXJoSFFoYzNaNlNwMU42RGFEM2kzUmhab1l2aC1FUXJoaUxxMEpIR3RYbVlqOU9ZMW9MS0FmNGlNWnZwaVA1MmRUVEhpelF0b0pR?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNLU9tQU5Pc19QZ1czalBoMDREUGhsV0xXUDRYaTd1U2pjd01NcTUzaDBadWJCMVJRLWhMOGk4ZTlydFNfVEhmUHRQc21fZ2R1bTdWejNxZncwUkZ4RzJsd0M0LU9RYktaSjc0R1EyWlZ2V19YUGY5aVdRTFEtZzNIN3BySUlOVDNvYjdBS3pJRFNwdw?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       },
       {
-        "title": "Why Are Stocks at Record Highs with no Iran Resolution? - J.P. Morgan",
+        "title": "How midterm elections affect the stock market - U.S. Bank",
         "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNQ3o0YTF6TDN4XzFLLXRCOFFJelJRWjBiY1dRV0hiZXI3NUdnVm5zcVRibDNrODd2UjFLTDhieExrVFZaUE1rUWdYZlZjVU1wbW40ZENodDQ2cGtkNkVZZ3Y0VGptRXlJOW9zWW5RcVFfNDN1SmlpZ2hfTFVDUmh5RmJ2MUN1a2pSdHVmanZLaHVuQ3BQQzB0eVZyMkZlWEx1UE5GY3h5bkdDV2U3SzFhS1hPTEh6OVJhTXQ4TU9hbURLTHR4blJ6YXFUYi02Zw?oc=5",
-        "sentiment": 1.0,
-        "topic": "stock+market+OR+economy+OR+inflation"
-      },
-      {
-        "title": "The Stock Market Is Doing Something for Only the 4th Time in 156 Years -- and History Is Very Clear About What Happens Next - Yahoo Finance",
-        "source": "Google News",
-        "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQazA0blVTbFdMLThZc0FEZFpYNzdYcDJadkhhRmtIZTB3M0dFWHZ6akR5MEU1VWNfZGxBNkRObjVGMFNfWXU4aGRTSVc3eEQ5aXE4MGlSOGh0UXZvdnBUN3cwQ011MDhwY01PZDM4cjdwejY2YW9ZaEFDVzFNWFRDSWwyaWhid3lwRDVxZ2tsVmx0VWRNcHRuZWJEbmc0NTg?oc=5",
+        "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPajZ2ZjFNZFhYeEl6dWNMT25UQjhZTUpYSjZaWVJtZWxSdmlHM2RveWtaYWpEeW44ekk0UmFWMlBVZzA3bmtqcHd1bElHSXhFOHVFVWZhQjF0dzBKV29GNDM0dlQ4SkNIUWczQW16Mmo3aG5oLWN5RnNBQ2VkQVJBRXhpVjBKUEJKbExvU1dxMG45S1QtenFQdnBEMk1hVTJEWFVaeFpCZTlyb215OVFIWE1Vbmp6SXl0YzRoNmh3?oc=5",
         "sentiment": 0.0,
         "topic": "stock+market+OR+economy+OR+inflation"
       }
@@ -947,25 +947,18 @@
     "gdelt_groups": {
       "global_market": {
         "label": "Global Markets",
-        "sentiment": 0.046666666865348816,
+        "sentiment": 0.01666666567325592,
         "direction": "neutral",
         "articles": 100,
-        "pos_ratio": 0.12999999523162842,
-        "neg_ratio": 0.090000003576278687,
-        "neutral_ratio": 0.77999997138977051,
-        "confidence": 0.046666666865348816,
+        "pos_ratio": 0.10999999940395355,
+        "neg_ratio": 0.10000000149011612,
+        "neutral_ratio": 0.79000002145767212,
+        "confidence": 0.01666666567325592,
         "headlines": [
           {
-            "title": "Dow Jones Futures Rise As Dell, NetApp Surge On Earnings; Oil Falls On U.S.-Iran Deal Hopes - Investor's Business Daily",
+            "title": "Stock Market Today: Stock Market News And Analysis - Investor's Business Daily",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOb29jV3JMWnE1OGNqUy0tM3NPck1odVZVR1ZSbURfWExuNzBLbTRDRGF6bUdxNmhPMXdjR3lPU0RFUGM5YWdwYUlVSmJYZ0pnNF9ucDREbHdCRGMwUTZnTU8zRk1LX1gyWHJ1NVVmdmZnQmc4MW91dGJRRUhYUktpbzZtX3h6aXpXVWRpS1Z2UGhNUlg3RkNmc3ZyOEdrRTRfRWxYcHRZN3F6Y2M5OFVCdw?oc=5",
-            "sentiment": 1.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Even as stock market hits highs, most Americans are cutting back on spending, survey shows - PBS",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPU3lOel9RY3pfOFNlQ0x3WXpEZUtDSzhHQnR2QndTYlZiejA0NlFXT21aNng4b1I3STZUNW9ZM1dMYUdVWGs5WmR2akowRmFRWEh0YUZGQ0RmeThCM2xIMm84Tm1vcjBON01vXzhhb3RDLVVJQUVsd2ZrbVAxblQtbXZYaFlEY0t5T2hCV1hBT1YtRHhoRjMyYVFxSUtSa3pibENfUmpGa3lZUVZiRTRkeDZ4WHpHV3owNzNXZ3hwWU1xMjA?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE8zdGl1MmxTM2JJa2pLNlFSWVhuZUd1ekRIeVpDcGVqckVJcloxaWlnRHJ3b0hqb291NXk4dlo0SmRQNlhDaGpubDh6ZWNTUHZiYVhjOVJINUxSYXE0NHRiNVE2OW51R2h4N1daaXRIdzVBR1UxT0g4?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -977,23 +970,30 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "An Iran deal could actually trigger a painful stock-market selloff, despite Wall Street\u2019s optimism - MarketWatch",
+            "title": "Here are the stock market's warning signs - Axios",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPUTlUeklXbnpGWnBhUlVmVDZzWV85eEVEUXlhdlFnSXVnYWVIMl82bk10aklfZFlNMFNjZklXWk1TalpyOTdyV2JqaEVlOHZVOHZjZzlpR2FYczU4UWhnRTFwNTMxdG0tQ0R5aUZsMEdVelVRVFAydXRmZzAwaGxEeS05ZmNGNTdOa3pGV3FhVGRFSXcwNGp2WUZTU21maTRBRFVaTFFMbVAtb2VTcEVmNmxMeHRmdV9remEwRmt6N0xoNXdzV0RwdDhLZkMtcUZZNTBzc0Jn?oc=5",
-            "sentiment": 1.0,
+            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9xQVYwcHg5clp3OUN3Z3BMLWhlYUY4aXg0bzIzTkhxcl81cDJXZFZnbFFlZlhGTVoyTG1ieHNNMUNDQ2hPdFlwemEzN01oaWMyVWtfbEljS3dLRkdoby13Yg?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Trump stock trades fuel accusations of corruption and profiting off presidency - PBS",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOSGVhdzhrb1I1T3BNQVpUdG9nMTNWamNsTDJVbFBmekVWRjFUcHlVYV9NMkJzT1JQM1VCT3lxVFViMTNSdFZ1NVd0UEVnWmtMRURBYXZXemJHVm94MmNBb0lQaEUxZ2NBS0RtV2s1VGV3MmtkVUJVcWtQOGU2NmgyNklDOGdyRlctUVVjOGJoZHdLa0lHTU1vbEdfV0hCclloX0FXODgxSjgyR21jV0t4SW9n?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Stocks are booming despite the Iran war, inflation and the country's dour mood. Here's why. - CBS News",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBQWnI0bTNUbkE1dnZ4eURMSUJGTmc0ZEFqa2lzTHpaMlk3dVpubHB3aURJcFhrejN5REdvQWlyV25ab1JveXNCbExQaUtDSU5FVkRWMVRSdmRCTzlJaERfTldDQ0lfZzctNEpzcGtEWEEzNGY4WDhEcjlYMTd5dw?oc=5",
+            "sentiment": -1.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
             "title": "Dell Shares Roaring: 8 Key Items Shaping the Stock Market Friday - TheStreet Pro",
             "source": "Google News",
             "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQdi1Sem0yVmY5eHQ1RTJLXzJnYldUb0FvMXBvMmxLQlZjeHFIalRxVzFpZ1A0V0wtU2F0cE9KbUJKRHJYbDdTYVA5U2wwcG1DVFp4QlUyQjhuamw0UnVZX0RRZkE1azBfUWt3Ni1MaGVEUU91TVhEdzlmUGpQRS1KUDFQZHdQQjhfTHktYWxDTDRDUUhYUE1lTGpyc3NsSVky?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Here are the stock market's warning signs - Axios",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9xQVYwcHg5clp3OUN3Z3BMLWhlYUY4aXg0bzIzTkhxcl81cDJXZFZnbFFlZlhGTVoyTG1ieHNNMUNDQ2hPdFlwemEzN01oaWMyVWtfbEljS3dLRkdoby13Yg?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1012,9 +1012,23 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Trump stock trades fuel accusations of corruption and profiting off presidency - PBS",
+            "title": "Dow Jones Futures Rise As Dell, NetApp Surge On Earnings; Oil Falls On U.S.-Iran Deal Hopes - Investor's Business Daily",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOSGVhdzhrb1I1T3BNQVpUdG9nMTNWamNsTDJVbFBmekVWRjFUcHlVYV9NMkJzT1JQM1VCT3lxVFViMTNSdFZ1NVd0UEVnWmtMRURBYXZXemJHVm94MmNBb0lQaEUxZ2NBS0RtV2s1VGV3MmtkVUJVcWtQOGU2NmgyNklDOGdyRlctUVVjOGJoZHdLa0lHTU1vbEdfV0hCclloX0FXODgxSjgyR21jV0t4SW9n?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOb29jV3JMWnE1OGNqUy0tM3NPck1odVZVR1ZSbURfWExuNzBLbTRDRGF6bUdxNmhPMXdjR3lPU0RFUGM5YWdwYUlVSmJYZ0pnNF9ucDREbHdCRGMwUTZnTU8zRk1LX1gyWHJ1NVVmdmZnQmc4MW91dGJRRUhYUktpbzZtX3h6aXpXVWRpS1Z2UGhNUlg3RkNmc3ZyOEdrRTRfRWxYcHRZN3F6Y2M5OFVCdw?oc=5",
+            "sentiment": 1.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Stock Market Hits Highs On Iran Deal Hopes; Dell, NetApp, Okta Lead Earnings Winners: Weekly Review - Investor's Business Daily",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOMVhWVjlNT2xHNkpKV0JkMy1aNDJLeGtFQVB2c2xBN0JuMjd2Q09oMjBNNVptcG45RHA4d2N0OG9hZGE1NXJSV1ZYbDRRN3dNejJtZk94ajBQXzJrZkoxM3hONWQzcjJqUEhpUTZqeFdGbHZfSkpoLXJCVU12TExTRzZPbFhsYTZ2alNuLUllRGhhZVBpZlg5XzltR2Z4MEhNX0hzNFVuMm9lLVFXX3hFSmNUa2dNTnpNSENjQjRXc3JMcGZDQVE?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Locking in tax-free gains: The gold loophole to turn TSP profits into hard assets - Federal News Network",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPQlhkNkxsUGhzQURHbGVBSVQzX0tFSjdaZmkzOW53OFNrUzVOLUo3V01FMno2YzhXLXZhZ3BqaDF6dU9xTFlhNElocTYyaUszOXlWSTFvZjVyWl9uMzVncFNPdXBacUVRTXdfOW5mSXd3RTFpcmlrTjcwNEFqQi1sVXBiVExNU2VDc3E5aXRELTdfdklRWUlXTjRQdGJTVHkyRElsYmJRZFNuc1RLTmx6NE1XaHdxYmY5UV9Bc2wtZjBiS0o1bGJRX0RkUDJtbERvdmVB?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1026,37 +1040,9 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Stocks are booming despite the Iran war, inflation and the country's dour mood. Here's why. - CBS News",
+            "title": "Dell, Rocket Lab, Palantir, and More Stocks That Explain the Market Today - Barron's",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBQWnI0bTNUbkE1dnZ4eURMSUJGTmc0ZEFqa2lzTHpaMlk3dVpubHB3aURJcFhrejN5REdvQWlyV25ab1JveXNCbExQaUtDSU5FVkRWMVRSdmRCTzlJaERfTldDQ0lfZzctNEpzcGtEWEEzNGY4WDhEcjlYMTd5dw?oc=5",
-            "sentiment": -1.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Opinion: The Stock Market May Have Dodged a Bullet With Jerome Powell Staying at the Fed - The Motley Fool",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOdm43OTN4QXV2THMzZVJuRWVra2hmUkU5NnpQRG5HWUNnQldYX1hwNHNuYmlVQV9hWklrVzFGSVJhUTVVVkc0VVVqeU83R1ExcXVKcHhXd0hMN0pGYlBxUnpfbGN0U3haTXVxa0hyd1FabDkyeXQ5bFEzc0dyNjlPVlFfNW9pdm5LZ3Y5cnRHMW1pNUFGTm5r?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Could SpaceX & other mega IPOs crowd out the stock market? - Yahoo Finance",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQR0JfQVAyTy03Z2ZlRmhoaVRXRWtmWE5QempSOTc3ZE1DUjh4Wkh3RTFaSVFUYjc3S2ZoLU0zbXVycVlic3RiT29jQTdJNHlkejBud2cxb2lPNHg5aFNMd1lrVm5LRFV2NjBwVE1CcHN4bWVvcHF5UUN1Xzh1TVJIcg?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "The Stock Market May Be in Trouble: President Trump Put Fed Chair Kevin Warsh in a Tough Spot - The Motley Fool",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNX2cxSmRrTkxCR01vMzZvdmNhUHhIRkVjUk1LcElyQ2Q2MmhRRTItQ245VU40SWJvUTZlUHRDdTlOYWotNHZYQjI0aWpkMjZWOHBDV1JJakxVeUh6WFBuaThmUWxydmM0dWFGYTJfTDNsanBEd001Y2dpSFQzcjVnM3VjQXRlWkpjbjN0MUFZUDNnVDdR?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Weekly market commentary - blackrock.com",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQLWJDTjBBalYwVHVpc0VxV1BwRE1xeUt1RWlLQ1VJdnJQRXNnb3p6MnFNbjRBV0s0TnlldW4wSVIycFRQeVNISWJ3VV9wMWdjX1ZndE1Tc24tNzc0anNYWjl0SVBsRDhSa0dVTWlyVVYxX0w5b2JhTFB0Tm9Vb2FwYVZubTU1SVJlcy0zMEpXOEM4ZlhiSU1QazdVQVlldw?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1uUmNJOGRlRGFELVFoSV82R2RMREg4eGt5Q2RSX3pFRFZYSW02YzlVTWRJZ1JDb2g3cklXcjVnd0RJUXR0Uk9FSVpCM2hwZ2ZqNnF0Z2JDdDNFdWdOT1owRWRKQUg?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1068,16 +1054,9 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Sandburg sophomores strike gold in stock market game - Southwest Regional Publishing",
+            "title": "Meet the Newest Member of the Stock Market's Exclusive $1 Trillion Club (Hint: It's an AI Semiconductor Powerhouse) - The Motley Fool",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOS05icHJfeXVOTlJXT0xad2lWLUhPMThMQmFZc05KZnVMVmFRT19TTjRFOEY0ajR4bGY3S0laV19jVHNnRWJTb2ZyUExIaGZBTkZTYl95amZEVUNNRlp1WjhJTmpsbFU5T2U5OU0tQzBobkdQNEtuYy00RTRGY3hBU0szWk8zR2M3cFA2cFB0aC1MczZadEt3eXJPZ2RvUVVXVThUZmVRMA?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "\u2018Tell the story well\u2019: China pushes brokerages to shape stock market narrative - South China Morning Post",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPWWlnX0FGSGVTZXBYVzJNR1oyNk8wVHFiNVNJQmd5SkFXMkZndURwbW1sdmtPaElTNVF4b3h0V3pSc015VVd4NnJubmxrZXVqbEZrbm1DajNpOWVHa1Fqb1hjZnh3Sk9neUpnLUF1SzZOVjJJQW5EMzZ2UHR5R1paenQyeVZGdWVraUk0T1daT2k2cGMyM1QzREM4c2tDSE5sVV9TRTNNTW5lU1VLNll6TGZBZlRKZUnSAbcBQVVfeXFMT1J5ZlBHTXZqdGJPbHNQalZRbHJQa1RSMmJtMWFkOTNETEQ4eDE4VDJjdm9EdGo2OFI3d28tVE8tclFMWjRhX1JMTUh5SUU4OWs2Tzluc05ULVQtV1QyVzNLUENoS0FFd01PejQzVTUyOHpYYzFyaEZ4Rko0emktZmxIdXd4S210V2xjY1BZY19iRlc2a2VyRXVJYzk0ckxudFlIMHBLRktzNEpKalFQWXFoRHBvT1JR?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOZzVHSDB6OVpWcENLX0F5ZXVtWGk1eEpaMGROYVBDcFNZLUZMa2F2QzFaWU8ySV9qRjR0OTUxc3JyTWpTRWtMc2MwakZFWks3Smd5dm9tSTNabzNPN1NhTE15M29qUFUzV3EzM2hDWmFyRDh2MWVBMDNxSHNEZE5YOVNmM2J0ZTVWLVBsWjJ4R2stZw?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1089,44 +1068,37 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "There's a record disconnect unfolding in the trading pits right now - CNBC",
+            "title": "Could SpaceX & other mega IPOs crowd out the stock market? - Yahoo Finance",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQeklpNEdGZEs1aXJRZno2SHdzOGdSSGNONWdxUUVMdHpSYmg2MExnVUpiaDVFY3F3cTFTeEdzT2xKUGNZNGNlVlZ5RV9SeTAxVUl0dlhpckZXa3lKY3V4ak9BdGhwZzNpdHdYLUthUlMtSUtUNXl2dnVCdmhIS2VSZ0NLbkNTVWMyN044RS16SlZDLW81QlJqYWdENWppOTA1ZFMyUEhn0gGrAUFVX3lxTE4tMTQ4Z0JmTGIwR0hrcm5ZVkEwV0RPdVN2Q25Tbk9SMWNPZmd0MkdWS0tRY0NhQy1tT0F4THlocV94S3h6cUg1bm1leHdIN2hWRklrMUlndTJyampVVFV5a1BkaUxoUm9yQjVIZjdYQVdKbnZpV3lQaHZieS1fd2NYZm1LWmtHSWk3Ti13WXV2V1lqbi1XejBYQlk5SFlQQzZzWHhIMUxHVnljUQ?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQR0JfQVAyTy03Z2ZlRmhoaVRXRWtmWE5QempSOTc3ZE1DUjh4Wkh3RTFaSVFUYjc3S2ZoLU0zbXVycVlic3RiT29jQTdJNHlkejBud2cxb2lPNHg5aFNMd1lrVm5LRFV2NjBwVE1CcHN4bWVvcHF5UUN1Xzh1TVJIcg?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Sky-High I.P.O. Pricing Isn\u2019t Great for Real People - The New York Times",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOcjZxSTJ3UHdVM1pzZWVfZ2ZoT05GY2d0cFJqcm52aUlTYUN1Ri1iS2x3STh4c2pyRjdQbEk1bEZUUjNrQjExTnBOODlrMkRqR09SZ2c5MW44akNDdXdNSzU2SXY0YTRNR2wzaEU3TFFkSUpnSUFxOUhwZWVVOWh2cXF1d3l4eGM5eWRv?oc=5",
             "sentiment": 1.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Has the US Stock Market Become Too Important to Fail? - Investing.com",
+            "title": "Goldman Sachs Sees Two Risks Facing the Stock Market\u2014Here's What To Know - Investopedia",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNNDVILU9MZWZ0alJfNDJTMV83TnBJWThRMGMyb0VtRzdacUMyOFdWbHhnbnIwa3RZYXp6VGgtU2tvczY0VkRITnhna1FBYWJMeGZQeFg4QVBMQUpLaTRiT0k1TlNmc1ZOc1gtQ3YxM2FIVWgtYWF3MGZXbUtvWFpZM2d2T1dEUWdEanZlRXpiVk9PZ0dZcmJwVmRHYlZHdw?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPaE9GWHVGeGkyRHJSRF9vek81M0hGdW8zMzhaandpdU1YLU5CRlBUUHgwczBzLWd1eW5jMXExMERadXI3NDB4cldUbTFpV21wRTVHZnE5Q2NDanRWbFdTRENqdzZXeHk1MnR4NTByYW9TQ0x0SjZNbVlpQjJxY0lKMGdmX1hVeldwdnJyVmRfdERDYThTNFB4c1Z1a1AxejNtMElPTm5rRWpQVFR1Qjdj?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Meet the Newest Member of the Stock Market's Exclusive $1 Trillion Club (Hint: It's an AI Semiconductor Powerhouse) - The Motley Fool",
+            "title": "The Stock Market May Be in Trouble: President Trump Put Fed Chair Kevin Warsh in a Tough Spot - The Motley Fool",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOZzVHSDB6OVpWcENLX0F5ZXVtWGk1eEpaMGROYVBDcFNZLUZMa2F2QzFaWU8ySV9qRjR0OTUxc3JyTWpTRWtMc2MwakZFWks3Smd5dm9tSTNabzNPN1NhTE15M29qUFUzV3EzM2hDWmFyRDh2MWVBMDNxSHNEZE5YOVNmM2J0ZTVWLVBsWjJ4R2stZw?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNX2cxSmRrTkxCR01vMzZvdmNhUHhIRkVjUk1LcElyQ2Q2MmhRRTItQ245VU40SWJvUTZlUHRDdTlOYWotNHZYQjI0aWpkMjZWOHBDV1JJakxVeUh6WFBuaThmUWxydmM0dWFGYTJfTDNsanBEd001Y2dpSFQzcjVnM3VjQXRlWkpjbjN0MUFZUDNnVDdR?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Dell, AST SpaceMobile, and More Stocks That Explain the Market Today - Barron's",
+            "title": "Sandburg sophomores strike gold in stock market game - Southwest Regional Publishing",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1uUmNJOGRlRGFELVFoSV82R2RMREg4eGt5Q2RSX3pFRFZYSW02YzlVTWRJZ1JDb2g3cklXcjVnd0RJUXR0Uk9FSVpCM2hwZ2ZqNnF0Z2JDdDNFdWdOT1owRWRKQUg?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "The Stock Market May Be in Trouble: President Trump Put Fed Chair Kevin Warsh in a Tough Spot - Yahoo Finance",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxORWFId3l2VmdicjNrTGpJZ25yN1N5bGhHY3B1bm1sWmxuNzFKLVdxTHNmR1VwenQ1aGw0WS1RU18xa3doaVRyZ3g0eklMS2FISE9uYzItZk9GbkNrOVVvZVZPMEt5djdMVGc0VXo2WWF5WTloRm9iWEQtU0s4TVZ4MmNXcjNzd3BpeDY4RmhBWHBRQ0NxQUtYTjlRN3pHajVQ?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Parma students place 5th nationally in Stock Market Game - FOX 8 News",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPZWVFUTBTbEZKWDJIWTRTbHZjWjFrNkVXaUF6YkVaczRtV29VMm9qUTJDNEFYOGhsNXRjVUJIdzVnWnNOT05aMHZZdS1saXhOaDQtc2pqSEtPOWtzLXBBU29kblVLbnF5bF8tZEdoRG5vOXptQ21ZdkZFRDh1ZXdvRGppVXU5Z9IBiwFBVV95cUxNd19ya3NUZWo4c0xqMDNCVjRPNFM4VFRUQTBfYjZ3SXVReWY4aHB4dVJHUF83V0E1TXprRWRsZWVBTU5jcl8zZ2poUXBIcm0yb3B6VnNhOVM5bzZ4cDcwV0swWFNvV0k4aG5GWDJIc21PU2htejFzTjZtTU5LR0twUnBpSFk4UEhCM2ZN?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOS05icHJfeXVOTlJXT0xad2lWLUhPMThMQmFZc05KZnVMVmFRT19TTjRFOEY0ajR4bGY3S0laV19jVHNnRWJTb2ZyUExIaGZBTkZTYl95amZEVUNNRlp1WjhJTmpsbFU5T2U5OU0tQzBobkdQNEtuYy00RTRGY3hBU0szWk8zR2M3cFA2cFB0aC1MczZadEt3eXJPZ2RvUVVXVThUZmVRMA?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1138,16 +1110,16 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "US Stock Market Today S&P 500 Futures Edge Lower As Inflation Jitters Build - simplywall.st",
+            "title": "\u2018Tell the story well\u2019: China pushes brokerages to shape stock market narrative - South China Morning Post",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOOW5oT2pJOEd0bEFnQXF1ZzE3a3FfdkdnV1VHRUVzX1ZJTmRKZVJsOE9WSHd2WEpNVC1fNUU5S1N6UmIycGhMOGs3SHprODVLcDNoU3hNNmlGUFlod3ZXMXpRbDdOOGUtNzJKS3BZXzNMSXRWYmVfbzFoeVJDdk5rSnhteFFZUlZYX2U2QU9DdDQtRFBkZld5QUhRVUVacTB0OVZmYmV0WTZibUJyQnJrQmZKMWxKNTN6YlBSTURWcU1QcnZDSGZJ0gHMAUFVX3lxTFBHaUxtbF9QWjdvUDE3cTdBeS0yWGpTUmpjMjdZQlEzNXVXS1hFNmtteGI5bHcxc3ZxdUxwSl85aDlYTmRYejVvLUdlaUVZYkNEZ0d5aXkxaGFDVG50Tzdld1FNX2k0TlFTM0wwaXNDakRjeC1vcTVHeVAxb2hMeVB2UHdFT204YlZKektpU2Q0S2MtenZqSU9ndFdqLVgwdUtCdEZQQUJ0MGx1SmQzU2lqQWFmUE9FWENrYlFyekRza1RGWUZ5R2I0RnZubg?oc=5",
-            "sentiment": -1.0,
+            "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPWWlnX0FGSGVTZXBYVzJNR1oyNk8wVHFiNVNJQmd5SkFXMkZndURwbW1sdmtPaElTNVF4b3h0V3pSc015VVd4NnJubmxrZXVqbEZrbm1DajNpOWVHa1Fqb1hjZnh3Sk9neUpnLUF1SzZOVjJJQW5EMzZ2UHR5R1paenQyeVZGdWVraUk0T1daT2k2cGMyM1QzREM4c2tDSE5sVV9TRTNNTW5lU1VLNll6TGZBZlRKZUnSAbcBQVVfeXFMT1J5ZlBHTXZqdGJPbHNQalZRbHJQa1RSMmJtMWFkOTNETEQ4eDE4VDJjdm9EdGo2OFI3d28tVE8tclFMWjRhX1JMTUh5SUU4OWs2Tzluc05ULVQtV1QyVzNLUENoS0FFd01PejQzVTUyOHpYYzFyaEZ4Rko0emktZmxIdXd4S210V2xjY1BZY19iRlc2a2VyRXVJYzk0ckxudFlIMHBLRktzNEpKalFQWXFoRHBvT1JR?oc=5",
+            "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Goldman Sachs Sees Two Risks Facing the Stock Market\u2014Here's What To Know - Investopedia",
+            "title": "The Stock Market May Be in Trouble: President Trump Put Fed Chair Kevin Warsh in a Tough Spot - Yahoo Finance",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPaE9GWHVGeGkyRHJSRF9vek81M0hGdW8zMzhaandpdU1YLU5CRlBUUHgwczBzLWd1eW5jMXExMERadXI3NDB4cldUbTFpV21wRTVHZnE5Q2NDanRWbFdTRENqdzZXeHk1MnR4NTByYW9TQ0x0SjZNbVlpQjJxY0lKMGdmX1hVeldwdnJyVmRfdERDYThTNFB4c1Z1a1AxejNtMElPTm5rRWpQVFR1Qjdj?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxORWFId3l2VmdicjNrTGpJZ25yN1N5bGhHY3B1bm1sWmxuNzFKLVdxTHNmR1VwenQ1aGw0WS1RU18xa3doaVRyZ3g0eklMS2FISE9uYzItZk9GbkNrOVVvZVZPMEt5djdMVGc0VXo2WWF5WTloRm9iWEQtU0s4TVZ4MmNXcjNzd3BpeDY4RmhBWHBRQ0NxQUtYTjlRN3pHajVQ?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1159,37 +1131,51 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Why investors should brace for a stock correction after earnings season wraps up - Business Insider",
+            "title": "7 Ways 2026 Stock Market Volatility Has The Potential To Derail Retirement Readiness - The National Law Review",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQY2cyUF9ncHJjeVcxNXFUZW1QdXBHWl9hRVJUY2d3N25xVmVKb2RhTE9GYjlJYndwSlYyMndmX0FSODNDaGhCUEZGTUtSa2IyQmRDQ3ZxOHI3Z3A2X1dFUUdseW1qd2pwZ1RQc19TQXR2bGdGcy1nWEdvakZyRFQxTHJ5ck9McHNDR2c0SHJ1aU5NRnF5OFpDWlpkNDZSVVI0MTNN?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPWmExb0wzWkJZWm1QSnhqUlBGeVpXeThuUWhmUG5fQXFyZWN0dk0zRHYzMmw0czA1d1pObVZGbUxTRElJVXFFZzNNOElnYWdLS1IteC00b0c4dWpnM3FrSGtCXzBkcTIxZnBYUE1DWTNxVGRGMzMtU3d5Q0JiLTFLUXhrQ0JMeDhOTi1Ib0VPRG1zRkdSRkNEV0ttUTgyU3JRREFjSFVtVmVEb3M?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Stock Market Today, May 28: Rigetti Computing Extends Gains on Quantum Optimism - The Motley Fool",
+            "title": "A Century of Stock Market Winners\u2014and Why Most Stocks Failed to Deliver - Wealth Management",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNeXVpcTZvRWhfczJ0Q21hU01YVkFrcXZBYmROcUpaY0JRdkdnQkM5VjQ5a1BlbkY1TWdpWlhKdDNYZ1EwcnJoVF9rMDViUy1WYjZZX0xlbjFsY2ZKUnJWSzdQSnBocUJQQWJtRnR2RWRjR29Da3hQVTktOVpLS1FzZ291eWRwNEV6My1sUDRtLWFFRWNEc0V5amY1V1lHOHhfcEdQOFI3YVZHYi1GSWRaWmw1WmVTcklWNklxTDVnb21Na20wMlVPcFFxMHJzRnRKU0tDWQ?oc=5",
-            "sentiment": 1.0,
+            "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNNDZQY1FTYUNhbFgwek9BdTVZU3NhZldnVEFyM2Z2OUFZekluYnF6ZjJ6eUJ2Vno0NnZfMzFjMjFYZ2ZDRGNIV0prcE5LcGxRb2tGUHJzNnlCb1JFUVYwOWtFdE45YUo4dXpkUXdLTDVTS1hhcEdGSGkxNkUyMm96ZUZVRl9CbHpfTUtLemVndnI4YnNjYXlkVVRSQjhDaGItLTQyWnNiUHdKNU90X2RMZ2dUcnBPU0Jhc2ZzamNnSkdkOGM?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Parma students place 5th nationally in Stock Market Game - FOX 8 News",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPZWVFUTBTbEZKWDJIWTRTbHZjWjFrNkVXaUF6YkVaczRtV29VMm9qUTJDNEFYOGhsNXRjVUJIdzVnWnNOT05aMHZZdS1saXhOaDQtc2pqSEtPOWtzLXBBU29kblVLbnF5bF8tZEdoRG5vOXptQ21ZdkZFRDh1ZXdvRGppVXU5Z9IBiwFBVV95cUxNd19ya3NUZWo4c0xqMDNCVjRPNFM4VFRUQTBfYjZ3SXVReWY4aHB4dVJHUF83V0E1TXprRWRsZWVBTU5jcl8zZ2poUXBIcm0yb3B6VnNhOVM5bzZ4cDcwV0swWFNvV0k4aG5GWDJIc21PU2htejFzTjZtTU5LR0twUnBpSFk4UEhCM2ZN?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "This Magnificent Stock Could Deliver Market\u2011Beating Returns for Years - The Motley Fool",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPbFBBTC03UFJ3OVhBSlZZay1PeEFKMzRCLXlQR0Yza3pibGtLd2hlSjJ3eWp1RnpwY2EtT1ZEVUVPTnFUWmdFclRaUHVlckJFd1BPU2xnLTFfZ0U3U1M2ZDc5MGtEcGpraU5fOENrLUFPYXQ3YmU5Skt2ZmZoOHNkaEJ5ZWF4THBtb3cxalVfYXU0RUQ3V2QyUA?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "US Stock Market Today S&P 500 Futures Edge Lower As Inflation Jitters Build - simplywall.st",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOOW5oT2pJOEd0bEFnQXF1ZzE3a3FfdkdnV1VHRUVzX1ZJTmRKZVJsOE9WSHd2WEpNVC1fNUU5S1N6UmIycGhMOGs3SHprODVLcDNoU3hNNmlGUFlod3ZXMXpRbDdOOGUtNzJKS3BZXzNMSXRWYmVfbzFoeVJDdk5rSnhteFFZUlZYX2U2QU9DdDQtRFBkZld5QUhRVUVacTB0OVZmYmV0WTZibUJyQnJrQmZKMWxKNTN6YlBSTURWcU1QcnZDSGZJ0gHMAUFVX3lxTFBHaUxtbF9QWjdvUDE3cTdBeS0yWGpTUmpjMjdZQlEzNXVXS1hFNmtteGI5bHcxc3ZxdUxwSl85aDlYTmRYejVvLUdlaUVZYkNEZ0d5aXkxaGFDVG50Tzdld1FNX2k0TlFTM0wwaXNDakRjeC1vcTVHeVAxb2hMeVB2UHdFT204YlZKektpU2Q0S2MtenZqSU9ndFdqLVgwdUtCdEZQQUJ0MGx1SmQzU2lqQWFmUE9FWENrYlFyekRza1RGWUZ5R2I0RnZubg?oc=5",
+            "sentiment": -1.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "5 Reasons the Stock Market Is About to Drop \u2014 and Why I Won\u2019t Sell a Thing - Money Talks News",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQZWc3T1ZuM01tOExzTDRReFd5a045Z2pXUHo5YS1MS2sxRW16MlA0WG4wOW9KOS04cUJ5WXdwREZnUGY0SFFpM0EwWkl3N3dSbWlIX1loY0dINEI3WWVCLThYaF9BbkI5WVo2Vjlob0hHNnVvTW1jOXphOHg4NmdkWlR1cWc1aXJqWUEybW11RV80OVVmYzJHTU1zemtFS1lhU1hZ?oc=5",
+            "sentiment": -1.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
             "title": "How to Reduce Stock Market Stress - A Wealth of Common Sense",
             "source": "Google News",
             "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOd1VmZmVmS2JiYzg4SndaTEdWdUV0M0Vod1BXOTIzRjVIWmpTWXlSZ3d0dmc1S1dPc3FIdDRjamdFSmJFcjY4QXVXU2pLQjVuTnhZSEd5YTFmRllXZlZnWE95UWNoZjlCWEpfN1cwYmpPQktoTGdtQWxhLXZ3XzRCMA?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Parma students place 5th in national Stock Market Game competition - FOX 8 News",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQQnlTR19mVEZmdk9rdlZUSHJRWnN6ZzBMVlNsaTJ5Wmp0NFBqYXBpM1JhUzJ1ME5HUENpSFdOYnFaclI1Q3N1ZnZIeG9Rc3JRYlhNNFlFdEV3ckpqaEFwVEJ5NGlONDJ0WXJRQXFxOU5zX3piTGlHNkxwalcySkhSM2trcEFrZmdYZXcxTjV5UnVYeVFZOVY3Ykt1LTZDc1ct?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Stock Market Today, May 28: Ondas Surges As Trump Administration Considers Funding Deals With Drone Stocks - The Motley Fool",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPSzdZLUFiQ2pIUk95TEhDQnRmSVNvSVJKQ2VmQnQ3S2dmMm96Y3F2SDFJalZ4Q3dRaHphclRYcGVGYzZ6V0hObXhXUENrU2x1aFJuT2ZuU0ZCdklLb1J1VUxhdEktS09CUTBNOHNmcXg2ZXJFbGNHQjlLNEdPaGJrU2lvZDZZZFlJazZQOTdZcVIwdUp3VldKTE54d0JIRXh4OUR3c3g0ajRFOEI1YWRobEpUZWlkcG1Pbk5JaDN0N1JvU2lHZEJQblFvVkt2ZFlyNS1kZXhCQ1JmR0VIb2NmOXFwQktneFhoLXpLWm5CX1Y2elpCQVVyQQ?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1201,16 +1187,9 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Stocks Set for Historic Weekly Run on US-Iran Bets: Markets Wrap - Bloomberg.com",
+            "title": "Adobe Systems (ADBE) Beats Stock Market Upswing: What Investors Need to Know - Yahoo Finance",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQS3R1U0FoSWY2aUpubVNqdlJBTURUYklRMnpWWlB4RGsxd0tvRTVXbTdKR0NCdW9BMkxicmxuNjdfUWhrNEV4YnM0UDlSS1NRUV9ZT0NSSjZUbGZNVkNEWUlvVVU5dmxQX2dNbXNEeWxjcWZMTUdUZUNua3FKTTZDZ014dEJPaGlTSm9XNjRWekx6WnJBaHBTTk5lUWNiRkFoc04wTHVlTjlNaW9jREloV1g3VQ?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Why SoundHound AI (SOUN) Stock Is Up Today - Yahoo Finance",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxONS04VW8xWDFKcUlsOU5xSkZqZTR2dUFLd3p5dXcycGRmVFBMSUYtU2RjY01nOXFUSFFmdHVOUklBWHYxcV85eXU3WnR0X2NqMHhVUnEySnRSTTZvcVRrZ3I1V2I4cl96bVhUZlViUjJwOWIxTm9QZXItdk5qa1VyNXZFeF9Sa0F2ZnM2X0pkejdXTFI0VnVESA?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNYmxfc09pV1JaQ0tJNFVsUGItM2FTVVYyYlR5WWtfa21tLWRHOUxTOWh3M29yYmczOTNhZktHME5MQXZQZm5pdnpMOHZuQUNLRkpMMG14cUVwSGlEcmRzV0xTeTd5TGFqenp4UkZrcXJmZVlTTjdIZHNGX0hBTG82cWxhSi1idXFGbmoyekVFc0tpdHYzRFBfQnN1bw?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1229,16 +1208,16 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Meet the Newest Member of the Stock Market's Exclusive $1 Trillion Club (Hint: It's an AI Semiconductor Powerhouse) - The Globe and Mail",
+            "title": "10 Bizarre Superstitions That Drive the Stock Market - Listverse",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiogJBVV95cUxPMjh1Wmlhelc0anNiQnNNck5BS2pNVWFfaXg0OUZjd0ZPMmFteWJDTkNMSl91S3l5a2VRQU5YTW5TSldXZ2FYZ0FycDFleVRIb2p3dXJLUEJMSmlPQjJuYTBncTFhaDd5ZjlfdVQ2SkpEX096T1Y1Z2ZLN3FEeTB6SGFyVGZhZmVOa2lNMDU0THZheGVMck9XUUU5WWlDWVZQT0VJaVZLUnktNFpjanQxOGY0UXc4MExOUWM0bjBvejFYVHVGZmtsUDEtYlVPa21Pa2wwV2RMRGtnY19YenNvYTYxeHBOMzJMcUNHcXd5Mnh6RElTMmc2Q0xOaW9yNVhXTXB5MGZyZy1UU3Y1ektvUnQ1bERCVTVlQkZ4cExOVzlHZw?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOQzZTSWJqM0Y3ZmloLXlreFJjb3pMOE9iRjNLVUZkQTNVZzdfLXJXRk5tSFBHWGMxeE1TdVY5cXI1QkEzODhkTXh1ZUYzNzR1TmtBTU5XSmctQkg1alIwb0pVaUJMdnIyZHJ6bXhzdzBOUWNpdGp3UnZHMWJTMEhoZEpvd0ZnNVpfMTRKZi05RQ?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Stagflation Warning Signs Are Flashing, but the AI Boom Is Letting Investors Ignore Them (for Now) - inc.com",
+            "title": "Stock Market Today, May 28: Rigetti Computing Extends Gains on Quantum Optimism - The Motley Fool",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPZjY4aWNTblp1RjRyNkFxclBrcE1sbjI2WVBBcUdHOU5sQzZHb2ZqeEJFTlRYY3VNRXNGbm0xUC11Nl82MmpWRFNvMTFjRmdpd1NheWtPamR5RlY4eHQ2RXBIcUxpOFlNTFBuR05GUDBxamsyOHRya0FIbGhDejg5UG1xcldLV1k?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNeXVpcTZvRWhfczJ0Q21hU01YVkFrcXZBYmROcUpaY0JRdkdnQkM5VjQ5a1BlbkY1TWdpWlhKdDNYZ1EwcnJoVF9rMDViUy1WYjZZX0xlbjFsY2ZKUnJWSzdQSnBocUJQQWJtRnR2RWRjR29Da3hQVTktOVpLS1FzZ291eWRwNEV6My1sUDRtLWFFRWNEc0V5amY1V1lHOHhfcEdQOFI3YVZHYi1GSWRaWmw1WmVTcklWNklxTDVnb21Na20wMlVPcFFxMHJzRnRKU0tDWQ?oc=5",
             "sentiment": 1.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1250,16 +1229,44 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "10 Bizarre Superstitions That Drive the Stock Market - Listverse",
+            "title": "Parma students place 5th in national Stock Market Game competition - FOX 8 News",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOQzZTSWJqM0Y3ZmloLXlreFJjb3pMOE9iRjNLVUZkQTNVZzdfLXJXRk5tSFBHWGMxeE1TdVY5cXI1QkEzODhkTXh1ZUYzNzR1TmtBTU5XSmctQkg1alIwb0pVaUJMdnIyZHJ6bXhzdzBOUWNpdGp3UnZHMWJTMEhoZEpvd0ZnNVpfMTRKZi05RQ?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQQnlTR19mVEZmdk9rdlZUSHJRWnN6ZzBMVlNsaTJ5Wmp0NFBqYXBpM1JhUzJ1ME5HUENpSFdOYnFaclI1Q3N1ZnZIeG9Rc3JRYlhNNFlFdEV3ckpqaEFwVEJ5NGlONDJ0WXJRQXFxOU5zX3piTGlHNkxwalcySkhSM2trcEFrZmdYZXcxTjV5UnVYeVFZOVY3Ykt1LTZDc1ct?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Stock Market Today, May 28: Caesars Entertainment Jumps After Fertitta Entertainment Agrees to Acquire Company for Cash - The Motley Fool",
+            "title": "Why Super Micro Computer Stock Popped Today - Yahoo Finance",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxQWmhfeXhYaTE3bm5Fb2M3MTJSR3BLanZwdXBPRHVzSFU4MjRXYjctRjY1UngwS3g1aWZ6cDFtMW5ESVNVWDF5QlZWQ3ZfYWxlM3JLMDdFeFdNR01JbVNlc29uNWhKZGt4blhwNWVXT0ZRODNLNy1BY2ZZODBMWFpGSVlrTGI4VXBLWGN1dEtfTVhGM2xPdXctUWY1MGFTVlQxQ2plR1VtQ0FMMXh3aWlQeFdaVFF1TnlPcHFOTEhrdFJsM0VuVU9SQ096VDZRY0k3QlQwZktDS05Uc3NveWJyOXZKaTlZMmRoRm9aOHhIUzVtczJQTU5qYnFHVXBzU2dMbVJoYjJKUnExdw?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQUTY1Y045WFY2V0FyWHVCSTlkRTZ3ZlJyY3l6N21Fbzk1SnZwVEhCdmxCdEVlTnE2bDFOZEQ2X0NhQnIwR0hXc0s0Y2dlcGtybFcyY1ozVlZMbzBZRzc1amRaUG1fNkxFNktzbGJ1WjZhMGF6LW1RR1lQTlUxR2FHRW02VTFVMmdYbXlfc1FfMnFkOFI2Q0tZbVJjRQ?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Market Awaits Chicago Business Barometer - Yahoo Finance",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQYkhUYlppREN6RlZ5SGFnVjFNTWFrNUF1akVWY0dkZ2E0amxjOFFNdTJNak9UR2Q1Mkc1SzFCdjhUZ3JjUF9iVVZGNDVrM043XzdLLTMxaEFLVDA1RFV6UFFqaEpvYjR0empkbjh4QXN1MUF1NnMwZmE1OS1pWDBIelFKSHBGYTFjTU1vTE9ERGlZcEJId1FFRnRiSUkwVW9NTEtDSmVBdFo?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Stock Market Today, May 28: Ondas Surges As Trump Administration Considers Funding Deals With Drone Stocks - The Motley Fool",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPSzdZLUFiQ2pIUk95TEhDQnRmSVNvSVJKQ2VmQnQ3S2dmMm96Y3F2SDFJalZ4Q3dRaHphclRYcGVGYzZ6V0hObXhXUENrU2x1aFJuT2ZuU0ZCdklLb1J1VUxhdEktS09CUTBNOHNmcXg2ZXJFbGNHQjlLNEdPaGJrU2lvZDZZZFlJazZQOTdZcVIwdUp3VldKTE54d0JIRXh4OUR3c3g0ajRFOEI1YWRobEpUZWlkcG1Pbk5JaDN0N1JvU2lHZEJQblFvVkt2ZFlyNS1kZXhCQ1JmR0VIb2NmOXFwQktneFhoLXpLWm5CX1Y2elpCQVVyQQ?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Meet the Newest Member of the Stock Market's Exclusive $1 Trillion Club (Hint: It's an AI Semiconductor Powerhouse) - The Globe and Mail",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMinwJBVV95cUxPbEFjRlNHTmNadThLODJlcXJmWGpPZi1GTE9iVjhLUElrVnhPOE8tbkZkYmdINFBhUEI3UmpzZTNBMk9yZ2pwaWY1NUlVNjF1SWJJV1Fxa3h6T21EM3RtY3lkMVNkcko1eXZsWUxjbjd5QkpoSjdIa1o4QkYyQWRtZG5iQ2Q2Y1g5ZlRubjZ5VFNJQkVKb2s1ZW5KVjZfbnJLRmxNdjVwLTVQaENTMV9YZW84TlZVUFhzY1FQY0dvaTdWaUZFTjJSZFpoMWgxVTNDTVMyRDNwSnRTaWtHOE5IVkNMUG11LWZYV25vbVpQdlZTbmJBd0VnMUFlbUx0dFNjNmptd2F5SXlxTk9PUm51ZF9Mdkk0Q01qZ2g1TU1kOA?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Stock Market Today, May 28: Super Micro Computer Jumps After Collaboration With Taiwanese Authorities Thwarts Illegal Export Attempt - The Motley Fool",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMimwJBVV95cUxQRHhTZXZIWXhWNkR4TDAzU3NPaHVBV1U5MFB0X0gwTmtLSG11WHR3dF8tS19BaXcwWnc1cmxaRElhSUJjbVFXSHpNaU11NUFuQVdUMFA2YXo3ajVQNWhSU3liSUs3MVI1Y0ZHQU5MN09mdEtfbU1pblJvMFp5bTZGbUJzZTdHRzZ1OGxONHEwMThlZDh3WE52Z2NTRXZadUJzcDFJX2JlWkRGTGNoaEdfbjhab1N3dzM2MEltbU5VN2tZY2pEampuSDNoNUJTNjBQODdkRVFRT1pKVnVnQWdsaW1wcm9pUEI1Z2V3VlJpQW9aS1EyTWxhYTZmTGV6ZVNiSU1ZWFRYRWZhTVlVMTNDMDgzYkpDQUFLelhz?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1271,6 +1278,20 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
+            "title": "Want to Build Life-Changing Wealth in the Stock Market? Here's Warren Buffett's Best Advice. - Yahoo Finance",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNVWhEbURLaHlVdGcwTDJHaEs0aEw5bGxXa3RmbHVPVWJtbkNXNjZNS2NSVFdpTnlOZFdjdXhTY3JMNGNOMjJWcUV2Q3oteW5YX3BVLXpESGhlbUhWLVlHWmZqT2plZ0k1RThDbFVESXF2VFhnM091VUsyYWN1YmpSME1nV201Z0MwcnprVHM5TmZJa2VwWkVuemNfd2k?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Stocks Set for Historic Weekly Run on US-Iran Bets: Markets Wrap - Bloomberg.com",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQS3R1U0FoSWY2aUpubVNqdlJBTURUYklRMnpWWlB4RGsxd0tvRTVXbTdKR0NCdW9BMkxicmxuNjdfUWhrNEV4YnM0UDlSS1NRUV9ZT0NSSjZUbGZNVkNEWUlvVVU5dmxQX2dNbXNEeWxjcWZMTUdUZUNua3FKTTZDZ014dEJPaGlTSm9XNjRWekx6WnJBaHBTTk5lUWNiRkFoc04wTHVlTjlNaW9jREloV1g3VQ?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
             "title": "Stock market futures edge higher Friday on U.S.-Iran peace deal hopes - eciks.org",
             "source": "Google News",
             "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOUWNaTDJjblVfMW1WUV84d01WaF9UV2M5YmV4VTBGZHdPZjFHN05FQjJtbDdYUlFIcUJQenoxZmpaV1B1QUJINDlPY3lWTHlIYTg0LWMyUzRIcW92M3l0NzVsaTVzV1RSMHZLU2ZYSlNCWFRWdjFKSHZYNENicHZFRzc0dDk4UmlmaE5fd2dqdTdSWXE2ZlBzU0ZtdkJtZw?oc=5",
@@ -1278,16 +1299,9 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Stock Market Today, May 28: Super Micro Computer Jumps After Collaboration With Taiwanese Authorities Thwarts Illegal Export Attempt - Yahoo Finance",
+            "title": "Stock Market Today, May 28: Caesars Entertainment Jumps After Fertitta Entertainment Agrees to Acquire Company for Cash - The Motley Fool",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQdFVwcHhnYmFQN0NYbV9vM25uQnBGQUcxdjFHN01wajFna0ZNWnNhSHVfeFJGNV9rSHR6UW5veFNoQjNPODd3NkJBVU5HV2owRmM0VkgxWHJMbWxNZ1FjSXBCSFVzRW1GVGg3aXB2U05sUy1YLVFJLWRFOXg1TnRsblNGSmZVdDJucDYtR2NERUF4aXkz?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "The wealthiest investors are pulling money out of the U.S. in the 'de-dollarization' trade - CNBC",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNYmZGNFVPWmZNQWxveFJQZHBzNWxocG52SlhMczVacWtJSXJSVUVnSmlhX2ZsUUZHenJFdU0xaWl0VVBfd0dvUVZjT2QyM1pVcG1PV2gyeTJLYmpGVE1Ga3ZTZi13ZEdaZDkwSFpvdFJYOHlXZkxkcWxPYUx0UFpIbFFKeGZKVHPSAYwBQVVfeXFMUDdRQWExWUp0Q2lLV21fTVY0eDNleG9seFFPbjVZX2ZxTWZtV0FvN0xEaDhHMFE3VHZXOXVqQTRkRVFYS2pLb0VNRHZxWm9uTjFjUjdsRERfRmU4SlY1ZkJjRWNvVkVzSERIc3pJY3Q2UUU4cTNQSFoteFIxTzRaaDQyUXB4WklyaERaMlQ?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxQWmhfeXhYaTE3bm5Fb2M3MTJSR3BLanZwdXBPRHVzSFU4MjRXYjctRjY1UngwS3g1aWZ6cDFtMW5ESVNVWDF5QlZWQ3ZfYWxlM3JLMDdFeFdNR01JbVNlc29uNWhKZGt4blhwNWVXT0ZRODNLNy1BY2ZZODBMWFpGSVlrTGI4VXBLWGN1dEtfTVhGM2xPdXctUWY1MGFTVlQxQ2plR1VtQ0FMMXh3aWlQeFdaVFF1TnlPcHFOTEhrdFJsM0VuVU9SQ096VDZRY0k3QlQwZktDS05Uc3NveWJyOXZKaTlZMmRoRm9aOHhIUzVtczJQTU5qYnFHVXBzU2dMbVJoYjJKUnExdw?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1299,9 +1313,16 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Stock Market Today: S&P 500, Dow Futures Inch Up - State Street SPDR S&P 500 ETF Trust (ARCA:SPY) - Benzinga",
+            "title": "Why inflation, not growth, is what really matters for the stock market - MarketWatch",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMimAJBVV95cUxOYVU1RkhoS1hfQzhSb3lsUlFPNzRvSmhra3ZHX1ByaEhWNmtrODhsc2pHVGFhVHlSSjZqSi03ZmtWRDZpVUV6ZW5fY1VXNlJjZEljV0pGdnlDSXloUjRSdk96cDFlcUhkU0JxNW5sQUdEVm1xNXBiYllmYm9yaVBmdjQ3a1FaSnRWZFFwR1Y3OUlBWXFYeFM5OURMY2x2UnBxWUloNGNwQ0pURlNzbENYNWhKTmpBV2hNLXNvcTM4MHNpNm1wSHhieTBMOFo4X0QwU0RpRE82VDdlUTVFcmFyNjNjZFVlZ2g2WGFXbE1fYVBWNDNqNG56Y2Z2VTNqb0Q0WnozR3RkQUIxSmJaV2JBamJxc3IyWUVH?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQNHc2UVdYZDR3ZlZyVDd4OWl2UXJnZ0Q1Qk5MSXc3SHFMQ0JEdkJxWU9sUWdHYW40MHhVSVBGdHlwMHFWdFkzM3c2Yk1Tb05FbURMNFNPVUdMTkFiWXV5TWVnajQySXdoUEkxb0JzMDVpN25xM2lpWDdUWElXLXMtQ2VTdUhvZ2xEd2xqMGRwV1JVd1Jxd0pfWldLU2N2d1Vic2Voek5aVElsaEF0WFJOZA?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Genius Group stock jumps 116%; company says no undisclosed developments - Stock Titan",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQSVRqaHNEV0cxbk9nTDl6NTl5NFUtVmJObktEVVQ0dGV0Zl9vSXNkM19GWTMzSGtIOVhuLXRfR25VdExPVXppNDBCOWZQdkc0cHBtRnlocWxQU2NnbEdNM1FEamp5eWhHR3FnMlQ0dXFhdjVYT0pDUHY3aTM4dV8xNTVVaDdMa3pXOXhxRDd4bDNXbTJJcjUwMnJyczFUZGlReEFWSw?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1320,30 +1341,16 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Genius Group stock jumps 116%; company says no undisclosed developments - Stock Titan",
+            "title": "Stock Market Today, May 27: Boston Scientific Plunges After Reiterating Underwhelming Full Year Growth Guidance - Yahoo Finance",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQSVRqaHNEV0cxbk9nTDl6NTl5NFUtVmJObktEVVQ0dGV0Zl9vSXNkM19GWTMzSGtIOVhuLXRfR25VdExPVXppNDBCOWZQdkc0cHBtRnlocWxQU2NnbEdNM1FEamp5eWhHR3FnMlQ0dXFhdjVYT0pDUHY3aTM4dV8xNTVVaDdMa3pXOXhxRDd4bDNXbTJJcjUwMnJyczFUZGlReEFWSw?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Want to Build Life-Changing Wealth in the Stock Market? Here's Warren Buffett's Best Advice. - Yahoo Finance",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNVWhEbURLaHlVdGcwTDJHaEs0aEw5bGxXa3RmbHVPVWJtbkNXNjZNS2NSVFdpTnlOZFdjdXhTY3JMNGNOMjJWcUV2Q3oteW5YX3BVLXpESGhlbUhWLVlHWmZqT2plZ0k1RThDbFVESXF2VFhnM091VUsyYWN1YmpSME1nV201Z0MwcnprVHM5TmZJa2VwWkVuemNfd2k?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "We asked four market pros whether they'd buy SpaceX stock at its IPO - Yahoo Finance",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQcTdFN3RTeURtWnlSQlE5MUlPZkNvWXNHVWlpRmFLUjl5UzRXakpNV01RdEtQdmdSekRfOWVPV2FJV3RvSm05dTR1OXVGLThXWklkb3c1LUdOM3J6WjVsV2NnQnM0TDRybzZwdUtCODVvaGtDRkhmZ3NEVXNETHFkdEdRcmNrUEctTUp2bnFmcWtOc2c0VzRscFFrcw?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNN2thOUQ5Z2kxcTZVS1VsbXBWeVJDSVgyWDFUQWVmblBwaE5JelhvcHp4aHViR01tdjA5R1pkRXpkNklwMWo3eE1IRjVnTTU4Sk56SS14ZXdQMXliLUNTZnpQV0NkbExRWWR5bkEtNnpoX3YteFhyd0JIZk50X18tVERURHg2R1N0ZTdtR19vZDFFc0tT?oc=5",
             "sentiment": 1.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Adobe Systems (ADBE) Beats Stock Market Upswing: What Investors Need to Know - Yahoo Finance",
+            "title": "Stocks Under the Trump Administration: What is Driving Markets in 2026? - U.S. Bank",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNYmxfc09pV1JaQ0tJNFVsUGItM2FTVVYyYlR5WWtfa21tLWRHOUxTOWh3M29yYmczOTNhZktHME5MQXZQZm5pdnpMOHZuQUNLRkpMMG14cUVwSGlEcmRzV0xTeTd5TGFqenp4UkZrcXJmZVlTTjdIZHNGX0hBTG82cWxhSi1idXFGbmoyekVFc0tpdHYzRFBfQnN1bw?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPcUowVHR1VXAzd0Zfamw1MkVSejFsRGo1bkdGdHhjNVBZVFdwU3VpcE5neGJOeWl6RmdQVkFsYlcxNEVTRGg3WHNYSGR1d1BpTjV4T2NqdWdER3ZtQ0RVbU40WTcyRXRaTEM5bFZteVlYNE5EYkM1M1BaR0lYTGlUeFlTeDhVMzRaWFFqZEZhcGc3RFJoZy1qZy1mTGViQQ?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1355,66 +1362,17 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Is the stock market open today? What to know about Memorial Day hours - Detroit Free Press",
+            "title": "Trump Calls It His Bull Market. The Numbers Say It Belongs to This Person Instead - 24/7 Wall St.",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNTERla2tzRXdWZUdYVDRPVXpKSFh6NXpjZUxfTUZoeXRydTRzUGlXSU1xWXo2b0QyWnNpdXdMUXNDWWJZbWE1WFpLVVJKNHNLdXVZcGh6N21OV3Z5Sm5QWVZ4d3NCLU5TR0Fyc3pSSHk4Mkk1ckJqc25mMjIzV1dVVW96cTkxVkVlQmgzY0hFZ0YzWnh4ZGY1RmxIenlNVDBEaE5iZkh4MzU3ZEV3dm43cHlQSnd6Z2hQV3otTA?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOTnh4Q1JyNDM5eFdaSkh2X18yRmZFR3NfRHVTenFock1RSmdLQlpGQXdnNk9mM1BBVlNSMDdldzVxeVlVREx1dTF6NGk4eFkxa3VkS0kyQkREUG5WS3hOZjE3VFhTWVJmWHJpMDYwUk5FUHphdlU1TUVkaWdSWDA0bmV0cUpIaDg1eHhDN0NKYU8zTU5pa25Yd09XZVZQYmhHV0k2QW1UcGwwN25BNm9rSXNTdmZUNU14S0tQWk1IeWE4dw?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Nasdaq Adds 242 Points as Snowflake Keeps the Tech Rally Alive: Stock Market Today - Kiplinger",
+            "title": "We asked four market pros whether they'd buy SpaceX stock at its IPO - Yahoo Finance",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPb0I3QTBPaXV5X2QyR2Y5ZjA1Wl84YzRmaWJ5SWhHZTQxcW5Cc2dMaTVLZXNaNEEyRnc5eE5CV0x6NVNnWFoyVzlYaXlJN1d2djl1c2hrUk84c0oyQk50V1VkUGdIT3FLTlpwLXBzNE5RUmk1cjNBUUVQRk9TOXZCaEFDclNHZ2xPVTlyS0QzMG9YdWtsSTZIYXNHRVpMdFFFaFlCT09VVQ?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQcTdFN3RTeURtWnlSQlE5MUlPZkNvWXNHVWlpRmFLUjl5UzRXakpNV01RdEtQdmdSekRfOWVPV2FJV3RvSm05dTR1OXVGLThXWklkb3c1LUdOM3J6WjVsV2NnQnM0TDRybzZwdUtCODVvaGtDRkhmZ3NEVXNETHFkdEdRcmNrUEctTUp2bnFmcWtOc2c0VzRscFFrcw?oc=5",
             "sentiment": 1.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Why inflation, not growth, is what really matters for the stock market - MarketWatch",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQNHc2UVdYZDR3ZlZyVDd4OWl2UXJnZ0Q1Qk5MSXc3SHFMQ0JEdkJxWU9sUWdHYW40MHhVSVBGdHlwMHFWdFkzM3c2Yk1Tb05FbURMNFNPVUdMTkFiWXV5TWVnajQySXdoUEkxb0JzMDVpN25xM2lpWDdUWElXLXMtQ2VTdUhvZ2xEd2xqMGRwV1JVd1Jxd0pfWldLU2N2d1Vic2Voek5aVElsaEF0WFJOZA?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "European Penny Stocks With Market Caps Under \u20AC200M - Yahoo Finance",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPdVh6QVVFSmZxR3lEa2dqdlVtZDJGelJKZUlaaVBRVUtzbm1Cblk4RUV1YzgxNkd4dUpETHp2cHBfdF9mdUtuVnVQWEhNakRlRGJBc1AxRlZyRGRpXzY1UmxFZGh6NEtRbF8yWVhDeWJ4WFdPdkl1YmRFQlEyaTktS09fbXllZmhHd1Zha25USVBiRXJGYXZaQS04ZTBHRlE?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Stock Market Today, May 27: Boston Scientific Plunges After Reiterating Underwhelming Full Year Growth Guidance - Yahoo Finance",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNN2thOUQ5Z2kxcTZVS1VsbXBWeVJDSVgyWDFUQWVmblBwaE5JelhvcHp4aHViR01tdjA5R1pkRXpkNklwMWo3eE1IRjVnTTU4Sk56SS14ZXdQMXliLUNTZnpQV0NkbExRWWR5bkEtNnpoX3YteFhyd0JIZk50X18tVERURHg2R1N0ZTdtR19vZDFFc0tT?oc=5",
-            "sentiment": 1.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Stock Market Under the Trump Administration: What is Driving Markets in 2026? - U.S. Bank",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPcUowVHR1VXAzd0Zfamw1MkVSejFsRGo1bkdGdHhjNVBZVFdwU3VpcE5neGJOeWl6RmdQVkFsYlcxNEVTRGg3WHNYSGR1d1BpTjV4T2NqdWdER3ZtQ0RVbU40WTcyRXRaTEM5bFZteVlYNE5EYkM1M1BaR0lYTGlUeFlTeDhVMzRaWFFqZEZhcGc3RFJoZy1qZy1mTGViQQ?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "rYojbaba Rings the Nasdaq Stock Market Opening Bell, Celebrating Its Mission to \u201CFight Poverty\u201D on the Global Stage - GlobeNewswire",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMikgJBVV95cUxPRXFCT3JRWGljcV83RENhRFZXSFRvTzU4VEw5N3NSVGZVOGlGQndYTXV1Zk5LMXNsdkY1T0MyWEpoWnRLWFU2dl9zejBkSktXTnZWc2ozWFdTbk1kd2xmNm4xMUdSWjZQMkdJUENCN1BYV0xsTE1IQVZGejk5Zm1RY2FsZDVMeWlFbWJTQ3lucndnUVlWaVBhUkVxdUFfNVZ4RkZZNUNTYkhNX05aMXVabjFRQy16c0NLRW9fT1N5YjZuS0pOQ0hpWjVJMzRFUUZMOFNKejNOS1dVSXVfMWx4RXRYN1V6eEloMkZBckNPR3BLZmdBS1dPQ0FSZjAyTTBxTlJzb2JWQXhmTmtxX3ZNaG1n?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Dell and 6 More Stocks That Explain the Market Today - Barron's",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNRGtST1VGaTFqQ3hKRUZVUHpFN2JDVWJMOVRSMUpXMnFJVEhTMGhsNEFiRHp6bWtaeldHdDg0d0J5Umg0TzN0dkN5SDA2S0tDal9wd1NTYU1tMUlLcFBFZFE1NHVWQkZEZ1BsS3ZlcFBXU2Zyb0t4RnhPcE1Lb2Z5V0k1NFUwZ3VKU0VhZ1h4Si1WcUxYR3Q0aVBVTTRxcURJTXQzVl9CQjBWUVkxblpQU3pVYUNwWnM?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Dell and 6 More Stocks That Explain the Market Today -- Barrons.com - Moomoo",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNbktNVE5jSmpyR25fMl9wRzljckRONHVfWnZFZVRrVXZlZndXSkR5czlJSXN3VUdJNjlDV2hrbWRnQmczanppdkpPRklfVU5VT1dlLTJWeTd0eTdJVWZBUnA1ZExNNHI4WmpqbFJhZERjV2xtbUY5WlRkSlA0c0xyMm95SlY0dEc5b1FvNkl4ckx4YmV2V1R6dndR?oc=5",
-            "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
@@ -1432,17 +1390,17 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Meet the Newest Member of the Stock Market's Exclusive $1 Trillion Club (Hint: It's an AI Semiconductor Powerhouse) - AOL.com",
+            "title": "Stock market hits highs on Iran deal hopes; Dell, NetApp, Okta lead earnings winners: Weekly review - MSN",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQRnJKdXJndk9MMU15X2g2SkF6NXIzMm1MVFpVZTRGQ1pVSFBwdVNOZTFLeE0yOFM5cmI1akFzRVg0UmdXTkF2by1QckI0WFdObUdCTGZRQ3I2clAwY00xeHlQQTFQbFZqRGZweExQVGU4RjFQQTB3Sk00RlBKVWRCNGZR?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMigwJBVV95cUxPeVVLakRJNTdGNDg2ZHg3NFlESVlyUGJlQWVtYnoydlRvby1NT0RJcThSLUIzVTZFN0R6LXNYb2diV3paZllSOGJneGtDNHJtbFdkX1pWY2hqcWltREJjMkgydWJGWlBWQ2pzaHZzZ3JZVmZkclpBd3FTMHF1UVdCNnNGNWs3RkE4bWRiUkVYT0ZsejF6LTYxX1JGQTJpVkU2Sm93NmdpVHNpMWxqMmZ2cXpPdGJ2YkIzU2NGYTh2YVAxNnBid1ZjVkthcmRhX19hSVZydE9zcE9rV3l4MEJ0MjhJSVdIMWpIRWpNb3RrNUdFbS1GaERrbkVqR1J3WFI1ZDZN?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "War, inflation and Trump\u2019s tariffs have shaken the US. Why does the stock market keep going up? - The Guardian",
+            "title": "European Penny Stocks With Market Caps Under \u20AC200M - Yahoo Finance",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPLWNBam1MNTNBbWdTdFZwNmF2eVZHb1U5bnFBTEdpU01DRzV0enRkN0FEdlprbjJ4Nmt0am1SdWdlZHpsb2ZqN2dnRmp1d2FBdE1RbU5fWnpNbHQ1OEhwanhzV0hFXzg0ZUZlS1lRVGhIUjZjZzFjTHRPUlZ4SDN2bnVKRXBqRXNRUzhBN2dHUVY5bEp2TE1ldTFOclVvY1g1YU42Y2piN0dzUlk?oc=5",
-            "sentiment": -1.0,
+            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPdVh6QVVFSmZxR3lEa2dqdlVtZDJGelJKZUlaaVBRVUtzbm1Cblk4RUV1YzgxNkd4dUpETHp2cHBfdF9mdUtuVnVQWEhNakRlRGJBc1AxRlZyRGRpXzY1UmxFZGh6NEtRbF8yWVhDeWJ4WFdPdkl1YmRFQlEyaTktS09fbXllZmhHd1Zha25USVBiRXJGYXZaQS04ZTBHRlE?oc=5",
+            "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
@@ -1460,10 +1418,10 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Tech sector surges while communication services face downturn - investingLive",
+            "title": "Dell and 6 More Stocks That Explain the Market Today - Barron's",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPTzBjRjdiazJNYUJXbzBja2dmcDJSLXNLSGY3NERYbFFMeDNGakJhcDNfUUg5RzY1X0RIQ3JhNjllNWk1dUNfNE5ZTWJZVmpDX1FmdjVKYko1SDUzNnFtUmRSdEg0SktnbnVjeUJ5S2JqODhISHJiTk5YcTllR1RSa1J2VTdGSndzaXpMT1pLNTRFR0NaRE1JSDh0emZIQmRuS19uUk1zbEJqR1lwSVRxRFpPNzJhLV9Y?oc=5",
-            "sentiment": -1.0,
+            "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNRGtST1VGaTFqQ3hKRUZVUHpFN2JDVWJMOVRSMUpXMnFJVEhTMGhsNEFiRHp6bWtaeldHdDg0d0J5Umg0TzN0dkN5SDA2S0tDal9wd1NTYU1tMUlLcFBFZFE1NHVWQkZEZ1BsS3ZlcFBXU2Zyb0t4RnhPcE1Lb2Z5V0k1NFUwZ3VKU0VhZ1h4Si1WcUxYR3Q0aVBVTTRxcURJTXQzVl9CQjBWUVkxblpQU3pVYUNwWnM?oc=5",
+            "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
@@ -1481,16 +1439,37 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "These 10 large-cap U.S. stocks rank among the market's cheapest names (PFE:NYSE) - Seeking Alpha",
+            "title": "Nasdaq Adds 242 Points as Snowflake Keeps the Tech Rally Alive: Stock Market Today - Kiplinger",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNTHc2TGpIejF5Y1ZIeFhxOW9lZWYtdU9qWE9PbHRYMUlvTG9wMkxscXFhUHRZeUtMZ2NIeEY0NnBqSVp2Nk1acmhMZGdKOGx3a1JWazVxY2lIZGJJYTNPcUMwM216dXJNOVhTdnJTY1d3X05tMTV1MTdjbUZLRFgxVEdGeFVqcE5zamttZ0JsSFNwblBzRmdVd0lLVTViNDRoOExQY1BmeFQ?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPb0I3QTBPaXV5X2QyR2Y5ZjA1Wl84YzRmaWJ5SWhHZTQxcW5Cc2dMaTVLZXNaNEEyRnc5eE5CV0x6NVNnWFoyVzlYaXlJN1d2djl1c2hrUk84c0oyQk50V1VkUGdIT3FLTlpwLXBzNE5RUmk1cjNBUUVQRk9TOXZCaEFDclNHZ2xPVTlyS0QzMG9YdWtsSTZIYXNHRVpMdFFFaFlCT09VVQ?oc=5",
+            "sentiment": 1.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "GE Vernova (GEV) Stock Sinks As Market Gains: What You Should Know - Yahoo Finance",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNYl9yMnVlMlhrZWpVOFpBeG1aMzA4M0w5M0d5Rk9CN3ZEZGtBU2JpQ1I1YzU5SXJrWkFJb3c1b3lkQkMzNXZWWm4yRGtGRVJxU0I5OWZnZDNtNkJ2clFjVEFXWXZVeldkZlQ0dE9LS3p2SUUzc3V1RzhMeURSMVVnNm4wcUZOSjdOWkUyS3dqczFWdkJ1YlE?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "THIS WEEK ON WALL STREET: Stock market on a winning streak - FOX 17 West Michigan News",
+            "title": "War, inflation and Trump\u2019s tariffs have shaken the US. Why does the stock market keep going up? - The Guardian",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOclFLTHRVQVMxb1lzc182MjBodTZNdllBRVU3MEstTHRvXzd5VnZ4TEowREtKMGNucjM1aTlEWklubkpQbGlvUTVqUVdqU2xzZ0ozUk1mdFdNUTBIUTVWcXVUczFjX0JpRDFJRFZXaWpkaGlhN3hqUTNOandpdXR2bDRYb3BQSzZRZ1dlbjBTVTA5d3kydnFQR18wQ1p4Yld0ZVI0SHd3?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPLWNBam1MNTNBbWdTdFZwNmF2eVZHb1U5bnFBTEdpU01DRzV0enRkN0FEdlprbjJ4Nmt0am1SdWdlZHpsb2ZqN2dnRmp1d2FBdE1RbU5fWnpNbHQ1OEhwanhzV0hFXzg0ZUZlS1lRVGhIUjZjZzFjTHRPUlZ4SDN2bnVKRXBqRXNRUzhBN2dHUVY5bEp2TE1ldTFOclVvY1g1YU42Y2piN0dzUlk?oc=5",
+            "sentiment": -1.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Meet the Newest Member of the Stock Market's Exclusive $1 Trillion Club (Hint: It's an AI Semiconductor Powerhouse) - AOL.com",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQRnJKdXJndk9MMU15X2g2SkF6NXIzMm1MVFpVZTRGQ1pVSFBwdVNOZTFLeE0yOFM5cmI1akFzRVg0UmdXTkF2by1QckI0WFdObUdCTGZRQ3I2clAwY00xeHlQQTFQbFZqRGZweExQVGU4RjFQQTB3Sk00RlBKVWRCNGZR?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Stock market today: Dow rises as US.-Iran deal hopes persist; Dell soars 34% on earnings news (live coverage) - MSN",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMijgJBVV95cUxPZW5GWE9YeVV4Y1RYRWluNTJoQ3pybm9lcHdqZkQxRnVYeW5tNUdyOXhSUzlScURTaE1MRE9fZjlFYWkzQkJYbkhlUEJodFV3ZEJ0TTlJX2pkRTNnRmZPT3F1LVU0ZmtUWFZjTHczRm40SldYc3VVLXY0b2h5WUt5a2RfUV8ydldlNnlrN0R1ZzQzUEszUlNnQ1VVSDh0TzR0SHJyQXdlc3BZM0Q4cjFtTkZNRk5SXzFlWkhfbHhqUDlNeG9yVHdBVTUyOHRnbHJkVEdJbXZVWXM4Z21XcVdCWVZXajBLb2FNUGx0TmEwM3NOcG5ObGprUUREQ2hLaTFyNmU2eW1hbzM2Mk5BeVE?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1502,23 +1481,9 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Are Hot IPOs a Sign of a Market Top? One Analyst Thinks So. Here's What Investors Should Do. - Yahoo Finance",
+            "title": "THIS WEEK ON WALL STREET: Stock market on a winning streak - FOX 17 West Michigan News",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOOTVtOVhfTWZ2WWd1Ylk1ckVmUUd2QV8yODFya0JJTXc1MnZENWlnRUx3Z1ZhVGFvdFYzRV8tR21uc094WWVfSnVMSXM5REU3dzBBV3FJOHVDOV9HXzBBVVNyT0cwUE5rUm9zLVhKWnplbzJsR0J4aGhUa3FuWld5WnlIb2VwaUQ3dThaRkRFOF81V2c?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Best 3 Blue Chip Stocks to Buy After a Market Pullback -- Including Microsoft (MSFT) Stock - The Motley Fool",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNR3VORW1LOUpFS1NtWkdjcTNHYnUwVUtNbExiZW1fN3FlczBCT2J0UVlXeS15VzJ2OWlvNFJqWDNpdHduVTFHVVhyRFpPOGhWdjg5aGprRTdlVTNVTzdLRGdwLWVnVVFGdm44bmpHVWFiajVkN3dZQlRLMmFkck1jQnoxT0p5STM2UnE4NzB1ZmtMb1g1bUZpRQ?oc=5",
-            "sentiment": 1.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "Carnival (CCL) Outpaces Stock Market Gains: What You Should Know - Yahoo Finance",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOOFZLNjR4YjhZaklMVlBXcVlST3Z0ZFE0Y01FVTlLRUs2VjJqRTMwTW1rNFFqRnB6aVNNQ0h6Vk4wYkZ2V0lLU240ekdlUDd4WWQySjZQeEJlZDRYMDZ2SFRuMlVzT0ZLcU9GdTByV3JOaVBBTXpJVHZSeWRaVV9VbF9PeDYzLWtKeWl5MU5TWWlDTkFuYUQ3dXVYTU8tOTB2?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOclFLTHRVQVMxb1lzc182MjBodTZNdllBRVU3MEstTHRvXzd5VnZ4TEowREtKMGNucjM1aTlEWklubkpQbGlvUTVqUVdqU2xzZ0ozUk1mdFdNUTBIUTVWcXVUczFjX0JpRDFJRFZXaWpkaGlhN3hqUTNOandpdXR2bDRYb3BQSzZRZ1dlbjBTVTA5d3kydnFQR18wQ1p4Yld0ZVI0SHd3?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1530,16 +1495,23 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Micron stock jumps after company tops $1 trillion in market cap - Yahoo Finance",
+            "title": "Dow Jones Tops 51,000, Dell Jumps 28% On Blowout AI Sales: Stock Market Today - Benzinga",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQeDlyVkpGOFQyMENRZXpacU96NUprb0VUNmFRSmtOLVQxcjlUR2xOZk1hSHlIUkV3Q1FLc0ZxMjhSbDRpMXRLUjhSVjFrV081TEtEWWQtbGZ4OFRPeHRTMTR6WTAxd3Q3eE91X2hMNW5rcFI3Q09zNWFZeWpMZUVCeXNhdk9MWHhqM3dHVFZlOUJ1SkRHSmR1NU5wNkdUWUxrb05McklTYjVkMmpUd0Z1WDQ3UmhKR2sxQ1Nz?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNMmJfRk9Ha01YVXVZeXFaZl9Ec3hGakcxZHRlczFrYXZJSEdNQ1hvUGFLd2tEZ3hndDFRZjcyNGlvQ0hrakJWVy1vRXBFTjcySHF5eGRLQTdTeDJVSW12THZMcXM0SHZiVGlvRlI3YTEya3EySHE4eHN1OUFBMmdoM2xUUU9lbVEyTkh1YkIzN3BXdm9JZmdCdEtjZDRsVU5ZVzRpamt0d1RXQV9wWkNMSlFSV0syNlUyMmNVY1VKcENrUmR4ZGcwb0kwck1INmlYQ1hqVXd1RnExNTdlTXlPQTF6cF84NFRQTGgzeGcteTBzSkE?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Stock Market Today, May 26: Intuitive Machines Reverses Lower After NASA Rover Awards Go to Astrolab, Lunar Outpost - Yahoo Finance",
+            "title": "SpaceX files for IPO that could make Elon Musk a trillionaire - BBC",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNb25fYm9YSnhfTUJPaF9zTWZvR0JGZHNyMTRzN0lWMEdSVXp6RDVRcnZWc0psSUxQU0ctMm9GOUFJSHhsaTY5XzZ6YUhPZURvRFF0cmsxS2d1UlhQMXJRc3l4aUg3MktSRzUtMXlZRzJSSzlRaUlNbkRqbHNaTzJxeWhXY2J2T2tPb1hIQmE3WHZSblZX?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9qTFlzUGxtdkFUb2gwZ3ZZRFd0TW1MZnlhbENtY1RZT25ZNGFaNUJPTnFYZElOZTg4QnZSbDh2dG5HT0hBYzlkNnlRNWJvSUZRT0gyYzZqcm1FUQ?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Micron stock jumps after company tops $1 trillion in market cap - Yahoo Finance",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQeDlyVkpGOFQyMENRZXpacU96NUprb0VUNmFRSmtOLVQxcjlUR2xOZk1hSHlIUkV3Q1FLc0ZxMjhSbDRpMXRLUjhSVjFrV081TEtEWWQtbGZ4OFRPeHRTMTR6WTAxd3Q3eE91X2hMNW5rcFI3Q09zNWFZeWpMZUVCeXNhdk9MWHhqM3dHVFZlOUJ1SkRHSmR1NU5wNkdUWUxrb05McklTYjVkMmpUd0Z1WDQ3UmhKR2sxQ1Nz?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1551,16 +1523,16 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "SpaceX files for IPO that could make Elon Musk a trillionaire - BBC",
+            "title": "Stock Market Today, May 26: Intuitive Machines Reverses Lower After NASA Rover Awards Go to Astrolab, Lunar Outpost - Yahoo Finance",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9qTFlzUGxtdkFUb2gwZ3ZZRFd0TW1MZnlhbENtY1RZT25ZNGFaNUJPTnFYZElOZTg4QnZSbDh2dG5HT0hBYzlkNnlRNWJvSUZRT0gyYzZqcm1FUQ?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNb25fYm9YSnhfTUJPaF9zTWZvR0JGZHNyMTRzN0lWMEdSVXp6RDVRcnZWc0psSUxQU0ctMm9GOUFJSHhsaTY5XzZ6YUhPZURvRFF0cmsxS2d1UlhQMXJRc3l4aUg3MktSRzUtMXlZRzJSSzlRaUlNbkRqbHNaTzJxeWhXY2J2T2tPb1hIQmE3WHZSblZX?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Dell and 6 more stocks that explain the market today - MSN",
+            "title": "rYojbaba Rings the Nasdaq Stock Market Opening Bell, Celebrating Its Mission to \u201CFight Poverty\u201D on the Global Stage - GlobeNewswire",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPTERicXU3MEtnd00xb3kyeFZSSTJ3NTd6RjhaUHBqR1BNdHRVdDBiYTg5dzl3QjFzczJob1NZWlhIUkdaN3YyZDgzTmhIUS1UNW1Gc3NGeVZTSGw5cDdGX0Z0N0JfU25yc3lreWZGLUVXelZjT0VVajNrYTVmVk5Nbjd1SVBoakp5eUdiRDFXeHlVeGwwT19VeDVyLTlBLWxTVVV5MFN5WXFtazVCcTNVaUVnVkpna1BoSml3eF94cDZaSnlXM21VeTA3cmk?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMikgJBVV95cUxPRXFCT3JRWGljcV83RENhRFZXSFRvTzU4VEw5N3NSVGZVOGlGQndYTXV1Zk5LMXNsdkY1T0MyWEpoWnRLWFU2dl9zejBkSktXTnZWc2ozWFdTbk1kd2xmNm4xMUdSWjZQMkdJUENCN1BYV0xsTE1IQVZGejk5Zm1RY2FsZDVMeWlFbWJTQ3lucndnUVlWaVBhUkVxdUFfNVZ4RkZZNUNTYkhNX05aMXVabjFRQy16c0NLRW9fT1N5YjZuS0pOQ0hpWjVJMzRFUUZMOFNKejNOS1dVSXVfMWx4RXRYN1V6eEloMkZBckNPR3BLZmdBS1dPQ0FSZjAyTTBxTlJzb2JWQXhmTmtxX3ZNaG1n?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1572,6 +1544,20 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
+            "title": "Best 3 Blue Chip Stocks to Buy After a Market Pullback -- Including Microsoft (MSFT) Stock - The Motley Fool",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNR3VORW1LOUpFS1NtWkdjcTNHYnUwVUtNbExiZW1fN3FlczBCT2J0UVlXeS15VzJ2OWlvNFJqWDNpdHduVTFHVVhyRFpPOGhWdjg5aGprRTdlVTNVTzdLRGdwLWVnVVFGdm44bmpHVWFiajVkN3dZQlRLMmFkck1jQnoxT0p5STM2UnE4NzB1ZmtMb1g1bUZpRQ?oc=5",
+            "sentiment": 1.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "Is the stock market open or closed on Memorial Day 2026? See schedule - Yahoo Finance",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOeFh5Ukk2aVhnd3Rrc0pzc3BndER2ZEFOdGV0UTY1VGctQlF3QzE1V2NjUVM1bjdwcG41LW84VmhJMUVqaFdVZWV4alJQTUVsR1pyNVgwLURPMjJzSkZiVTFETHAzWXNfV0JjUy1maHVvWVRqbkR1d2xmYkllM0dyVWFFUW1rb252NkE4R3NWb2NaVXA2NHRWSVhZRW52dVk?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
             "title": "PepsiCo (PEP) Stock Slides as Market Rises: Facts to Know Before You Trade - Yahoo Finance",
             "source": "Google News",
             "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNRVZhZ1dyZmNQckswZTdfMjVCc1RGa050VEdXQ2xoN1RLZ2lLUlZqOVZic1JTRjBRSlJLZXJJZDR2OHUtcjJNaXRJWFRsSDFldl9WVlNvMVQzOWpSVlVVT1BjVkthUXBhVWJmMWl1YTA3QkZSZFFIVXpiOWZwcE40UzFyMXF5aHdMSjdobFRqdXZzUzNlbzJ4TEs0SlA?oc=5",
@@ -1579,16 +1565,9 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "SPCE Stock Jumps 12% Pre-Market Today: Retail Pins Hope On The 'Only Space Tourism' Bet After Blue Origin Test Explosion - Yahoo Finance",
+            "title": "Stock Market News for May 18, 2026 - Yahoo Finance",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPa2VmSGptd1U0YzFSM3N6RFp1am54Z0VwZHlta0RTaVRacmxtMEJJcm92SmhuRWlUcjBoSF95cDNKRzgxTm5BbXpBTnZDUEJ4WUVCUllXLWJRWi1IVEZoeXVJQXRGeTZtME5aYzN1WXJ5OEFxbUtZbWpqMjZzSGVYUU5Sa1ItYVNhVjlMV3pWYkxRUQ?oc=5",
-            "sentiment": 0.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "This 'lazy' ETF could be the single easiest way to invest your money - Fox Business",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPYWtzSFlLM3JJbjBaTjZhYVFFUkcybkZ4NVI2a3BxcWtHZVFHNE4xYm9WUjlyWE1Rcld4V1RNNzFrRHA2d2JIUXhhUnlwTllyRjNHTEw4M3RpWTE3MHFiallfMmhVaEJVX3JWNHVQSmVaQnpZRENsNDhNaXpFUmtzbDVQNTJUODI4TS1RaGhIUlZoRWs1bjFabWpsS0hVYVk0N0ZXZ9IBqgFBVV95cUxQcXVON1c3eFRRa0h1ZHlJMkc5MHBDekl4Qm0zb3JHVHhPa3RkMnZnMFZrb1VNYUdHaXlvejd2UnFWNzhESXhYYS1tSG85c1NDWXEzeTBOUkl2a2JPVzBUWWlTM2cxTGpFbXJTWXRyZXhGaWFROWRiSWVfelhpbzVEZE43SU10UzJLeGhKVDdfRTduSk16UmhiR3RDZUd4ZHlGQ1JudEQwejluUQ?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQNWpMa0JSaXRNZ0owUzF0RTFIR3lyMjNxNzJVOUJHV2hIOU5DQjhJMW1WcFNjbW5MZ0Y2Y2JTT0JEZHJDX2k0RXpGcGF1eUlXb1NkV203Q280dmluYmh6eWRPY1dTMGZOR2ZTcHY3cTFqWmozbDl0RnVBTEVyQ1FxN3oxeHdFS1AyYVRZRC1TUHN0b2c?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
@@ -1600,10 +1579,31 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "GE Vernova (GEV) Stock Sinks As Market Gains: What You Should Know - Yahoo Finance",
+            "title": "SPCE Stock Jumps 12% Pre-Market Today: Retail Pins Hope On The 'Only Space Tourism' Bet After Blue Origin Test Explosion - Yahoo Finance",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNYl9yMnVlMlhrZWpVOFpBeG1aMzA4M0w5M0d5Rk9CN3ZEZGtBU2JpQ1I1YzU5SXJrWkFJb3c1b3lkQkMzNXZWWm4yRGtGRVJxU0I5OWZnZDNtNkJ2clFjVEFXWXZVeldkZlQ0dE9LS3p2SUUzc3V1RzhMeURSMVVnNm4wcUZOSjdOWkUyS3dqczFWdkJ1YlE?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPa2VmSGptd1U0YzFSM3N6RFp1am54Z0VwZHlta0RTaVRacmxtMEJJcm92SmhuRWlUcjBoSF95cDNKRzgxTm5BbXpBTnZDUEJ4WUVCUllXLWJRWi1IVEZoeXVJQXRGeTZtME5aYzN1WXJ5OEFxbUtZbWpqMjZzSGVYUU5Sa1ItYVNhVjlMV3pWYkxRUQ?oc=5",
             "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "5 Things to Know Before the Stock Market Opens - Yahoo Finance",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPZ19yNWdzTmdWZHZKUWlibmlEXzU4VEg0QkFqTkFNWHJFZzBrODlhaWF0ZGV6c2pLRm1Ya3dyYUxTNXFzVTl1MzhHZGIwZHRQSlJYeVVJb2swUGdvUHAxeGZmOHNtcG8yRGprV2I0UHdGYVlWLS1BMDc3VTdNNUg3WndXeWJwZ1AxU0ZaV001X2VqOTdwQ3c?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "The Stock Market Is Doing Something for Only the 4th Time in 156 Years -- and History Is Very Clear About What Happens Next - Yahoo Finance",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQazA0blVTbFdMLThZc0FEZFpYNzdYcDJadkhhRmtIZTB3M0dFWHZ6akR5MEU1VWNfZGxBNkRObjVGMFNfWXU4aGRTSVc3eEQ5aXE4MGlSOGh0UXZvdnBUN3cwQ011MDhwY01PZDM4cjdwejY2YW9ZaEFDVzFNWFRDSWwyaWhid3lwRDVxZ2tsVmx0VWRNcHRuZWJEbmc0NTg?oc=5",
+            "sentiment": 0.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
+            "title": "US Stock Market Today S&P 500 Futures Inch Higher As Inflation Worries Ease - Yahoo Finance",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQMVVSY0hWY0thQWlhVG0wa2g2TjlRaVh3bXdRdXc0SnpfdlZHOVJEeXlJMlBhcGVzUklPQ29JWG9ZN3FMUzRRMWFOZDVNMFdNTVk4UTJNcXR4M2ZzakRIdG4wOHZKNUI3ak1NS2xrWXlLcTFoN202NENrSFM5bHI4N293aGdkV0NCejZUQzFSUEg2dw?oc=5",
+            "sentiment": -1.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
@@ -1628,6 +1628,13 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
+            "title": "High School Students Participate in High-Stakes Stock Market Simulation at Hofstra - Hofstra University News",
+            "source": "Google News",
+            "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxONVREWi03Ulk1UHRSbk1OX1hkckRJV0xLeFU4MDRoMUpTSlJ0M3BZT3R6ZWVsTDMtaXpqR1ZRbnBtOElLRWJZREFhdVZIbzdLb3ZOY3pEdERGbkJtTDBMWTVsOTFSaHJacGVjRjdZZ1NtUWViOXIybGtFak9BZWcwRWNSUnQtWHhvVWpzMzI5VFpQS3pjUmlicGpHVEwzN2pEV2tackQ1RFFqcnh3UDQtRUQ0NHo1NkRCTGhn?oc=5",
+            "sentiment": 1.0,
+            "topic": "stock+market+OR+economy+OR+inflation"
+          },
+          {
             "title": "Ecopetrol (EC) Stock Declines While Market Improves: Some Information for Investors - Yahoo Finance",
             "source": "Google News",
             "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQMjFCRWYxNWNkUkh0Y1EzZWxXMFREX3NrMWhkYW43WTMtSG5wU3ZKMFBTckNnSml1c2RfUW9nWFdPTWdrLUJ6dDkwbUV2ZUpDTVQxRG9iQTVDdHdZM1BJYW1hLVIyaVZicnNYTkhjYi1zbXNLX1JKYURVOVFlQzFGQXVHVGNwN2h3YjJzaENHeDBTZE9sUVYyUHI0MWE0M28?oc=5",
@@ -1635,23 +1642,16 @@
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Market Indexes Rise on Microsoft Momentum - Yahoo Finance",
+            "title": "Iran Conflict: Seven Takeaways for Investors - Morgan Stanley",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPSUFWa296QXAwQ3Z5OThJcElzMlVKV3Rla1MzX3k3TUxEcHhsWHNud1p2WTBlc2I5Z0JObGlZOTRETE9wSXNDYkxaSjZsX3JKV0RRTEQxSlEtbDduTXJoSFFoYzNaNlNwMU42RGFEM2kzUmhab1l2aC1FUXJoaUxxMEpIR3RYbVlqOU9ZMW9MS0FmNGlNWnZwaVA1MmRUVEhpelF0b0pR?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNLU9tQU5Pc19QZ1czalBoMDREUGhsV0xXUDRYaTd1U2pjd01NcTUzaDBadWJCMVJRLWhMOGk4ZTlydFNfVEhmUHRQc21fZ2R1bTdWejNxZncwUkZ4RzJsd0M0LU9RYktaSjc0R1EyWlZ2V19YUGY5aVdRTFEtZzNIN3BySUlOVDNvYjdBS3pJRFNwdw?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           },
           {
-            "title": "Why Are Stocks at Record Highs with no Iran Resolution? - J.P. Morgan",
+            "title": "How midterm elections affect the stock market - U.S. Bank",
             "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNQ3o0YTF6TDN4XzFLLXRCOFFJelJRWjBiY1dRV0hiZXI3NUdnVm5zcVRibDNrODd2UjFLTDhieExrVFZaUE1rUWdYZlZjVU1wbW40ZENodDQ2cGtkNkVZZ3Y0VGptRXlJOW9zWW5RcVFfNDN1SmlpZ2hfTFVDUmh5RmJ2MUN1a2pSdHVmanZLaHVuQ3BQQzB0eVZyMkZlWEx1UE5GY3h5bkdDV2U3SzFhS1hPTEh6OVJhTXQ4TU9hbURLTHR4blJ6YXFUYi02Zw?oc=5",
-            "sentiment": 1.0,
-            "topic": "stock+market+OR+economy+OR+inflation"
-          },
-          {
-            "title": "The Stock Market Is Doing Something for Only the 4th Time in 156 Years -- and History Is Very Clear About What Happens Next - Yahoo Finance",
-            "source": "Google News",
-            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQazA0blVTbFdMLThZc0FEZFpYNzdYcDJadkhhRmtIZTB3M0dFWHZ6akR5MEU1VWNfZGxBNkRObjVGMFNfWXU4aGRTSVc3eEQ5aXE4MGlSOGh0UXZvdnBUN3cwQ011MDhwY01PZDM4cjdwejY2YW9ZaEFDVzFNWFRDSWwyaWhid3lwRDVxZ2tsVmx0VWRNcHRuZWJEbmc0NTg?oc=5",
+            "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPajZ2ZjFNZFhYeEl6dWNMT25UQjhZTUpYSjZaWVJtZWxSdmlHM2RveWtaYWpEeW44ekk0UmFWMlBVZzA3bmtqcHd1bElHSXhFOHVFVWZhQjF0dzBKV29GNDM0dlQ4SkNIUWczQW16Mmo3aG5oLWN5RnNBQ2VkQVJBRXhpVjBKUEJKbExvU1dxMG45S1QtenFQdnBEMk1hVTJEWFVaeFpCZTlyb215OVFIWE1Vbmp6SXl0YzRoNmh3?oc=5",
             "sentiment": 0.0,
             "topic": "stock+market+OR+economy+OR+inflation"
           }
@@ -1674,12 +1674,6 @@
     "sentiment_method": "Lexicon-based (19K terms)"
   },
   "history": {
-    "today": {
-      "cycles": 8,
-      "avg_win_rate": 0.0020249999999999999,
-      "avg_sharpe": 0.0,
-      "cap_change": 0.0
-    },
     "polymarket": [
       {
         "market": "_will-person-a-win-the-2028-democratic-presidential-nominati",
@@ -1760,11 +1754,14 @@
     "yesterday": {
       "note": "Engine log stale \u2014 no fresh room_log data"
     },
-    "generated": "2026-05-29T18:35:29Z"
+    "today": {
+      "note": "No engine cycles today yet"
+    },
+    "generated": "2026-05-29T19:15:42Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780079729,
+    "generated_at": 1780082142,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
@@ -1777,20 +1774,20 @@
     },
     "t2_engine_health": {
       "status": "operational",
-      "cycle": 2510,
-      "vote_total": 1051,
-      "vote_up": 0,
-      "vote_down": 1051,
-      "vote_anomaly": true,
-      "vote_note": "ALL VOTES ONE DIRECTION \u2014 may indicate stale config or NaN features",
+      "cycle": 17365,
+      "vote_total": 1578,
+      "vote_up": 36,
+      "vote_down": 1542,
+      "vote_anomaly": false,
+      "vote_note": "normal",
       "avg_conviction": 0.5,
       "active_agents": 153000,
       "rooms_active": 16,
-      "win_rate": 0.44929999999999998,
-      "sharpe": 91.438400000000001,
+      "win_rate": 0.53820000000000001,
+      "sharpe": 1.24,
       "capital_current": 124989.87,
       "capital_healthy": true,
-      "darwin_epochs": 0,
+      "darwin_epochs": 144,
       "engine_language": "C11",
       "features": "80-dim (F1-F80)"
     },
@@ -1801,13 +1798,13 @@
       "website": "waefrebeorn.github.io/money-room",
       "deploy_schedule": "every 5min via tandem cron",
       "last_deploy": {
-        "last_push": 1780079215,
-        "hash": "470bfd854828fac62f58c629bc330fee",
-        "size": 124604
+        "last_push": 1780079732,
+        "hash": "df0e9be1a8e69aab7043bce0b167aa37",
+        "size": 124698
       }
     },
-    "system_confidence": 0.875,
-    "passed_checks": 7,
+    "system_confidence": 1.0,
+    "passed_checks": 8,
     "total_checks": 8
   },
   "meta": {
