@@ -16,7 +16,7 @@
 #define MAX_ALERT 8192
 
 int main(void) {
-    FILE *fp = popen("/home/wubu2/money-room/engine/collector_health 2>/dev/null", "r");
+    FILE *fp = popen("/home/wubu2/money-room/engine/source_health 2>/dev/null", "r");
     if (!fp) return 0;
 
     char buf[MAX_OUTPUT];
