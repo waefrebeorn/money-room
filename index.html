@@ -345,6 +345,7 @@ footer a:hover { color: var(--accent); }
   <span class="live-dot off" id="liveDot"></span>
   <span id="liveStatus">Loading data...</span>
   <span class="ts" id="liveTimestamp"></span>
+  <span class="ts" id="deployAge" style="margin-left:8px;color:var(--accent)"></span>
 </div>
 
 <section class="live-panel">
@@ -625,6 +626,18 @@ function renderLive(snap) {
   if (lastUpd) {
     const d = new Date(lastUpd * 1000);
     document.getElementById('liveTimestamp').textContent = 'updated ' + d.toLocaleString();
+  }
+  // Deploy timestamp from verification panel
+  const ver = snap.verification;
+  if (ver && ver.t3_output_pipeline && ver.t3_output_pipeline.last_deploy) {
+    const ld = ver.t3_output_pipeline.last_deploy;
+    if (ld.last_push) {
+      const now = Math.floor(Date.now() / 1000);
+      const ageMin = Math.floor((now - ld.last_push) / 60);
+      const ageStr = ageMin < 1 ? 'just now' : ageMin < 60 ? ageMin + 'm ago' : Math.floor(ageMin/60) + 'h ' + (ageMin%60) + 'm ago';
+      const dp = document.getElementById('deployAge');
+      if (dp) dp.textContent = 'deploy ' + ageStr;
+    }
   }
   document.getElementById('cycleInfo').textContent = 'Cycle: ' + fmt(snap.cycle, 0);
   document.getElementById('tradesInfo').textContent = 'Trades: ' + fmt(snap.stats?.trades_total, 0);

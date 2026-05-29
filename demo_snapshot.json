@@ -1,7 +1,7 @@
 {
   "version": 5,
   "cycle": 605499,
-  "last_updated": 1780074402,
+  "last_updated": 1780075359,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -234,7 +234,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T17:06:42+00:00",
+    "generated_at": "2026-05-29T17:22:39+00:00",
     "global_sentiment": {
       "mean": 0.046666666865348816,
       "direction": "neutral",
@@ -1757,11 +1757,11 @@
     "today": {
       "note": "No engine cycles today yet"
     },
-    "generated": "2026-05-29T17:06:42Z"
+    "generated": "2026-05-29T17:22:39Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780074402,
+    "generated_at": 1780075359,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
@@ -1780,7 +1780,7 @@
       "vote_down": 1833,
       "vote_anomaly": true,
       "vote_note": "ALL VOTES ONE DIRECTION \u2014 may indicate stale config or NaN features",
-      "avg_conviction": null,
+      "avg_conviction": 0.5,
       "active_agents": 153000,
       "rooms_active": 16,
       "win_rate": 0.79649999999999999,
@@ -1798,9 +1798,9 @@
       "website": "waefrebeorn.github.io/money-room",
       "deploy_schedule": "every 5min via tandem cron",
       "last_deploy": {
-        "last_push": 1780074093,
-        "hash": "b0b83dbfc2f6bb52dfb75142ebf79809",
-        "size": 124605
+        "last_push": 1780074404,
+        "hash": "f22e48504bf12bd849f4b2bafcba229c",
+        "size": 124606
       }
     },
     "system_confidence": 0.875,
