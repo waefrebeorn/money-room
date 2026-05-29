@@ -1,16 +1,16 @@
 {
   "version": 5,
   "cycle": 605499,
-  "last_updated": 1780033629,
+  "last_updated": 1780033687,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) — Live with Premium",
   "dashboard_online": true,
   "market": {
     "asset": "BTC",
-    "close": 73526.3,
-    "bid": 73526.3,
-    "ask": 73535.29,
-    "volume": 7287.22,
+    "close": 73552.9,
+    "bid": 73552.8,
+    "ask": 73555.02,
+    "volume": 7295.09,
     "sp500": 7520.36,
     "vix": 16.29,
     "btc_dominance": 62.0,
@@ -68,129 +68,97 @@
       "name": "weather",
       "agents": 10000,
       "price": 21.9,
-      "features": 5,
-      "genomes": null,
-      "capital": null
+      "features": 5
     },
     {
       "name": "kalshi",
       "agents": 10000,
       "price": 50.0,
-      "features": 4,
-      "genomes": null,
-      "capital": null
+      "features": 4
     },
     {
       "name": "science_tech",
       "agents": 10000,
       "price": 36.9,
-      "features": 4,
-      "genomes": null,
-      "capital": null
+      "features": 4
     },
     {
       "name": "polymarket",
       "agents": 10000,
       "price": 50.0,
-      "features": 5,
-      "genomes": null,
-      "capital": null
+      "features": 5
     },
     {
       "name": "crypto_prices",
       "agents": 10000,
       "price": 50.2,
-      "features": 5,
-      "genomes": null,
-      "capital": null
+      "features": 5
     },
     {
       "name": "options",
       "agents": 10000,
       "price": 50.0,
-      "features": 5,
-      "genomes": null,
-      "capital": null
+      "features": 5
     },
     {
       "name": "stocks",
       "agents": 10000,
       "price": 50.0,
-      "features": 5,
-      "genomes": null,
-      "capital": null
+      "features": 5
     },
     {
       "name": "elections",
       "agents": 10000,
       "price": 51.2,
-      "features": 5,
-      "genomes": null,
-      "capital": null
+      "features": 5
     },
     {
       "name": "btc_main",
       "agents": 10000,
       "price": 50.0,
-      "features": 5,
-      "genomes": null,
-      "capital": null
+      "features": 5
     },
     {
       "name": "economic",
       "agents": 10000,
       "price": 50.0,
-      "features": 5,
-      "genomes": null,
-      "capital": null
+      "features": 5
     },
     {
       "name": "manifold",
       "agents": 10000,
       "price": 50.0,
-      "features": 4,
-      "genomes": null,
-      "capital": null
+      "features": 4
     },
     {
       "name": "sports",
       "agents": 10000,
       "price": 32.7,
-      "features": 4,
-      "genomes": null,
-      "capital": null
+      "features": 4
     },
     {
       "name": "macro",
       "agents": 10000,
       "price": 50.0,
-      "features": 5,
-      "genomes": null,
-      "capital": null
+      "features": 5
     },
     {
       "name": "predictit",
       "agents": 10000,
       "price": 5.9,
-      "features": 4,
-      "genomes": null,
-      "capital": null
+      "features": 4
     },
     {
       "name": "momentum",
       "agents": 3000,
       "price": 50.0,
-      "features": 5,
-      "genomes": null,
-      "capital": null
+      "features": 5
     },
     {
       "name": "consensus",
       "agents": 10000,
       "price": 50.0,
-      "features": 5,
-      "genomes": null,
-      "capital": null
+      "features": 5
     }
   ],
   "consensus_topics": {
@@ -313,7 +281,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T05:47:09+00:00",
+    "generated_at": "2026-05-29T05:48:07+00:00",
     "global_sentiment": {
       "mean": 1.0,
       "direction": "bullish",
@@ -325,7 +293,7 @@
       "sp500_current": 7520.36,
       "sp500_1d_change": 0.02,
       "sp500_7d_change": 1.58,
-      "btc_current": 73526.3,
+      "btc_current": 73552.9,
       "btc_1d_change": -2.11,
       "btc_7d_change": -3.59,
       "vix_current": 16.29,
