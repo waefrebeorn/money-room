@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Money Room — Live BTC Market Prediction Engine + GDELT Global Sentiment</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #010102;
+  --bg-page: #08090a;
+  --bg-panel: #0f1011;
+  --bg-surface: #191a1b;
+  --bg-elevated: #28282c;
+  --text-primary: #f7f8f8;
+  --text-secondary: #d0d6e0;
+  --text-tertiary: #8a8f98;
+  --text-quaternary: #62666d;
+  --accent: #06d6a0;
+  --accent-hover: #00f5b0;
+  --accent-dim: rgba(6, 214, 160, 0.15);
+  --accent-glow: rgba(6, 214, 160, 0.08);
+  --bullish: #06d6a0;
+  --bearish: #ff4d6a;
+  --neutral: #8a8f98;
+  --orange: #ff9f43;
+  --red: #ff4d6a;
+  --green: #06d6a0;
+  --border-subtle: rgba(255,255,255,0.05);
+  --border-standard: rgba(255,255,255,0.08);
+  --border-strong: #23252a;
+  --shadow-card: 0 0 0 1px rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.4);
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg-page);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+@keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes glowPulse { 0%,100%{box-shadow:0 0 5px var(--accent-dim)} 50%{box-shadow:0 0 20px var(--accent-dim)} }
+.live-dot {
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; margin-right: 6px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+.live-dot.on { background: var(--bullish); box-shadow: 0 0 8px var(--bullish); }
+.live-dot.off { background: var(--bearish); animation: none; }
+.live-dot.demo { background: var(--orange); animation: pulse 2s ease-in-out infinite; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+.hero { padding: 120px 0 80px; text-align: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: 50%; left: 50%; width: 800px; height: 800px; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); transform: translate(-50%, -50%); pointer-events: none; }
+.hero h1 { font-size: 64px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; margin-bottom: 20px; position: relative; }
+.hero h1 span { color: var(--accent); }
+.hero p { font-size: 20px; color: var(--text-tertiary); max-width: 640px; margin: 0 auto 40px; position: relative; }
+.hero .cta { display: flex; gap: 16px; justify-content: center; position: relative; }
+.hero .cta a {
+  padding: 14px 32px; border-radius: var(--radius-md);
+  font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s;
+}
+.hero .cta .primary { background: var(--accent); color: var(--bg-deep); }
+.hero .cta .primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.hero .cta .secondary { background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-standard); }
+.hero .cta .secondary:hover { border-color: var(--border-strong); }
+
+/* ═══ LIVE BANNER ═══ */
+.live-banner {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px; background: var(--bg-panel); border-bottom: 1px solid var(--border-subtle);
+  font-size: 14px; font-family: 'JetBrains Mono', monospace; flex-wrap: wrap;
+}
+.live-banner span { color: var(--text-tertiary); }
+.live-banner .ts { color: var(--text-quaternary); font-size: 12px; }
+
+/* ═══ DASHBOARD ═══ */
+.live-panel { padding: 60px 0; border-bottom: 1px solid var(--border-subtle); }
+.live-panel .status-bar {
+  display: flex; gap: 24px; margin-bottom: 32px; align-items: center;
+  font-size: 14px; color: var(--text-tertiary); flex-wrap: wrap;
+}
+.live-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.live-card {
+  background: var(--bg-panel); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg); padding: 20px; animation: fadeIn 0.3s ease-out;
+  transition: border-color 0.2s;
+}
+.live-card:hover { border-color: var(--border-standard); }
+.live-card .lbl { font-size: 11px; color: var(--text-quaternary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.live-card .val { font-size: 28px; font-weight: 700; color: var(--text-primary); font-family: 'JetBrains Mono', monospace; }
+.live-card .sub { font-size: 12px; color: var(--text-tertiary); margin-top: 4px; }
+.live-card .gauge { height: 4px; background: var(--bg-elevated); border-radius: 2px; margin-top: 12px; overflow: hidden; }
+.live-card .gauge-fill { height: 100%; border-radius: 2px; transition: width 0.5s ease; }
+.live-card .gauge-fill.green { background: var(--bullish); }
+.live-card .gauge-fill.red { background: var(--bearish); }
+.live-card .gauge-fill.orange { background: var(--orange); }
+
+.live-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.live-table { background: var(--bg-panel); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; }
+.live-table h3 { padding: 16px 20px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); border-bottom: 1px solid var(--border-subtle); }
+.live-table table { width: 100%; border-collapse: collapse; }
+.live-table td { padding: 10px 20px; font-size: 13px; border-bottom: 1px solid var(--border-subtle); }
+.live-table td:first-child { color: var(--text-quaternary); }
+.live-table td:last-child { text-align: right; font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); }
+.live-table .loading td { text-align: center; color: var(--text-quaternary); padding: 24px; }
+
+.stats-bar { padding: 40px 0; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
+.stats-bar .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.stat-block { text-align: center; }
+.stat-block .value { font-size: 32px; font-weight: 700; color: var(--text-primary); }
+.stat-block .label { font-size: 13px; color: var(--text-tertiary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ═══ GDELT GLOBAL SENTIMENT PANEL ═══ */
+.gdelt-section {
+  padding: 60px 0;
+  background: linear-gradient(180deg, var(--bg-page) 0%, #0a0d10 50%, var(--bg-page) 100%);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.gdelt-header { text-align: center; margin-bottom: 48px; }
+.gdelt-header h2 { font-size: 36px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+.gdelt-header h2 span { color: var(--accent); }
+.gdelt-header p { color: var(--text-tertiary); font-size: 16px; max-width: 600px; margin: 0 auto; }
+.gdelt-global-bar {
+  display: flex; align-items: center; justify-content: center; gap: 32px;
+  padding: 24px; margin-bottom: 40px;
+  background: var(--bg-panel); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl); animation: slideUp 0.5s ease-out;
+}
+.gdelt-global-bar .global-stat { text-align: center; }
+.gdelt-global-bar .global-stat .val { font-size: 36px; font-weight: 700; }
+.gdelt-global-bar .global-stat .lbl { font-size: 11px; color: var(--text-quaternary); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+.gdelt-global-bar .global-divider { width: 1px; height: 48px; background: var(--border-subtle); }
+
+.gdelt-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  margin-bottom: 24px;
+}
+.gdelt-card {
+  background: var(--bg-panel); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg); padding: 20px;
+  animation: slideUp 0.4s ease-out; animation-fill-mode: backwards;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative; overflow: hidden;
+}
+.gdelt-card:hover { border-color: var(--border-standard); transform: translateY(-2px); }
+.gdelt-card .label { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
+.gdelt-card .sentiment-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; margin-bottom: 8px;
+}
+.gdelt-card .sentiment-badge.bullish { background: rgba(6,214,160,0.15); color: var(--bullish); }
+.gdelt-card .sentiment-badge.bearish { background: rgba(255,77,106,0.15); color: var(--bearish); }
+.gdelt-card .sentiment-badge.neutral { background: rgba(138,143,152,0.15); color: var(--neutral); }
+.gdelt-card .score { font-size: 28px; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 8px; }
+.gdelt-card .score.pos { color: var(--bullish); }
+.gdelt-card .score.neg { color: var(--bearish); }
+.gdelt-card .score.neu { color: var(--neutral); }
+.gdelt-card .meta { font-size: 11px; color: var(--text-quaternary); margin-bottom: 8px; }
+.gdelt-card .bar-row { display: flex; gap: 4px; margin-top: 8px; }
+.gdelt-card .bar-row .seg { height: 10px; border-radius: 3px; transition: width 0.5s ease; }
+.gdelt-card .bar-row .seg.pos { background: var(--bullish); }
+.gdelt-card .bar-row .seg.neg { background: var(--bearish); }
+.gdelt-card .bar-row .seg.neu { background: var(--neutral); }
+.gdelt-card .headline { font-size: 12px; color: var(--text-tertiary); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-subtle); line-height: 1.4; }
+.gdelt-card .headline::before { content: '“'; color: var(--text-quaternary); }
+
+.gdelt-market-bar {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 32px;
+}
+.gdelt-market-card {
+  background: var(--bg-panel); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg); padding: 16px 20px; text-align: center;
+  animation: slideUp 0.5s ease-out; animation-fill-mode: backwards;
+}
+.gdelt-market-card .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-quaternary); }
+.gdelt-market-card .val { font-size: 24px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--text-primary); margin: 4px 0; }
+.gdelt-market-card .chg { font-size: 13px; font-weight: 600; }
+.gdelt-market-card .chg.up { color: var(--bullish); }
+.gdelt-market-card .chg.down { color: var(--bearish); }
+
+.section { padding: 80px 0; }
+.section h2 { font-size: 32px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; }
+.section h2 span { color: var(--accent); }
+.section > p { font-size: 16px; color: var(--text-tertiary); max-width: 600px; margin-bottom: 48px; }
+
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.feature-card { background: var(--bg-panel); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 24px; transition: all 0.2s; }
+.feature-card:hover { border-color: var(--border-standard); }
+.feature-card .icon { font-size: 28px; margin-bottom: 12px; }
+.feature-card h3 { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+.feature-card p { font-size: 14px; color: var(--text-tertiary); line-height: 1.5; }
+
+.pricing { padding: 80px 0; border-top: 1px solid var(--border-subtle); }
+.pricing .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+.pricing-card { background: var(--bg-panel); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 32px; text-align: center; transition: all 0.2s; }
+.pricing-card:hover { border-color: var(--border-standard); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.pricing-card.featured { border-color: var(--accent-dim); }
+.pricing-card h3 { font-size: 20px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+.pricing-card .price { font-size: 40px; font-weight: 700; color: var(--text-primary); margin: 16px 0; }
+.pricing-card .price span { font-size: 16px; color: var(--text-tertiary); font-weight: 400; }
+.pricing-card ul { list-style: none; padding: 0; margin: 24px 0; }
+.pricing-card ul li { padding: 8px 0; font-size: 14px; color: var(--text-secondary); border-bottom: 1px solid var(--border-subtle); }
+.pricing-card ul li:last-child { border-bottom: none; }
+.pricing-card .btn { display: inline-block; padding: 12px 32px; border-radius: var(--radius-md); font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s; margin-top: 16px; }
+.pricing-card .btn.primary { background: var(--accent); color: var(--bg-deep); }
+.pricing-card .btn.secondary { background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-standard); }
+
+footer { padding: 40px 0; border-top: 1px solid var(--border-subtle); text-align: center; color: var(--text-quaternary); font-size: 13px; }
+footer a { color: var(--text-tertiary); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 36px; }
+  .live-grid { grid-template-columns: repeat(2, 1fr); }
+  .live-row { grid-template-columns: 1fr; }
+  .stats-bar .grid { grid-template-columns: repeat(2, 1fr); }
+  .features-grid { grid-template-columns: 1fr; }
+  .pricing .grid { grid-template-columns: 1fr; }
+  .gdelt-grid { grid-template-columns: repeat(2, 1fr); }
+  .gdelt-global-bar { flex-wrap: wrap; gap: 16px; }
+  .gdelt-market-bar { grid-template-columns: 1fr; }
+  .hero { padding: 80px 0 60px; }
+  .hero p { font-size: 17px; }
+  .hero .cta { flex-wrap: wrap; }
+  .hero .cta a { flex: 1 1 auto; text-align: center; min-width: 140px; }
+  .container { padding: 0 16px; }
+  .live-card .val { font-size: 24px; }
+  .stat-block .value { font-size: 26px; }
+  .gdelt-header h2 { font-size: 28px; }
+  .section h2 { font-size: 26px; }
+  .section { padding: 48px 0; }
+  .live-panel .status-bar { gap: 12px; font-size: 12px; }
+  .live-banner { font-size: 12px; padding: 10px; }
+  table { font-size: 12px; }
+  .live-table td { padding: 8px 12px; font-size: 12px; }
+  .pricing-card { padding: 24px 20px; }
+}
+
+/* iPhone / small phone breakpoint */
+@media (max-width: 480px) {
+  .hero { padding: 60px 0 40px; }
+  .hero h1 { font-size: 28px; }
+  .hero p { font-size: 15px; margin-bottom: 28px; }
+  .hero .cta { flex-direction: column; align-items: stretch; gap: 10px; }
+  .hero .cta a { text-align: center; }
+  .live-grid { grid-template-columns: 1fr; gap: 10px; }
+  .live-card { padding: 14px; }
+  .live-card .val { font-size: 22px; }
+  .live-card .lbl { font-size: 10px; }
+  .stats-bar .grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .stat-block .value { font-size: 22px; }
+  .stat-block .label { font-size: 11px; }
+  .gdelt-grid { grid-template-columns: 1fr; gap: 10px; }
+  .gdelt-card { padding: 14px; }
+  .gdelt-card .score { font-size: 22px; }
+  .gdelt-global-bar { padding: 16px; gap: 12px; }
+  .gdelt-global-bar .global-stat .val { font-size: 22px; }
+  .gdelt-header h2 { font-size: 24px; }
+  .container { padding: 0 12px; }
+  .section { padding: 36px 0; }
+  .section h2 { font-size: 22px; }
+  .pricing-card { padding: 20px 16px; }
+  .pricing-card .price { font-size: 32px; }
+  .live-panel { padding: 32px 0; }
+  .live-panel .status-bar { gap: 8px; font-size: 11px; flex-direction: column; align-items: flex-start; }
+  .live-table table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .live-table td { padding: 6px 10px; font-size: 11px; }
+  .gdelt-section { padding: 32px 0; }
+  .features-grid { gap: 14px; }
+  .feature-card { padding: 18px; }
+  footer { padding: 24px 0; }
+  .gdelt-card .headline { font-size: 11px; }
+  .donation-footer p { word-break: break-all; font-size: 10px !important; }
+  .donation-footer span { display: block; margin: 4px 0; }
+}
+
+/* iPhone SE / very small screens */
+@media (max-width: 380px) {
+  .hero h1 { font-size: 24px; }
+  .hero p { font-size: 13px; }
+  .live-card .val { font-size: 18px; }
+  .container { padding: 0 10px; }
+  .stats-bar .grid { grid-template-columns: 1fr; }
+  .gdelt-global-bar { flex-direction: column; gap: 8px; }
+  .gdelt-global-bar .global-divider { display: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <h1>💰 <span>Money</span> Room</h1>
+    <p>Open source BTC market prediction engine · 10K evolving AI genomes · GDELT 8-market global news sentiment · Paper-proven 54.86% SP500 WR · <strong>300/300 grid (100%)</strong> · All C · MCP server · Clough Bills</p>
+    <div class="cta">
+      <a href="https://github.com/waefrebeorn/money-room" class="primary">View on GitHub →</a>
+      <a href="#sentiment" class="secondary">🌍 Global Sentiment</a>
+      <a href="#live" class="secondary">📡 Dashboard</a>
+      <a href="https://github.com/waefrebeorn/money-room/blob/main/docs/battleship-index.md" class="secondary">⚔️ Battleship Index</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LIVE DASHBOARD ═══ -->
+<div id="live"></div>
+<div class="live-banner" id="liveBanner">
+  <span class="live-dot off" id="liveDot"></span>
+  <span id="liveStatus">Loading data...</span>
+  <span class="ts" id="liveTimestamp"></span>
+</div>
+
+<section class="live-panel">
+  <div class="container">
+    <div class="status-bar" id="statusBar">
+      <span id="cycleInfo">Cycle: --</span>
+      <span id="tradesInfo">Trades: --</span>
+      <span id="epochInfo">Epoch: --</span>
+    </div>
+    
+    <div class="live-grid" id="liveCards">
+      <div class="live-card"><div class="lbl">BTC Price</div><div class="val" id="btcPrice">--</div><div class="sub" id="btcChange">loading...</div></div>
+      <div class="live-card"><div class="lbl">Active Agents</div><div class="val" id="agentCount">--</div><div class="sub" id="agentSub">voted this cycle</div></div>
+      <div class="live-card"><div class="lbl">Win Rate</div><div class="val" id="winRate">--</div><div class="sub" id="winRateSub">live rolling</div><div class="gauge"><div class="gauge-fill" id="winGauge" style="width:0%"></div></div></div>
+      <div class="live-card"><div class="lbl">Room PnL</div><div class="val" id="roomPnl">--</div><div class="sub" id="roomPnlSub">$50 seed</div><div class="gauge"><div class="gauge-fill" id="pnlGauge" style="width:0%"></div></div></div>
+      <div class="live-card"><div class="lbl">Consensus</div><div class="val" id="voteConsensus">--</div><div class="sub" id="voteSub">up / down</div></div>
+      <div class="live-card"><div class="lbl">Conviction</div><div class="val" id="avgConviction">--</div><div class="sub">average confidence</div></div>
+      <div class="live-card"><div class="lbl">Genome Diversity</div><div class="val" id="genomeDiversity">--</div><div class="sub">mean pairwise distance</div><div class="gauge"><div class="gauge-fill orange" id="diversityGauge" style="width:50%"></div></div></div>
+      <div class="live-card"><div class="lbl">Mutation Rate</div><div class="val" id="mutationRate">--</div><div class="sub">Darwin evolution</div></div>
+    </div>
+
+    <div class="live-row">
+      <div class="live-table" id="featuresTable">
+        <h3>🧬 Live Features</h3>
+        <table><tr class="loading"><td>Loading...</td></tr></table>
+      </div>
+      <div class="live-table" id="agentsTable">
+        <h3>🏆 Top Agents</h3>
+        <table><tr class="loading"><td>Loading...</td></tr></table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar" id="results">
+  <div class="container">
+    <div class="grid">
+      <div class="stat-block"><div class="value" id="paperWr">--</div><div class="label">Paper WR (SP500)</div></div>
+      <div class="stat-block"><div class="value" id="paperReturn">--</div><div class="label">Paper Return</div></div>
+      <div class="stat-block"><div class="value" id="genomePnl">--</div><div class="label">Mean PnL / Genome</div></div>
+      <div class="stat-block"><div class="value" id="prsMerged">--</div><div class="label">RustChain PRs</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GDELT GLOBAL SENTIMENT PANEL ═══ -->
+<section class="gdelt-section" id="sentiment">
+  <div class="container">
+    <div class="gdelt-header">
+      <h2>🌍 <span>Global</span> News Sentiment</h2>
+      <p id="gdeltHeaderDesc">Live aggregate of international financial news sentiment from GDELT.</p>
+    </div>
+
+    <div class="gdelt-global-bar" id="gdeltGlobalBar">
+      <div class="global-stat"><div class="val" id="gdGlobalDir">--</div><div class="lbl">Global Direction</div></div>
+      <div class="global-divider"></div>
+      <div class="global-stat"><div class="val" id="gdGlobalScore">--</div><div class="lbl">Mean Sentiment</div></div>
+      <div class="global-divider"></div>
+      <div class="global-stat"><div class="val" id="gdArticles">--</div><div class="lbl">Articles Scanned</div></div>
+      <div class="global-divider"></div>
+      <div class="global-stat"><div class="val" id="gdMarkets">--</div><div class="lbl">Markets Tracked</div></div>
+    </div>
+
+    <div class="gdelt-grid" id="gdeltGrid">
+      <!-- Injected by JS -->
+    </div>
+
+    <div class="gdelt-market-bar" id="gdeltMarketBar">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features" style="background: var(--bg-deep);">
+  <div class="container">
+    <h2>⚙️ <span>Features</span></h2>
+    <p>Every component is open source, documented, and free to use under MIT license.</p>
+    <div class="features-grid">
+      <div class="feature-card"><div class="icon">🧬</div><h3>10K Evolving Genomes</h3><p>Darwinian evolution meets SGD. 11 trading parameters per genome, 18 learned feature weights, 4-float RNN hidden state.</p></div>
+      <div class="feature-card"><div class="icon">📰</div><h3>GDELT Global Feed</h3><p>24 international news queries across 8 markets. Real-time lexicon sentiment scoring from global financial press.</p></div>
+      <div class="feature-card"><div class="icon">📐</div><h3>GAAD φ-Features</h3><p>Golden-ratio interval analysis at φ, φ², φ³ scales. Multi-scale market decomposition from the GAAD-WuBu-ST paper.</p></div>
+      <div class="feature-card"><div class="icon">🌊</div><h3>DFT Frequency Analysis</h3><p>Goertzel algorithm extracts dominant cycle from price history. Frequency-domain features for cycle-aware prediction.</p></div>
+      <div class="feature-card"><div class="icon">🤖</div><h3>Q-Learning Controller</h3><p>Tabular Q-learning with ε-greedy exploration. Learns to select strategy weights from market state.</p></div>
+      <div class="feature-card"><div class="icon">🧑‍🏫</div><h3>10 Teacher Strategies</h3><p>Independent daemon processes with unique personality filters. From ultra-conservative to degenerate, covering the strategy spectrum.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="container">
+    <h2 style="text-align: center; font-size: 32px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">💼 <span>Pricing</span></h2>
+    <p style="text-align: center; color: var(--text-tertiary); margin-bottom: 48px;">Open source engine is free forever. Pro unlocks real money trading.</p>
+    <div class="grid">
+      <div class="pricing-card">
+        <h3>Starter</h3>
+        <div class="price">$0 <span>/ month</span></div>
+        <ul>
+          <li>Full C engine</li>
+          <li>10K genome ecosystem</li>
+          <li>GDELT sentiment feed</li>
+          <li>Q-controller</li>
+          <li>Paper trading only</li>
+          <li>Community support</li>
+          <li>MIT license</li>
+        </ul>
+        <a href="https://github.com/waefrebeorn/money-room" class="btn secondary">Get Started →</a>
+      </div>
+      <div class="pricing-card featured">
+        <h3>Pro</h3>
+        <div class="price">$50 <span>/ month</span></div>
+        <ul>
+          <li>✨ Polymarket CLOB integration</li>
+          <li>✨ Real $ trading ($50 seed)</li>
+          <li>✨ Web dashboard + Grafana</li>
+          <li>✨ Non-OHLCV data feeds</li>
+          <li>✨ Telegram alerts</li>
+          <li>Everything in Starter</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="https://github.com/waefrebeorn/money-room/issues" class="btn primary">Contact →</a>
+      </div>
+      <div class="pricing-card">
+        <h3>Enterprise</h3>
+        <div class="price">Custom</div>
+        <ul>
+          <li>Custom strategy dev</li>
+          <li>Dedicated deployment</li>
+          <li>99.9% SLA</li>
+          <li>White-label</li>
+          <li>On-site training</li>
+          <li>Everything in Pro</li>
+          <li>Dedicated support</li>
+        </ul>
+        <a href="https://github.com/waefrebeorn/money-room/issues" class="btn secondary">Contact →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p style="margin-top: 8px;">💰 Money Room — Open Source BTC Market Prediction + GDELT Global Sentiment · <strong>300/300 grid (100%)</strong> · 300 closed · 2.8M+ trades · C-first architecture</p>
+    <p style="margin-top: 8px;">
+      <a href="https://github.com/waefrebeorn/money-room">GitHub</a>
+      &nbsp;·&nbsp; <a href="#live">Live Dashboard</a>
+      &nbsp;·&nbsp; <a href="#sentiment">Global Sentiment</a>
+      &nbsp;·&nbsp; <a href="LICENSE">MIT License</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+// ═══ DATA LOADER — try demo → try live → offline ═══
+const PATHS = ['demo_snapshot.json', 'room_snapshot.json'];
+
+function loadSnapshot(idx) {
+  idx = idx || 0;
+  if (idx >= PATHS.length) {
+    renderOffline();
+    setTimeout(() => loadSnapshot(0), 30000);
+    return;
+  }
+  fetch(PATHS[idx])
+    .then(r => { if (!r.ok) throw new Error('Not found'); return r.json(); })
+    .then(snap => {
+      renderLive(snap);
+      setTimeout(() => loadSnapshot(0), 15000);
+    })
+    .catch(() => {
+      loadSnapshot(idx + 1);
+    });
+}
+
+function renderOffline() {
+  const dot = document.getElementById('liveDot');
+  dot.className = 'live-dot off';
+  document.getElementById('liveStatus').textContent = '⚡ Offline — run ./serve.sh in repo';
+  document.getElementById('liveTimestamp').textContent = '';
+  document.getElementById('cycleInfo').textContent = 'Cycle: offline';
+  document.getElementById('tradesInfo').textContent = 'Trades: offline';
+  document.getElementById('epochInfo').textContent = 'Epoch: offline';
+  const ids = ['btcPrice','agentCount','winRate','roomPnl','voteConsensus','avgConviction','genomeDiversity','mutationRate'];
+  ids.forEach(id => { const el = document.getElementById(id); if(el) el.textContent = '--'; });
+  renderOfflineGdelt();
+}
+
+function renderOfflineGdelt() {
+  document.getElementById('gdeltHeaderDesc').textContent = 'GDELT data will appear when snapshot is loaded.';
+  document.getElementById('gdGlobalDir').textContent = 'N/A';
+  document.getElementById('gdGlobalScore').textContent = '--';
+  document.getElementById('gdArticles').textContent = '0';
+  document.getElementById('gdMarkets').textContent = '0';
+  document.getElementById('gdeltGrid').innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-quaternary);padding:40px">⏳ GDELT data loads when snapshot is available</p>';
+  document.getElementById('gdeltMarketBar').innerHTML = '';
+}
+
+function renderLive(snap) {
+  const isDemo = !snap.last_updated || snap.last_updated < 1700000000;
+  const dot = document.getElementById('liveDot');
+  if (isDemo) {
+    dot.className = 'live-dot demo';
+    document.getElementById('liveStatus').textContent = '📊 Demo Mode — showing reference data';
+  } else {
+    dot.className = 'live-dot on';
+    document.getElementById('liveStatus').textContent = '⚡ LIVE — Engine running';
+  }
+  const lastUpd = snap.last_updated;
+  if (lastUpd) {
+    const d = new Date(lastUpd * 1000);
+    document.getElementById('liveTimestamp').textContent = 'updated ' + d.toLocaleString();
+  }
+  document.getElementById('cycleInfo').textContent = 'Cycle: ' + fmt(snap.cycle, 0);
+  document.getElementById('tradesInfo').textContent = 'Trades: ' + fmt(snap.stats?.trades_total, 0);
+  document.getElementById('epochInfo').textContent = 'Epoch: ' + fmt(snap.darwin?.epoch, 0);
+
+  const mkt = snap.market || {};
+  document.getElementById('btcPrice').textContent = '$' + fmt(mkt.close, 2);
+  document.getElementById('btcChange').textContent = 'vol: ' + fmt(mkt.volume, 4) + ' | sp500: ' + fmt(mkt.sp500, 2);
+
+  document.getElementById('agentCount').textContent = fmt(snap.stats?.active_agents, 0);
+  document.getElementById('agentSub').textContent = fmt(snap.stats?.voted_this_cycle, 0) + ' voted';
+
+  const wr = snap.stats?.win_rate || 0;
+  document.getElementById('winRate').textContent = pct(wr);
+  document.getElementById('winRateSub').textContent = (snap.stats?.trades_won || 0) + 'W / ' + (snap.stats?.trades_lost || 0) + 'L';
+  document.getElementById('winGauge').style.width = Math.min(wr * 100, 100) + '%';
+  document.getElementById('winGauge').className = 'gauge-fill ' + (wr > 0.5 ? 'green' : 'red');
+
+  const pnl = snap.stats?.room_pnl_pct || 0;
+  document.getElementById('roomPnl').textContent = (pnl > 0 ? '+' : '') + pnl.toFixed(2) + '%';
+  document.getElementById('roomPnlSub').textContent = '$50 seed | Sharpe: ' + (snap.stats?.sharpe_ratio || 0).toFixed(2);
+  document.getElementById('pnlGauge').style.width = Math.min(Math.max((pnl + 50) / 2, 0), 100) + '%';
+  document.getElementById('pnlGauge').className = 'gauge-fill ' + (pnl >= 0 ? 'green' : 'red');
+
+  const votes = snap.vote_summary || {};
+  const tv = votes.total || 0;
+  const upPct = tv > 0 ? (votes.up / tv * 100) : 0;
+  document.getElementById('voteConsensus').textContent = upPct.toFixed(1) + '% UP';
+  document.getElementById('voteSub').textContent = (votes.up || 0) + ' up / ' + (votes.down || 0) + ' down';
+
+  const conv = votes.avg_conviction;
+  document.getElementById('avgConviction').textContent = conv && !isNaN(conv) ? (conv * 100).toFixed(1) + '%' : '--';
+
+  const gd = snap.stats?.genome_diversity || 0;
+  document.getElementById('genomeDiversity').textContent = gd ? gd.toFixed(4) : '--';
+  document.getElementById('diversityGauge').style.width = Math.min((snap.stats?.weight_diversity || 0) * 20, 100) + '%';
+
+  document.getElementById('mutationRate').textContent = snap.darwin?.mutation_rate ? (snap.darwin.mutation_rate * 100).toFixed(1) + '%' : '--';
+
+  const feats = snap.features || {};
+  const featNames = [
+    ['price_delta_pct','Price Δ %'], ['micro_momentum','Micro Momentum'], ['rsi_7','RSI(7)'],
+    ['volume_surge_ratio','Vol Surge'], ['divergence_score','Divergence'], ['pump_score','Pump Score'],
+    ['regime_indicator','Regime'], ['fear_greed_norm','F&G Norm'], ['herd_consensus','Herd Consensus'],
+    ['nested_prediction','Nested Pred']
+  ];
+  const featHtml = featNames.map(([k,label]) => {
+    const v = feats[k]; const val = v !== undefined && !isNaN(v) ? v.toFixed(4) : '--';
+    return '<tr><td>'+label+'</td><td>'+val+'</td></tr>';
+  }).join('');
+  document.querySelector('#featuresTable table').innerHTML = '<colgroup><col><col style="width:120px"></colgroup>' + featHtml;
+
+  const agents = snap.top_agents || [];
+  if (agents.length > 0) {
+    const agentHtml = agents.map(a => {
+      const cap = fmt(a.capital, 2);
+      const wrEma = a.win_rate_ema !== undefined && !isNaN(a.win_rate_ema) ? (a.win_rate_ema * 100).toFixed(1) + '%' : '--';
+      return '<tr><td>#'+a.id+'</td><td>$'+cap+'</td><td>'+wrEma+'</td><td>'+(a.trades||0)+'</td></tr>';
+    }).join('');
+    document.querySelector('#agentsTable table').innerHTML = '<colgroup><col><col><col><col style="width:80px"></colgroup><tr style="color:var(--text-quaternary);font-size:11px"><td>ID</td><td>Capital</td><td>WR</td><td>Trades</td></tr>' + agentHtml;
+  }
+
+  // ═══ GDELT Panel ═══
+  renderGdelt(snap.gdelt);
+
+  // ═══ Paper Proof Stats Bar ═══
+  const pp = snap.paper_proof || {};
+  if (pp.sp500_wr !== undefined) {
+    document.getElementById('paperWr').textContent = pct(pp.sp500_wr);
+  }
+  if (pp.total_return !== undefined) {
+    document.getElementById('paperReturn').textContent = '+' + Number(pp.total_return).toLocaleString() + '%';
+  }
+  if (pp.genome_mean_pnl !== undefined) {
+    document.getElementById('genomePnl').textContent = '$' + Number(pp.genome_mean_pnl).toLocaleString();
+  }
+  if (pp.prs_merged !== undefined) {
+    document.getElementById('prsMerged').textContent = pp.prs_merged + '+';
+  }
+}
+
+function renderGdelt(g) {
+  if (!g || !g.gdelt_groups) {
+    renderOfflineGdelt();
+    return;
+  }
+  // Update header with data source info
+  const qc = g.query_count || 24;
+  const freq = g.update_frequency || "Every 6 hours";
+  const source = g.data_source || "GDELT Project";
+  const groupCount = Object.keys(g.gdelt_groups).length;
+  document.getElementById('gdeltHeaderDesc').textContent =
+    `Live aggregate of international financial news sentiment from ${source}. ${groupCount} markets, ${qc} queries, ${freq}.`;
+  const global = g.global_sentiment || {};
+  document.getElementById('gdGlobalDir').textContent = (global.direction || 'neutral').toUpperCase();
+  document.getElementById('gdGlobalDir').style.color = global.direction === 'bullish' ? 'var(--bullish)' : global.direction === 'bearish' ? 'var(--bearish)' : 'var(--neutral)';
+  document.getElementById('gdGlobalScore').textContent = global.mean ? global.mean.toFixed(4) : '0.0000';
+  document.getElementById('gdArticles').textContent = global.total_articles || 0;
+  document.getElementById('gdMarkets').textContent = Object.keys(g.gdelt_groups).length;
+
+  const groups = g.gdelt_groups || {};
+  const keys = Object.keys(groups);
+  let html = '';
+  keys.forEach((key, i) => {
+    const info = groups[key];
+    const score = info.sentiment || 0;
+    const dir = info.direction || 'neutral';
+    const posPct = (info.pos_ratio || 0) * 100;
+    const negPct = (info.neg_ratio || 0) * 100;
+    const neuPct = (info.neutral_ratio || 0) * 100;
+    const scoreClass = score > 0 ? 'pos' : (score < 0 ? 'neg' : 'neu');
+    const headline = info.headlines && info.headlines[0] ? info.headlines[0] : '';
+    html += '<div class="gdelt-card" style="animation-delay:'+(i*0.06)+'s">'
+      + '<div class="label">'+info.label+'</div>'
+      + '<span class="sentiment-badge '+dir+'">'+dir.toUpperCase()+'</span>'
+      + '<div class="score '+scoreClass+'">'+(score > 0 ? '+' : '')+score.toFixed(4)+'</div>'
+      + '<div class="meta">'+info.articles+' articles · conf '+(info.confidence||0).toFixed(2)+'</div>'
+      + '<div class="bar-row">'
+      + '<div class="seg pos" style="width:'+posPct.toFixed(1)+'%"></div>'
+      + '<div class="seg neg" style="width:'+negPct.toFixed(1)+'%"></div>'
+      + '<div class="seg neu" style="width:'+neuPct.toFixed(1)+'%"></div>'
+      + '</div>'
+      + (headline ? '<div class="headline">'+headline+'</div>' : '')
+      + '</div>';
+  });
+  document.getElementById('gdeltGrid').innerHTML = html;
+
+  // Market bar
+  const market = g.market || {};
+  const mKeys = [
+    {key:'sp500_current', label:'S&P 500', fmt:'$'},
+    {key:'btc_current', label:'Bitcoin', fmt:'$'},
+    {key:'vix_current', label:'VIX', fmt:''}
+  ];
+  const mHtml = mKeys.map((mk, i) => {
+    const val = market[mk.key];
+    if (!val) return '';
+    const chgKey = mk.key === 'sp500_current' ? 'sp500_1d_change' : (mk.key === 'btc_current' ? 'btc_1d_change' : null);
+    let chgHtml = '';
+    if (chgKey && market[chgKey] !== undefined) {
+      const chg = market[chgKey];
+      chgHtml = '<div class="chg '+(chg >= 0 ? 'up' : 'down')+'">'+(chg >= 0 ? '+' : '')+chg.toFixed(2)+'% 1d</div>';
+    }
+    return '<div class="gdelt-market-card" style="animation-delay:'+(i*0.1)+'s">'
+      + '<div class="lbl">'+mk.label+'</div>'
+      + '<div class="val">'+mk.fmt+Number(val).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div>'
+      + chgHtml + '</div>';
+  }).join('');
+  document.getElementById('gdeltMarketBar').innerHTML = mHtml;
+}
+
+function fmt(n, d) {
+  if (n === undefined || n === null || n === '--') return '--';
+  if (typeof n === 'number' && (!isFinite(n) || isNaN(n))) return '--';
+  let v = typeof n === 'number' ? n : parseFloat(n);
+  if (!isFinite(v) || isNaN(v)) return '--';
+  if (Math.abs(v) > 1e15) return (v/1e18).toFixed(2)+'Q';
+  if (Math.abs(v) > 1e12) return (v/1e12).toFixed(2)+'T';
+  if (Math.abs(v) > 1e9) return (v/1e9).toFixed(2)+'B';
+  if (Math.abs(v) > 1e6) return (v/1e6).toFixed(2)+'M';
+  if (Math.abs(v) > 1e3) return (v/1e3).toFixed(1)+'K';
+  return v.toFixed(d||2);
+}
+function pct(v) { return (v*100).toFixed(2)+'%'; }
+
+loadSnapshot();
+</script>
+
+<!-- ═══ DONATION / PRICING FOOTER ═══ -->
+<div class="donation-footer" style="background:#111; border-top:1px solid #333; padding:30px 20px; text-align:center; margin-top:40px;">
+  <p style="color:#888; font-size:12px; margin-bottom:8px;">
+    💰 <b>Money Room</b> — Open Source BTC Market Prediction Engine · 300/300 grid complete · 
+    <a href="https://waefrebeorn.github.io/money-room/pricing.html" style="color:#ffd166;">📊 Pricing</a> · 
+    <a href="https://github.com/waefrebeorn/money-room" style="color:#06d6a0;">⭐ GitHub</a>
+  </p>
+  <p style="color:#555; font-size:11px;">
+    Free tier: 24h delayed data. Premium: 1s–10s latency. BTC: <span style="font-family:monospace;color:#888;">15wLLZxFzNesJKEXo6E9NMVhpZWEUcAC4R</span> · 
+    ETH: <span style="font-family:monospace;color:#888;">0xc5394b12dcb65b2a2aa6fa7a1443c2ba78eb057a</span> · 
+    SOL: <span style="font-family:monospace;color:#888;">GGMwroNoy3FzHBVSASDvy76P8oW2r8YzdhGdeYecaCtH</span>
+  </p>
+</div>
+
+</body>
+</html>

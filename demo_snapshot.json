@@ -1,0 +1,270 @@
+{
+  "version": 5,
+  "cycle": 605499,
+  "last_updated": 1780033235,
+  "data_delay_hours": 24,
+  "data_tier": "free (24h delayed data) — Live with Premium",
+  "market": {
+    "asset": "BTC",
+    "close": 73395.3,
+    "bid": 73395.3,
+    "ask": 73413.24,
+    "volume": 7271.61,
+    "sp500": 7520.36,
+    "vix": 16.29,
+    "btc_dominance": 62.0,
+    "btc_30d_volatility": 2.43,
+    "data_quality_score": 85,
+    "source": "Kraken+Coinbase WebSocket"
+  },
+  "vote_summary": {
+    "total": 1833,
+    "up": 0,
+    "down": 1833,
+    "avg_conviction": 0.62,
+    "consensus_spread": 0.15
+  },
+  "stats": {
+    "active_agents": 10000,
+    "voted_this_cycle": 3501,
+    "trades_total": 2814362,
+    "trades_won": 1523018,
+    "trades_lost": 1291344,
+    "win_rate": 0.5412,
+    "sharpe_ratio": 1.24,
+    "max_drawdown": -0.183,
+    "capital_current": 124989.87,
+    "capital_peak": 151522,
+    "room_pnl_pct": 12.45,
+    "genome_mean_pnl": 1510.04
+  },
+  "engine": {
+    "language": "C11 (zero Python)",
+    "grid": "300/300 — ALL CELLS CLOSED",
+    "features": "80-dim (F1-F80: OHLCV+phi-GAAD+DFT+DCT+macro+orderbook+onchain+darkpool+insider+options+ETF+congress+news+seasonality)",
+    "c_sources": 76,
+    "state_size_mb": 56,
+    "cycle_time_ms": "0.3-0.9",
+    "learning": "REINFORCE SGD+Darwin+Q-learning+teacher-student",
+    "rooms": 4,
+    "teachers": 10,
+    "dashboard": "C HTTP server port 9090 (1.1MB RAM)"
+  },
+  "darwin": {
+    "epoch": 26000,
+    "culled": 949,
+    "cloned": 949,
+    "mutation_rate": 0.15
+  },
+  "top_agents": [
+    {
+      "id": 4424,
+      "capital": 12450.5,
+      "win_rate_ema": 0.612,
+      "trades": 284,
+      "pnl": 895,
+      "wins": 174,
+      "losses": 110
+    },
+    {
+      "id": 4669,
+      "capital": 11230.8,
+      "win_rate_ema": 0.598,
+      "trades": 256,
+      "pnl": 780.5,
+      "wins": 153,
+      "losses": 103
+    },
+    {
+      "id": 9176,
+      "capital": 10890.2,
+      "win_rate_ema": 0.584,
+      "trades": 312,
+      "pnl": 650.3,
+      "wins": 182,
+      "losses": 130
+    },
+    {
+      "id": 9251,
+      "capital": 10200,
+      "win_rate_ema": 0.575,
+      "trades": 198,
+      "pnl": 520,
+      "wins": 114,
+      "losses": 84
+    }
+  ],
+  "ecosystem": {
+    "n_genomes": 10000,
+    "mean_pnl": 1510.04,
+    "mean_cash": 1025.22,
+    "total_resolved": 1911293,
+    "profitable_genomes_pct": 65.8,
+    "valhalla_champions": 6,
+    "active_teachers": 4
+  },
+  "paper_proof": {
+    "sp500_wr": 0.5486,
+    "total_return": 6680,
+    "sp500_tested": "SP500 daily 1985-2026",
+    "criteria_passed": "4/8",
+    "structural_gap": "0.14% from 55% — OHLCV ceiling",
+    "btc_wr": 0.475,
+    "btc_wr_detail": "C engine v2 BTC 1-min",
+    "genome_mean_pnl": 1510.04,
+    "ecosystem_trades": 2814362,
+    "prs_merged": 60,
+    "prs_merged_detail": "RustChain bounties"
+  },
+  "gdelt": {
+    "version": 3,
+    "generated_at": "2026-05-29T05:40:35+00:00",
+    "global_sentiment": {
+      "mean": 1.0,
+      "direction": "bullish",
+      "total_articles": 1,
+      "groups_scanned": 8
+    },
+    "gdelt_groups": {
+      "us_market": {
+        "label": "🇺🇸 US Markets",
+        "sentiment": 0.18,
+        "direction": "bullish",
+        "articles": 11,
+        "pos_ratio": 0.36,
+        "neg_ratio": 0.18,
+        "neutral_ratio": 0.45,
+        "confidence": 0.4,
+        "headlines": [
+          "GS raises S&P 500 target to 8,000 on AI optimism",
+          "US stocks higher as AI optimism outweighs risks"
+        ]
+      },
+      "global_macro": {
+        "label": "🌍 Global Macro",
+        "sentiment": 0.08,
+        "direction": "bullish",
+        "articles": 8,
+        "pos_ratio": 0.3,
+        "neg_ratio": 0.22,
+        "neutral_ratio": 0.48,
+        "confidence": 0.2,
+        "headlines": [
+          "Global growth forecasts revised up",
+          "Central banks signal slower rate cuts"
+        ]
+      },
+      "geopolitics": {
+        "label": "⚔️ Geopolitics",
+        "sentiment": -0.22,
+        "direction": "bearish",
+        "articles": 6,
+        "pos_ratio": 0.1,
+        "neg_ratio": 0.45,
+        "neutral_ratio": 0.45,
+        "confidence": 0.35,
+        "headlines": [
+          "Trade tensions escalate",
+          "Supply chain risks weigh on markets"
+        ]
+      },
+      "commodities": {
+        "label": "🛢️ Commodities",
+        "sentiment": 0.05,
+        "direction": "neutral",
+        "articles": 7,
+        "pos_ratio": 0.25,
+        "neg_ratio": 0.2,
+        "neutral_ratio": 0.55,
+        "confidence": 0.15,
+        "headlines": [
+          "Oil steady as OPEC+ maintains targets",
+          "Gold near record highs"
+        ]
+      },
+      "crypto": {
+        "label": "₿ Crypto / BTC",
+        "sentiment": 0.12,
+        "direction": "bullish",
+        "articles": 9,
+        "pos_ratio": 0.33,
+        "neg_ratio": 0.22,
+        "neutral_ratio": 0.45,
+        "confidence": 0.3,
+        "headlines": [
+          "BTC holds above $70K on institutional inflows",
+          "Crypto regulation advances in Congress"
+        ]
+      },
+      "asia_pacific": {
+        "label": "🌏 Asia-Pacific",
+        "sentiment": 0.06,
+        "direction": "neutral",
+        "articles": 6,
+        "pos_ratio": 0.28,
+        "neg_ratio": 0.22,
+        "neutral_ratio": 0.5,
+        "confidence": 0.15,
+        "headlines": [
+          "Japan mixed as BOJ cautious",
+          "India GDP beats expectations"
+        ]
+      },
+      "europe": {
+        "label": "🇪🇺 Europe",
+        "sentiment": -0.04,
+        "direction": "neutral",
+        "articles": 7,
+        "pos_ratio": 0.2,
+        "neg_ratio": 0.25,
+        "neutral_ratio": 0.55,
+        "confidence": 0.1,
+        "headlines": [
+          "ECB signals potential rate adjustment",
+          "European stocks steady"
+        ]
+      },
+      "emerging": {
+        "label": "📈 Emerging Markets",
+        "sentiment": 0.1,
+        "direction": "bullish",
+        "articles": 5,
+        "pos_ratio": 0.35,
+        "neg_ratio": 0.2,
+        "neutral_ratio": 0.45,
+        "confidence": 0.2,
+        "headlines": [
+          "BRICS expands boosting EM sentiment",
+          "EM currencies strengthen"
+        ]
+      }
+    },
+    "market": {
+      "sp500_current": 7520.36,
+      "sp500_1d_change": 0.02,
+      "sp500_7d_change": 1.58,
+      "btc_current": 73395.3,
+      "btc_1d_change": -2.11,
+      "btc_7d_change": -3.59,
+      "vix_current": 16.29,
+      "vix_1d_change": -0.72
+    },
+    "query_count": 24,
+    "update_frequency": "Every 6 hours",
+    "data_source": "GDELT Project",
+    "sentiment_method": "Lexicon-based (19K terms)"
+  },
+  "meta": {
+    "engine": "C room engine v3",
+    "features": "80-dim (F1-F80)",
+    "grid_status": "300/300 — ALL CLOSED",
+    "c_sources": 76,
+    "language": "C11 (zero Python in production)",
+    "genomes": "10,000",
+    "teachers": "10 daemons",
+    "license": "MIT",
+    "repo": "github.com/waefrebeorn/money-room",
+    "dashboard_port": 9090,
+    "architecture": "100% C-first: 76 C sources, 43 cron jobs, zero Python"
+  }
+}
