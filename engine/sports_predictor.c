@@ -73,7 +73,7 @@ int main(void) {
     sqlite3_stmt *st;
     const char *sql = "SELECT game_id, league, home_team, away_team, "
                       "home_score, away_score, winner, spread "
-                      "FROM sports_outcomes WHERE status IS NULL OR status='final'";
+                      "FROM sports_outcomes WHERE status IS NULL OR status='' OR status='final'";
     int total = 0, correct = 0;
 
     if (sqlite3_prepare_v2(db, sql, -1, &st, NULL) != SQLITE_OK) {
