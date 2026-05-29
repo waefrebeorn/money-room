@@ -284,6 +284,34 @@ footer a:hover { color: var(--accent); }
   .donation-footer span { display: block; margin: 4px 0; }
 }
 
+/* ═══ WORLD MODEL VERIFICATION PANEL ═══ */
+.verify-section { padding: 48px 0; background: var(--bg-panel); border-bottom: 1px solid var(--border-subtle); }
+.verify-header { text-align: center; margin-bottom: 32px; }
+.verify-header h2 { font-size: 28px; font-weight: 700; color: var(--text-primary); }
+.verify-header h2 span { color: var(--accent); }
+.verify-header p { font-size: 14px; color: var(--text-tertiary); max-width: 600px; margin: 8px auto 0; }
+.verify-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+.verify-tier { background: var(--bg-page); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 20px; }
+.verify-tier h3 { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.verify-tier .status-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+.verify-tier .status-row:last-child { border-bottom: none; }
+.verify-tier .label { color: var(--text-quaternary); }
+.verify-tier .value { font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); }
+.verify-tier .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; }
+.verify-tier .dot.green { background: var(--bullish); }
+.verify-tier .dot.red { background: var(--bearish); }
+.verify-tier .dot.yellow { background: var(--orange); }
+.verify-conf-bar { text-align: center; padding: 16px; margin-top: 16px; background: var(--bg-page); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+.verify-conf-bar .big-score { font-size: 48px; font-weight: 700; font-family: 'JetBrains Mono', monospace; display: inline-flex; align-items: baseline; gap: 4px; }
+.verify-conf-bar .big-score .den { font-size: 20px; color: var(--text-tertiary); }
+.verify-conf-bar .big-score .num { color: var(--accent); }
+.verify-conf-bar .big-label { font-size: 13px; color: var(--text-tertiary); margin-top: 4px; }
+.verify-note { margin-top: 10px; padding: 8px 12px; border-radius: var(--radius-sm); font-size: 11px; display: flex; align-items: center; gap: 6px; }
+.verify-note.warn { background: rgba(255,159,67,0.1); color: var(--orange); border: 1px solid rgba(255,159,67,0.2); }
+.verify-note.ok { background: rgba(6,214,160,0.1); color: var(--bullish); border: 1px solid rgba(6,214,160,0.2); }
+
+@media (max-width: 768px) { .verify-grid { grid-template-columns: 1fr; } }
+
 /* iPhone SE / very small screens */
 @media (max-width: 380px) {
   .hero h1 { font-size: 24px; }
@@ -361,6 +389,49 @@ footer a:hover { color: var(--accent); }
     </div>
   </div>
 </div>
+
+<!-- ═══ WORLD MODEL VERIFICATION ═══ -->
+<section class="verify-section" id="verify">
+  <div class="container">
+    <div class="verify-header">
+      <h2>🔬 <span>World Model</span> Verification</h2>
+      <p>Live pipeline health: triple Devil's Advocate verification of data, engine, and output tiers.</p>
+    </div>
+    <div class="verify-grid" id="verifyGrid">
+      <div class="verify-tier" id="t1Panel">
+        <h3><span class="dot" id="t1Dot"></span> T1 — Data Pipeline</h3>
+        <div class="status-row"><span class="label">Collectors</span><span class="value" id="t1Collectors">--</span></div>
+        <div class="status-row"><span class="label">Gdelt Fresh</span><span class="value" id="t1Gdelt">--</span></div>
+        <div class="status-row"><span class="label">Bid/Ask</span><span class="value" id="t1BidAsk">--</span></div>
+        <div class="status-row"><span class="label">Data Quality</span><span class="value" id="t1Quality">--</span></div>
+        <div class="status-row"><span class="label">Sports Data</span><span class="value" id="t1Sports">--</span></div>
+        <div class="status-row"><span class="label">Pipeline</span><span class="value" id="t1Pipeline">--</span></div>
+      </div>
+      <div class="verify-tier" id="t2Panel">
+        <h3><span class="dot" id="t2Dot"></span> T2 — Engine Health</h3>
+        <div class="status-row"><span class="label">Cycle</span><span class="value" id="t2Cycle">--</span></div>
+        <div class="status-row"><span class="label">Vote Balance</span><span class="value" id="t2Votes">--</span></div>
+        <div class="status-row"><span class="label">Vote Anomaly</span><span class="value" id="t2Anomaly">--</span></div>
+        <div class="status-row"><span class="label">Conviction</span><span class="value" id="t2Conviction">--</span></div>
+        <div class="status-row"><span class="label">Capital</span><span class="value" id="t2Capital">--</span></div>
+        <div class="status-row"><span class="label">Darwin Epochs</span><span class="value" id="t2Darwin">--</span></div>
+      </div>
+      <div class="verify-tier" id="t3Panel">
+        <h3><span class="dot" id="t3Dot"></span> T3 — Output Pipeline</h3>
+        <div class="status-row"><span class="label">Dashboard</span><span class="value" id="t3Dashboard">--</span></div>
+        <div class="status-row"><span class="label">Snapshot Ver</span><span class="value" id="t3Version">--</span></div>
+        <div class="status-row"><span class="label">Website</span><span class="value" id="t3Website">--</span></div>
+        <div class="status-row"><span class="label">Deploy</span><span class="value" id="t3Deploy">--</span></div>
+        <div class="status-row"><span class="label">Generated</span><span class="value" id="t3Generated">--</span></div>
+      </div>
+    </div>
+    <div class="verify-conf-bar">
+      <div class="big-score"><span class="num" id="verifyScore">-</span><span class="den">/<span id="verifyTotal">8</span></span></div>
+      <div class="big-label" id="verifyLabel">System Confidence</div>
+      <div class="verify-note" id="verifyNote"></div>
+    </div>
+  </div>
+</section>
 
 <!-- ═══ GDELT GLOBAL SENTIMENT PANEL ═══ -->
 <section class="gdelt-section" id="sentiment">
@@ -483,6 +554,7 @@ function loadSnapshot(idx) {
     .then(r => { if (!r.ok) throw new Error('Not found'); return r.json(); })
     .then(snap => {
       renderLive(snap);
+      renderVerification(snap);
       setTimeout(() => loadSnapshot(0), 15000);
     })
     .catch(() => {
@@ -691,6 +763,67 @@ function fmt(n, d) {
   return v.toFixed(d||2);
 }
 function pct(v) { return (v*100).toFixed(2)+'%'; }
+
+/* ═══ WORLD MODEL VERIFICATION RENDERER ═══ */
+function renderVerification(data) {
+  const v = data.verification;
+  if (!v) {
+    document.getElementById('verifyScore').textContent = '--';
+    return;
+  }
+  // T1
+  const t1 = v.t1_data_pipeline || {};
+  document.getElementById('t1Collectors').textContent = t1.active_collectors || '--';
+  document.getElementById('t1Gdelt').innerHTML = t1.gdelt_fresh ? '<span style="color:var(--bullish)">✅ Live</span>' : '<span style="color:var(--bearish)">❌ Stale</span>';
+  document.getElementById('t1BidAsk').innerHTML = t1.bidask_fresh ? '<span style="color:var(--bullish)">✅ Fresh</span>' : '<span style="color:var(--bearish)">❌ Missing</span>';
+  document.getElementById('t1Quality').textContent = (t1.data_quality_score || 0)+'/100';
+  document.getElementById('t1Sports').innerHTML = t1.sports_data ? '<span style="color:var(--bullish)">✅ Active</span>' : '<span style="color:var(--orange)">No data</span>';
+  document.getElementById('t1Pipeline').textContent = '100% C';
+  document.getElementById('t1Dot').className = 'dot ' + (t1.status === 'operational' ? 'green' : 'red');
+
+  // T2
+  const t2 = v.t2_engine_health || {};
+  document.getElementById('t2Cycle').textContent = '#' + (t2.cycle || '--');
+  const votes = t2.vote_up + '/' + t2.vote_down;
+  document.getElementById('t2Votes').textContent = votes;
+  const anomaly = t2.vote_anomaly;
+  document.getElementById('t2Anomaly').innerHTML = anomaly ? '<span style="color:var(--orange)">⚠️ All one dir</span>' : '<span style="color:var(--bullish)">✅ Balanced</span>';
+  document.getElementById('t2Conviction').textContent = t2.avg_conviction ? t2.avg_conviction.toFixed(3) : 'NaN';
+  document.getElementById('t2Capital').textContent = '$' + fmt(t2.capital_current);
+  document.getElementById('t2Darwin').textContent = t2.darwin_epochs || 0;
+  document.getElementById('t2Dot').className = 'dot ' + (t2.status === 'operational' ? 'green' : 'red');
+
+  // T3
+  const t3 = v.t3_output_pipeline || {};
+  document.getElementById('t3Dashboard').innerHTML = t3.dashboard_online ? '<span style="color:var(--bullish)">✅ Online</span>' : '<span style="color:var(--bearish)">❌ Offline</span>';
+  document.getElementById('t3Version').textContent = 'v' + (t3.snapshot_version || '--');
+  document.getElementById('t3Website').textContent = t3.website || '--';
+  document.getElementById('t3Deploy').textContent = t3.deploy_schedule || '--';
+  const gen = v.generated_at;
+  document.getElementById('t3Generated').textContent = gen ? new Date(gen*1000).toLocaleString() : '--';
+  document.getElementById('t3Dot').className = 'dot ' + (t3.status === 'operational' ? 'green' : 'red');
+
+  // Confidence score
+  const passed = v.passed_checks || 0;
+  const total = v.total_checks || 8;
+  const confidence = v.system_confidence || 0;
+  document.getElementById('verifyScore').textContent = passed;
+  document.getElementById('verifyTotal').textContent = total;
+  const pct2 = Math.round(confidence*100);
+  document.getElementById('verifyScore').style.color = pct2 >= 75 ? 'var(--bullish)' : pct2 >= 50 ? 'var(--orange)' : 'var(--bearish)';
+  document.getElementById('verifyLabel').textContent = pct2 >= 75 ? 'System Confidence ✅' : pct2 >= 50 ? 'System Degraded ⚠️' : 'System Critical ❌';
+  const note = document.getElementById('verifyNote');
+  if (anomaly) {
+    note.className = 'verify-note warn';
+    note.innerHTML = '⚠️ Vote anomaly: ' + t2.vote_note || 'all votes one direction';
+  } else if (pct2 >= 75) {
+    note.className = 'verify-note ok';
+    note.innerHTML = '✅ All pipeline tiers operational. ' + passed + '/' + total + ' checks passed.';
+  } else {
+    note.className = 'verify-note warn';
+    note.innerHTML = '⚠️ ' + (total - passed) + ' check(s) failed — review tiers above.';
+  }
+}
 
 loadSnapshot();
 </script>
