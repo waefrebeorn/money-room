@@ -1,7 +1,7 @@
 {
   "version": 5,
   "cycle": 605499,
-  "last_updated": 1780077373,
+  "last_updated": 1780078057,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -40,7 +40,7 @@
     "room_pnl_pct": 0.0,
     "genome_mean_pnl": 1510.04,
     "total_genomes": 10000,
-    "timeline_rows": 42537,
+    "timeline_rows": 44294,
     "topic_consensus_count": 7,
     "room_price_avg": 14.0
   },
@@ -140,7 +140,7 @@
     },
     "politics": {
       "mean_probability": 0.058905251236852009,
-      "num_markets": 13,
+      "num_markets": 14,
       "max_prob": 0.058905251236852023,
       "min_prob": 0.058905251236852023,
       "range": 0.0,
@@ -148,43 +148,43 @@
     },
     "elections": {
       "mean_probability": 0.5,
-      "num_markets": 13,
+      "num_markets": 14,
       "max_prob": 0.5,
       "min_prob": 0.5,
       "range": 0.0,
       "divergence": 0.0
     },
     "sports": {
-      "mean_probability": 0.35242120802448884,
-      "num_markets": 32,
+      "mean_probability": 0.35521996049363658,
+      "num_markets": 34,
       "max_prob": 0.5,
       "min_prob": 0.18129361851880357,
       "range": 0.31870638148119645,
-      "divergence": 0.14757879197551116
+      "divergence": 0.14478003950636342
     },
     "technology": {
-      "mean_probability": 0.45504216069744208,
-      "num_markets": 136,
+      "mean_probability": 0.45213481848802273,
+      "num_markets": 131,
       "max_prob": 0.74101517220163904,
       "min_prob": 0.13902626275198754,
       "range": 0.60198890944965155,
-      "divergence": 0.044957839302557923
+      "divergence": 0.047865181511977273
     },
     "science": {
-      "mean_probability": 0.098386266871720043,
-      "num_markets": 22,
+      "mean_probability": 0.096669700974551867,
+      "num_markets": 23,
       "max_prob": 0.18624320169958836,
       "min_prob": 0.058905251236852023,
       "range": 0.12733795046273633,
-      "divergence": 0.40161373312827997
+      "divergence": 0.40333029902544815
     },
     "weather": {
-      "mean_probability": 0.13992509713476833,
-      "num_markets": 13,
+      "mean_probability": 0.1398608946788554,
+      "num_markets": 14,
       "max_prob": 0.14000000000000001,
       "min_prob": 0.13902626275198754,
       "range": 0.00097373724801247397,
-      "divergence": 0.36007490286523169
+      "divergence": 0.36013910532114457
     }
   },
   "features": {
@@ -234,7 +234,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T17:56:13+00:00",
+    "generated_at": "2026-05-29T18:07:37+00:00",
     "global_sentiment": {
       "mean": 0.046666666865348816,
       "direction": "neutral",
@@ -1757,11 +1757,11 @@
     "today": {
       "note": "No engine cycles today yet"
     },
-    "generated": "2026-05-29T17:56:13Z"
+    "generated": "2026-05-29T18:07:37Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780077373,
+    "generated_at": 1780078057,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
@@ -1798,8 +1798,8 @@
       "website": "waefrebeorn.github.io/money-room",
       "deploy_schedule": "every 5min via tandem cron",
       "last_deploy": {
-        "last_push": 1780075537,
-        "hash": "f6a2b9faad8454ca3b0ecf32f293eb05",
+        "last_push": 1780077376,
+        "hash": "8c743ad76c4e84b3612b8ccb10449539",
         "size": 124605
       }
     },
