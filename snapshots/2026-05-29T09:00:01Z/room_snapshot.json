@@ -1,0 +1,58 @@
+{
+"magic": 1380929357,
+"cycle": 605499,
+"last_updated": 175460042167778,
+"market": {
+  "asset": "BTC",
+  "window_ts": 1736390100,
+  "open": 94299.00,
+  "high": 94314.00,
+  "low": 94299.00,
+  "close": 94306.00,
+  "volume": 0.27,
+  "pump_score": 0.2000,
+  "fear_greed": 30.0
+},
+"features": {
+  "price_delta_pct": 0.0074,
+  "micro_momentum": 0.0011,
+  "rsi_7": 46.3,
+  "volume_surge_ratio": 26.23,
+  "divergence_score": 1.0000,
+  "pump_score": 0.2000,
+  "regime_indicator": 0,
+  "fear_greed_norm": 0.3000,
+  "herd_consensus": 0.0000,
+  "nested_prediction": 0.5741
+},
+"vote_summary": {
+  "total": 1833,
+  "up": 0,
+  "down": 1833,
+  "avg_conviction": -nan,
+  "consensus_spread": -nan
+},
+"stats": {
+  "active_agents": 170635,
+  "voted_this_cycle": 1833,
+  "trades_total": 35116,
+  "trades_won": 27969,
+  "trades_lost": 7147,
+  "win_rate": 0.7965,
+  "sharpe_ratio": nan,
+  "max_drawdown": -nan,
+  "capital_current": nan,
+  "capital_peak": nan,
+  "room_pnl_pct": 0.0000
+},
+"darwin": {
+  "epoch": 245,
+  "culled": 1586,
+  "cloned": 1586,
+  "mutation_rate": 0.0500
+},
+"top_agents": [
+  {"id": 887, "capital": 102215.000000, "win_rate_ema": 38685626227668133590597632.0000, "trades": 1, "wins": 0, "losses": 1736208120},
+  {"id": 873, "capital": 73263.703125, "win_rate_ema": 0.0000, "trades": 1056964608, "wins": 0, "losses": -1082439689}
+]
+}

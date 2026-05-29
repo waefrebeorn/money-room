@@ -1,0 +1,26 @@
+{
+  "timestamp": 1780045201,
+  "room": "momentum",
+  "price": 50.0,
+  "volume": 7100,
+  "regime": "neutral",
+  "volatility": 0.44292018355962154,
+  "signal": null,
+  "features": {
+    "price_momentum": 0.5,
+    "volume_surge": 0.14199999999999999,
+    "rsi": 0.5,
+    "macd": 0.5,
+    "trend_strength": 0.5
+  },
+  "consensus_topics": {
+    "crypto": 0.50182543479647357,
+    "politics": 0.058905251236852023,
+    "elections": 0.5,
+    "sports": 0.4088839147036929,
+    "economy": 0.5,
+    "technology": 0.43079608808863468,
+    "science": 0.18445262561842601,
+    "weather": 0.14000000000000001
+  }
+}
