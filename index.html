@@ -80,6 +80,7 @@ body {
 }
 .live-banner span { color: var(--text-tertiary); }
 .live-banner .ts { color: var(--text-quaternary); font-size: 12px; }
+.live-banner .deploy-age { color: var(--text-quaternary); font-size: 11px; }
 
 /* ═══ DASHBOARD ═══ */
 .live-panel { padding: 60px 0; border-bottom: 1px solid var(--border-subtle); }
@@ -892,7 +893,24 @@ function renderYesterday(data) {
   document.getElementById('yPolyCount').textContent = h.polymarket_markets_yesterday ? fmt(h.polymarket_markets_yesterday) + ' markets' : (pm.length ? pm.length + ' shown' : '--');
 }
 
+function ago(ts) {
+  var d = Math.floor((Date.now()/1000 - ts));
+  if (d < 60) return d + 's ago';
+  if (d < 3600) return Math.floor(d/60) + 'm ago';
+  return Math.floor(d/3600) + 'h ago';
+}
+function fetchDeployAge() {
+  fetch('.deploy_status.json')
+    .then(function(r) { if (!r.ok) throw Error('no status'); return r.json(); })
+    .then(function(d) {
+      var el = document.getElementById('deployAge');
+      if (el) el.textContent = 'Deployed ' + ago(d.last_push);
+    })
+    .catch(function() { /* no status file yet */ });
+}
 loadSnapshot();
+fetchDeployAge();
+setInterval(fetchDeployAge, 60000); // update every minute
 </script>
 
 <!-- ═══ DONATION / PRICING FOOTER ═══ -->
