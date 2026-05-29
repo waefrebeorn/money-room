@@ -1,16 +1,16 @@
 {
   "version": 5,
   "cycle": 605499,
-  "last_updated": 1780037937,
+  "last_updated": 1780037997,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
   "market": {
     "asset": "BTC",
-    "close": 73684.600000000006,
-    "bid": 73680.0,
-    "ask": 73684.0,
-    "volume": 7240.7719734900002,
+    "close": 73684.899999999994,
+    "bid": 73680.899999999994,
+    "ask": 73687.160000000003,
+    "volume": 7242.9354083300004,
     "sp500": 7520.3599999999997,
     "vix": 16.289999999999999,
     "btc_dominance": 62.0,
@@ -234,7 +234,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T06:58:57+00:00",
+    "generated_at": "2026-05-29T06:59:57+00:00",
     "global_sentiment": {
       "mean": 0.096666663885116577,
       "direction": "bullish",
@@ -1662,7 +1662,7 @@
       "sp500_current": 7520.3599999999997,
       "sp500_1d_change": 0.02,
       "sp500_7d_change": 1.5800000000000001,
-      "btc_current": 73684.600000000006,
+      "btc_current": 73684.899999999994,
       "btc_1d_change": -2.1099999999999999,
       "btc_7d_change": -3.5899999999999999,
       "vix_current": 16.289999999999999,
@@ -1670,7 +1670,7 @@
     },
     "query_count": 24,
     "update_frequency": "Every 6 hours",
-    "data_source": "GDELT Project",
+    "data_source": "Google News RSS",
     "sentiment_method": "Lexicon-based (19K terms)"
   },
   "meta": {
