@@ -1,7 +1,7 @@
 {
   "version": 5,
   "cycle": 605499,
-  "last_updated": 1780059290,
+  "last_updated": 1780059642,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -234,7 +234,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T12:54:50+00:00",
+    "generated_at": "2026-05-29T13:00:42+00:00",
     "global_sentiment": {
       "mean": 0.063333332538604736,
       "direction": "bullish",
@@ -1757,11 +1757,11 @@
     "today": {
       "note": "No engine cycles today yet"
     },
-    "generated": "2026-05-29T12:54:50Z"
+    "generated": "2026-05-29T13:00:42Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780059290,
+    "generated_at": 1780059642,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
