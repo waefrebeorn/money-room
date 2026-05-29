@@ -1,16 +1,16 @@
 {
   "version": 5,
   "cycle": 605499,
-  "last_updated": 1780057722,
+  "last_updated": 1780058633,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
   "market": {
     "asset": "BTC",
-    "close": 73212.899999999994,
-    "bid": 73212.800000000003,
-    "ask": 73191.339999999997,
-    "volume": 7638.6388452700003,
+    "close": 73203.600000000006,
+    "bid": 73203.600000000006,
+    "ask": 73180.539999999994,
+    "volume": 7692.7204014199997,
     "sp500": 7520.3599999999997,
     "vix": 16.289999999999999,
     "btc_dominance": 62.0,
@@ -234,7 +234,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T12:28:42+00:00",
+    "generated_at": "2026-05-29T12:43:53+00:00",
     "global_sentiment": {
       "mean": 0.063333332538604736,
       "direction": "bullish",
@@ -1662,7 +1662,7 @@
       "sp500_current": 7520.3599999999997,
       "sp500_1d_change": 0.02,
       "sp500_7d_change": 1.5800000000000001,
-      "btc_current": 73212.899999999994,
+      "btc_current": 73203.600000000006,
       "btc_1d_change": -2.1099999999999999,
       "btc_7d_change": -3.5899999999999999,
       "vix_current": 16.289999999999999,
@@ -1672,6 +1672,50 @@
     "update_frequency": "Every 6 hours",
     "data_source": "Google News RSS",
     "sentiment_method": "Lexicon-based (19K terms)"
+  },
+  "verification": {
+    "version": 1,
+    "generated_at": 1780058633,
+    "t1_data_pipeline": {
+      "status": "operational",
+      "active_collectors": 43,
+      "gdelt_articles": 100,
+      "gdelt_fresh": true,
+      "bidask_fresh": true,
+      "data_quality_score": 85,
+      "sports_data": false,
+      "pipeline_type": "100% C (all collectors C11 binaries)"
+    },
+    "t2_engine_health": {
+      "status": "operational",
+      "cycle": 605499,
+      "vote_total": 1833,
+      "vote_up": 0,
+      "vote_down": 1833,
+      "vote_anomaly": true,
+      "vote_note": "ALL VOTES ONE DIRECTION \u2014 may indicate stale config or NaN features",
+      "avg_conviction": null,
+      "active_agents": 153000,
+      "rooms_active": 16,
+      "win_rate": 0.79649999999999999,
+      "sharpe": 1.24,
+      "capital_current": 124989.87,
+      "capital_healthy": true,
+      "darwin_epochs": 245,
+      "engine_language": "C11",
+      "features": "80-dim (F1-F80)"
+    },
+    "t3_output_pipeline": {
+      "status": "operational",
+      "snapshot_version": 5,
+      "dashboard_online": true,
+      "website": "waefrebeorn.github.io/money-room",
+      "deploy_schedule": "every 3h via cron",
+      "last_deploy": "auto"
+    },
+    "system_confidence": 0.875,
+    "passed_checks": 7,
+    "total_checks": 8
   },
   "meta": {
     "engine": "C room engine v3",
