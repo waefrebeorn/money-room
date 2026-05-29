@@ -1,7 +1,7 @@
 {
   "version": 5,
-  "cycle": 3,
-  "last_updated": 1780079502,
+  "cycle": 5,
+  "last_updated": 1780079644,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -29,9 +29,9 @@
     "active_agents": 153000,
     "total_rooms": 16,
     "voted_this_cycle": 4514,
-    "trades_total": 2152,
+    "trades_total": 4310,
     "trades_won": 0,
-    "trades_lost": 2152,
+    "trades_lost": 4310,
     "win_rate": 0.0,
     "sharpe_ratio": 0.0,
     "max_drawdown": -0.183,
@@ -196,7 +196,7 @@
     "pump_score": -0.98350000000000004,
     "regime_indicator": 0,
     "fear_greed_norm": 0.5,
-    "herd_consensus": 52.409700000000001,
+    "herd_consensus": 53.930900000000001,
     "nested_prediction": 0.5
   },
   "top_agents": [
@@ -228,13 +228,13 @@
     "btc_wr": 0.47499999999999998,
     "btc_wr_detail": "C engine v2 BTC 1-min",
     "genome_mean_pnl": 1510.04,
-    "ecosystem_trades": 2152,
+    "ecosystem_trades": 4310,
     "prs_merged": 60,
     "prs_merged_detail": "RustChain bounties"
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-29T18:31:42+00:00",
+    "generated_at": "2026-05-29T18:34:04+00:00",
     "global_sentiment": {
       "mean": 0.046666666865348816,
       "direction": "neutral",
@@ -1675,7 +1675,7 @@
   },
   "history": {
     "today": {
-      "cycles": 3,
+      "cycles": 5,
       "avg_win_rate": 0.0,
       "avg_sharpe": 0.0,
       "cap_change": 0.0
@@ -1760,11 +1760,11 @@
     "yesterday": {
       "note": "Engine log stale \u2014 no fresh room_log data"
     },
-    "generated": "2026-05-29T18:31:42Z"
+    "generated": "2026-05-29T18:34:04Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780079502,
+    "generated_at": 1780079644,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
@@ -1777,7 +1777,7 @@
     },
     "t2_engine_health": {
       "status": "operational",
-      "cycle": 3,
+      "cycle": 5,
       "vote_total": 4514,
       "vote_up": 1904,
       "vote_down": 2610,
