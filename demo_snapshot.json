@@ -1,7 +1,7 @@
 {
   "version": 5,
   "cycle": 19880050,
-  "last_updated": 1780159526,
+  "last_updated": 1780159533,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -278,7 +278,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-30T16:45:26+00:00",
+    "generated_at": "2026-05-30T16:45:33+00:00",
     "global_sentiment": {
       "mean": 0.032000001519918442,
       "direction": "neutral",
@@ -7335,11 +7335,11 @@
       "first_ts": 1780012800,
       "last_ts": 1780023600
     },
-    "generated": "2026-05-30T16:45:26Z"
+    "generated": "2026-05-30T16:45:33Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780159526,
+    "generated_at": 1780159533,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
@@ -7382,16 +7382,16 @@
       }
     },
     "t4_collector_health": {
-      "generated_at": 1780159526,
+      "generated_at": 1780159534,
       "total": 17,
-      "ok": 17,
+      "ok": 16,
       "warn": 0,
-      "fail": 0,
+      "fail": 1,
       "timeout": 0,
       "missing": 0,
       "running": 0,
-      "stale": 0,
-      "status": "healthy",
+      "stale": 1,
+      "status": "degraded",
       "collectors": [
         {
           "name": "outlier_filter",
@@ -7465,23 +7465,23 @@
         },
         {
           "name": "ls_ratio",
-          "status": "ok",
-          "last_run": "2026-05-30T12:15:26",
-          "age_min": 270,
-          "stale": 0
+          "status": "fail",
+          "last_run": "2026-05-30T12:45:27",
+          "age_min": 240,
+          "stale": 1
         },
         {
           "name": "whale_tracking",
           "status": "ok",
-          "last_run": "2026-05-30T12:15:29",
-          "age_min": 269,
+          "last_run": "2026-05-30T12:45:30",
+          "age_min": 240,
           "stale": 0
         },
         {
           "name": "etf_flow",
           "status": "ok",
-          "last_run": "2026-05-30T12:15:32",
-          "age_min": 269,
+          "last_run": "2026-05-30T12:45:34",
+          "age_min": 240,
           "stale": 0
         },
         {
