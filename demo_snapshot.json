@@ -1,7 +1,7 @@
 {
   "version": 5,
-  "cycle": 5,
-  "last_updated": 1780180442,
+  "cycle": 2,
+  "last_updated": 1780180623,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -20,41 +20,41 @@
   },
   "vote_summary": {
     "total": 10000,
-    "up": 5715,
-    "down": 4285,
-    "avg_conviction": 0.57150000000000001,
-    "consensus_spread": 0.49490000000000001
+    "up": 5670,
+    "down": 4330,
+    "avg_conviction": 0.56699999999999995,
+    "consensus_spread": 0.4955
   },
   "stats": {
-    "active_agents": 10000,
-    "total_rooms": 0,
+    "active_agents": 153000,
+    "total_rooms": 16,
     "voted_this_cycle": 10000,
-    "trades_total": 49964,
+    "trades_total": 20000,
     "trades_won": 0,
-    "trades_lost": 49964,
+    "trades_lost": 20000,
     "win_rate": 0.0,
     "sharpe_ratio": 0.0,
     "max_drawdown": 0.0,
-    "capital_current": 46.950000000000003,
-    "capital_peak": 46.950000000000003,
-    "room_pnl_pct": -6.0955000000000004,
+    "capital_current": 473983.03120000003,
+    "capital_peak": 500000.0,
+    "room_pnl_pct": -1.6399999999999999,
     "api_calls_24h": 0,
     "api_active": false,
     "genome_mean_pnl": 1510.04,
     "total_genomes": 10000,
-    "timeline_rows": 0,
-    "topic_consensus_count": 0,
-    "room_price_avg": 0.0
+    "timeline_rows": 93411,
+    "topic_consensus_count": 6,
+    "room_price_avg": 50.0
   },
   "engine": {
     "language": "C11 (zero Python)",
     "grid": "300/300 -- ALL CELLS CLOSED",
-    "features": "19-dim active, 80-dim arch (F1-F80: OHLCV+phi-GAAD+macro+orderbook+onchain+insider+news+seasonality)",
-    "c_sources": 179,
+    "features": "80-dim (F1-F80: OHLCV+phi-GAAD+DFT+DCT+macro+orderbook+onchain+darkpool+insider+options+ETF+congress+news+seasonality)",
+    "c_sources": 76,
     "state_size_mb": 56,
     "cycle_time_ms": "0.3-0.9",
     "learning": "REINFORCE SGD+Darwin+Q-learning+teacher-student",
-    "rooms": 0,
+    "rooms": 16,
     "teachers": 10,
     "dashboard": "C HTTP server port 9090 (1.1MB RAM)"
   },
@@ -64,18 +64,133 @@
     "cloned": 1000,
     "mutation_rate": 0.29999999999999999
   },
-  "rooms": [],
-  "consensus_topics": null,
+  "rooms": [
+    {
+      "name": "weather",
+      "agents": 10000,
+      "price": 50.0
+    },
+    {
+      "name": "kalshi",
+      "agents": 10000
+    },
+    {
+      "name": "science_tech",
+      "agents": 10000
+    },
+    {
+      "name": "polymarket",
+      "agents": 10000
+    },
+    {
+      "name": "crypto_prices",
+      "agents": 10000
+    },
+    {
+      "name": "options",
+      "agents": 10000
+    },
+    {
+      "name": "stocks",
+      "agents": 10000
+    },
+    {
+      "name": "elections",
+      "agents": 10000
+    },
+    {
+      "name": "btc_main",
+      "agents": 10000
+    },
+    {
+      "name": "economic",
+      "agents": 10000
+    },
+    {
+      "name": "manifold",
+      "agents": 10000
+    },
+    {
+      "name": "sports",
+      "agents": 10000
+    },
+    {
+      "name": "macro",
+      "agents": 10000
+    },
+    {
+      "name": "predictit",
+      "agents": 10000
+    },
+    {
+      "name": "momentum",
+      "agents": 3000
+    },
+    {
+      "name": "consensus",
+      "agents": 10000
+    }
+  ],
+  "consensus_topics": {
+    "crypto": {
+      "mean_probability": 0.50786993251508372,
+      "num_markets": 18,
+      "max_prob": 0.59999999999999998,
+      "min_prob": 0.40552135418208546,
+      "range": 0.19447864581791452,
+      "divergence": 0.0078699325150837218
+    },
+    "politics": {
+      "mean_probability": 0.50453446628628995,
+      "num_markets": 70,
+      "max_prob": 0.60975609756097571,
+      "min_prob": 0.5,
+      "range": 0.10975609756097571,
+      "divergence": 0.004534466286289951
+    },
+    "elections": {
+      "mean_probability": 0.49753561564787013,
+      "num_markets": 110,
+      "max_prob": 0.60975609756097571,
+      "min_prob": 0.4098360655737705,
+      "range": 0.1999200319872052,
+      "divergence": 0.002464384352129867
+    },
+    "sports": {
+      "mean_probability": 0.53028831016011357,
+      "num_markets": 54,
+      "max_prob": 0.63,
+      "min_prob": 0.27283091515318603,
+      "range": 0.35716908484681398,
+      "divergence": 0.030288310160113574
+    },
+    "technology": {
+      "mean_probability": 0.49767420647271154,
+      "num_markets": 79,
+      "max_prob": 0.80655191108545488,
+      "min_prob": 0.086363347796262868,
+      "range": 0.72018856328919201,
+      "divergence": 0.0023257935272884556
+    },
+    "science": {
+      "mean_probability": 0.37096280985429586,
+      "num_markets": 31,
+      "max_prob": 0.5,
+      "min_prob": 0.13330785091386185,
+      "range": 0.36669214908613812,
+      "divergence": 0.12903719014570414
+    }
+  },
   "features": {
-    "price_delta_pct": 0.3009,
+    "price_delta_pct": -0.015800000000000002,
     "micro_momentum": 0.0,
     "rsi_7": 50.0,
     "volume_surge_ratio": 1.0,
     "divergence_score": 0.0,
-    "pump_score": 0.5,
+    "pump_score": 0.076899999999999996,
     "regime_indicator": 0,
-    "fear_greed_norm": 0.0079000000000000008,
-    "herd_consensus": 0.57150000000000001,
+    "fear_greed_norm": 0.23000000000000001,
+    "herd_consensus": 0.56699999999999995,
     "nested_prediction": 0.5
   },
   "top_agents": [
@@ -107,7 +222,7 @@
     "btc_wr": 0.47499999999999998,
     "btc_wr_detail": "C engine v2 BTC 1-min",
     "genome_mean_pnl": 1510.04,
-    "ecosystem_trades": 49964,
+    "ecosystem_trades": 20000,
     "prs_merged": 60,
     "prs_merged_detail": "RustChain bounties",
     "criteria": [
@@ -163,7 +278,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-30T22:34:02+00:00",
+    "generated_at": "2026-05-30T22:37:03+00:00",
     "global_sentiment": {
       "mean": 0.026000000536441803,
       "direction": "neutral",
@@ -7204,30 +7319,30 @@
   },
   "history": {
     "yesterday": {
-      "cycles": 288,
-      "avg_win_rate": 0.001736111111111111,
-      "avg_sharpe": -5767296.4510406237,
-      "cap_change": -2.2999999999999972
+      "cycles": 287,
+      "avg_win_rate": 0.0017421602787456446,
+      "avg_sharpe": -5787395.5734665496,
+      "cap_change": 49.18
     },
     "today": {
-      "cycles": 43,
+      "cycles": 42,
       "avg_win_rate": 0.0,
-      "avg_sharpe": -18713584.726044189,
-      "cap_change": -2.269999999999996
+      "avg_sharpe": -19159146.267140478,
+      "cap_change": -0.75
     },
     "btc_yesterday": {
       "candles": 4,
       "first_ts": 1780012800,
       "last_ts": 1780023600
     },
-    "generated": "2026-05-30T22:34:02Z"
+    "generated": "2026-05-30T22:37:03Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780180442,
+    "generated_at": 1780180623,
     "t1_data_pipeline": {
       "status": "operational",
-      "active_collectors": 24,
+      "active_collectors": 43,
       "gdelt_articles": 500,
       "gdelt_fresh": true,
       "bidask_fresh": true,
@@ -7237,22 +7352,22 @@
     },
     "t2_engine_health": {
       "status": "operational",
-      "cycle": 5,
+      "cycle": 2,
       "vote_total": 10000,
-      "vote_up": 5715,
-      "vote_down": 4285,
+      "vote_up": 5670,
+      "vote_down": 4330,
       "vote_anomaly": false,
       "vote_note": "normal",
-      "avg_conviction": 0.57150000000000001,
-      "active_agents": 0,
-      "rooms_active": 0,
+      "avg_conviction": 0.56699999999999995,
+      "active_agents": 153000,
+      "rooms_active": 16,
       "win_rate": 0.0,
       "sharpe": 0.0,
-      "capital_current": 46.950000000000003,
+      "capital_current": 473983.03120000003,
       "capital_healthy": true,
       "darwin_epochs": 0,
       "engine_language": "C11",
-      "features": "19-dim active (80-dim arch)"
+      "features": "80-dim (F1-F80)"
     },
     "t3_output_pipeline": {
       "status": "operational",
@@ -7267,21 +7382,21 @@
       }
     },
     "t4_collector_health": {
-      "generated_at": 1780180443,
+      "generated_at": 1780180624,
       "total": 19,
       "ok": 17,
       "warn": 1,
       "fail": 0,
-      "timeout": 1,
+      "timeout": 0,
       "missing": 0,
-      "running": 0,
-      "stale": 2,
-      "status": "degraded",
+      "running": 1,
+      "stale": 1,
+      "status": "warning",
       "collectors": [
         {
           "name": "outlier_filter",
           "status": "ok",
-          "last_run": "2026-05-30T18:32:04",
+          "last_run": "2026-05-30T18:36:03",
           "age_min": 241,
           "stale": 0
         },
@@ -7289,146 +7404,146 @@
           "name": "sports",
           "status": "ok",
           "last_run": "2026-05-30T18:15:04",
-          "age_min": 258,
+          "age_min": 262,
           "stale": 0
         },
         {
           "name": "options_features",
           "status": "ok",
           "last_run": "2026-05-30T18:15:06",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "onchain_features",
           "status": "ok",
           "last_run": "2026-05-30T18:15:08",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "stablecoin_features",
           "status": "ok",
           "last_run": "2026-05-30T18:15:11",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "funding_features",
           "status": "ok",
           "last_run": "2026-05-30T18:15:14",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "open_interest",
           "status": "ok",
           "last_run": "2026-05-30T18:15:16",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "hashrate_features",
           "status": "ok",
           "last_run": "2026-05-30T18:15:19",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "orderbook_archive",
           "status": "ok",
           "last_run": "2026-05-30T18:15:22",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "liquidation_features",
           "status": "ok",
           "last_run": "2026-05-30T18:15:24",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "ls_ratio",
           "status": "ok",
           "last_run": "2026-05-30T18:15:27",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "whale_tracking",
           "status": "ok",
           "last_run": "2026-05-30T18:15:30",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "etf_flow",
           "status": "ok",
           "last_run": "2026-05-30T18:15:34",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "gdelt_sentiment",
           "status": "ok",
           "last_run": "2026-05-30T18:15:50",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "news_rss",
           "status": "ok",
           "last_run": "2026-05-30T18:15:54",
-          "age_min": 258,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "options_flow_monitor",
           "status": "ok",
           "last_run": "2026-05-30T18:16:04",
-          "age_min": 257,
+          "age_min": 261,
           "stale": 0
         },
         {
           "name": "earnings_calendar",
           "status": "ok",
           "last_run": "2026-05-30T18:16:08",
-          "age_min": 257,
+          "age_min": 260,
           "stale": 0
         },
         {
           "name": "cycle_all_rooms",
-          "status": "timeout",
-          "last_run": "2026-05-30T18:34:01",
+          "status": "running",
+          "last_run": "2026-05-30T18:37:01",
           "age_min": 240,
-          "stale": 1
+          "stale": 0
         },
         {
           "name": "ws_feed_watchdog",
           "status": "warn",
-          "last_run": "2026-05-30T18:32:06",
-          "age_min": 241,
+          "last_run": "2026-05-30T18:36:05",
+          "age_min": 240,
           "stale": 1
         }
       ]
     },
-    "system_confidence": 0.625,
-    "passed_checks": 5,
+    "system_confidence": 0.875,
+    "passed_checks": 7,
     "total_checks": 8
   },
   "meta": {
     "engine": "C room engine v3",
-    "features": "19-dim active (80-dim arch)",
+    "features": "80-dim (F1-F80)",
     "grid_status": "300/300 -- ALL CLOSED",
-    "c_sources": 179,
+    "c_sources": 76,
     "language": "C11 (zero Python in production)",
     "genomes": "10,000",
     "teachers": "10 daemons",
     "license": "MIT",
     "repo": "github.com/waefrebeorn/money-room",
     "dashboard_port": 9090,
-    "architecture": "100% C-first: 179 C sources, 16 rooms, 24 cron jobs, zero Python",
+    "architecture": "100% C-first: 76 C sources, 16 rooms, 43 cron jobs, zero Python",
     "dashboard_online": true
   }
 }
