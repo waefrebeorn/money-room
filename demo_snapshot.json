@@ -1,7 +1,7 @@
 {
   "version": 5,
   "cycle": 19880050,
-  "last_updated": 1780159521,
+  "last_updated": 1780159526,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -278,7 +278,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-30T16:45:21+00:00",
+    "generated_at": "2026-05-30T16:45:26+00:00",
     "global_sentiment": {
       "mean": 0.032000001519918442,
       "direction": "neutral",
@@ -7335,11 +7335,11 @@
       "first_ts": 1780012800,
       "last_ts": 1780023600
     },
-    "generated": "2026-05-30T16:45:21Z"
+    "generated": "2026-05-30T16:45:26Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780159521,
+    "generated_at": 1780159526,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
@@ -7376,20 +7376,20 @@
       "website": "waefrebeorn.github.io/money-room",
       "deploy_schedule": "every 5min via tandem cron",
       "last_deploy": {
-        "last_push": 1780156640,
-        "hash": "2e27770f329b58f30969d05eac87f71c",
-        "size": 583318
+        "last_push": 1780159524,
+        "hash": "87c2789bec957f1fe53db0841a134ded",
+        "size": 580731
       }
     },
     "t4_collector_health": {
-      "generated_at": 1780159522,
+      "generated_at": 1780159526,
       "total": 17,
-      "ok": 16,
+      "ok": 17,
       "warn": 0,
       "fail": 0,
       "timeout": 0,
       "missing": 0,
-      "running": 1,
+      "running": 0,
       "stale": 0,
       "status": "healthy",
       "collectors": [
@@ -7451,23 +7451,23 @@
         },
         {
           "name": "orderbook_archive",
-          "status": "running",
-          "last_run": "2026-05-30T12:45:22",
+          "status": "ok",
+          "last_run": "2026-05-30T12:45:23",
           "age_min": 240,
           "stale": 0
         },
         {
           "name": "liquidation_features",
           "status": "ok",
-          "last_run": "2026-05-30T12:15:24",
-          "age_min": 269,
+          "last_run": "2026-05-30T12:45:25",
+          "age_min": 240,
           "stale": 0
         },
         {
           "name": "ls_ratio",
           "status": "ok",
           "last_run": "2026-05-30T12:15:26",
-          "age_min": 269,
+          "age_min": 270,
           "stale": 0
         },
         {
