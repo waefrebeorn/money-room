@@ -1,7 +1,7 @@
 {
   "version": 5,
   "cycle": 19880019,
-  "last_updated": 1780155881,
+  "last_updated": 1780155928,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -191,7 +191,7 @@
     "regime_indicator": 0,
     "fear_greed_norm": 0.23000000000000001,
     "herd_consensus": 0.25269999999999998,
-    "nested_prediction": 0.5
+    "nested_prediction": 0.0
   },
   "top_agents": [
     {
@@ -278,7 +278,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-30T15:44:41+00:00",
+    "generated_at": "2026-05-30T15:45:28+00:00",
     "global_sentiment": {
       "mean": 0.028000000864267349,
       "direction": "neutral",
@@ -7335,11 +7335,11 @@
       "first_ts": 1780012800,
       "last_ts": 1780023600
     },
-    "generated": "2026-05-30T15:44:41Z"
+    "generated": "2026-05-30T15:45:29Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780155881,
+    "generated_at": 1780155928,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
@@ -7382,113 +7382,113 @@
       }
     },
     "t4_collector_health": {
-      "generated_at": 1780155882,
+      "generated_at": 1780155929,
       "total": 35,
       "ok": 30,
       "warn": 3,
       "fail": 0,
-      "timeout": 2,
+      "timeout": 1,
       "missing": 0,
-      "running": 0,
-      "stale": 18,
+      "running": 1,
+      "stale": 17,
       "status": "degraded",
       "collectors": [
         {
           "name": "cycle_all_rooms",
-          "status": "timeout",
-          "last_run": "2026-05-30T11:44:01",
+          "status": "running",
+          "last_run": "2026-05-30T11:45:01",
           "age_min": 240,
-          "stale": 1
+          "stale": 0
         },
         {
           "name": "outlier_filter",
           "status": "ok",
           "last_run": "2026-05-30T11:44:03",
-          "age_min": 240,
+          "age_min": 241,
           "stale": 0
         },
         {
           "name": "ws_feed_watchdog",
           "status": "warn",
           "last_run": "2026-05-30T11:44:05",
-          "age_min": 240,
+          "age_min": 241,
           "stale": 1
         },
         {
           "name": "sports",
           "status": "ok",
           "last_run": "2026-05-30T10:45:03",
-          "age_min": 299,
+          "age_min": 300,
           "stale": 0
         },
         {
           "name": "options_features",
           "status": "ok",
           "last_run": "2026-05-30T10:45:06",
-          "age_min": 299,
+          "age_min": 300,
           "stale": 0
         },
         {
           "name": "onchain_features",
           "status": "ok",
           "last_run": "2026-05-30T10:45:08",
-          "age_min": 299,
+          "age_min": 300,
           "stale": 0
         },
         {
           "name": "stablecoin_features",
           "status": "ok",
           "last_run": "2026-05-30T10:45:11",
-          "age_min": 299,
+          "age_min": 300,
           "stale": 0
         },
         {
           "name": "funding_features",
           "status": "ok",
           "last_run": "2026-05-30T10:45:14",
-          "age_min": 299,
+          "age_min": 300,
           "stale": 0
         },
         {
           "name": "open_interest",
           "status": "ok",
           "last_run": "2026-05-30T10:45:16",
-          "age_min": 299,
+          "age_min": 300,
           "stale": 0
         },
         {
           "name": "hashrate_features",
           "status": "ok",
           "last_run": "2026-05-30T10:45:19",
-          "age_min": 299,
+          "age_min": 300,
           "stale": 0
         },
         {
           "name": "orderbook_archive",
           "status": "ok",
           "last_run": "2026-05-30T10:45:22",
-          "age_min": 299,
+          "age_min": 300,
           "stale": 0
         },
         {
           "name": "liquidation_features",
           "status": "ok",
           "last_run": "2026-05-30T10:45:24",
-          "age_min": 299,
+          "age_min": 300,
           "stale": 0
         },
         {
           "name": "ls_ratio",
           "status": "ok",
           "last_run": "2026-05-30T10:45:27",
-          "age_min": 299,
+          "age_min": 300,
           "stale": 0
         },
         {
           "name": "whale_tracking",
           "status": "ok",
           "last_run": "2026-05-30T10:45:29",
-          "age_min": 299,
+          "age_min": 300,
           "stale": 0
         },
         {
@@ -7502,42 +7502,42 @@
           "name": "gdelt_sentiment",
           "status": "ok",
           "last_run": "2026-05-30T10:45:50",
-          "age_min": 298,
+          "age_min": 299,
           "stale": 0
         },
         {
           "name": "news_rss",
           "status": "ok",
           "last_run": "2026-05-30T10:45:53",
-          "age_min": 298,
+          "age_min": 299,
           "stale": 0
         },
         {
           "name": "options_flow_monitor",
           "status": "ok",
           "last_run": "2026-05-30T10:46:02",
-          "age_min": 298,
+          "age_min": 299,
           "stale": 0
         },
         {
           "name": "earnings_calendar",
           "status": "ok",
           "last_run": "2026-05-30T10:46:07",
-          "age_min": 298,
+          "age_min": 299,
           "stale": 0
         },
         {
           "name": "dark_pool",
           "status": "ok",
           "last_run": "2026-05-29T21:00:17",
-          "age_min": 1124,
+          "age_min": 1125,
           "stale": 1
         },
         {
           "name": "congress_trades",
           "status": "ok",
           "last_run": "2026-05-29T21:00:24",
-          "age_min": 1124,
+          "age_min": 1125,
           "stale": 1
         },
         {
@@ -7551,91 +7551,91 @@
           "name": "13f_holdings",
           "status": "ok",
           "last_run": "2026-05-29T21:00:48",
-          "age_min": 1123,
+          "age_min": 1124,
           "stale": 1
         },
         {
           "name": "short_interest",
           "status": "timeout",
           "last_run": "2026-05-29T21:01:51",
-          "age_min": 1122,
+          "age_min": 1123,
           "stale": 1
         },
         {
           "name": "market_tide",
           "status": "ok",
           "last_run": "2026-05-29T21:01:55",
-          "age_min": 1122,
+          "age_min": 1123,
           "stale": 1
         },
         {
           "name": "etf_holdings",
           "status": "ok",
           "last_run": "2026-05-29T21:01:57",
-          "age_min": 1122,
+          "age_min": 1123,
           "stale": 1
         },
         {
           "name": "seasonality",
           "status": "ok",
           "last_run": "2026-05-29T21:01:59",
-          "age_min": 1122,
+          "age_min": 1123,
           "stale": 1
         },
         {
           "name": "teacher_bridge",
           "status": "ok",
           "last_run": "2026-05-29T21:02:01",
-          "age_min": 1122,
+          "age_min": 1123,
           "stale": 1
         },
         {
           "name": "param_tuner",
           "status": "ok",
           "last_run": "2026-05-29T21:02:03",
-          "age_min": 1122,
+          "age_min": 1123,
           "stale": 1
         },
         {
           "name": "polymarket_scan",
           "status": "ok",
           "last_run": "2026-05-29T21:02:06",
-          "age_min": 1122,
+          "age_min": 1123,
           "stale": 1
         },
         {
           "name": "auto_test",
           "status": "warn",
           "last_run": "2026-05-29T21:02:08",
-          "age_min": 1122,
+          "age_min": 1123,
           "stale": 1
         },
         {
           "name": "bounty_scan",
           "status": "warn",
           "last_run": "2026-05-29T21:02:08",
-          "age_min": 1122,
+          "age_min": 1123,
           "stale": 1
         },
         {
           "name": "economic",
           "status": "ok",
           "last_run": "2026-05-30T08:30:07",
-          "age_min": 434,
+          "age_min": 435,
           "stale": 1
         },
         {
           "name": "weather",
           "status": "ok",
           "last_run": "2026-05-30T08:30:12",
-          "age_min": 434,
+          "age_min": 435,
           "stale": 1
         },
         {
           "name": "kalshi",
           "status": "ok",
           "last_run": "2026-05-30T08:30:52",
-          "age_min": 433,
+          "age_min": 434,
           "stale": 1
         }
       ]
