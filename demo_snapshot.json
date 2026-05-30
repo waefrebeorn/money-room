@@ -1,7 +1,7 @@
 {
   "version": 5,
-  "cycle": 5,
-  "last_updated": 1780161262,
+  "cycle": 3,
+  "last_updated": 1780161706,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -29,15 +29,15 @@
     "active_agents": 153000,
     "total_rooms": 16,
     "voted_this_cycle": 10000,
-    "trades_total": 49982,
+    "trades_total": 29991,
     "trades_won": 0,
-    "trades_lost": 49982,
+    "trades_lost": 29991,
     "win_rate": 0.0,
     "sharpe_ratio": 0.0,
     "max_drawdown": 0.0,
-    "capital_current": 417989.0,
+    "capital_current": 460683.28120000003,
     "capital_peak": 500000.0,
-    "room_pnl_pct": -6.2481,
+    "room_pnl_pct": -0.1071,
     "api_calls_24h": 0,
     "api_active": false,
     "genome_mean_pnl": 1510.04,
@@ -183,14 +183,14 @@
   },
   "features": {
     "price_delta_pct": -0.015800000000000002,
-    "micro_momentum": -4.4535999999999998,
+    "micro_momentum": 0.0,
     "rsi_7": 50.0,
     "volume_surge_ratio": 1.0,
     "divergence_score": 0.0,
     "pump_score": 0.076899999999999996,
     "regime_indicator": 0,
     "fear_greed_norm": 0.23000000000000001,
-    "herd_consensus": 0.57150000000000001,
+    "herd_consensus": 0.56699999999999995,
     "nested_prediction": 0.5
   },
   "top_agents": [
@@ -222,7 +222,7 @@
     "btc_wr": 0.47499999999999998,
     "btc_wr_detail": "C engine v2 BTC 1-min",
     "genome_mean_pnl": 1510.04,
-    "ecosystem_trades": 49982,
+    "ecosystem_trades": 29991,
     "prs_merged": 60,
     "prs_merged_detail": "RustChain bounties",
     "criteria": [
@@ -278,7 +278,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-30T17:14:22+00:00",
+    "generated_at": "2026-05-30T17:21:46+00:00",
     "global_sentiment": {
       "mean": 0.034000001847743988,
       "direction": "neutral",
@@ -7319,27 +7319,27 @@
   },
   "history": {
     "yesterday": {
-      "cycles": 69,
-      "avg_win_rate": 0.21080869565217383,
-      "avg_sharpe": -46.642255072463769,
-      "cap_change": 46.900000000000006
+      "cycles": 88,
+      "avg_win_rate": 0.16529318181818176,
+      "avg_sharpe": -48.22269886363636,
+      "cap_change": 49.970000000000006
     },
     "today": {
-      "cycles": 23,
-      "avg_win_rate": 0.6675608695652171,
-      "avg_sharpe": -89.15483043478261,
-      "cap_change": 47.629999999999995
+      "cycles": 24,
+      "avg_win_rate": 0.63974583333333312,
+      "avg_sharpe": -85.440045833333329,
+      "cap_change": 48.5
     },
     "btc_yesterday": {
       "candles": 4,
       "first_ts": 1780012800,
       "last_ts": 1780023600
     },
-    "generated": "2026-05-30T17:14:22Z"
+    "generated": "2026-05-30T17:21:46Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780161262,
+    "generated_at": 1780161706,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
@@ -7352,7 +7352,7 @@
     },
     "t2_engine_health": {
       "status": "operational",
-      "cycle": 5,
+      "cycle": 3,
       "vote_total": 10000,
       "vote_up": 5715,
       "vote_down": 4285,
@@ -7363,7 +7363,7 @@
       "rooms_active": 16,
       "win_rate": 0.0,
       "sharpe": 0.0,
-      "capital_current": 417989.0,
+      "capital_current": 460683.28120000003,
       "capital_healthy": true,
       "darwin_epochs": 0,
       "engine_language": "C11",
@@ -7382,148 +7382,148 @@
       }
     },
     "t4_collector_health": {
-      "generated_at": 1780161262,
+      "generated_at": 1780161707,
       "total": 19,
       "ok": 16,
       "warn": 1,
       "fail": 1,
-      "timeout": 1,
+      "timeout": 0,
       "missing": 0,
-      "running": 0,
-      "stale": 3,
+      "running": 1,
+      "stale": 2,
       "status": "degraded",
       "collectors": [
         {
           "name": "outlier_filter",
           "status": "ok",
-          "last_run": "2026-05-30T13:14:03",
-          "age_min": 240,
+          "last_run": "2026-05-30T13:20:04",
+          "age_min": 241,
           "stale": 0
         },
         {
           "name": "sports",
           "status": "ok",
           "last_run": "2026-05-30T12:45:04",
-          "age_min": 269,
+          "age_min": 276,
           "stale": 0
         },
         {
           "name": "options_features",
           "status": "ok",
           "last_run": "2026-05-30T12:45:06",
-          "age_min": 269,
+          "age_min": 276,
           "stale": 0
         },
         {
           "name": "onchain_features",
           "status": "ok",
           "last_run": "2026-05-30T12:45:09",
-          "age_min": 269,
+          "age_min": 276,
           "stale": 0
         },
         {
           "name": "stablecoin_features",
           "status": "ok",
           "last_run": "2026-05-30T12:45:12",
-          "age_min": 269,
+          "age_min": 276,
           "stale": 0
         },
         {
           "name": "funding_features",
           "status": "ok",
           "last_run": "2026-05-30T12:45:14",
-          "age_min": 269,
+          "age_min": 276,
           "stale": 0
         },
         {
           "name": "open_interest",
           "status": "ok",
           "last_run": "2026-05-30T12:45:17",
-          "age_min": 269,
+          "age_min": 276,
           "stale": 0
         },
         {
           "name": "hashrate_features",
           "status": "ok",
           "last_run": "2026-05-30T12:45:20",
-          "age_min": 269,
+          "age_min": 276,
           "stale": 0
         },
         {
           "name": "orderbook_archive",
           "status": "ok",
           "last_run": "2026-05-30T12:45:23",
-          "age_min": 268,
+          "age_min": 276,
           "stale": 0
         },
         {
           "name": "liquidation_features",
           "status": "ok",
           "last_run": "2026-05-30T12:45:25",
-          "age_min": 268,
+          "age_min": 276,
           "stale": 0
         },
         {
           "name": "ls_ratio",
           "status": "fail",
           "last_run": "2026-05-30T12:45:27",
-          "age_min": 268,
+          "age_min": 276,
           "stale": 1
         },
         {
           "name": "whale_tracking",
           "status": "ok",
           "last_run": "2026-05-30T12:45:30",
-          "age_min": 268,
+          "age_min": 276,
           "stale": 0
         },
         {
           "name": "etf_flow",
           "status": "ok",
           "last_run": "2026-05-30T12:45:34",
-          "age_min": 268,
+          "age_min": 276,
           "stale": 0
         },
         {
           "name": "gdelt_sentiment",
           "status": "ok",
           "last_run": "2026-05-30T12:45:49",
-          "age_min": 268,
+          "age_min": 275,
           "stale": 0
         },
         {
           "name": "news_rss",
           "status": "ok",
           "last_run": "2026-05-30T12:45:51",
-          "age_min": 268,
+          "age_min": 275,
           "stale": 0
         },
         {
           "name": "options_flow_monitor",
           "status": "ok",
           "last_run": "2026-05-30T12:45:56",
-          "age_min": 268,
+          "age_min": 275,
           "stale": 0
         },
         {
           "name": "earnings_calendar",
           "status": "ok",
           "last_run": "2026-05-30T12:46:00",
-          "age_min": 268,
+          "age_min": 275,
           "stale": 0
         },
         {
           "name": "cycle_all_rooms",
-          "status": "timeout",
-          "last_run": "2026-05-30T13:14:01",
+          "status": "running",
+          "last_run": "2026-05-30T13:21:01",
           "age_min": 240,
-          "stale": 1
+          "stale": 0
         },
         {
           "name": "ws_feed_watchdog",
           "status": "warn",
-          "last_run": "2026-05-30T13:14:05",
-          "age_min": 240,
+          "last_run": "2026-05-30T13:20:06",
+          "age_min": 241,
           "stale": 1
         }
       ]
