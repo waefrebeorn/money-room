@@ -11,22 +11,15 @@
   .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
   h1 { font-size: 2.5em; margin-bottom: 10px; }
   .subtitle { color: #888; margin-bottom: 40px; }
+  .notice { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid var(--gold); border-radius: 12px; padding: 24px; margin-bottom: 32px; text-align: center; }
+  .notice h2 { color: var(--gold); font-size: 1.2em; margin-bottom: 8px; }
+  .notice p { color: #aaa; font-size: 0.9em; line-height: 1.6; }
+  .notice a { color: var(--green); }
   .donation-bar { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid var(--gold); border-radius: 12px; padding: 30px; text-align: center; margin-bottom: 40px; }
   .donation-bar h2 { color: var(--gold); font-size: 1.5em; margin-bottom: 15px; }
   .donation-bar p { margin-bottom: 20px; color: #ccc; }
   .donate-btn { display: inline-block; background: var(--gold); color: #000; padding: 15px 40px; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 1.2em; }
   .donate-btn:hover { background: #e6bd5c; }
-  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 50px; }
-  .tier { background: var(--card); border: 1px solid #222; border-radius: 12px; padding: 30px; text-align: center; transition: all 0.3s; }
-  .tier:hover { border-color: var(--green); transform: translateY(-4px); }
-  .tier.featured { border-color: var(--green); box-shadow: 0 0 20px rgba(6,214,160,0.2); }
-  .tier h3 { font-size: 1.3em; margin-bottom: 5px; }
-  .tier .price { font-size: 2.2em; font-weight: bold; color: var(--green); margin: 15px 0; }
-  .tier .price span { font-size: 0.5em; color: #888; }
-  .tier ul { list-style: none; text-align: left; margin: 20px 0; }
-  .tier ul li { padding: 8px 0; border-bottom: 1px solid #1a1a1a; }
-  .tier ul li::before { content: "✅ "; }
-  .tier .subscribe { display: inline-block; background: var(--green); color: #000; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: bold; margin-top: 15px; }
   .free-tier { background: #111; border: 1px dashed #444; border-radius: 12px; padding: 30px; margin-bottom: 40px; text-align: center; }
   .free-tier h3 { color: #888; margin-bottom: 10px; }
   .free-tier .delay-badge { display: inline-block; background: #333; padding: 4px 12px; border-radius: 4px; font-size: 0.8em; color: var(--gold); margin: 10px 0; }
@@ -38,7 +31,6 @@
   .wallet-addr { font-family: monospace; color: #ccc; font-size: 0.9em; word-break: break-all; }
   .pay-btn { display: inline-block; background: #333; color: #aaa; padding: 4px 12px; border-radius: 4px; text-decoration: none; font-size: 0.8em; }
   .pay-btn:hover { background: var(--green); color: #000; }
-  .nowpayments { text-align: center; margin-top: 20px; }
   .footer { text-align: center; padding: 40px 0; color: #555; font-size: 0.9em; }
   .footer a { color: var(--green); text-decoration: none; }
   .plaster { background: #1a1a1a; border-top: 1px solid #333; padding: 10px; text-align: center; font-size: 0.8em; color: #888; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; }
@@ -47,9 +39,6 @@
     .container { padding: 20px 12px; }
     h1 { font-size: 1.6em; }
     .subtitle { font-size: 0.9em; }
-    .tiers { grid-template-columns: 1fr; gap: 14px; }
-    .tier { padding: 20px; }
-    .tier .price { font-size: 1.6em; }
     .donation-bar { padding: 20px; }
     .donation-bar h2 { font-size: 1.2em; }
     .donate-btn { padding: 12px 24px; font-size: 1em; }
@@ -61,7 +50,6 @@
   @media (max-width: 380px) {
     .container { padding: 16px 10px; }
     h1 { font-size: 1.3em; }
-    .tier .price { font-size: 1.4em; }
   }
 </style>
 </head>
@@ -69,86 +57,33 @@
 <div class="container">
 
   <h1>💰 Money Room</h1>
-  <p class="subtitle">Live Market Prediction Engine · 80-dim features · C-first</p>
+  <p class="subtitle">Open Source BTC Market Prediction Engine · 80-dim features · C-first</p>
+
+  <!-- ═══════════ STATUS NOTICE ═══════════ -->
+  <div class="notice">
+    <h2>⚡ Paid Tiers: In Development</h2>
+    <p>Premium subscription tiers (LemonSqueezy, Apple Pay, Google Pay) are planned but not yet implemented. The full engine and data are currently free and open source under MIT license. If you'd like to support development, donations are welcome via the wallet addresses below. Check back for paid tier availability.</p>
+  </div>
 
   <!-- ═══════════ DONATION BAR ═══════════ -->
   <div class="donation-bar">
     <h2>⚡ Support Open Source AI Trading Research</h2>
     <p>Your donation keeps the servers running, the agents evolving, and the research open.</p>
     <a class="donate-btn" href="#wallets">💸 Donate Now — Any Amount Helps</a>
-    <p style="margin-top: 12px; font-size: 0.85em; color: #888;">BTC · ETH · SOL · RTC · Credit Card via LemonSqueezy (Apple Pay, Google Pay)</p>
+    <p style="margin-top: 12px; font-size: 0.85em; color: #888;">BTC · ETH · SOL · RTC accepted</p>
   </div>
 
   <!-- ═══════════ FREE TIER ═══════════ -->
   <div class="free-tier">
-    <h3>🆓 Free Tier — Open Source</h3>
+    <h3>🆓 Free Tier — Open Source (Current)</h3>
     <p>All code is MIT-licensed on <a href="https://github.com/waefrebeorn/money-room" style="color: var(--green);">GitHub</a></p>
     <span class="delay-badge">⏳ Data delayed by 24 hours</span>
-    <p style="margin: 10px 0; color: #888;">Live dashboard with 1-day old market data · GDELT sentiment · C engine stats</p>
-    <p style="font-size: 0.85em; color: #666;">Want fresher data? See premium tiers below.</p>
-  </div>
-
-  <!-- ═══════════ PRICING TIERS ═══════════ -->
-  <h2 style="margin-bottom: 20px;">📊 Premium Data Tiers</h2>
-  <p style="color: #888; margin-bottom: 30px;">Get closer to real-time. Faster data = more expensive. Choose your latency.</p>
-
-  <div class="tiers">
-
-    <div class="tier">
-      <h3>🔵 10-Second</h3>
-      <div class="price">$10<span>/mo</span></div>
-      <ul>
-        <li>10-second delayed market data</li>
-        <li>80-dim feature vector updates</li>
-        <li>Email support</li>
-        <li>API access (rate: 10/min)</li>
-      </ul>
-      <a class="subscribe" href="https://waefrebeorn.lemonsqueezy.com/checkout/buy/xxxx" target="_blank">Subscribe via LemonSqueezy</a>
-    </div>
-
-    <div class="tier">
-      <h3>🟢 5-Second</h3>
-      <div class="price">$20<span>/mo</span></div>
-      <ul>
-        <li>5-second delayed market data</li>
-        <li>All feature updates</li>
-        <li>Priority email support</li>
-        <li>API access (rate: 60/min)</li>
-      </ul>
-      <a class="subscribe" href="https://waefrebeorn.lemonsqueezy.com/checkout/buy/xxxx" target="_blank">Subscribe via LemonSqueezy</a>
-    </div>
-
-    <div class="tier">
-      <h3>🟡 3-Second</h3>
-      <div class="price">$30<span>/mo</span></div>
-      <ul>
-        <li>3-second delayed market data</li>
-        <li>All features + order book</li>
-        <li>Priority support</li>
-        <li>API access (rate: 120/min)</li>
-        <li>Discord access</li>
-      </ul>
-      <a class="subscribe" href="https://waefrebeorn.lemonsqueezy.com/checkout/buy/xxxx" target="_blank">Subscribe via LemonSqueezy</a>
-    </div>
-
-    <div class="tier featured">
-      <h3>🔴 1-Second</h3>
-      <div class="price">$50<span>/mo</span></div>
-      <ul>
-        <li>1-second delayed market data</li>
-        <li>Everything included</li>
-        <li>Instant support (Telegram)</li>
-        <li>Unlimited API access</li>
-        <li>Custom feature requests</li>
-      </ul>
-      <a class="subscribe" href="https://waefrebeorn.lemonsqueezy.com/checkout/buy/xxxx" target="_blank">Subscribe via LemonSqueezy</a>
-    </div>
-
+    <p style="margin: 10px 0; color: #888;">Live dashboard with 24h-old market data · 80-dim engine stats · System health verification</p>
   </div>
 
   <!-- ═══════════ WALLETS ═══════════ -->
   <div class="wallets" id="wallets">
-    <h2>💳 Donate / Pay Via Wallet</h2>
+    <h2>💳 Donate Via Wallet</h2>
     <p style="margin-bottom: 20px; color: #888;">Send any amount to any of these addresses. Every dollar funds open-source AI trading research.</p>
 
     <div class="wallet-row">
@@ -171,31 +106,24 @@
       <span class="wallet-addr">RTC17c0d21f04f6f65c1a85c0aeb5d4a305d57531096</span>
       <a class="pay-btn" href="#">Pay</a>
     </div>
-
-    <div class="ls-checkout">
-      <p style="margin-bottom: 10px;">💳 Credit Card / Apple Pay / Google Pay</p>
-      <a class="donate-btn" href="https://waefrebeorn.lemonsqueezy.com/checkout/buy/xxxx" style="font-size: 1em; padding: 12px 25px;">💸 Subscribe via LemonSqueezy</a>
-    </div>
   </div>
 
   <!-- ═══════════ SUPPORT ═══════════ -->
   <div style="text-align: center; margin: 50px 0;">
-    <p style="color: #888;">Questions? <a href="https://github.com/waefrebeorn/money-room/issues" style="color: var(--green);">Open an issue</a> or email waefrebeorn@proton.me</p>
+    <p style="color: #888;">Questions? <a href="https://github.com/waefrebeorn/money-room/issues" style="color: var(--green);">Open an issue</a></p>
   </div>
 
   <div class="footer">
     <p>💰 Money Room — Open Source BTC Market Prediction Engine</p>
     <p>MIT License · <a href="https://github.com/waefrebeorn/money-room">GitHub</a> · <a href="https://waefrebeorn.github.io/money-room/">Live Dashboard</a></p>
-    <p style="margin-top: 8px; color: #444;">Donations accepted in BTC, ETH, SOL, RTC, and via LemonSqueezy</p>
+    <p style="margin-top: 8px; color: #444;">⚠️ Educational/Research Project Only — Not Financial Advice</p>
+    <p style="margin-top: 4px; color: #444;">Donations accepted: BTC · ETH · SOL · RTC</p>
   </div>
 
 </div>
 
-<!-- ═══════════ PLASTER DONATION BAR (FIXED BOTTOM) ═══════════ -->
 <div class="plaster">
   💰 <b>Money Room</b> — Open Source AI Trading · 
-  <a href="https://waefrebeorn.github.io/money-room/pricing.html">📊 Pricing</a> · 
-  <a href="https://waefrebeorn.lemonsqueezy.com/checkout/buy/xxxx">💸 Donate</a> · 
   <a href="https://github.com/waefrebeorn/money-room">⭐ GitHub</a> · 
   <a href="#wallets">₿ BTC · ◆ ETH · ◎ SOL · ⟠ RTC</a>
 </div>
