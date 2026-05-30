@@ -330,7 +330,7 @@ footer a:hover { color: var(--accent); }
 <section class="hero">
   <div class="container">
     <h1>💰 <span>Money</span> Room</h1>
-    <p>Open source BTC market prediction engine · 10K evolving AI genomes · GDELT global news sentiment · Paper-proven 54.86% SP500 WR · C-first architecture · All C, zero Python</p>
+    <p>Open source BTC market prediction engine · 10K evolving AI genomes · GDELT global news sentiment · Agents start with <strong>$50 seed</strong> (harsh capital) · 80-dim feature engine · All C, zero Python · Fresh evolution cycle ongoing</p>
     <div class="cta">
       <a href="https://github.com/waefrebeorn/money-room" class="primary">View on GitHub →</a>
       <a href="#sentiment" class="secondary">🌍 Global Sentiment</a>
@@ -574,7 +574,7 @@ footer a:hover { color: var(--accent); }
 
 <footer>
   <div class="container">
-    <p style="margin-top: 8px;">💰 Money Room — Open Source BTC Market Prediction + GDELT Global Sentiment · 80-dim engine · C-first architecture · 19.8M+ engine cycles</p>
+    <p style="margin-top: 8px;">💰 Money Room — Open Source BTC Market Prediction + GDELT Global Sentiment · 80-dim engine · $50 seed agents · All C, zero Python · Fresh rebuild cycle #7 ongoing</p>
     <p style="margin-top: 8px;">
       <a href="https://github.com/waefrebeorn/money-room">GitHub</a>
       &nbsp;·&nbsp; <a href="#live">Live Dashboard</a>
@@ -678,7 +678,7 @@ function renderLive(snap) {
 
   const pnl = snap.stats?.room_pnl_pct || 0;
   document.getElementById('roomPnl').textContent = (pnl > 0 ? '+' : '') + pnl.toFixed(2) + '%';
-  document.getElementById('roomPnlSub').textContent = '$50 seed | Sharpe: ' + (snap.stats?.sharpe_ratio || 0).toFixed(2);
+  document.getElementById('roomPnlSub').textContent = 'Agents start at $50 seed capital · harsh, high-stakes paper environment';
   document.getElementById('pnlGauge').style.width = Math.min(Math.max((pnl + 50) / 2, 0), 100) + '%';
   document.getElementById('pnlGauge').className = 'gauge-fill ' + (pnl >= 0 ? 'green' : 'red');
 
@@ -996,7 +996,7 @@ setInterval(loadSentiment, 120000);
 <!-- ═══ DONATION / PRICING FOOTER ═══ -->
 <div class="donation-footer" style="background:#111; border-top:1px solid #333; padding:30px 20px; text-align:center; margin-top:40px;">
   <p style="color:#888; font-size:12px; margin-bottom:8px;">
-    💰 <b>Money Room</b> — Open Source BTC Market Prediction Engine · 300/300 grid complete · 
+    💰 <b>Money Room</b> — Open Source BTC Market Prediction Engine · 80-dim feature engine · $50 seed agents · Darwin evolution w/ 10K genomes · 
     <a href="https://waefrebeorn.github.io/money-room/pricing.html" style="color:#ffd166;">📊 Pricing</a> · 
     <a href="https://github.com/waefrebeorn/money-room" style="color:#06d6a0;">⭐ GitHub</a>
   </p>
