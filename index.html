@@ -330,12 +330,12 @@ footer a:hover { color: var(--accent); }
 <section class="hero">
   <div class="container">
     <h1>💰 <span>Money</span> Room</h1>
-    <p>Open source BTC market prediction engine · 10K evolving AI genomes · GDELT 8-market global news sentiment · Paper-proven 54.86% SP500 WR · <strong>300/300 grid (100%)</strong> · All C · MCP server · Clough Bills</p>
+    <p>Open source BTC market prediction engine · 10K evolving AI genomes · GDELT global news sentiment · Paper-proven 54.86% SP500 WR · C-first architecture · All C, zero Python</p>
     <div class="cta">
       <a href="https://github.com/waefrebeorn/money-room" class="primary">View on GitHub →</a>
       <a href="#sentiment" class="secondary">🌍 Global Sentiment</a>
       <a href="#live" class="secondary">📡 Dashboard</a>
-      <a href="https://github.com/waefrebeorn/money-room/blob/main/docs/battleship-index.md" class="secondary">⚔️ Battleship Index</a>
+      <a href="#verify" class="secondary">🔬 System Health</a>
     </div>
   </div>
 </section>
@@ -347,6 +347,13 @@ footer a:hover { color: var(--accent); }
   <span id="liveStatus">Loading data...</span>
   <span class="ts" id="liveTimestamp"></span>
   <span class="ts" id="deployAge" style="margin-left:8px;color:var(--accent)"></span>
+  <span style="flex:1"></span>
+  <a href="http://localhost:9090/" target="_blank" style="color:var(--accent);text-decoration:none;font-size:12px;padding:4px 12px;border:1px solid var(--accent-dim);border-radius:4px;">🔑 Engine Dashboard (port 9090) →</a>
+</div>
+
+<!-- ═══ RISK DISCLAIMER BANNER ═══ -->
+<div style="background:rgba(255,77,106,0.08);border-bottom:1px solid rgba(255,77,106,0.15);padding:8px 16px;text-align:center;font-size:11px;color:var(--text-tertiary);">
+  ⚠️ <strong>Educational/Research Project Only</strong> — Nothing on this site is financial advice. Trading crypto carries <strong>substantial risk</strong>. Past performance ≠ future results. See <a href="terms.html" style="color:var(--accent)">Terms</a> · <a href="privacy.html" style="color:var(--accent)">Privacy</a>.
 </div>
 
 <section class="live-panel">
@@ -572,7 +579,7 @@ footer a:hover { color: var(--accent); }
 
 <footer>
   <div class="container">
-    <p style="margin-top: 8px;">💰 Money Room — Open Source BTC Market Prediction + GDELT Global Sentiment · <strong>300/300 grid (100%)</strong> · 300 closed · 2.8M+ trades · C-first architecture</p>
+    <p style="margin-top: 8px;">💰 Money Room — Open Source BTC Market Prediction + GDELT Global Sentiment · 80-dim engine · C-first architecture · 19.8M+ engine cycles</p>
     <p style="margin-top: 8px;">
       <a href="https://github.com/waefrebeorn/money-room">GitHub</a>
       &nbsp;·&nbsp; <a href="#live">Live Dashboard</a>

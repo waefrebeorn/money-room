@@ -173,10 +173,10 @@ td:last-child { text-align: right; }
 </div>
 
 <script>
-const PATHS = ['room_snapshot.json', 'demo_snapshot.json'];
-const OB_PATH = 'data/orderbook_features.json';
-const TB_PATH = 'data/teacher_bridge.json';
-const PT_PATH = 'data/param_tuning.json';
+const PATHS = ['demo_snapshot.json?t=' + Date.now(), 'room_snapshot.json?t=' + Date.now()];
+const OB_PATH = 'orderbook.json';
+const TB_PATH = 'teacher_bridge.json';
+const PT_PATH = 'param_tuning.json';
 let pnlHistory = [];
 let chartCanvas = null;
 
@@ -195,12 +195,22 @@ function fmt(n, d) {
 function pct(v) { return (v * 100).toFixed(2) + '%'; }
 
 function loadData() {
-  fetch('room_snapshot.json')
-    .then(r => { if (!r.ok) throw new Error('offline'); return r.json(); })
-    .then(renderEngine)
-    .catch(() => {
-      document.getElementById('lastUpdate').textContent = '⚠️ Engine offline';
-    });
+  function tryLoad(idx) {
+    idx = idx || 0;
+    if (idx >= PATHS.length) {
+      document.getElementById('lastUpdate').textContent = '⚠️ Offline';
+      setTimeout(() => tryLoad(0), 30000);
+      return;
+    }
+    fetch(PATHS[idx])
+      .then(r => { if (!r.ok) throw new Error('fail'); return r.json(); })
+      .then(snap => {
+        renderEngine(snap);
+        renderVerification(snap);
+      })
+      .catch(() => tryLoad(idx + 1));
+  }
+  tryLoad(0);
 
   fetch(OB_PATH).then(r => r.json()).then(renderOrderbook).catch(() => {});
   fetch(TB_PATH).then(r => r.json()).then(renderTeachers).catch(() => {});
