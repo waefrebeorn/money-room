@@ -1,7 +1,7 @@
 {
   "version": 5,
   "cycle": 3,
-  "last_updated": 1780160214,
+  "last_updated": 1780160226,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -278,7 +278,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-30T16:56:54+00:00",
+    "generated_at": "2026-05-30T16:57:06+00:00",
     "global_sentiment": {
       "mean": 0.034000001847743988,
       "direction": "neutral",
@@ -7335,11 +7335,11 @@
       "first_ts": 1780012800,
       "last_ts": 1780023600
     },
-    "generated": "2026-05-30T16:56:54Z"
+    "generated": "2026-05-30T16:57:06Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780160214,
+    "generated_at": 1780160226,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 43,
@@ -7382,36 +7382,36 @@
       }
     },
     "t4_collector_health": {
-      "generated_at": 1780160215,
+      "generated_at": 1780160226,
       "total": 19,
       "ok": 16,
       "warn": 1,
       "fail": 1,
-      "timeout": 1,
+      "timeout": 0,
       "missing": 0,
-      "running": 0,
-      "stale": 3,
+      "running": 1,
+      "stale": 2,
       "status": "degraded",
       "collectors": [
         {
           "name": "outlier_filter",
           "status": "ok",
           "last_run": "2026-05-30T12:56:04",
-          "age_min": 240,
+          "age_min": 241,
           "stale": 0
         },
         {
           "name": "sports",
           "status": "ok",
           "last_run": "2026-05-30T12:45:04",
-          "age_min": 251,
+          "age_min": 252,
           "stale": 0
         },
         {
           "name": "options_features",
           "status": "ok",
           "last_run": "2026-05-30T12:45:06",
-          "age_min": 251,
+          "age_min": 252,
           "stale": 0
         },
         {
@@ -7502,28 +7502,28 @@
           "name": "options_flow_monitor",
           "status": "ok",
           "last_run": "2026-05-30T12:45:56",
-          "age_min": 250,
+          "age_min": 251,
           "stale": 0
         },
         {
           "name": "earnings_calendar",
           "status": "ok",
           "last_run": "2026-05-30T12:46:00",
-          "age_min": 250,
+          "age_min": 251,
           "stale": 0
         },
         {
           "name": "cycle_all_rooms",
-          "status": "timeout",
-          "last_run": "2026-05-30T12:56:01",
+          "status": "running",
+          "last_run": "2026-05-30T12:57:01",
           "age_min": 240,
-          "stale": 1
+          "stale": 0
         },
         {
           "name": "ws_feed_watchdog",
           "status": "warn",
           "last_run": "2026-05-30T12:56:06",
-          "age_min": 240,
+          "age_min": 241,
           "stale": 1
         }
       ]
