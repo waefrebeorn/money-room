@@ -1,1 +1,13 @@
-{"keys":["bXJfNWVjODE2MGRmMWFiYzQ2MGQwNWVlODllYmU0NDQ5ZTU="]}
+{
+  "keys": [
+    "bXJfNWVjODE2MGRmMWFiYzQ2MGQwNWVlODllYmU0NDQ5ZTU=",
+    {
+      "active": true,
+      "created": 1780218875,
+      "email": "test@example.com",
+      "expires": 1780305275,
+      "hash": "bXJfOTQxODM0M2MzNTBjYjRjODZhNGEzZDYyMmRmMDlmZmY=",
+      "tier": "trial_1d"
+    }
+  ]
+}
