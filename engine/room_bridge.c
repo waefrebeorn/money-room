@@ -14,7 +14,12 @@
 #include <sys/stat.h>
 #include "types.h"
 
-#define STATE_PATH "/home/wubu2/.hermes/pm_logs/c_room/room_state.bin"
+#define STATE_PATH_BASE "/home/wubu2/.hermes/pm_logs/c_room"
+#ifdef PAPER_MODE
+#define STATE_PATH STATE_PATH_BASE "/room_state_paper.bin"
+#else
+#define STATE_PATH STATE_PATH_BASE "/room_state.bin"
+#endif
 #define JSON_SNAP  "/home/wubu2/.hermes/pm_logs/c_room/room_snapshot.json"
 
 // ── Write a JSON snapshot for Python tools that can't read mmap ──

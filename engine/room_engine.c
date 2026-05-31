@@ -27,7 +27,11 @@ void init_genome_weights(Genome *g);
 #define PAPER_PACE_NS    5000000LL   // 5ms for paper mode
 #define LIVE_PACE_NS     1000000000LL // 1s for live mode
 #define ROOM_DIR   "/home/wubu2/.hermes/pm_logs/c_room"
+#ifdef PAPER_MODE
+#define STATE_PATH ROOM_DIR "/room_state_paper.bin"
+#else
 #define STATE_PATH ROOM_DIR "/room_state.bin"
+#endif
 #define FEED_PATH  ROOM_DIR "/market_feed.json"
 #define LOG_PATH   ROOM_DIR "/room_log.csv"
 
