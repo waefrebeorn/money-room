@@ -41,14 +41,15 @@ static RoomState *state = NULL;
 static int state_fd = -1;
 static volatile int running = 1;
 
-// ── Nested model inference ──
+// ── Nested model inference — per-market-type buffers ──
 #define NESTED_BUF_SIZE 50
+#define NESTED_N_MARKETS 10  // matches N_MARKET_TYPES
 static NestedModelCollection *g_nested = NULL;
-static double g_nested_price_buf[NESTED_BUF_SIZE];
-static int g_nested_buf_len = 0;
-static int g_nested_buf_idx = 0;
-static double g_prev_volume = 0.0;
-static double g_nested_prediction = 0.5;  // latest cascade prediction (0-1)
+static double g_nested_price_buf[NESTED_N_MARKETS][NESTED_BUF_SIZE];
+static int g_nested_buf_len[NESTED_N_MARKETS];
+static int g_nested_buf_idx[NESTED_N_MARKETS];
+static double g_prev_volume[NESTED_N_MARKETS];
+static double g_nested_prediction[NESTED_N_MARKETS];  // per-market cascade predictions (0-1)
 
 // ── Forward decls ──
 RoomError room_feeds_load(MarketTick *tick);
@@ -66,59 +67,115 @@ RoomError room_darwin_compute_diversity(const AgentState *agents, int n, RoomSta
 void       room_bridge_write(RoomState *state);
 
 // ── Nested model: compute 17-dim features and run inference ──
-static double compute_nested_prediction(const MarketTick *tick) {
+static double compute_nested_prediction(const MarketTick *tick, MarketType market_type) {
     if (!g_nested) return 0.5;
+    int mt = (int)market_type;
+    if (mt < 0 || mt >= NESTED_N_MARKETS) mt = MARKET_CRYPTO;
     
-    // Push price into ring buffer
-    g_nested_price_buf[g_nested_buf_idx] = tick->close;
-    g_nested_buf_idx = (g_nested_buf_idx + 1) % NESTED_BUF_SIZE;
-    if (g_nested_buf_len < NESTED_BUF_SIZE) g_nested_buf_len++;
+    // Determine the "price" to use based on market type
+    double price;
+    bool is_binary = (market_type == MARKET_SPORTS || market_type == MARKET_WEATHER ||
+                      market_type == MARKET_PREDICTION || market_type == MARKET_ELECTION);
     
-    if (g_nested_buf_len < 10) return 0.5; // Need warmup
+    if (is_binary) {
+        // Binary markets: clamp to probability 0-1
+        price = tick->close;
+        if (price < 0.0) price = 0.0;
+        if (price > 1.0) price = 1.0;
+        // If close is clearly a BTC price (not probability), default to 0.5
+        if (tick->close > 1000.0) price = 0.5;
+    } else {
+        // Price-based markets: use raw BTC close as proxy
+        price = tick->close;
+    }
     
-    // Build linearized price array
+    // Push price into per-market ring buffer
+    g_nested_price_buf[mt][g_nested_buf_idx[mt]] = price;
+    g_nested_buf_idx[mt] = (g_nested_buf_idx[mt] + 1) % NESTED_BUF_SIZE;
+    if (g_nested_buf_len[mt] < NESTED_BUF_SIZE) g_nested_buf_len[mt]++;
+    
+    if (g_nested_buf_len[mt] < 10) return 0.5; // Need warmup
+    
+    // Build linearized price array for this market type
     double px[NESTED_BUF_SIZE];
-    for (int i = 0; i < g_nested_buf_len; i++) {
-        int idx = (g_nested_buf_idx - g_nested_buf_len + i + NESTED_BUF_SIZE) % NESTED_BUF_SIZE;
-        px[i] = g_nested_price_buf[idx];
+    for (int i = 0; i < g_nested_buf_len[mt]; i++) {
+        int idx = (g_nested_buf_idx[mt] - g_nested_buf_len[mt] + i + NESTED_BUF_SIZE) % NESTED_BUF_SIZE;
+        px[i] = g_nested_price_buf[mt][idx];
     }
     
     // Compute 17-dim feature vector (matches nested_ht training)
     double feats[17] = {0};
-    double price = tick->close;
     
-    // feats[0-4]: returns at 1,3,5,10,20 periods
-    if (g_nested_buf_len >= 2) feats[0] = (price - px[g_nested_buf_len-2]) / fmax(px[g_nested_buf_len-2], 0.001);
-    if (g_nested_buf_len >= 4) feats[1] = (price - px[g_nested_buf_len-4]) / fmax(px[g_nested_buf_len-4], 0.001);
-    if (g_nested_buf_len >= 6) feats[2] = (price - px[g_nested_buf_len-6]) / fmax(px[g_nested_buf_len-6], 0.001);
-    if (g_nested_buf_len >= 11) feats[3] = (price - px[g_nested_buf_len-11]) / fmax(px[g_nested_buf_len-11], 0.001);
-    if (g_nested_buf_len >= 21) feats[4] = (price - px[g_nested_buf_len-21]) / fmax(px[g_nested_buf_len-21], 0.001);
-    
-    // feats[5]: volatility
-    feats[5] = tick->btc_30d_volatility / 100.0;
-    
-    // feats[6]: HL range / close
-    double hl_range = tick->high - tick->low;
-    feats[6] = (price > 0.001) ? hl_range / price : 0.0;
-    
-    // feats[7]: volume ratio (approximate)
-    feats[7] = 1.0;
-    
-    // feats[8]: volume momentum
-    feats[8] = (g_prev_volume > 0.001) ? tick->volume / g_prev_volume : 1.0;
-    g_prev_volume = tick->volume;
-    
-    // feats[9]: price position in range
-    feats[9] = (hl_range > 0.001) ? (price - tick->low) / hl_range : 0.5;
-    
-    // feats[10]: gap
-    double prev_close = (g_nested_buf_len >= 2) ? px[g_nested_buf_len-2] : price;
-    feats[10] = (prev_close > 0.001) ? (tick->open - prev_close) / prev_close : 0.0;
+    if (is_binary) {
+        // ── Binary market features: probability-based ──
+        // feats[0-4]: probability changes at 1,3,5,10,20 periods
+        if (g_nested_buf_len[mt] >= 2) feats[0] = price - px[g_nested_buf_len[mt]-2];
+        if (g_nested_buf_len[mt] >= 4) feats[1] = price - px[g_nested_buf_len[mt]-4];
+        if (g_nested_buf_len[mt] >= 6) feats[2] = price - px[g_nested_buf_len[mt]-6];
+        if (g_nested_buf_len[mt] >= 11) feats[3] = price - px[g_nested_buf_len[mt]-11];
+        if (g_nested_buf_len[mt] >= 21) feats[4] = price - px[g_nested_buf_len[mt]-21];
+        
+        // feats[5]: probability volatility (std of last 10)
+        double p_mean = 0, p_var = 0;
+        int nv = g_nested_buf_len[mt] < 10 ? g_nested_buf_len[mt] : 10;
+        for (int i = 0; i < nv; i++) p_mean += px[g_nested_buf_len[mt] - nv + i];
+        p_mean /= nv;
+        for (int i = 0; i < nv; i++) { double d = px[g_nested_buf_len[mt] - nv + i] - p_mean; p_var += d * d; }
+        feats[5] = sqrt(p_var / nv);
+        
+        // feats[6]: distance from 0.5 (conviction strength)
+        feats[6] = fabs(price - 0.5) * 2.0;  // 0=uncertain, 1=certain
+        
+        // feats[7-8]: volume not meaningful for binary
+        feats[7] = 1.0;
+        feats[8] = 1.0;
+        
+        // feats[9]: probability position in recent range
+        double p_min = price, p_max = price;
+        for (int i = 0; i < nv; i++) {
+            double v = px[g_nested_buf_len[mt] - nv + i];
+            if (v < p_min) p_min = v;
+            if (v > p_max) p_max = v;
+        }
+        feats[9] = (p_max > p_min) ? (price - p_min) / (p_max - p_min) : 0.5;
+        
+        // feats[10]: gap (change from last)
+        feats[10] = (g_nested_buf_len[mt] >= 2) ? price - px[g_nested_buf_len[mt]-2] : 0.0;
+    } else {
+        // ── Price-based features (crypto, equity, forex, commodity, bond, volatility) ──
+        // feats[0-4]: returns at 1,3,5,10,20 periods
+        if (g_nested_buf_len[mt] >= 2) feats[0] = (price - px[g_nested_buf_len[mt]-2]) / fmax(px[g_nested_buf_len[mt]-2], 0.001);
+        if (g_nested_buf_len[mt] >= 4) feats[1] = (price - px[g_nested_buf_len[mt]-4]) / fmax(px[g_nested_buf_len[mt]-4], 0.001);
+        if (g_nested_buf_len[mt] >= 6) feats[2] = (price - px[g_nested_buf_len[mt]-6]) / fmax(px[g_nested_buf_len[mt]-6], 0.001);
+        if (g_nested_buf_len[mt] >= 11) feats[3] = (price - px[g_nested_buf_len[mt]-11]) / fmax(px[g_nested_buf_len[mt]-11], 0.001);
+        if (g_nested_buf_len[mt] >= 21) feats[4] = (price - px[g_nested_buf_len[mt]-21]) / fmax(px[g_nested_buf_len[mt]-21], 0.001);
+        
+        // feats[5]: volatility
+        feats[5] = tick->btc_30d_volatility / 100.0;
+        
+        // feats[6]: HL range / close
+        double hl_range = tick->high - tick->low;
+        feats[6] = (price > 0.001) ? hl_range / price : 0.0;
+        
+        // feats[7]: volume ratio (approximate)
+        feats[7] = 1.0;
+        
+        // feats[8]: volume momentum
+        feats[8] = (g_prev_volume[mt] > 0.001) ? tick->volume / g_prev_volume[mt] : 1.0;
+        g_prev_volume[mt] = tick->volume;
+        
+        // feats[9]: price position in range
+        feats[9] = (hl_range > 0.001) ? (price - tick->low) / hl_range : 0.5;
+        
+        // feats[10]: gap
+        double prev_close = (g_nested_buf_len[mt] >= 2) ? px[g_nested_buf_len[mt]-2] : price;
+        feats[10] = (prev_close > 0.001) ? (tick->open - prev_close) / prev_close : 0.0;
+    }
     
     // feats[11]: cascade (start at 0.5 for independent, will be updated)
     feats[11] = 0.5;
     
-    // feats[12-16]: macro features
+    // feats[12-16]: macro features (shared across all market types)
     feats[12] = tick->sp500 / 1000.0;
     feats[13] = tick->vix;
     feats[14] = 0; // fedfunds
@@ -487,13 +544,15 @@ void room_market_stats(RoomState *state);
             continue;
         }
         
-        // ── L2b: Compute nested cascade prediction ──
-        g_nested_prediction = compute_nested_prediction(&tick);
-        state->nested_prediction = (float)g_nested_prediction;
+        // ── L2b: Compute nested cascade prediction per market type ──
+        for (int mt = 0; mt < NESTED_N_MARKETS; mt++) {
+            g_nested_prediction[mt] = compute_nested_prediction(&tick, (MarketType)mt);
+        }
+        state->nested_prediction = (float)g_nested_prediction[MARKET_CRYPTO];
         if (state->cycle % 100 == 0 && g_nested) {
-            double signal = (g_nested_prediction - 0.5) * 2.0;
+            double signal = (g_nested_prediction[MARKET_CRYPTO] - 0.5) * 2.0;
             printf("[NESTED] cycle=%d pred=%.4f signal=%+.4f\n",
-                   state->cycle, g_nested_prediction, signal);
+                   state->cycle, g_nested_prediction[MARKET_CRYPTO], signal);
         }
         
         // ── L3: Run vote ──
@@ -651,9 +710,9 @@ void room_market_stats(RoomState *state);
                 float confidence = (float)(yv > nv ? yv : nv) / (float)(yv + nv);
                 confidence = (confidence - 0.5f) * 2.0f;
                 if (g_nested) {
-                    double nest_signal = (g_nested_prediction - 0.5) * 2.0;  // -1 to 1
+                    double nest_signal = (g_nested_prediction[MARKET_CRYPTO] - 0.5) * 2.0;  // -1 to 1
                     if (fabs(nest_signal) > 0.20) {  // threshold: model must be >60% confident
-                        bool nest_up = g_nested_prediction > 0.5;
+                        bool nest_up = g_nested_prediction[MARKET_CRYPTO] > 0.5;
                         if (nest_up != room_direction) {
                             room_direction = nest_up;
                             confidence = (float)fabs(nest_signal);
