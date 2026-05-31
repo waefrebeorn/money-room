@@ -367,6 +367,8 @@ static int64_t ns_now(void) {
 //  MAIN LOOP
 // ════════════════════════════════════════════════════════
 int main(void) {
+    printf("[ROOM] Starting... sizeof(RoomState)=%zu expected_file=%zu\n", 
+           sizeof(RoomState), sizeof(RoomState));
     signal(SIGINT, handle_sig);
     signal(SIGTERM, handle_sig);
     signal(SIGUSR1, handle_sig);
@@ -427,6 +429,13 @@ int main(void) {
         MarketTick tick;
         err = room_feeds_load(&tick);
         if (err != ERR_OK) {
+            // Retry once immediately — feed bridge may be mid-write
+            struct timespec retry_ts = { .tv_sec = 0, .tv_nsec = 100000000 }; // 100ms
+            nanosleep(&retry_ts, NULL);
+            err = room_feeds_load(&tick);
+        }
+        if (err != ERR_OK) {
+            printf("[FEED] Load err=%d ts=%ld\n", err, (long)tick.window_ts);
             idle_cycles++;
             if (idle_cycles % 60 == 0) {
                 printf("[ROOM] No data for %d cycles...\n", idle_cycles);
@@ -585,8 +594,8 @@ void room_market_stats(RoomState *state);
             goto skip_trading;
         }
 
-        // Check consecutive losses
-        if (state->consec_room_losses >= state->max_consecutive_losses) {
+        // Check consecutive losses — guard: must have at least 1 loss
+        if (state->consec_room_losses > 0 && state->consec_room_losses >= state->max_consecutive_losses) {
             state->circuit_breaker_cycles = state->circuit_cooldown_cycles / 2;
             state->circuit_breaker_count++;
             printf("[CB] TRIGGERED! %d consecutive losses. Cooling down %d cycles.\n",
