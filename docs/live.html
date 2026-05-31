@@ -17,6 +17,7 @@
       <a href="live.html" class="active">Dashboard</a>
       <a href="pricing.html">Pricing</a>
       <a href="demos/" style="color:var(--orange);font-weight:600">Free&nbsp;Demo</a>
+      <a href="register.html" style="background:transparent;color:var(--accent);border:1px solid var(--accent);box-shadow:none;padding:6px 16px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none">Get&nbsp;Key</a>
       <a href="https://github.com/waefrebeorn/money-room">GitHub</a>
       <a href="#" id="navAuth" class="nav-cta">Sign Out</a>
     </div>
@@ -26,7 +27,11 @@
 <div class="page-header">
   <div class="container">
     <h1>📊 Live Dashboard</h1>
-    <p style="font-size:12px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace" id="dashUpdated">Connecting to engine...</p>
+    <div id="tierBanner" style="margin-top:8px">
+      <span style="display:inline-block;padding:4px 14px;border-radius:6px;font-size:11px;font-weight:600;background:var(--accent-dim);color:var(--accent)">🔑 Connected</span>
+      <span id="tierInfo" style="display:inline-block;padding:4px 14px;border-radius:6px;font-size:11px;font-weight:600;margin-left:6px;background:rgba(255,159,67,0.15);color:var(--orange)">Trial — 1h delayed</span>
+    </div>
+    <p style="font-size:12px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace;margin-top:6px" id="dashUpdated">Connecting to engine...</p>
   </div>
 </div>
 
@@ -133,11 +138,35 @@ function fetchData(p){return fetch(BASE_URL+'/'+p,{cache:'no-store'});}
   var key=localStorage.getItem('mr_api_key');
   if(!key){window.location.href='.';return;}
   $('displayKey').textContent=key.length>20?key.slice(0,12)+'…'+key.slice(-8):key;
+  
+  /* Show tier info */
+  var tier=localStorage.getItem('mr_tier')||'user';
+  var expires=localStorage.getItem('mr_expires');
+  var tierEl=$('tierInfo');
+  if(tierEl){
+    if(tier==='premium'){
+      tierEl.textContent='✨ Premium — Live Data';
+      tierEl.style.background='var(--accent-dim)';
+      tierEl.style.color='var(--accent)';
+    } else if(tier==='trial_1d'){
+      var remaining='';
+      if(expires){
+        var hours=Math.floor((parseInt(expires)-Math.floor(Date.now()/1000))/3600);
+        if(hours>0)remaining=' ('+hours+'h remaining)';
+        else remaining=' (<1h remaining)';
+      }
+      tierEl.textContent='🔸 Free Trial — 1h delayed'+remaining;
+    } else {
+      tierEl.textContent='🔑 '+tier;
+    }
+  }
 })();
 
 function disconnect(){
   localStorage.removeItem('mr_api_key');
   localStorage.removeItem('mr_tier');
+  localStorage.removeItem('mr_expires');
+  localStorage.removeItem('mr_email');
   window.location.href='.';
 }
 

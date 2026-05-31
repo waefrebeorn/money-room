@@ -18,6 +18,7 @@
       <a href="live.html" id="navDashboard">Dashboard</a>
       <a href="pricing.html">Pricing</a>
       <a href="demos/" style="color:var(--orange);font-weight:600">Free&nbsp;Demo</a>
+      <a href="register.html" id="navRegister" class="nav-cta" style="background:transparent;color:var(--accent);border:1px solid var(--accent);box-shadow:none">Get&nbsp;Key</a>
       <a href="https://github.com/waefrebeorn/money-room" target="_blank">GitHub</a>
       <a href="#" id="navAuth" class="nav-cta">Sign In</a>
     </div>
@@ -223,7 +224,7 @@
 <div class="modal-overlay" id="loginModal">
   <div class="modal">
     <h2>🔑 Sign In</h2>
-    <p>Enter your API key to access the live dashboard. No account? <a href="pricing.html">Subscribe here</a>.</p>
+    <p>Enter your API key to access the live dashboard. No account? <a href="register.html">Get a free trial</a>.</p>
     <input type="password" id="apiKeyInput" placeholder="Your API key (e.g. mr_...)" autocomplete="off">
     <div class="btn-row">
       <button class="btn-secondary" onclick="closeLogin()">Cancel</button>
@@ -261,37 +262,76 @@ function fetchData(path){ return fetch(BASE_URL+'/'+path,{cache:'no-store'}); }
 
 /* ── Auth ── */
 function getApiKey(){return localStorage.getItem('mr_api_key');}
-function setApiKey(k,t){localStorage.setItem('mr_api_key',k);if(t)localStorage.setItem('mr_tier',t);}
+function setApiKey(k,t,e){localStorage.setItem('mr_api_key',k);if(t)localStorage.setItem('mr_tier',t);if(e)localStorage.setItem('mr_expires',e);}
 function getTier(){return localStorage.getItem('mr_tier')||'user';}
-function clearApiKey(){localStorage.removeItem('mr_api_key');updateNav();}
+function clearApiKey(){localStorage.removeItem('mr_api_key');localStorage.removeItem('mr_tier');localStorage.removeItem('mr_expires');updateNav();}
 function isLoggedIn(){return!!getApiKey();}
 function openLogin(){$('loginModal').classList.add('active');$('apiKeyInput').value='';$('loginStatus').textContent='';$('apiKeyInput').focus();}
 function closeLogin(){$('loginModal').classList.remove('active');}
+
+/* Check if a hash matches any key in .auth.json (supports old string[] and new object[] format) */
+function checkKeyInAuth(ad, hash) {
+    if (!ad.keys || !Array.isArray(ad.keys)) return null;
+    for (var i = 0; i < ad.keys.length; i++) {
+        var entry = ad.keys[i];
+        if (typeof entry === 'string') {
+            if (entry === hash) return {tier: 'premium', expires: null};
+        } else if (typeof entry === 'object' && entry.hash === hash) {
+            /* Check expiration */
+            if (entry.expires && entry.expires < Math.floor(Date.now()/1000)) {
+                return {tier: 'expired', expires: entry.expires};
+            }
+            return {tier: entry.tier || 'user', expires: entry.expires || null};
+        }
+    }
+    return null;
+}
+
 function login(){
   var k=$('apiKeyInput').value.trim();
   if(!k){$('loginStatus').textContent='Enter an API key.';$('loginStatus').className='status error';return;}
   $('loginStatus').textContent='Validating...';$('loginStatus').className='status';
+  var hash = btoa(k);
+  
+  /* Try local C server first */
   fetch(BASE_URL+'/.auth?key='+encodeURIComponent(k),{cache:'no-store'})
     .then(function(r){
-      if(r.ok){ r.json().then(function(j){setApiKey(k,j.tier||'user');closeLogin();updateNav();window.location.href='live.html';}); }
-      else if(r.status===401){
+      if(r.ok){ r.json().then(function(j){setApiKey(k,j.tier||'user',null);closeLogin();updateNav();window.location.href='live.html';}); }
+      else {
+        /* Fallback to client-side auth.json check */
         fetch(BASE_URL+'/.auth.json',{cache:'no-store'}).then(function(ar){
           if(!ar.ok)throw Error();
           ar.json().then(function(ad){
-            var hash = btoa(k);
-            if(ad.keys && ad.keys.indexOf(hash) >= 0){ setApiKey(k,'user');closeLogin();updateNav();window.location.href='live.html'; }
-            else { $('loginStatus').textContent='Invalid key. Try again or subscribe.';$('loginStatus').className='status error'; }
+            var info = checkKeyInAuth(ad, hash);
+            if (info && info.tier !== 'expired') {
+              setApiKey(k, info.tier, info.expires);
+              closeLogin(); updateNav();
+              window.location.href='live.html';
+            } else if (info && info.tier === 'expired') {
+              $('loginStatus').textContent='⚠️ Key expired. Get a new free trial on the register page.';
+              $('loginStatus').className='status error';
+            } else {
+              $('loginStatus').textContent='Invalid key. Try again or get a free trial.';
+              $('loginStatus').className='status error';
+            }
           });
-        }).catch(function(){ $('loginStatus').textContent='Invalid key.';$('loginStatus').className='status error'; });
+        }).catch(function(){ $('loginStatus').textContent='Auth unavailable.';$('loginStatus').className='status error'; });
       }
     })
     .catch(function(){
+      /* Offline fallback */
       fetch(BASE_URL+'/.auth.json',{cache:'no-store'}).then(function(ar){
         if(!ar.ok)throw Error();
         ar.json().then(function(ad){
-          var hash = btoa(k);
-          if(ad.keys && ad.keys.indexOf(hash) >= 0){ setApiKey(k,'user');closeLogin();updateNav();window.location.href='live.html'; }
-          else { $('loginStatus').textContent='Invalid key.';$('loginStatus').className='status error'; }
+          var info = checkKeyInAuth(ad, hash);
+          if (info && info.tier !== 'expired') {
+            setApiKey(k, info.tier, info.expires);
+            closeLogin(); updateNav();
+            window.location.href='live.html';
+          } else {
+            $('loginStatus').textContent='Invalid key.';
+            $('loginStatus').className='status error';
+          }
         });
       }).catch(function(){ setApiKey(k,'local');closeLogin();updateNav();$('loginStatus').textContent='Offline — local access only';$('loginStatus').className='status';setTimeout(function(){window.location.href='live.html';},500); });
     });
@@ -304,7 +344,7 @@ function updateNav(){
   $('navAuth').href=loggedIn?'#':'#';
   $('navAuth').onclick=loggedIn?function(e){e.preventDefault();logout();}:function(e){e.preventDefault();openLogin();};
   $('navDashboard').style.display=loggedIn?'inline':'none';
-  $('heroCta').href=loggedIn?'/live.html':'#';
+  $('heroCta').href=loggedIn?'live.html':'#';
   $('heroCta').onclick=loggedIn?null:function(e){e.preventDefault();openLogin();};
 }
 

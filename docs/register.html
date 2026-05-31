@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — Money Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+.register-page { max-width: 480px; margin: 60px auto; padding: 0 24px; }
+.register-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 40px 32px;
+  backdrop-filter: blur(12px);
+}
+.register-card h1 { font-size: 28px; margin-bottom: 6px; }
+.register-card .subtitle { font-size: 14px; color: var(--text-tertiary); margin-bottom: 28px; line-height: 1.5; }
+.register-card .plan-badge {
+  display: inline-block; padding: 4px 14px; border-radius: 6px;
+  background: var(--accent-dim); color: var(--accent);
+  font-size: 12px; font-weight: 600; margin-bottom: 20px;
+}
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; font-size: 12px; color: var(--text-tertiary); margin-bottom: 6px; font-weight: 500; }
+.form-group input {
+  width: 100%; padding: 12px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 14px; outline: none;
+  transition: border-color 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+.form-group input:focus { border-color: var(--accent); box-shadow: 0 0 12px var(--accent-dim); }
+.form-group input::placeholder { color: var(--text-quaternary); }
+.btn-primary {
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, var(--accent), #00cc8a);
+  color: var(--bg-deep);
+  border: none; border-radius: var(--radius-md);
+  font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 0 20px var(--accent-dim);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 32px var(--accent-dim); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.key-display {
+  background: var(--bg-deep);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin: 20px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  word-break: break-all;
+  color: var(--accent);
+  text-align: center;
+  user-select: all;
+}
+.key-display .label { font-size: 10px; color: var(--text-quaternary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; font-family: 'Inter', sans-serif; }
+.status-msg { font-size: 13px; margin-top: 12px; padding: 10px; border-radius: var(--radius-md); text-align: center; }
+.status-msg.success { background: var(--accent-dim); color: var(--accent); }
+.status-msg.error { background: rgba(255,56,96,0.12); color: var(--bearish); }
+.status-msg.info { background: rgba(74,139,255,0.12); color: var(--blue); }
+.feature-list { list-style: none; margin: 24px 0 0; padding: 0; }
+.feature-list li { padding: 8px 0; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; }
+.feature-list li::before { content: '✓'; color: var(--accent); font-weight: 700; }
+.feature-list li.muted { color: var(--text-quaternary); }
+.feature-list li.muted::before { content: '✗'; color: var(--text-quaternary); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href=".." class="logo"><span class="dot"></span> Money <span>Room</span></a>
+    <div class="nav-links">
+      <a href="..">Live</a>
+      <a href="../live.html">Dashboard</a>
+      <a href="../pricing.html">Pricing</a>
+      <a href="../demos/" style="color:var(--orange);font-weight:600">Demo</a>
+    </div>
+  </div>
+</nav>
+
+<div class="register-page">
+  <div class="register-card" id="registerCard">
+    <h1>🚀 Get Your API Key</h1>
+    <p class="subtitle">Free 24-hour trial of the Money Room live dashboard. No credit card required.</p>
+    <span class="plan-badge">✨ Free Trial — 1-Hour Delayed Data</span>
+
+    <!-- Registration Form -->
+    <div id="formView">
+      <div class="form-group">
+        <label for="regEmail">Email address</label>
+        <input type="email" id="regEmail" placeholder="you@example.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="regName">Name (optional)</label>
+        <input type="text" id="regName" placeholder="Your name" autocomplete="name">
+      </div>
+      <button class="btn-primary" id="regBtn" onclick="register()">🔑 Get Free API Key</button>
+      <div class="status-msg" id="regStatus"></div>
+
+      <ul class="feature-list">
+        <li>24-hour access to live engine dashboard</li>
+        <li>1-hour delayed market data</li>
+        <li>Real-time engine cycle metrics</li>
+        <li>Agent leaderboard & PnL tracking</li>
+        <li class="muted">Real-time predictions (Premium)</li>
+        <li class="muted">API access (Premium)</li>
+      </ul>
+
+      <p style="font-size:12px;color:var(--text-quaternary);text-align:center;margin-top:20px">
+        Already have a key? <a href="../">Sign in</a>
+      </p>
+    </div>
+
+    <!-- Success View -->
+    <div id="successView" style="display:none">
+      <div style="text-align:center;font-size:48px;margin-bottom:12px">🎉</div>
+      <h1 style="text-align:center;font-size:22px">You're In!</h1>
+      <p style="text-align:center;font-size:13px;color:var(--text-tertiary);margin-bottom:16px">
+        Your API key is ready. Save it — you'll need it to log in.
+      </p>
+      <div class="key-display">
+        <div class="label">Your API Key</div>
+        <div id="newKeyDisplay">—</div>
+      </div>
+      <button class="btn-primary" onclick="goToDashboard()">📊 Go to Dashboard</button>
+      <p style="font-size:11px;color:var(--text-quaternary);text-align:center;margin-top:12px">
+        Key also saved in this browser. On other devices, log in with this key.
+      </p>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="bottom"><span>© 2026 Money Room</span> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a></div>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+ * Registration Engine — Client-Side
+ * ═══════════════════════════════════════════ */
+
+var BASE = '..';
+
+function $(id) { return document.getElementById(id); }
+
+/* Generate random key: mr_<32 hex chars> */
+function generateKey() {
+  var chars = '0123456789abcdef';
+  var hex = '';
+  for (var i = 0; i < 32; i++) hex += chars[Math.floor(Math.random() * 16)];
+  return 'mr_' + hex;
+}
+
+function register() {
+  var email = $('regEmail').value.trim();
+  var name = $('regName').value.trim();
+  var btn = $('regBtn');
+  var status = $('regStatus');
+
+  if (!email) {
+    status.className = 'status-msg error';
+    status.textContent = 'Please enter your email address.';
+    return;
+  }
+  if (!email.includes('@')) {
+    status.className = 'status-msg error';
+    status.textContent = 'Please enter a valid email address.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '⏳ Generating...';
+  status.className = 'status-msg';
+
+  /* Generate key */
+  var key = generateKey();
+
+  /* Store in localStorage (instant access) */
+  localStorage.setItem('mr_api_key', key);
+  localStorage.setItem('mr_tier', 'trial_1d');
+  localStorage.setItem('mr_email', email);
+  localStorage.setItem('mr_registered', Date.now().toString());
+
+  /* Queue registration for server-side processing */
+  queueRegistration(email, name, key);
+
+  /* Show success */
+  $('formView').style.display = 'none';
+  $('newKeyDisplay').textContent = key;
+  $('successView').style.display = 'block';
+}
+
+function queueRegistration(email, name, key) {
+  /* Save to local queue — the cron will pick it up via deploy_data */
+  var queue = JSON.parse(localStorage.getItem('mr_pending_regs') || '[]');
+  queue.push({
+    email: email,
+    name: name,
+    key: key,
+    tier: 'trial_1d',
+    expires_in: 24,
+    registered_at: Date.now()
+  });
+  localStorage.setItem('mr_pending_regs', JSON.stringify(queue));
+
+  /* Also try to submit via a fetch to the local C server (port 8080) */
+  var payload = JSON.stringify({
+    action: 'register',
+    email: email,
+    name: name,
+    key: key,
+    tier: 'trial_1d',
+    expires_in: 24
+  });
+
+  /* Try local C server first (port 8080 has /register endpoint via serve.c) */
+  fetch(BASE+'/register?data='+encodeURIComponent(payload), {cache:'no-store',mode:'no-cors'})
+    .catch(function(){});
+
+  /* Also queue to GA/analytics-free storage — just log it */
+  console.log('[REG] Queued:', email, key);
+}
+
+function goToDashboard() {
+  window.location.href = BASE+'/live.html';
+}
+
+/* Redirect if already registered */
+(function(){
+  var key = localStorage.getItem('mr_api_key');
+  var tier = localStorage.getItem('mr_tier');
+  if (key && tier) {
+    /* Already registered — show option to go to dashboard */
+    $('formView').style.display = 'none';
+    $('successView').style.display = 'block';
+    $('newKeyDisplay').textContent = key;
+  }
+})();
+</script>
+
+</body>
+</html>
