@@ -23,3 +23,4 @@ Resolved gaps with file:line proof.
 || T013 | Multi-market trainer cron wired: daily 7:00 AM (after data refresh). Trains 17 .bin genomes. | crontab |
 ||| T021 | Timestamp validation: LIVE_MODE feed rejects stale (>24h) and future (>5min) timestamps with WARN + ERR_NO_DATA. | `room_feeds.c:247-266` |
 ||| T027 | Per-market-type Darwin evolution: cull/clone within same market type. g_agent_market[] map. Same-type pref in repopulation. | `room_darwin.c:94-250` |
+||| T028 | Per-market feature buffers (10×50). Binary price normalized to probability. F1/F2 market-type-aware. RSI/EMA/MACD/Bollinger per-market. | `room_features.c:250-368` |
