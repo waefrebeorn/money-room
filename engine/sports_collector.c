@@ -3,7 +3,7 @@
  * Fetches game results + player stats + team stats from ESPN free API
  * 10 leagues: NBA, NFL, MLB, NHL, EPL, LaLiga, SerieA, MLS, NCAAF, NCAAB
  *
- * Compile: gcc -O2 -Wall -o sports_collector sports_collector.c -lcurl -ljansson -lm
+ * Compile: gcc -O2 -Wall -o sports_collector sports_collector.c -lcurl -ljansson -lsqlite3 -lm
  * Usage:   ./sports_collector [--days N] [--league nba]
  */
 #define _POSIX_C_SOURCE 199309L
@@ -14,6 +14,7 @@
 #include <time.h>
 #include <curl/curl.h>
 #include <jansson.h>
+#include <sqlite3.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <strings.h>
@@ -123,17 +124,120 @@ static LeagueCfg LEAGUES[] = {
 };
 #define N_LEAGUES 10
 
+// --- DB Writer ---
+#define DB_PATH "/home/wubu2/.hermes/pm_logs/outcomes.db"
+
+static int write_game_to_db(const json_t *game) {
+    sqlite3 *db;
+    if (sqlite3_open(DB_PATH, &db) != SQLITE_OK) {
+        fprintf(stderr, "  DB open failed: %s\n", sqlite3_errmsg(db));
+        return -1;
+    }
+
+    const char *sql =
+        "INSERT OR REPLACE INTO sports_outcomes "
+        "(game_id, league, home_team, away_team, home_score, away_score, "
+         "winner, spread, over_under, status, game_time, collected_at) "
+        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+
+    sqlite3_stmt *st;
+    if (sqlite3_prepare_v2(db, sql, -1, &st, NULL) != SQLITE_OK) {
+        fprintf(stderr, "  Prepare failed: %s\n", sqlite3_errmsg(db));
+        sqlite3_close(db);
+        return -1;
+    }
+
+    // Game ID from league + teams
+    const char *league = json_string_value(json_object_get(game, "league"));
+    const char *home = json_string_value(json_object_get(game, "home_team"));
+    const char *away = json_string_value(json_object_get(game, "away_team"));
+    const char *date = json_string_value(json_object_get(game, "date"));
+    char game_id[256];
+    snprintf(game_id, sizeof(game_id), "%s_%s_%s_%s", league ? league : "?", date ? date : "?", away ? away : "?", home ? home : "?");
+
+    double home_score = json_number_value(json_object_get(game, "home_score"));
+    double away_score = json_number_value(json_object_get(game, "away_score"));
+
+    sqlite3_bind_text(st, 1, game_id, -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(st, 2, league, -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(st, 3, home, -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(st, 4, away, -1, SQLITE_TRANSIENT);
+    sqlite3_bind_int(st, 5, (int)home_score);
+    sqlite3_bind_int(st, 6, (int)away_score);
+    sqlite3_bind_text(st, 7, (home_score > away_score) ? home : away, -1, SQLITE_STATIC);
+    sqlite3_bind_double(st, 8, json_number_value(json_object_get(game, "spread")));
+    sqlite3_bind_double(st, 9, json_number_value(json_object_get(game, "over_under")));
+    sqlite3_bind_text(st, 10, json_string_value(json_object_get(game, "status")), -1, SQLITE_STATIC);
+    sqlite3_bind_int64(st, 11, (sqlite3_int64)json_number_value(json_object_get(game, "game_time")));
+    sqlite3_bind_int64(st, 12, (sqlite3_int64)time(NULL));
+
+    int rc = sqlite3_step(st);
+    sqlite3_finalize(st);
+    sqlite3_close(db);
+    return (rc == SQLITE_DONE || rc == SQLITE_ROW) ? 0 : -1;
+}
+
+// Also write to timeline.db for unified view
+#define TL_PATH "/home/wubu2/money-room/engine/timeline.db"
+
+static int write_to_timeline(const json_t *game) {
+    sqlite3 *db;
+    if (sqlite3_open(TL_PATH, &db) != SQLITE_OK) return -1;
+
+    // Ensure sports_data table exists
+    sqlite3_exec(db,
+        "CREATE TABLE IF NOT EXISTS sports_data ("
+        "ts INTEGER NOT NULL, league TEXT, home_team TEXT, away_team TEXT, "
+        "home_score INTEGER, away_score INTEGER, spread REAL, "
+        "winner TEXT, source TEXT DEFAULT 'espn', "
+        "PRIMARY KEY (ts, league, home_team))",
+        NULL, NULL, NULL);
+
+    const char *league = json_string_value(json_object_get(game, "league"));
+    const char *home = json_string_value(json_object_get(game, "home_team"));
+    const char *away = json_string_value(json_object_get(game, "away_team"));
+    double home_score = json_number_value(json_object_get(game, "home_score"));
+    double away_score = json_number_value(json_object_get(game, "away_score"));
+    time_t ts = (time_t)json_number_value(json_object_get(game, "game_time"));
+
+    const char *sql = "INSERT OR REPLACE INTO sports_data "
+        "(ts, league, home_team, away_team, home_score, away_score, spread, winner) "
+        "VALUES (?,?,?,?,?,?,?,?)";
+
+    sqlite3_stmt *st;
+    if (sqlite3_prepare_v2(db, sql, -1, &st, NULL) != SQLITE_OK) {
+        sqlite3_close(db);
+        return -1;
+    }
+
+    sqlite3_bind_int64(st, 1, (sqlite3_int64)ts);
+    sqlite3_bind_text(st, 2, league, -1, SQLITE_STATIC);
+    sqlite3_bind_text(st, 3, home, -1, SQLITE_STATIC);
+    sqlite3_bind_text(st, 4, away, -1, SQLITE_STATIC);
+    sqlite3_bind_int(st, 5, (int)home_score);
+    sqlite3_bind_int(st, 6, (int)away_score);
+    sqlite3_bind_double(st, 7, json_number_value(json_object_get(game, "spread")));
+    sqlite3_bind_text(st, 8, (home_score > away_score) ? home : away, -1, SQLITE_STATIC);
+
+    int rc = sqlite3_step(st);
+    sqlite3_finalize(st);
+    sqlite3_close(db);
+    return (rc == SQLITE_DONE || rc == SQLITE_ROW) ? 0 : -1;
+}
+
 int main(int argc, char **argv) {
     int days_back = 30;
     const char *filter_league = NULL;
-    int include_players = 1;  // Set 0 to skip player stats (faster)
+    int include_players = 1;
+    int write_db = 1;
     
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "--days") == 0 && i+1 < argc) days_back = atoi(argv[++i]);
         else if (strcmp(argv[i], "--league") == 0 && i+1 < argc) filter_league = argv[++i];
         else if (strcmp(argv[i], "--no-players") == 0) include_players = 0;
+        else if (strcmp(argv[i], "--no-db") == 0) write_db = 0;
         else if (strcmp(argv[i], "--help") == 0 || strncmp(argv[i], "-h", 2) == 0) {
-            printf("Usage: %s [--days N] [--league nba|nfl|...] [--no-players]\n", argv[0]);
+            printf("Usage: %s [--days N] [--league nba|nfl|...] [--no-players] [--no-db]\n", argv[0]);
             printf("Leagues: nba,nfl,mlb,nhl,epl,laliga,seriea,mls,ncaaf,ncaab\n");
             return 0;
         }
@@ -240,22 +344,26 @@ int main(int argc, char **argv) {
                     double attendance = safe_num(comp, "attendance");
                     
                     // Build game entry
+                    char game_label[256];
+                    snprintf(game_label, sizeof(game_label), "%s vs %s", away_name, home_name);
                     json_t *game = json_pack(
-                        "{s:s, s:s, s:s, s:s, s:s, s:s, s:s, s:s,"
-                         "s:f, s:f, s:f, s:s, s:s, s:s,"
-                         "s:f, s:f, s:f, s:s, s:s, s:o}",
+                        "{s:s, s:s, s:s, s:s, s:s, s:s, s:s,"
+                         "s:f, s:f, s:f, s:f, s:s, s:s,"
+                         "s:f, s:s, s:f, s:s, s:f, s:o}",
                         "league", LEAGUES[l].name,
                         "sport", LEAGUES[l].sport,
-                        "game", away_name, " vs ", home_name,
-                        "home_team", home_name, "away_team", away_name,
-                        "home_abbr", home_abbr, "away_abbr", away_abbr,
+                        "game", game_label,
+                        "home_team", home_name,
+                        "away_team", away_name,
+                        "home_abbr", home_abbr,
+                        "away_abbr", away_abbr,
                         "home_score", home_score,
                         "away_score", away_score,
                         "spread", spread,
                         "over_under", over_under,
                         "spread_line", spread_line,
                         "venue", venue,
-                        "timestamp", (double)day_ts,
+                        "game_time", (double)day_ts,
                         "date", date_str,
                         "attendance", attendance,
                         "status", status,
@@ -314,6 +422,20 @@ int main(int argc, char **argv) {
     json_dump_file(root, OUT_FILE, JSON_INDENT(2));
     printf("[SPORTS] Total: %d games across %d leagues -> %s\n",
            total_games, N_LEAGUES, OUT_FILE);
+    
+    // Write to databases
+    if (write_db) {
+        size_t idx;
+        json_t *game;
+        int db_ok = 0, db_fail = 0;
+        json_array_foreach(root, idx, game) {
+            if (write_game_to_db(game) == 0 && write_to_timeline(game) == 0)
+                db_ok++;
+            else
+                db_fail++;
+        }
+        printf("[SPORTS] DB: %d written, %d failed\n", db_ok, db_fail);
+    }
     
     json_decref(root);
     curl_global_cleanup();
