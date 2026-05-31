@@ -1,0 +1,610 @@
+[
+  {
+    "league": "NBA",
+    "sport": "basketball",
+    "game": "San Antonio Spurs at Oklahoma City Thunder",
+    "home_team": "Oklahoma City Thunder",
+    "away_team": "San Antonio Spurs",
+    "home_score": 103.0,
+    "away_score": 111.0,
+    "timestamp": 1780203600,
+    "date": "2026-05-31T00:00Z",
+    "outcome": 0,
+    "features": [
+      -8.0,
+      214.0,
+      0.48130841121495327,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Detroit Tigers at Chicago White Sox",
+    "home_team": "Chicago White Sox",
+    "away_team": "Detroit Tigers",
+    "home_score": 7.0,
+    "away_score": 1.0,
+    "timestamp": 1780182600,
+    "date": "2026-05-30T18:10Z",
+    "outcome": 1,
+    "features": [
+      6.0,
+      8.0,
+      0.875,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Minnesota Twins at Pittsburgh Pirates",
+    "home_team": "Pittsburgh Pirates",
+    "away_team": "Minnesota Twins",
+    "home_score": 10.0,
+    "away_score": 9.0,
+    "timestamp": 1780189500,
+    "date": "2026-05-30T20:05Z",
+    "outcome": 1,
+    "features": [
+      1.0,
+      19.0,
+      0.52631578947368418,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "San Diego Padres at Washington Nationals",
+    "home_team": "Washington Nationals",
+    "away_team": "San Diego Padres",
+    "home_score": 9.0,
+    "away_score": 4.0,
+    "timestamp": 1780189500,
+    "date": "2026-05-30T20:05Z",
+    "outcome": 1,
+    "features": [
+      5.0,
+      13.0,
+      0.69230769230769229,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Toronto Blue Jays at Baltimore Orioles",
+    "home_team": "Baltimore Orioles",
+    "away_team": "Toronto Blue Jays",
+    "home_score": 6.0,
+    "away_score": 5.0,
+    "timestamp": 1780189500,
+    "date": "2026-05-30T20:05Z",
+    "outcome": 1,
+    "features": [
+      1.0,
+      11.0,
+      0.54545454545454541,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Kansas City Royals at Texas Rangers",
+    "home_team": "Texas Rangers",
+    "away_team": "Kansas City Royals",
+    "home_score": 7.0,
+    "away_score": 6.0,
+    "timestamp": 1780189500,
+    "date": "2026-05-30T20:05Z",
+    "outcome": 1,
+    "features": [
+      1.0,
+      13.0,
+      0.53846153846153844,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Los Angeles Angels at Tampa Bay Rays",
+    "home_team": "Tampa Bay Rays",
+    "away_team": "Los Angeles Angels",
+    "home_score": 3.0,
+    "away_score": 14.0,
+    "timestamp": 1780189800,
+    "date": "2026-05-30T20:10Z",
+    "outcome": 0,
+    "features": [
+      -11.0,
+      17.0,
+      0.17647058823529413,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Boston Red Sox at Cleveland Guardians",
+    "home_team": "Cleveland Guardians",
+    "away_team": "Boston Red Sox",
+    "home_score": 1.0,
+    "away_score": 9.0,
+    "timestamp": 1780189800,
+    "date": "2026-05-30T20:10Z",
+    "outcome": 0,
+    "features": [
+      -8.0,
+      10.0,
+      0.10000000000000001,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Miami Marlins at New York Mets",
+    "home_team": "New York Mets",
+    "away_team": "Miami Marlins",
+    "home_score": 6.0,
+    "away_score": 1.0,
+    "timestamp": 1780189800,
+    "date": "2026-05-30T20:10Z",
+    "outcome": 1,
+    "features": [
+      5.0,
+      7.0,
+      0.8571428571428571,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Milwaukee Brewers at Houston Astros",
+    "home_team": "Houston Astros",
+    "away_team": "Milwaukee Brewers",
+    "home_score": 9.0,
+    "away_score": 2.0,
+    "timestamp": 1780189800,
+    "date": "2026-05-30T20:10Z",
+    "outcome": 1,
+    "features": [
+      7.0,
+      11.0,
+      0.81818181818181823,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Atlanta Braves at Cincinnati Reds",
+    "home_team": "Cincinnati Reds",
+    "away_team": "Atlanta Braves",
+    "home_score": 2.0,
+    "away_score": 5.0,
+    "timestamp": 1780200900,
+    "date": "2026-05-30T23:15Z",
+    "outcome": 0,
+    "features": [
+      -3.0,
+      7.0,
+      0.2857142857142857,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Chicago Cubs at St. Louis Cardinals",
+    "home_team": "St. Louis Cardinals",
+    "away_team": "Chicago Cubs",
+    "home_score": 1.0,
+    "away_score": 6.0,
+    "timestamp": 1780200900,
+    "date": "2026-05-30T23:15Z",
+    "outcome": 0,
+    "features": [
+      -5.0,
+      7.0,
+      0.14285714285714285,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "San Francisco Giants at Colorado Rockies",
+    "home_team": "Colorado Rockies",
+    "away_team": "San Francisco Giants",
+    "home_score": 8.0,
+    "away_score": 3.0,
+    "timestamp": 1780207800,
+    "date": "2026-05-31T01:10Z",
+    "outcome": 1,
+    "features": [
+      5.0,
+      11.0,
+      0.72727272727272729,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "New York Yankees at Athletics Athletics",
+    "home_team": "Athletics",
+    "away_team": "New York Yankees",
+    "home_score": 6.0,
+    "away_score": 4.0,
+    "timestamp": 1780211100,
+    "date": "2026-05-31T02:05Z",
+    "outcome": 1,
+    "features": [
+      2.0,
+      10.0,
+      0.59999999999999998,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Arizona Diamondbacks at Seattle Mariners",
+    "home_team": "Seattle Mariners",
+    "away_team": "Arizona Diamondbacks",
+    "home_score": 5.0,
+    "away_score": 1.0,
+    "timestamp": 1780211400,
+    "date": "2026-05-31T02:10Z",
+    "outcome": 1,
+    "features": [
+      4.0,
+      6.0,
+      0.83333333333333337,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Philadelphia Phillies at Los Angeles Dodgers",
+    "home_team": "Los Angeles Dodgers",
+    "away_team": "Philadelphia Phillies",
+    "home_score": 3.0,
+    "away_score": 4.0,
+    "timestamp": 1780211400,
+    "date": "2026-05-31T02:10Z",
+    "outcome": 0,
+    "features": [
+      -1.0,
+      7.0,
+      0.42857142857142855,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Atlanta Braves at Cincinnati Reds",
+    "home_team": "Cincinnati Reds",
+    "away_team": "Atlanta Braves",
+    "home_score": 3.0,
+    "away_score": 8.0,
+    "timestamp": 1780112400,
+    "date": "2026-05-29T22:40Z",
+    "outcome": 0,
+    "features": [
+      -5.0,
+      11.0,
+      0.27272727272727271,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Minnesota Twins at Pittsburgh Pirates",
+    "home_team": "Pittsburgh Pirates",
+    "away_team": "Minnesota Twins",
+    "home_score": 6.0,
+    "away_score": 5.0,
+    "timestamp": 1780112700,
+    "date": "2026-05-29T22:45Z",
+    "outcome": 1,
+    "features": [
+      1.0,
+      11.0,
+      0.54545454545454541,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "San Diego Padres at Washington Nationals",
+    "home_team": "Washington Nationals",
+    "away_team": "San Diego Padres",
+    "home_score": 5.0,
+    "away_score": 7.0,
+    "timestamp": 1780112700,
+    "date": "2026-05-29T22:45Z",
+    "outcome": 0,
+    "features": [
+      -2.0,
+      12.0,
+      0.41666666666666669,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Toronto Blue Jays at Baltimore Orioles",
+    "home_team": "Baltimore Orioles",
+    "away_team": "Toronto Blue Jays",
+    "home_score": 5.0,
+    "away_score": 6.0,
+    "timestamp": 1780113900,
+    "date": "2026-05-29T23:05Z",
+    "outcome": 0,
+    "features": [
+      -1.0,
+      11.0,
+      0.45454545454545453,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Los Angeles Angels at Tampa Bay Rays",
+    "home_team": "Tampa Bay Rays",
+    "away_team": "Los Angeles Angels",
+    "home_score": 8.0,
+    "away_score": 5.0,
+    "timestamp": 1780114200,
+    "date": "2026-05-29T23:10Z",
+    "outcome": 1,
+    "features": [
+      3.0,
+      13.0,
+      0.61538461538461542,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Boston Red Sox at Cleveland Guardians",
+    "home_team": "Cleveland Guardians",
+    "away_team": "Boston Red Sox",
+    "home_score": 4.0,
+    "away_score": 3.0,
+    "timestamp": 1780114200,
+    "date": "2026-05-29T23:10Z",
+    "outcome": 1,
+    "features": [
+      1.0,
+      7.0,
+      0.5714285714285714,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Miami Marlins at New York Mets",
+    "home_team": "New York Mets",
+    "away_team": "Miami Marlins",
+    "home_score": 9.0,
+    "away_score": 7.0,
+    "timestamp": 1780114200,
+    "date": "2026-05-29T23:10Z",
+    "outcome": 1,
+    "features": [
+      2.0,
+      16.0,
+      0.5625,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Chicago Cubs at St. Louis Cardinals",
+    "home_team": "St. Louis Cardinals",
+    "away_team": "Chicago Cubs",
+    "home_score": 6.0,
+    "away_score": 5.0,
+    "timestamp": 1780114500,
+    "date": "2026-05-29T23:15Z",
+    "outcome": 1,
+    "features": [
+      1.0,
+      11.0,
+      0.54545454545454541,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Detroit Tigers at Chicago White Sox",
+    "home_team": "Chicago White Sox",
+    "away_team": "Detroit Tigers",
+    "home_score": 4.0,
+    "away_score": 3.0,
+    "timestamp": 1780116000,
+    "date": "2026-05-29T23:40Z",
+    "outcome": 1,
+    "features": [
+      1.0,
+      7.0,
+      0.5714285714285714,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Kansas City Royals at Texas Rangers",
+    "home_team": "Texas Rangers",
+    "away_team": "Kansas City Royals",
+    "home_score": 9.0,
+    "away_score": 1.0,
+    "timestamp": 1780117500,
+    "date": "2026-05-30T00:05Z",
+    "outcome": 1,
+    "features": [
+      8.0,
+      10.0,
+      0.90000000000000002,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Milwaukee Brewers at Houston Astros",
+    "home_team": "Houston Astros",
+    "away_team": "Milwaukee Brewers",
+    "home_score": 4.0,
+    "away_score": 5.0,
+    "timestamp": 1780117800,
+    "date": "2026-05-30T00:10Z",
+    "outcome": 0,
+    "features": [
+      -1.0,
+      9.0,
+      0.44444444444444442,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "San Francisco Giants at Colorado Rockies",
+    "home_team": "Colorado Rockies",
+    "away_team": "San Francisco Giants",
+    "home_score": 8.0,
+    "away_score": 6.0,
+    "timestamp": 1780119600,
+    "date": "2026-05-30T00:40Z",
+    "outcome": 1,
+    "features": [
+      2.0,
+      14.0,
+      0.5714285714285714,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "New York Yankees at Athletics Athletics",
+    "home_team": "Athletics",
+    "away_team": "New York Yankees",
+    "home_score": 2.0,
+    "away_score": 8.0,
+    "timestamp": 1780123200,
+    "date": "2026-05-30T01:40Z",
+    "outcome": 0,
+    "features": [
+      -6.0,
+      10.0,
+      0.20000000000000001,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Arizona Diamondbacks at Seattle Mariners",
+    "home_team": "Seattle Mariners",
+    "away_team": "Arizona Diamondbacks",
+    "home_score": 7.0,
+    "away_score": 6.0,
+    "timestamp": 1780125000,
+    "date": "2026-05-30T02:10Z",
+    "outcome": 1,
+    "features": [
+      1.0,
+      13.0,
+      0.53846153846153844,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Philadelphia Phillies at Los Angeles Dodgers",
+    "home_team": "Los Angeles Dodgers",
+    "away_team": "Philadelphia Phillies",
+    "home_score": 4.0,
+    "away_score": 2.0,
+    "timestamp": 1780125300,
+    "date": "2026-05-30T02:15Z",
+    "outcome": 1,
+    "features": [
+      2.0,
+      6.0,
+      0.66666666666666663,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "NHL",
+    "sport": "hockey",
+    "game": "Montreal Canadiens at Carolina Hurricanes",
+    "home_team": "Carolina Hurricanes",
+    "away_team": "Montreal Canadiens",
+    "home_score": 6.0,
+    "away_score": 1.0,
+    "timestamp": 1780117200,
+    "date": "2026-05-30T00:00Z",
+    "outcome": 1,
+    "features": [
+      5.0,
+      7.0,
+      0.8571428571428571,
+      0.5,
+      0.5
+    ]
+  }
+]

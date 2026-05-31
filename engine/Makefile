@@ -48,3 +48,15 @@ exchange_api_test: exchange_api_test.c exchange_api.o
 # ── T12: Feed bridge with exchange API + WebSocket read ──
 feed_bridge: exchange_api.o
 	$(CC) -O3 -D_GNU_SOURCE -o room_feed_bridge room_feed_bridge.c exchange_api.o -lcurl -ljansson -lsqlite3 -lm
+
+# ── Multi-market trainer + collectors ──
+multi_market_trainer: multi_market_trainer.c types.h
+	$(CC) -O3 -o multi_market_trainer multi_market_trainer.c -lsqlite3 -ljansson -lm -I.
+
+weather_collector: weather_collector.c
+	$(CC) -O2 -o weather_collector weather_collector.c -lcurl -ljansson -lm
+
+sports_collector: sports_collector.c
+	$(CC) -O2 -o sports_collector sports_collector.c -lcurl -ljansson -lm
+
+all_collectors: weather_collector sports_collector multi_market_trainer

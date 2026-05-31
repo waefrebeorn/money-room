@@ -11,6 +11,25 @@
 #define INV_PHI 0.618033988749895f   // 1/φ
 #define TWO_PI 6.283185307179586f    // 2π
 
+// ── Market Types for multi-market training ──
+typedef enum {
+    MARKET_CRYPTO     = 0,
+    MARKET_EQUITY     = 1,  // Stock indices: SP500, DOW, NASDAQ, FTSE100, NIKKEI
+    MARKET_FOREX      = 2,  // FX pairs: EURUSD, GBPUSD, USDJPY
+    MARKET_COMMODITY  = 3,  // GOLD, SILVER, CRUDE_OIL
+    MARKET_BOND       = 4,  // DGS10 (10yr yield)
+    MARKET_VOLATILITY = 5,  // VIX
+    MARKET_PREDICTION = 6,  // Polymarket binary events
+    MARKET_SPORTS     = 7,  // Sports binary outcomes
+    MARKET_WEATHER    = 8,  // Weather prediction
+    MARKET_ELECTION   = 9,  // Election binary outcomes
+    N_MARKET_TYPES    = 10
+} MarketType;
+
+#define MAX_MARKETS 20
+
+extern const char *MARKET_TYPE_NAMES[];
+
 // Paper proof uses fewer agents for faster evolution per trade cap
 #ifdef PAPER_MODE
 #define ROOM_AGENTS  2500
@@ -91,6 +110,7 @@ typedef struct {
 typedef struct {
     char     asset[8];          // "BTC", "ETH", etc.
     int64_t  window_ts;         // Unix timestamp of window start
+    MarketType market_type;     // MARKET_CRYPTO, MARKET_EQUITY, etc.
     float    open, high, low, close, volume;
     float    fear_greed;        // 0–100
     float    pump_score;        // -1..1 from crony pipeline
