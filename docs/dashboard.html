@@ -16,34 +16,43 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-
 .page-header h1 span{color:var(--accent)}
 .page-header p{color:var(--dim);font-size:0.85rem;margin-top:6px;font-family:'JetBrains Mono',monospace}
 .summary-row{display:flex;gap:16px;margin-bottom:30px;flex-wrap:wrap}
-.summary-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;flex:1;min-width:160px;text-align:center}
-.summary-card .num{font-size:2.2rem;font-weight:700;font-family:'JetBrains Mono',monospace}
+.summary-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;flex:1;min-width:140px;text-align:center}
+.summary-card .num{font-size:2rem;font-weight:700;font-family:'JetBrains Mono',monospace}
 .summary-card .label{font-size:0.8rem;color:var(--dim);margin-top:4px}
 .summary-card .num.green{color:var(--green)}
 .summary-card .num.red{color:var(--red)}
+.summary-card .num.orange{color:var(--orange)}
 .summary-card .num.accent{color:var(--accent)}
 .filter-bar{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .filter-btn{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--dim);cursor:pointer;font-size:0.8rem;transition:all .2s}
 .filter-btn:hover{background:var(--border);color:var(--text)}
 .filter-btn.active{background:rgba(0,229,255,0.12);border-color:var(--accent);color:var(--accent)}
+.tab-btn{padding:10px 20px;border-radius:8px 8px 0 0;border:1px solid var(--border);border-bottom:none;background:var(--surface);color:var(--dim);cursor:pointer;font-size:0.85rem;font-weight:500;transition:all .2s;margin-right:4px}
+.tab-btn:hover{background:var(--border);color:var(--text)}
+.tab-btn.active{background:var(--bg);border-color:var(--accent);color:var(--accent)}
+.tab-content{display:none}
+.tab-content.active{display:block}
 table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:12px;overflow:hidden}
 th{text-align:left;padding:12px 16px;border-bottom:2px solid var(--accent);color:var(--accent);font-weight:500;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px}
 td{padding:10px 16px;border-bottom:1px solid var(--border);font-size:0.85rem}
 tr:hover{background:rgba(0,229,255,0.03)}
 .badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:0.7rem;font-weight:600}
-.badge-ok{background:rgba(0,230,118,0.15);color:var(--green)}
-.badge-stale{background:rgba(255,145,0,0.15);color:var(--orange)}
-.badge-missing{background:rgba(255,23,68,0.15);color:var(--red)}
+.badge-ok,.badge-pass{background:rgba(0,230,118,0.15);color:var(--green)}
+.badge-stale,.badge-warn{background:rgba(255,145,0,0.15);color:var(--orange)}
+.badge-missing,.badge-fail{background:rgba(255,23,68,0.15);color:var(--red)}
 .badge-collector{background:rgba(0,229,255,0.1);color:var(--accent)}
 .badge-engine{background:rgba(213,0,249,0.1);color:var(--purple)}
 .badge-data{background:rgba(0,230,118,0.1);color:var(--green)}
 .age-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
-.age-dot.ok{background:var(--green)}
-.age-dot.stale{background:var(--orange)}
-.age-dot.missing{background:var(--red)}
+.age-dot.ok,.age-dot.pass{background:var(--green)}
+.age-dot.stale,.age-dot.warn{background:var(--orange)}
+.age-dot.missing,.age-dot.fail{background:var(--red)}
 .mono{font-family:'JetBrains Mono',monospace;font-size:0.8rem}
 .empty{text-align:center;padding:40px;color:var(--dim)}
 .error-state{text-align:center;padding:40px;color:var(--red)}
+.section-title{font-size:1.2rem;font-weight:600;margin:24px 0 12px;color:#fff}
+.issues-list{display:flex;gap:4px;flex-wrap:wrap}
+.issue-tag{padding:2px 6px;border-radius:3px;font-size:0.7rem;background:rgba(255,23,68,0.1);color:var(--red)}
 #lastUpdated{color:var(--dim);font-size:0.75rem;margin-top:12px;font-family:'JetBrains Mono',monospace}
 </style>
 </head>
@@ -65,137 +74,211 @@ tr:hover{background:rgba(0,229,255,0.03)}
 
 <div class="page-header">
   <div class="container">
-    <h1>🔬 Pipeline <span>Health</span></h1>
-    <p>Real-time status of all collectors, engines, and data sources</p>
+    <h1>🔬 Pipeline &amp; <span>Data Quality</span></h1>
+    <p>Real-time status of all collectors, engines, data sources, and validation checks</p>
   </div>
 </div>
 
 <section>
   <div class="container">
-    <div class="summary-row" id="summaryRow">
-      <div class="summary-card"><div class="num accent" id="sumTotal">—</div><div class="label">Components</div></div>
-      <div class="summary-card"><div class="num green" id="sumHealthy">—</div><div class="label">Healthy</div></div>
-      <div class="summary-card"><div class="num red" id="sumUnhealthy">—</div><div class="label">Unhealthy</div></div>
-      <div class="summary-card"><div class="num accent" id="sumGenomes">—</div><div class="label">Trained Genomes</div></div>
+
+    <!-- Tabs -->
+    <div style="margin-bottom:0">
+      <button class="tab-btn active" id="tabPipeline" onclick="switchTab('pipeline')">📡 Pipeline</button>
+      <button class="tab-btn" id="tabQuality" onclick="switchTab('quality')">✅ Data Quality</button>
     </div>
 
-    <div class="filter-bar">
-      <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
-      <button class="filter-btn" data-filter="collector" onclick="setFilter('collector')">Collectors</button>
-      <button class="filter-btn" data-filter="engine" onclick="setFilter('engine')">Engine</button>
-      <button class="filter-btn" data-filter="data" onclick="setFilter('data')">Data Sources</button>
-      <button class="filter-btn" data-filter="unhealthy" onclick="setFilter('unhealthy')">⚠ Unhealthy</button>
+    <!-- Pipeline Tab -->
+    <div class="tab-content active" id="tabContentPipeline">
+      <div class="summary-row" id="pipeSummary">
+        <div class="summary-card"><div class="num accent" id="sumTotal">—</div><div class="label">Components</div></div>
+        <div class="summary-card"><div class="num green" id="sumHealthy">—</div><div class="label">Healthy</div></div>
+        <div class="summary-card"><div class="num red" id="sumUnhealthy">—</div><div class="label">Unhealthy</div></div>
+        <div class="summary-card"><div class="num accent" id="sumGenomes">—</div><div class="label">Trained Genomes</div></div>
+      </div>
+
+      <div class="filter-bar" id="pipeFilters">
+        <button class="filter-btn active" data-filter="all" onclick="setPF('all')">All</button>
+        <button class="filter-btn" data-filter="collector" onclick="setPF('collector')">Collectors</button>
+        <button class="filter-btn" data-filter="engine" onclick="setPF('engine')">Engine</button>
+        <button class="filter-btn" data-filter="data" onclick="setPF('data')">Data Sources</button>
+        <button class="filter-btn" data-filter="unhealthy" onclick="setPF('unhealthy')">⚠ Unhealthy</button>
+      </div>
+
+      <table>
+        <thead><tr>
+          <th>Component</th><th>Category</th><th>Status</th><th>Age</th><th>Schedule</th><th>Size</th>
+        </tr></thead>
+        <tbody id="pipelineBody"><tr><td colspan="6" class="empty">Loading...</td></tr></tbody>
+      </table>
     </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Component</th>
-          <th>Category</th>
-          <th>Status</th>
-          <th>Age</th>
-          <th>Schedule</th>
-          <th>Size</th>
-        </tr>
-      </thead>
-      <tbody id="pipelineBody">
-        <tr><td colspan="6" class="empty">Loading pipeline data...</td></tr>
-      </tbody>
-    </table>
+    <!-- Quality Tab -->
+    <div class="tab-content" id="tabContentQuality">
+      <div class="summary-row" id="qualSummary">
+        <div class="summary-card"><div class="num accent" id="qTotal">—</div><div class="label">Checks</div></div>
+        <div class="summary-card"><div class="num green" id="qPassed">—</div><div class="label">Passed</div></div>
+        <div class="summary-card"><div class="num orange" id="qWarned">—</div><div class="label">Warnings</div></div>
+        <div class="summary-card"><div class="num red" id="qFailed">—</div><div class="label">Failed</div></div>
+        <div class="summary-card"><div class="num accent" id="qScore">—</div><div class="label">Score</div></div>
+      </div>
+
+      <div class="filter-bar" id="qualFilters">
+        <button class="filter-btn active" data-qf="all" onclick="setQF('all')">All</button>
+        <button class="filter-btn" data-qf="pass" onclick="setQF('pass')">Pass</button>
+        <button class="filter-btn" data-qf="warn" onclick="setQF('warn')">⚠ Warn</button>
+        <button class="filter-btn" data-qf="fail" onclick="setQF('fail')">✗ Fail</button>
+      </div>
+
+      <table>
+        <thead><tr>
+          <th>Check</th><th>Status</th><th>Age</th><th>Rows</th><th>Issues</th>
+        </tr></thead>
+        <tbody id="qualityBody"><tr><td colspan="5" class="empty">Loading...</td></tr></tbody>
+      </table>
+    </div>
 
     <p id="lastUpdated"></p>
   </div>
 </section>
 
 <script>
-let currentFilter = 'all';
-let data = null;
+// ── State ──
+let pipelineData = null, qualityData = null;
+let pipeFilter = 'all', qualFilter = 'all';
+let activeTab = 'pipeline';
 
+// ── Pipeline helpers ──
 function fmtAge(secs) {
-  if (secs < 0) return '—';
+  if (secs < 0) return '\u2014';
   if (secs < 60) return secs + 's';
   if (secs < 3600) return Math.floor(secs/60) + 'm ' + (secs%60) + 's';
   if (secs < 86400) return Math.floor(secs/3600) + 'h ' + Math.floor((secs%3600)/60) + 'm';
   return Math.floor(secs/86400) + 'd ' + Math.floor((secs%86400)/3600) + 'h';
 }
-
 function fmtBytes(b) {
-  if (!b || b < 0) return '—';
+  if (!b || b < 0) return '\u2014';
   if (b < 1024) return b + 'B';
   if (b < 1048576) return (b/1024).toFixed(1) + 'KB';
   return (b/1048576).toFixed(1) + 'MB';
 }
+function dotCls(s) {
+  if (s === 'ok' || s === 'pass') return 'age-dot pass';
+  if (s === 'stale' || s === 'warn') return 'age-dot warn';
+  return 'age-dot fail';
+}
+function badgeCls(s) { return 'badge-' + s; }
 
-function statusClass(status) {
-  if (status === 'ok') return 'badge-ok';
-  if (status === 'stale') return 'badge-stale';
-  return 'badge-missing';
+// ── Tab switch ──
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab' + (tab === 'pipeline' ? 'Pipeline' : 'Quality')).classList.add('active');
+  document.getElementById('tabContent' + (tab === 'pipeline' ? 'Pipeline' : 'Quality')).classList.add('active');
+  if (tab === 'quality' && qualityData) renderQuality();
+  if (tab === 'pipeline' && pipelineData) renderPipeline();
 }
 
-function dotClass(status) {
-  if (status === 'ok') return 'age-dot ok';
-  if (status === 'stale') return 'age-dot stale';
-  return 'age-dot missing';
-}
+// ── Pipeline filters ──
+function setPF(f) { pipeFilter = f;
+  document.querySelectorAll('#pipeFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`#pipeFilters [data-filter="${f}"]`).classList.add('active');
+  renderPipeline(); }
+function setQF(f) { qualFilter = f;
+  document.querySelectorAll('#qualFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`#qualFilters [data-qf="${f}"]`).classList.add('active');
+  renderQuality(); }
 
-function setFilter(f) {
-  currentFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`[data-filter="${f}"]`).classList.add('active');
-  render();
-}
+// ── Render Pipeline ──
+function renderPipeline() {
+  if (!pipelineData) return;
+  const s = pipelineData.summary || {};
+  document.getElementById('sumTotal').textContent = s.total || '\u2014';
+  document.getElementById('sumHealthy').textContent = s.healthy || '\u2014';
+  document.getElementById('sumUnhealthy').textContent = s.unhealthy || '\u2014';
+  document.getElementById('sumGenomes').textContent = s.genome_count || '\u2014';
 
-function render() {
-  if (!data) return;
-  const s = data.summary;
-  document.getElementById('sumTotal').textContent = s.total;
-  document.getElementById('sumHealthy').textContent = s.healthy;
-  document.getElementById('sumUnhealthy').textContent = s.unhealthy;
-  document.getElementById('sumGenomes').textContent = s.genome_count || '—';
+  const items = pipelineData.components || [];
+  const f = pipeFilter;
+  const filtered = f === 'all' ? items :
+    f === 'unhealthy' ? items.filter(c => !c.healthy) :
+    items.filter(c => c.category === f);
 
-  const items = data.components;
-  const filtered = currentFilter === 'all' ? items :
-    currentFilter === 'unhealthy' ? items.filter(c => !c.healthy) :
-    items.filter(c => c.category === currentFilter);
-
-  const tbody = document.getElementById('pipelineBody');
-  if (filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty">No components match this filter</td></tr>';
-    return;
-  }
-
-  tbody.innerHTML = filtered.map(c => `
-    <tr>
+  document.getElementById('pipelineBody').innerHTML = filtered.length === 0
+    ? '<tr><td colspan="6" class="empty">No matches</td></tr>'
+    : filtered.map(c => `<tr>
       <td><strong>${c.name}</strong></td>
       <td><span class="badge badge-${c.category}">${c.category}</span></td>
-      <td><span class="badge ${statusClass(c.status)}">${c.status}</span></td>
-      <td class="mono"><span class="${dotClass(c.status)}"></span>${fmtAge(c.age_seconds)}</td>
-      <td style="color:var(--dim);font-size:0.8rem">${c.schedule || '—'}</td>
+      <td><span class="badge ${badgeCls(c.status)}">${c.status}</span></td>
+      <td class="mono"><span class="${dotCls(c.status)}"></span>${fmtAge(c.age_seconds)}</td>
+      <td style="color:var(--dim);font-size:0.8rem">${c.schedule || '\u2014'}</td>
       <td class="mono" style="color:var(--dim)">${fmtBytes(c.file_size)}</td>
-    </tr>
-  `).join('');
+    </tr>`).join('');
+}
 
-  const ts = data.generated_at;
+// ── Render Quality ──
+function renderQuality() {
+  if (!qualityData) return;
+  const s = qualityData.summary || {};
+  document.getElementById('qTotal').textContent = s.total || '\u2014';
+  document.getElementById('qPassed').textContent = s.passed || '\u2014';
+  document.getElementById('qWarned').textContent = s.warned || '\u2014';
+  document.getElementById('qFailed').textContent = s.failed || '\u2014';
+  document.getElementById('qScore').textContent = (s.score !== undefined) ? s.score.toFixed(0) + '%' : '\u2014';
+
+  const items = qualityData.checks || [];
+  const f = qualFilter;
+  const filtered = f === 'all' ? items : items.filter(c => c.status === f);
+
+  document.getElementById('qualityBody').innerHTML = filtered.length === 0
+    ? '<tr><td colspan="5" class="empty">No matches</td></tr>'
+    : filtered.map(c => {
+      const issues = (c.issues || []).map(i => `<span class="issue-tag">${i}</span>`).join('');
+      return `<tr>
+        <td><strong>${c.name}</strong></td>
+        <td><span class="badge ${badgeCls(c.status)}">${c.status}</span></td>
+        <td class="mono"><span class="${dotCls(c.status)}"></span>${c.exists ? fmtAge(c.age_seconds) : 'N/A'}</td>
+        <td class="mono" style="color:var(--dim)">${c.rows !== undefined ? c.rows.toLocaleString() : c.count !== undefined ? c.count : c.value !== undefined ? c.value.toFixed(2) : '\u2014'}</td>
+        <td>${issues || '\u2014'}</td>
+      </tr>`;
+    }).join('');
+}
+
+// ── Load data ──
+async function loadAll() {
+  const t0 = Date.now();
+
+  // Pipeline data
+  try {
+    const r = await fetch('data/pipeline_status.json?_=' + t0);
+    pipelineData = await r.json();
+  } catch(e) { pipelineData = null; }
+
+  // Quality data
+  try {
+    const r = await fetch('data/data_quality.json?_=' + t0);
+    qualityData = await r.json();
+  } catch(e) { qualityData = null; }
+
+  if (pipelineData) renderPipeline();
+  else document.getElementById('pipelineBody').innerHTML =
+    '<tr><td colspan="6" class="error-state">\u26a0 Cannot connect. Run pipeline_monitor first.</td></tr>';
+
+  if (qualityData) renderQuality();
+  else document.getElementById('qualityBody').innerHTML =
+    '<tr><td colspan="5" class="error-state">\u26a0 Cannot connect. Run data_quality first.</td></tr>';
+
+  const ts = (pipelineData && pipelineData.generated_at) || (qualityData && qualityData.generated_at);
   if (ts) {
     const d = new Date(ts * 1000);
     document.getElementById('lastUpdated').textContent =
-      'Updated: ' + d.toLocaleString() + '  •  Auto-refreshes every 30s';
+      'Updated: ' + d.toLocaleString() + '  \u2022  Auto-refreshes every 30s';
   }
 }
 
-async function load() {
-  try {
-    const resp = await fetch('data/pipeline_status.json?_=' + Date.now());
-    data = await resp.json();
-    render();
-  } catch(e) {
-    document.getElementById('pipelineBody').innerHTML =
-      '<tr><td colspan="6" class="error-state">⚠ Cannot connect to pipeline monitor. Run pipeline_monitor first.</td></tr>';
-  }
-}
-
-load();
-setInterval(load, 30000);
+loadAll();
+setInterval(loadAll, 30000);
 </script>
 
 </body>
