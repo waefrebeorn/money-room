@@ -1,0 +1,72 @@
+# ─────────────────────────────────────────────────────
+# HERMES DATA COLLECTORS — System crontab
+# Migrated from Hermes cron to fix scheduler congestion
+# All scripts are no_agent=True (pure Python/Bash, no LLM)
+# ─────────────────────────────────────────────────────
+
+# ── EVERY 1 MINUTE ──
+* * * * * /home/wubu2/.hermes/scripts/pm_cron_runner.sh >/dev/null 2>&1
+* * * * * /home/wubu2/.hermes/scripts/room_feed_bridge.sh >/dev/null 2>&1
+
+# ── EVERY 5 MINUTES ──
+
+# ── EVERY 15 MINUTES ──
+
+# ── EVERY 20 MINUTES ──
+
+# ── EVERY 30 MINUTES ──
+
+# ── EVERY 3 HOURS ──
+# News RSS via money-room engine (was mega-era-network)
+0 */3 * * * /home/wubu2/money-room/engine/news_rss --all >/dev/null 2>&1
+
+# ── EVERY 6 HOURS ──
+0 */6 * * * /bin/bash /home/wubu2/.hermes/scripts/eco_backup.sh > /home/wubu2/.hermes/pm_logs/eco_backup.log 2>&1
+
+# ── DAILY ──
+# Weather: Open-Meteo archive (free, no key)
+# Sports: ESPN free API (no key)
+30 6 * * * /home/wubu2/money-room/engine/sports_collector --days 7 > /home/wubu2/.hermes/pm_logs/sports_collector.log 2>&1
+# Multi-market trainer: trains 17 genome .bin from sports+weather+BTC
+0 7 * * * /home/wubu2/money-room/engine/multi_market_trainer --agents 500 --epochs 3 > /home/wubu2/.hermes/pm_logs/multi_market_trainer.log 2>&1
+0 6 * * * /home/wubu2/money-room/engine/weather_collector --days 5 > /home/wubu2/.hermes/pm_logs/weather_collector.log 2>&1
+0 9 * * * /bin/bash /home/wubu2/.hermes/scripts/mega_leaderboard.sh >/dev/null 2>&1
+*/5 * * * * /home/wubu2/.hermes/scripts/eco_runner.sh > /home/wubu2/.hermes/pm_logs/eco_runner.log 2>&1
+*/5 * * * * /home/wubu2/.hermes/scripts/teacher_watchdog.sh > /home/wubu2/.hermes/pm_logs/teacher_watchdog.log 2>&1
+* * * * * /bin/bash /home/wubu2/.hermes/scripts/cycle_all_rooms.sh >/dev/null 2>&1
+# ── T10: Remote state backup to GitHub ──
+0 5 * * * /home/wubu2/.hermes/scripts/remote_state_backup.sh > /home/wubu2/.hermes/pm_logs/remote_backup.log 2>&1
+
+# ── E6: Room health watchdog ──
+*/5 * * * * /home/wubu2/.hermes/scripts/room_watchdog.sh
+*/5 * * * * bash /home/wubu2/.hermes/scripts/pm_money_loop_wrapper.sh > /home/wubu2/.hermes/pm_logs/money_c.log 2>&1
+# ── T12: WebSocket feed bridge watchdog ──
+* * * * * bash /home/wubu2/.hermes/scripts/ws_feed_bridge.sh >/dev/null 2>&1
+
+# ── T14: Weekly DB pruning ──
+0 3 * * 0 bash /home/wubu2/.hermes/scripts/db_prune.sh
+# ── T15: Daily room config validation ──
+0 4 * * * bash /home/wubu2/.hermes/scripts/validate_configs.sh
+*/5 * * * * /home/wubu2/.hermes/scripts/poly_c.sh >/dev/null 2>&1
+0 6 * * * /home/wubu2/.hermes/scripts/money_timer_c >/dev/null 2>&1
+*/30 * * * * /home/wubu2/.hermes/scripts/gh_pr_monitor_c >/dev/null 2>&1
+*/15 * * * * /home/wubu2/.hermes/scripts/auto_retrain_c >/dev/null 2>&1
+*/15 * * * * /home/wubu2/.hermes/scripts/room_health_c > /home/wubu2/.hermes/pm_logs/health_monitor.log 2>&1
+*/20 * * * * /home/wubu2/.hermes/scripts/kraken_collector >/dev/null 2>&1
+# ── UNIFIED COLLECTOR PIPELINE ──
+# FAST: every 1 min (rooms, outlier filter)
+* * * * * /home/wubu2/.hermes/scripts/collector_runner.sh fast >/dev/null 2>&1
+# NORMAL: every 15 min (options, onchain, funding, etc.)
+*/15 * * * * /home/wubu2/.hermes/scripts/collector_runner.sh normal >/dev/null 2>&1
+# SLOW: every hour (darkpool, congress, 13f, etf, etc.)
+0 * * * * /home/wubu2/.hermes/scripts/collector_runner.sh slow >/dev/null 2>&1
+# SPORTS: every 30 min (sports, economic, weather, kalshi)
+*/30 * * * * /home/wubu2/.hermes/scripts/collector_runner.sh sports >/dev/null 2>&1
+*/5 * * * * /home/wubu2/money-room/engine/pipeline_monitor > /home/wubu2/.hermes/pm_logs/pipeline_monitor.log 2>&1
+*/10 * * * * /home/wubu2/money-room/engine/data_quality > /home/wubu2/.hermes/pm_logs/data_quality.log 2>&1
+# ── DATA COLLECTORS (every 15-60 min) ──
+*/15 * * * * /home/wubu2/money-room/engine/fear_greed_collector > /home/wubu2/.hermes/pm_logs/fear_greed.log 2>&1
+*/15 * * * * /home/wubu2/money-room/engine/coingecko_collector > /home/wubu2/.hermes/pm_logs/coingecko.log 2>&1
+*/15 * * * * /home/wubu2/money-room/engine/okx_collector > /home/wubu2/.hermes/pm_logs/okx.log 2>&1
+0 */3 * * * /home/wubu2/money-room/engine/forex_collector > /home/wubu2/.hermes/pm_logs/forex.log 2>&1
+0 */6 * * * /home/wubu2/money-room/engine/frankfurter_collector > /home/wubu2/.hermes/pm_logs/frankfurter.log 2>&1
