@@ -1,80 +1,80 @@
 {
   "agents": [
     {
-      "capital": 49.999287000000002,
-      "id": 3282,
+      "capital": 49.997149999999998,
+      "id": 6423,
       "rank": 1,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.999184,
-      "id": 3598,
+      "capital": 49.996665999999998,
+      "id": 8863,
       "rank": 2,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.998173000000001,
-      "id": 552,
+      "capital": 49.996304000000002,
+      "id": 516,
       "rank": 3,
       "sharpe": 0.0,
-      "trades": 1,
+      "trades": 2,
       "win_rate": 0.5
     },
     {
-      "capital": 49.997776000000002,
-      "id": 8442,
+      "capital": 49.996265000000001,
+      "id": 3361,
       "rank": 4,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.997410000000002,
-      "id": 3623,
+      "capital": 49.996056000000003,
+      "id": 4665,
       "rank": 5,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.996979000000003,
-      "id": 4853,
+      "capital": 49.995617000000003,
+      "id": 903,
       "rank": 6,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.995967999999998,
-      "id": 3025,
+      "capital": 49.991881999999997,
+      "id": 2058,
       "rank": 7,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.995663,
-      "id": 3850,
+      "capital": 49.990856000000001,
+      "id": 4307,
       "rank": 8,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.995659000000003,
-      "id": 966,
+      "capital": 49.990833000000002,
+      "id": 5278,
       "rank": 9,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.994121999999997,
-      "id": 4438,
+      "capital": 49.990166000000002,
+      "id": 4469,
       "rank": 10,
       "sharpe": 0.0,
       "trades": 1,
@@ -82,5 +82,5 @@
     }
   ],
   "count": 10,
-  "timestamp": 1780242307
+  "timestamp": 1780242709
 }
