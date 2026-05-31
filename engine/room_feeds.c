@@ -240,6 +240,10 @@ RoomError room_feeds_load(MarketTick *tick) {
     strncpy(tick->asset, asset, sizeof(tick->asset) - 1);
     tick->asset[sizeof(tick->asset) - 1] = '\0';
     json_get_int64(buf, "window_ts", &tick->window_ts);
+    // Fallback: some feed writers use "timestamp" instead of "window_ts"
+    if (tick->window_ts == 0) {
+        json_get_int64(buf, "timestamp", &tick->window_ts);
+    }
     json_get_float(buf, "open", &tick->open);
     json_get_float(buf, "high", &tick->high);
     json_get_float(buf, "low", &tick->low);
