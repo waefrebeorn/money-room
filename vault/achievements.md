@@ -15,4 +15,6 @@ Resolved gaps with file:line proof.
 | T000 | Engine core verified in paper mode: 5,589 cycles, 66,479 trades, $124,685 from $50 seed | Test run |
 | T050 | Battleship rebuilt: 100 real gaps, function-level, severity-classified | `battleship-ultimate.md` |
 | T051-T052 | Vault/ directory + achievements.md created | `vault/achievements.md` |
-| T011 | Multi-market trainer cron wired: every 4h | Cron `multi-market-trainer` |
+|| T011 | Multi-market trainer cron wired: every 4h | Cron `multi-market-trainer` |
+|| T009 | Per-market-type cascade features: compute_nested_prediction() now accepts MarketType. Probability-based features for SPORTS/WEATHER/PREDICTION/ELECTION. Per-market ring buffers. | `room_engine.c:69-208` |
+|| T010 | Genome load error handling: fopen failure prints WARN; market_type suffix fread return checked; invalid market_type caught with default to CRYPTO. | `room_engine.c:336-356` |

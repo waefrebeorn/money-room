@@ -334,13 +334,23 @@ static RoomError load_or_init_state(void) {
                 snprintf(mm_path, sizeof(mm_path), "%s/%s", mm_dir, mm_e->d_name);
                 
                 FILE *mm_f = fopen(mm_path, "rb");
-                if (!mm_f) continue;
+                if (!mm_f) {
+                    fprintf(stderr, "[ROOM] WARN: cannot open genome %s — skipping\n", mm_e->d_name);
+                    continue;
+                }
                 
                 Genome trained_genome;
-                int market_type = 0;
+                int market_type = MARKET_CRYPTO;
                 if (fread(&trained_genome, sizeof(Genome), 1, mm_f) == 1) {
-                    // Try to read market type (may not exist in older files)
-                    fread(&market_type, sizeof(int), 1, mm_f);
+                    // Try to read market type suffix (old files may lack it)
+                    size_t mt_read = fread(&market_type, sizeof(int), 1, mm_f);
+                    if (mt_read != 1) {
+                        market_type = MARKET_CRYPTO;
+                        fprintf(stderr, "[ROOM] WARN: %s has no market_type suffix, defaulting to CRYPTO\n", mm_e->d_name);
+                    } else if (market_type < 0 || market_type >= N_MARKET_TYPES) {
+                        fprintf(stderr, "[ROOM] WARN: %s has invalid market_type=%d, defaulting to CRYPTO\n", mm_e->d_name, market_type);
+                        market_type = MARKET_CRYPTO;
+                    }
                     
                     // Seed agents with this genome
                     int start = m_idx * agents_per_market;
