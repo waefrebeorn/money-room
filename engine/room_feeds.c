@@ -244,6 +244,25 @@ RoomError room_feeds_load(MarketTick *tick) {
     if (tick->window_ts == 0) {
         json_get_int64(buf, "timestamp", &tick->window_ts);
     }
+    // ── T021: Timestamp validation ──
+    if (tick->window_ts > 0) {
+        int64_t now_sec = (int64_t)time(NULL);
+        int64_t age_sec = now_sec - tick->window_ts;
+        if (age_sec < -300) {
+            fprintf(stderr, "[FEED] WARN: timestamp %ld is %lds in future — rejecting\n",
+                    (long)tick->window_ts, (long)(-age_sec));
+            free(buf);
+            tick->window_ts = 0;
+            return ERR_NO_DATA;
+        }
+        if (age_sec > 86400) {
+            fprintf(stderr, "[FEED] WARN: timestamp %ld is %lds stale (>24h) — rejecting\n",
+                    (long)tick->window_ts, (long)age_sec);
+            free(buf);
+            tick->window_ts = 0;
+            return ERR_NO_DATA;
+        }
+    }
     json_get_float(buf, "open", &tick->open);
     json_get_float(buf, "high", &tick->high);
     json_get_float(buf, "low", &tick->low);
