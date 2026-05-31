@@ -437,22 +437,55 @@ int main(int argc, char **argv) {
     // BTC candle
     json_t *candle = get_latest_btc_candle();
     if (candle) {
-        json_object_set(feed, "asset", json_string("BTC"));
-        json_object_set(feed, "window_ts", json_object_get(candle, "ts"));
-        json_object_set(feed, "open", json_object_get(candle, "open"));
-        json_object_set(feed, "high", json_object_get(candle, "high"));
-        json_object_set(feed, "low", json_object_get(candle, "low"));
-        json_object_set(feed, "close", json_object_get(candle, "close"));
-        json_object_set(feed, "volume", json_object_get(candle, "volume"));
+        json_t *jts = json_object_get(candle, "ts");
+        int64_t candle_ts = jts ? json_integer_value(jts) : 0;
+        // Validate candle freshness — if stale (>5 min old), use current window_ts
+        if (candle_ts > 0 && llabs(candle_ts - window_ts) < 300) {
+            json_object_set(feed, "window_ts", jts);
+        } else {
+            json_object_set_new(feed, "window_ts", json_integer(window_ts));
+        }
+        // Check if candle has real price data (not zero from stale pipeline)
+        json_t *jclose = json_object_get(candle, "close");
+        double close_val = jclose ? json_number_value(jclose) : 0;
+        if (close_val > 0) {
+            json_object_set(feed, "asset", json_string("BTC"));
+            json_object_set(feed, "open", json_object_get(candle, "open"));
+            json_object_set(feed, "high", json_object_get(candle, "high"));
+            json_object_set(feed, "low", json_object_get(candle, "low"));
+            json_object_set(feed, "close", jclose);
+            json_object_set(feed, "volume", json_object_get(candle, "volume"));
+        }
         json_decref(candle);
-    } else {
+    }
+    // If candle had zero data (stale pipeline), use live exchange price
+    // Check if close is still unset or zero
+    json_t *jclose = json_object_get(feed, "close");
+    if (!jclose || json_number_value(jclose) <= 0) {
         json_object_set_new(feed, "asset", json_string("BTC"));
-        json_object_set_new(feed, "window_ts", json_integer(window_ts));
-        json_object_set_new(feed, "open", json_real(0));
-        json_object_set_new(feed, "high", json_real(0));
-        json_object_set_new(feed, "low", json_real(0));
-        json_object_set_new(feed, "close", json_real(0));
-        json_object_set_new(feed, "volume", json_real(0));
+        if (!jclose) json_object_set_new(feed, "window_ts", json_integer(window_ts));
+        // Use Kraken price if available, else Coinbase
+        double fallback_price = 0;
+        ExchangeTicker kraken = fetch_kraken_ticker("XXBTZUSD", 8);
+        if (kraken.has_data) fallback_price = kraken.price;
+        if (fallback_price <= 0) {
+            ExchangeTicker coinbase = fetch_coinbase_ticker("BTC-USD", 8);
+            if (coinbase.has_data) fallback_price = coinbase.price;
+        }
+        if (fallback_price > 0) {
+            json_object_set_new(feed, "open", json_real(fallback_price * 0.999));
+            json_object_set_new(feed, "high", json_real(fallback_price * 1.001));
+            json_object_set_new(feed, "low", json_real(fallback_price * 0.999));
+            json_object_set_new(feed, "close", json_real(fallback_price));
+            json_object_set_new(feed, "volume", json_real(100));
+            printf("[bridge] using live price: close=%.2f\n", fallback_price);
+        } else {
+            json_object_set_new(feed, "open", json_real(0));
+            json_object_set_new(feed, "high", json_real(0));
+            json_object_set_new(feed, "low", json_real(0));
+            json_object_set_new(feed, "close", json_real(0));
+            json_object_set_new(feed, "volume", json_real(0));
+        }
     }
     
     // Fear & Greed

@@ -27,16 +27,39 @@ void init_genome_weights(Genome *g);
 // In live mode, 1s between cycles to match real-time data
 #define PAPER_PACE_NS    5000000LL   // 5ms for paper mode
 #define LIVE_PACE_NS     1000000000LL // 1s for live mode
-#define ROOM_DIR   "/home/wubu2/.hermes/pm_logs/c_room"
+// ── Room paths (runtime-overridable via ROOM_DIR env var) ──
+static char g_room_dir[512] = "/home/wubu2/.hermes/pm_logs/c_room";
+static char g_state_path[576];
+static char g_feed_path[576];
+static char g_log_path[576];
+#define ROOM_DIR g_room_dir
 #ifdef PAPER_MODE
-#define STATE_PATH ROOM_DIR "/room_state_paper.bin"
+#define STATE_PATH g_state_path
 #else
-#define STATE_PATH ROOM_DIR "/room_state.bin"
+#define STATE_PATH g_state_path
 #endif
-#define FEED_PATH  ROOM_DIR "/market_feed.json"
-#define LOG_PATH   ROOM_DIR "/room_log.csv"
+#define FEED_PATH  g_feed_path
+#define LOG_PATH   g_log_path
 
-// ── Globals ──
+// ── Init paths at startup ──
+static void init_paths(void) {
+    const char *env = getenv("ROOM_DIR");
+    if (env && env[0]) {
+        size_t len = strlen(env);
+        if (len < sizeof(g_room_dir)) {
+            memcpy(g_room_dir, env, len + 1);
+        }
+    }
+    snprintf(g_state_path, sizeof(g_state_path), "%s/room_state%s.bin", g_room_dir,
+#ifdef PAPER_MODE
+             "_paper"
+#else
+             ""
+#endif
+    );
+    snprintf(g_feed_path, sizeof(g_feed_path), "%s/market_feed.json", g_room_dir);
+    snprintf(g_log_path, sizeof(g_log_path), "%s/room_log.csv", g_room_dir);
+}
 static RoomState *state = NULL;
 static int state_fd = -1;
 static volatile int running = 1;
@@ -571,6 +594,7 @@ static int64_t ns_now(void) {
 //  MAIN LOOP
 // ════════════════════════════════════════════════════════
 int main(void) {
+    init_paths();
     printf("[ROOM] Starting... sizeof(RoomState)=%zu expected_file=%zu\n", 
            sizeof(RoomState), sizeof(RoomState));
     signal(SIGINT, handle_sig);
@@ -624,7 +648,7 @@ int main(void) {
     state->circuit_breaker_count = 0;
     
     int idle_cycles = 0;
-    float prev_close = 0.0f;  // Track for inter-candle comparison
+    float prev_close = state->prev_close;  // Track for inter-candle comparison (persisted from last process)
     
     while (running) {
         int64_t cycle_start = ns_now();
@@ -832,10 +856,10 @@ void room_market_stats(RoomState *state);
         }
 
         // ── Room Trade Execution (one per cycle, $50 seed) ──
-        // Skip first 10K P2P trades for evolution warm-up.
+        // Skip first 1K P2P trades for evolution warm-up (lowered from 10K for live mode).
         // Uses multi-stream expert selection: pick top 100 agents by WR,
         // their votes are diverse across different data streams.
-        if (state->trade_count >= 10000 && vote_count > 0) {
+        if (state->trade_count >= 1000 && vote_count > 0) {
             // Use top 100 agents' votes (diverse experts per stream)
             int top_n = 100;
             if (top_n > vote_count) top_n = vote_count;
@@ -1074,6 +1098,7 @@ void room_market_stats(RoomState *state);
 
         // ── Save close for next cycle's resolution ──
         prev_close = tick.close;
+        state->prev_close = prev_close;  // Persist across process restarts
 
         // ── L5: Darwin evolution (every 100 trades) ──
         if (state->trade_count > 0 && state->trade_count % 100 == 0) {

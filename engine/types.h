@@ -287,6 +287,7 @@ typedef struct {
     int      circuit_cooldown_cycles; // Config: how many cycles to cool down
     int      max_consecutive_losses; // Config: max consecutive losses before trip
     int      consec_room_losses;     // Current consecutive room trade losses
+    float    prev_close;             // Previous cycle's close price (persisted across process restarts)
     // ── T18: Position limits ──
     float    max_position_pct_room;   // Max % of total room capital any single agent can bet
     float    max_total_exposure_pct;  // Max % of total capital all agents can risk combined

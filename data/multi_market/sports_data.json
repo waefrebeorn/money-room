@@ -671,14 +671,14 @@
     "home_team": "Baltimore Orioles",
     "away_team": "Toronto Blue Jays",
     "home_score": 9.0,
-    "away_score": 1.0,
+    "away_score": 5.0,
     "timestamp": 1780262100,
     "date": "2026-05-31T16:15Z",
     "outcome": 1,
     "features": [
-      8.0,
-      10.0,
-      0.90000000000000002,
+      4.0,
+      14.0,
+      0.6428571428571429,
       0.5,
       0.5
     ]
@@ -689,15 +689,15 @@
     "game": "Minnesota Twins at Pittsburgh Pirates",
     "home_team": "Pittsburgh Pirates",
     "away_team": "Minnesota Twins",
-    "home_score": 4.0,
-    "away_score": 0.0,
+    "home_score": 9.0,
+    "away_score": 2.0,
     "timestamp": 1780266900,
     "date": "2026-05-31T17:35Z",
     "outcome": 1,
     "features": [
-      4.0,
-      4.0,
-      1.0,
+      7.0,
+      11.0,
+      0.81818181818181823,
       0.5,
       0.5
     ]
@@ -708,15 +708,15 @@
     "game": "San Diego Padres at Washington Nationals",
     "home_team": "Washington Nationals",
     "away_team": "San Diego Padres",
-    "home_score": 1.0,
-    "away_score": 0.0,
+    "home_score": 3.0,
+    "away_score": 2.0,
     "timestamp": 1780266900,
     "date": "2026-05-31T17:35Z",
     "outcome": 1,
     "features": [
       1.0,
-      1.0,
-      1.0,
+      5.0,
+      0.59999999999999998,
       0.5,
       0.5
     ]
@@ -727,15 +727,15 @@
     "game": "Los Angeles Angels at Tampa Bay Rays",
     "home_team": "Tampa Bay Rays",
     "away_team": "Los Angeles Angels",
-    "home_score": 1.0,
-    "away_score": 1.0,
+    "home_score": 3.0,
+    "away_score": 2.0,
     "timestamp": 1780267200,
     "date": "2026-05-31T17:40Z",
-    "outcome": 0,
+    "outcome": 1,
     "features": [
-      0.0,
-      2.0,
-      0.5,
+      1.0,
+      5.0,
+      0.59999999999999998,
       0.5,
       0.5
     ]
@@ -746,15 +746,15 @@
     "game": "Atlanta Braves at Cincinnati Reds",
     "home_team": "Cincinnati Reds",
     "away_team": "Atlanta Braves",
-    "home_score": 2.0,
-    "away_score": 1.0,
+    "home_score": 5.0,
+    "away_score": 3.0,
     "timestamp": 1780267200,
     "date": "2026-05-31T17:40Z",
     "outcome": 1,
     "features": [
-      1.0,
-      3.0,
-      0.66666666666666663,
+      2.0,
+      8.0,
+      0.625,
       0.5,
       0.5
     ]
@@ -765,15 +765,15 @@
     "game": "Boston Red Sox at Cleveland Guardians",
     "home_team": "Cleveland Guardians",
     "away_team": "Boston Red Sox",
-    "home_score": 2.0,
-    "away_score": 1.0,
+    "home_score": 4.0,
+    "away_score": 6.0,
     "timestamp": 1780267200,
     "date": "2026-05-31T17:40Z",
-    "outcome": 1,
+    "outcome": 0,
     "features": [
-      1.0,
-      3.0,
-      0.66666666666666663,
+      -2.0,
+      10.0,
+      0.40000000000000002,
       0.5,
       0.5
     ]
@@ -784,15 +784,15 @@
     "game": "Miami Marlins at New York Mets",
     "home_team": "New York Mets",
     "away_team": "Miami Marlins",
-    "home_score": 3.0,
-    "away_score": 0.0,
+    "home_score": 5.0,
+    "away_score": 1.0,
     "timestamp": 1780267200,
     "date": "2026-05-31T17:40Z",
     "outcome": 1,
     "features": [
-      3.0,
-      3.0,
-      1.0,
+      4.0,
+      6.0,
+      0.83333333333333337,
       0.5,
       0.5
     ]
@@ -811,6 +811,63 @@
     "features": [
       -1.0,
       1.0,
+      0.0,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Milwaukee Brewers at Houston Astros",
+    "home_team": "Houston Astros",
+    "away_team": "Milwaukee Brewers",
+    "home_score": 0.0,
+    "away_score": 2.0,
+    "timestamp": 1780269000,
+    "date": "2026-05-31T18:10Z",
+    "outcome": 0,
+    "features": [
+      -2.0,
+      2.0,
+      0.0,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "Kansas City Royals at Texas Rangers",
+    "home_team": "Texas Rangers",
+    "away_team": "Kansas City Royals",
+    "home_score": 6.0,
+    "away_score": 0.0,
+    "timestamp": 1780270500,
+    "date": "2026-05-31T18:35Z",
+    "outcome": 1,
+    "features": [
+      6.0,
+      6.0,
+      1.0,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "league": "MLB",
+    "sport": "baseball",
+    "game": "San Francisco Giants at Colorado Rockies",
+    "home_team": "Colorado Rockies",
+    "away_team": "San Francisco Giants",
+    "home_score": 0.0,
+    "away_score": 2.0,
+    "timestamp": 1780272600,
+    "date": "2026-05-31T19:10Z",
+    "outcome": 0,
+    "features": [
+      -2.0,
+      2.0,
       0.0,
       0.5,
       0.5

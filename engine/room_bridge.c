@@ -14,16 +14,29 @@
 #include <sys/stat.h>
 #include "types.h"
 
-#define STATE_PATH_BASE "/home/wubu2/.hermes/pm_logs/c_room"
-#ifdef PAPER_MODE
-#define STATE_PATH STATE_PATH_BASE "/room_state_paper.bin"
-#else
-#define STATE_PATH STATE_PATH_BASE "/room_state.bin"
-#endif
-#define JSON_SNAP  "/home/wubu2/.hermes/pm_logs/c_room/room_snapshot.json"
+// ── Room paths (runtime-overridable via ROOM_DIR env var) ──
+static char g_bridge_dir[576] = "/home/wubu2/.hermes/pm_logs/c_room";
+static char g_bridge_state_path[640];
+static char g_bridge_snap_path[640];
+#define STATE_PATH g_bridge_state_path
+#define JSON_SNAP g_bridge_snap_path
+
+// ── Init bridge paths at startup ──
+static void init_bridge_paths(void) {
+    const char *env = getenv("ROOM_DIR");
+    if (env && env[0]) {
+        size_t len = strlen(env);
+        if (len < sizeof(g_bridge_dir)) {
+            memcpy(g_bridge_dir, env, len + 1);
+        }
+    }
+    snprintf(g_bridge_state_path, sizeof(g_bridge_state_path), "%s/room_state.bin", g_bridge_dir);
+    snprintf(g_bridge_snap_path, sizeof(g_bridge_snap_path), "%s/room_snapshot.json", g_bridge_dir);
+}
 
 // ── Write a JSON snapshot for Python tools that can't read mmap ──
 RoomError room_bridge_write(RoomState *state) {
+    init_bridge_paths();
     if (!state) return ERR_MMAP_FAIL;
     
     FILE *f = fopen(JSON_SNAP, "w");
@@ -116,7 +129,7 @@ RoomError room_bridge_write(RoomState *state) {
         float importance = pos_wr - neg_wr;
         if (!first) fputs(",\n", f);
         first = 0;
-        fprintf(f, "  {\"name\": \"%s\", \"pos_wr\": %.4f, \"neg_wr\": %.4f, \"importance\": %+.4f, \"pos_trades\": %d, \"neg_trades\": %d}",
+        fprintf(f, "  {\"name\": \"%s\", \"pos_wr\": %.4f, \"neg_wr\": %.4f, \"importance\": %.4f, \"pos_trades\": %d, \"neg_trades\": %d}",
                 feat_names[i], pos_wr, neg_wr, importance,
                 fi->pos_contrib_total[i], fi->neg_contrib_total[i]);
     }

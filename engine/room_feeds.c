@@ -180,7 +180,15 @@ RoomError room_feeds_load(MarketTick *tick) {
 #else
 // ── Live Mode: JSON feed from Python ──
 
-#define FEED_PATH "/home/wubu2/.hermes/pm_logs/c_room/market_feed.json"
+// Feed path (runtime-overridable via ROOM_DIR env var)
+static char g_room_feeds_feed_path[576];
+#define FEED_PATH g_room_feeds_feed_path
+
+static void init_feeds_path(void) {
+    const char *dir = getenv("ROOM_DIR");
+    if (!dir || !dir[0]) dir = "/home/wubu2/.hermes/pm_logs/c_room";
+    snprintf(g_room_feeds_feed_path, sizeof(g_room_feeds_feed_path), "%s/market_feed.json", dir);
+}
 
 static int json_get_str(const char *json, const char *key, char *out, int outsz) {
     char search[128];
@@ -220,6 +228,7 @@ static int json_get_int64(const char *json, const char *key, int64_t *out) {
 }
 
 RoomError room_feeds_load(MarketTick *tick) {
+    init_feeds_path();
     FILE *f = fopen(FEED_PATH, "r");
     if (!f) return ERR_FILE_READ;
     
