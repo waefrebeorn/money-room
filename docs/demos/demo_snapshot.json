@@ -1,25 +1,20 @@
 {
   "version": 5,
-<<<<<<< HEAD
   "cycle": 3641952,
   "last_updated": 1780215393,
-=======
-  "cycle": 3668813,
-  "last_updated": 1780215680,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
   "market": {
     "asset": "BTC",
-    "close": 73203.600000000006,
-    "bid": 73203.600000000006,
-    "ask": 73180.539999999994,
-    "volume": 7692.7204014199997,
-    "sp500": 7520.3599999999997,
-    "vix": 16.289999999999999,
+    "close": 73203.6,
+    "bid": 73203.6,
+    "ask": 73180.54,
+    "volume": 7692.72040142,
+    "sp500": 7520.36,
+    "vix": 16.29,
     "btc_dominance": 62.0,
-    "btc_30d_volatility": 2.4300000000000002,
+    "btc_30d_volatility": 2.43,
     "data_quality_score": 85,
     "source": "Kraken+Coinbase WebSocket"
   },
@@ -37,7 +32,7 @@
     "trades_total": 626696,
     "trades_won": 307816,
     "trades_lost": 318880,
-    "win_rate": 0.49120000000000003,
+    "win_rate": 0.4912,
     "sharpe_ratio": 0.0,
     "max_drawdown": 0.0,
     "capital_current": 50000.0,
@@ -67,39 +62,27 @@
     "epoch": 35659,
     "culled": 250,
     "cloned": 250,
-    "mutation_rate": 0.050000000000000003
+    "mutation_rate": 0.05
   },
   "rooms": [],
   "consensus_topics": null,
   "features": {
-<<<<<<< HEAD
-    "price_delta_pct": 0.0061999999999999998,
-    "micro_momentum": 0.0073000000000000001,
+    "price_delta_pct": 0.0062,
+    "micro_momentum": 0.0073,
     "rsi_7": 50.0,
-    "volume_surge_ratio": 0.77000000000000002,
+    "volume_surge_ratio": 0.77,
     "divergence_score": 0.0,
-=======
-    "price_delta_pct": 0.023,
-    "micro_momentum": 0.069000000000000006,
-    "rsi_7": 51.799999999999997,
-    "volume_surge_ratio": 0.39000000000000001,
-    "divergence_score": -1.0,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
-    "pump_score": 0.20000000000000001,
+    "pump_score": 0.2,
     "regime_indicator": 0,
-    "fear_greed_norm": 0.29999999999999999,
+    "fear_greed_norm": 0.3,
     "herd_consensus": 0.0,
-<<<<<<< HEAD
-    "nested_prediction": 0.57189999999999996
-=======
-    "nested_prediction": 0.54820000000000002
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
+    "nested_prediction": 0.5719
   },
   "top_agents": [
     {
       "id": 4424,
       "capital": 12450.5,
-      "win_rate_ema": 0.61199999999999999,
+      "win_rate_ema": 0.612,
       "trades": 284,
       "pnl": 895.0,
       "wins": 174,
@@ -111,17 +94,17 @@
     "mean_pnl": 1510.04,
     "mean_cash": 1025.22,
     "total_resolved": 1911293,
-    "profitable_genomes_pct": 65.799999999999997,
+    "profitable_genomes_pct": 65.8,
     "valhalla_champions": 6,
     "active_teachers": 4
   },
   "paper_proof": {
-    "sp500_wr": 0.54859999999999998,
+    "sp500_wr": 0.5486,
     "total_return": 6680,
     "sp500_tested": "SP500 daily 1985-2026",
     "criteria_passed": "4/8",
     "structural_gap": "0.14% from 55% - OHLCV ceiling",
-    "btc_wr": 0.47499999999999998,
+    "btc_wr": 0.475,
     "btc_wr_detail": "C engine v2 BTC 1-min",
     "genome_mean_pnl": 1510.04,
     "ecosystem_trades": 626696,
@@ -131,13 +114,13 @@
       {
         "name": "Above 55% WR",
         "pass": false,
-        "value": 54.859999999999999,
+        "value": 54.86,
         "explanation": "SP500 daily MLP hits 54.86% \u2014 0.14% from target. Structural OHLCV ceiling: every TA variant converges here."
       },
       {
         "name": "Above 50% BTC WR",
         "pass": false,
-        "value": 49.960000000000001,
+        "value": 49.96,
         "explanation": "BTC 15-min is random walk (49.96%). No TA-based strategy breaks 50% on 15-min BTC."
       },
       {
@@ -149,48 +132,44 @@
       {
         "name": "Out-of-sample > 52%",
         "pass": true,
-        "value": 54.859999999999999,
+        "value": 54.86,
         "explanation": "Walk-forward OOS WR = 54.86% > 52% threshold. Consistent across 10-fold split."
       },
       {
         "name": "Sharpe > 1.0",
         "pass": false,
-        "value": 0.71999999999999997,
+        "value": 0.72,
         "explanation": "Annualized Sharpe = 0.72. Below 1.0 threshold for institutional-grade strategy."
       },
       {
         "name": "Max DD < 20%",
         "pass": true,
-        "value": 11.300000000000001,
+        "value": 11.3,
         "explanation": "Max drawdown = 11.3%. Within 20% circuit breaker threshold."
       },
       {
         "name": "Ensemble > single",
         "pass": true,
-        "value": 52.850000000000001,
+        "value": 52.85,
         "explanation": "Ensemble majority vote = 52.85% vs single model 50.41%. Ensemble reduces variance."
       },
       {
         "name": "Profit factor > 1.5",
         "pass": false,
-        "value": 1.1200000000000001,
+        "value": 1.12,
         "explanation": "Gross win/gross loss = 1.12. Below 1.5 threshold for viable strategy."
       }
     ]
   },
   "gdelt": {
     "version": 3,
-<<<<<<< HEAD
     "generated_at": "2026-05-31T08:16:33+00:00",
-=======
-    "generated_at": "2026-05-31T08:21:20+00:00",
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
     "global_sentiment": {
       "mean": 0.013333333656191826,
       "direction": "neutral",
       "total_articles": 500,
       "groups_scanned": 1,
-      "confidence": 0.65000000000000002
+      "confidence": 0.65
     },
     "headlines": [
       {
@@ -915,7 +894,7 @@
         "topic": "bitcoin+OR+crypto+OR+blockchain"
       },
       {
-        "title": "\uD83D\uDEA8\uD83C\uDDFA\uD83C\uDDF8Bitcoin spot ETFs recorded a net weekly outflow of $1.41B. BlackRock clients sold $966,300,000 worth of $Bitcoin (BTC.CC)$ - Moomoo",
+        "title": "\ud83d\udea8\ud83c\uddfa\ud83c\uddf8Bitcoin spot ETFs recorded a net weekly outflow of $1.41B. BlackRock clients sold $966,300,000 worth of $Bitcoin (BTC.CC)$ - Moomoo",
         "source": "Google News",
         "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOeWRkdjhZRWY3TlF4TVNCUEMzSnNIWjRvRlByZ3RWMk5GbWJ6T3dsTzI4QWIwTWNSVnlOdmVJTVZ3LTZOMXk0LVRIcnE0T2J5N3VPN0FDQmxoY0hYVjJHVDhzSkc2YnJPbGoxWmdZeEdfVW80eTFJZTNtRms0eUM0b3R2N3ZIUUpYbjNCWVBsSU5wQWRyZy1jeVpEeDN0Q2s5QkJmRjRfLVRuUQ?oc=5",
         "sentiment": 0.0,
@@ -1090,7 +1069,7 @@
         "topic": "bitcoin+OR+crypto+OR+blockchain"
       },
       {
-        "title": "\uD83C\uDDFA\uD83C\uDDF8 Citibank predicts Bitcoin will hit $189k in 2026 - Moomoo",
+        "title": "\ud83c\uddfa\ud83c\uddf8 Citibank predicts Bitcoin will hit $189k in 2026 - Moomoo",
         "source": "Google News",
         "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOS3N3djN3MmhOVUhOd21YUEdYbFpyeVBLMnNUZjJiTklNbXYycWlPWnBycTRnSmZzTURKWm9lSjEtNjhBLVRDekpCTEJOeFFFbXRubk5UYWgzWE1sc0lDWkVmN2h5RHNfWEZOYnUxR3N3RFFWUGpYakNJZlFPaThzbE8xYWo3RERXSHBDN0M3eVZITGxGQ1gtSFFoWmtjVFhycnpZ?oc=5",
         "sentiment": 0.0,
@@ -1265,7 +1244,7 @@
         "topic": "bitcoin+OR+crypto+OR+blockchain"
       },
       {
-        "title": "Another Bitcoin treasury company exits: suffered massive losses from holding at high prices, lasted less than a year - \u5BCC\u9014\u725B\u725B",
+        "title": "Another Bitcoin treasury company exits: suffered massive losses from holding at high prices, lasted less than a year - \u5bcc\u9014\u725b\u725b",
         "source": "Google News",
         "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQUHlwYWsxcXREcTlTWlZ5Z1MwdDBicFp2ODlvZDV1bWpOWlFPVG44bzRfQW5EbG0tNVJHV2Fha1poQWI4SWFqV1NmakYzdGJ6X0FKa2NJejNFb3NrcFdkeDFmeEV5QUhxZVF5UzJMVjNhaUlmSGI2bjQwSFgtX1BCVGlFbFBhdE5HVVBYcGtEYXc1WG5JRkZJQTJMZTV1YjJtZEo4NXItd0d2WFdkenVTeHFxb3lZUHM?oc=5",
         "sentiment": 1.0,
@@ -1517,7 +1496,7 @@
         "topic": "bitcoin+OR+crypto+OR+blockchain"
       },
       {
-        "title": "EU tax proposals could yield up to \u20AC11bn per year, Commission says - Euronews",
+        "title": "EU tax proposals could yield up to \u20ac11bn per year, Commission says - Euronews",
         "source": "Google News",
         "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQT0Y3R19BOWozaGRaX0prb3hfSl9RcEpvY2RqUWtHdm1JcGxTeDdCdjNMcHFST3htTU11ZFZxalN6bjBhdUF2V2VvZ3ljcGxWcHFVRS1vNUUzbmVVbHppSzRacUlrZ05GRzZaZ0F3aTBPNl9LS01uSnhBZHYtSDNvcGVkTjRXdTlYekpNM0hDcE5sQXZaVW9JM0FVV1JwbEQ3N2JPRWpFYktLZDBIUkNKQm5OVzBiNGlQbFlGTGZibTZodFFRRnVsQzlZQUVQdUJ0V3c?oc=5",
         "sentiment": 0.0,
@@ -2819,7 +2798,7 @@
         "topic": "AI+OR+artificial+intelligence+OR+technology+earnings"
       },
       {
-        "title": "If AI replaces workers, should it also pay taxes? - EL PA\u00CDS English",
+        "title": "If AI replaces workers, should it also pay taxes? - EL PA\u00cdS English",
         "source": "Google News",
         "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOOEZja3piM011X3VHSmlFUFMzNDhndC1aYzJxMFR5VTNHUlNJME1jcTdkZ3Bwa2hlV3lMa3k0QWVieU5aY2pYZ1kxV0kybkJwTzN0Y0ZqZTFHM2o4M1FaWUhIanJBUTU2cXg3bzZSbkJwR2pYMWpfSVJGaENzekpzeUdQMnpCcDJzS0RLdk9VWDBqV0JtNmYxVzJaM050XzgtMWNv0gG3AUFVX3lxTE9VQjlfVS1tOXpTSEUyV3Yxcm5mWWNubm13dlZwcElXQk1xdi1xZnJfVXpHZVM2VjY2VzBLWC10ckdjNEs1YmUwU2F2N3dWYWd3Zl9UNXJ3RTluc21OTVBhZXBjVmZtNmMyQ0VKYjZSWXhVbGlIYlhYWWxWTUFlaWh6Qm5FWGFHbUhoVUdVNzFTMVhTemZscmg0b29lVHY3WERxbWpBdXNwSTNqcExfUkp2ZzVheVBhUQ?oc=5",
         "sentiment": 0.0,
@@ -3702,7 +3681,7 @@
         "articles": 500,
         "pos_ratio": 0.14399999380111694,
         "neg_ratio": 0.13600000739097595,
-        "neutral_ratio": 0.72000002861022949,
+        "neutral_ratio": 0.7200000286102295,
         "confidence": 0.013333333656191826,
         "headlines": [
           {
@@ -4427,7 +4406,7 @@
             "topic": "bitcoin+OR+crypto+OR+blockchain"
           },
           {
-            "title": "\uD83D\uDEA8\uD83C\uDDFA\uD83C\uDDF8Bitcoin spot ETFs recorded a net weekly outflow of $1.41B. BlackRock clients sold $966,300,000 worth of $Bitcoin (BTC.CC)$ - Moomoo",
+            "title": "\ud83d\udea8\ud83c\uddfa\ud83c\uddf8Bitcoin spot ETFs recorded a net weekly outflow of $1.41B. BlackRock clients sold $966,300,000 worth of $Bitcoin (BTC.CC)$ - Moomoo",
             "source": "Google News",
             "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOeWRkdjhZRWY3TlF4TVNCUEMzSnNIWjRvRlByZ3RWMk5GbWJ6T3dsTzI4QWIwTWNSVnlOdmVJTVZ3LTZOMXk0LVRIcnE0T2J5N3VPN0FDQmxoY0hYVjJHVDhzSkc2YnJPbGoxWmdZeEdfVW80eTFJZTNtRms0eUM0b3R2N3ZIUUpYbjNCWVBsSU5wQWRyZy1jeVpEeDN0Q2s5QkJmRjRfLVRuUQ?oc=5",
             "sentiment": 0.0,
@@ -4602,7 +4581,7 @@
             "topic": "bitcoin+OR+crypto+OR+blockchain"
           },
           {
-            "title": "\uD83C\uDDFA\uD83C\uDDF8 Citibank predicts Bitcoin will hit $189k in 2026 - Moomoo",
+            "title": "\ud83c\uddfa\ud83c\uddf8 Citibank predicts Bitcoin will hit $189k in 2026 - Moomoo",
             "source": "Google News",
             "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOS3N3djN3MmhOVUhOd21YUEdYbFpyeVBLMnNUZjJiTklNbXYycWlPWnBycTRnSmZzTURKWm9lSjEtNjhBLVRDekpCTEJOeFFFbXRubk5UYWgzWE1sc0lDWkVmN2h5RHNfWEZOYnUxR3N3RFFWUGpYakNJZlFPaThzbE8xYWo3RERXSHBDN0M3eVZITGxGQ1gtSFFoWmtjVFhycnpZ?oc=5",
             "sentiment": 0.0,
@@ -4777,7 +4756,7 @@
             "topic": "bitcoin+OR+crypto+OR+blockchain"
           },
           {
-            "title": "Another Bitcoin treasury company exits: suffered massive losses from holding at high prices, lasted less than a year - \u5BCC\u9014\u725B\u725B",
+            "title": "Another Bitcoin treasury company exits: suffered massive losses from holding at high prices, lasted less than a year - \u5bcc\u9014\u725b\u725b",
             "source": "Google News",
             "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQUHlwYWsxcXREcTlTWlZ5Z1MwdDBicFp2ODlvZDV1bWpOWlFPVG44bzRfQW5EbG0tNVJHV2Fha1poQWI4SWFqV1NmakYzdGJ6X0FKa2NJejNFb3NrcFdkeDFmeEV5QUhxZVF5UzJMVjNhaUlmSGI2bjQwSFgtX1BCVGlFbFBhdE5HVVBYcGtEYXc1WG5JRkZJQTJMZTV1YjJtZEo4NXItd0d2WFdkenVTeHFxb3lZUHM?oc=5",
             "sentiment": 1.0,
@@ -5029,7 +5008,7 @@
             "topic": "bitcoin+OR+crypto+OR+blockchain"
           },
           {
-            "title": "EU tax proposals could yield up to \u20AC11bn per year, Commission says - Euronews",
+            "title": "EU tax proposals could yield up to \u20ac11bn per year, Commission says - Euronews",
             "source": "Google News",
             "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQT0Y3R19BOWozaGRaX0prb3hfSl9RcEpvY2RqUWtHdm1JcGxTeDdCdjNMcHFST3htTU11ZFZxalN6bjBhdUF2V2VvZ3ljcGxWcHFVRS1vNUUzbmVVbHppSzRacUlrZ05GRzZaZ0F3aTBPNl9LS01uSnhBZHYtSDNvcGVkTjRXdTlYekpNM0hDcE5sQXZaVW9JM0FVV1JwbEQ3N2JPRWpFYktLZDBIUkNKQm5OVzBiNGlQbFlGTGZibTZodFFRRnVsQzlZQUVQdUJ0V3c?oc=5",
             "sentiment": 0.0,
@@ -6331,7 +6310,7 @@
             "topic": "AI+OR+artificial+intelligence+OR+technology+earnings"
           },
           {
-            "title": "If AI replaces workers, should it also pay taxes? - EL PA\u00CDS English",
+            "title": "If AI replaces workers, should it also pay taxes? - EL PA\u00cdS English",
             "source": "Google News",
             "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOOEZja3piM011X3VHSmlFUFMzNDhndC1aYzJxMFR5VTNHUlNJME1jcTdkZ3Bwa2hlV3lMa3k0QWVieU5aY2pYZ1kxV0kybkJwTzN0Y0ZqZTFHM2o4M1FaWUhIanJBUTU2cXg3bzZSbkJwR2pYMWpfSVJGaENzekpzeUdQMnpCcDJzS0RLdk9VWDBqV0JtNmYxVzJaM050XzgtMWNv0gG3AUFVX3lxTE9VQjlfVS1tOXpTSEUyV3Yxcm5mWWNubm13dlZwcElXQk1xdi1xZnJfVXpHZVM2VjY2VzBLWC10ckdjNEs1YmUwU2F2N3dWYWd3Zl9UNXJ3RTluc21OTVBhZXBjVmZtNmMyQ0VKYjZSWXhVbGlIYlhYWWxWTUFlaWh6Qm5FWGFHbUhoVUdVNzFTMVhTemZscmg0b29lVHY3WERxbWpBdXNwSTNqcExfUkp2ZzVheVBhUQ?oc=5",
             "sentiment": 0.0,
@@ -7209,14 +7188,14 @@
       }
     },
     "market": {
-      "sp500_current": 7520.3599999999997,
+      "sp500_current": 7520.36,
       "sp500_1d_change": 0.02,
-      "sp500_7d_change": 1.5800000000000001,
-      "btc_current": 73203.600000000006,
-      "btc_1d_change": -2.1099999999999999,
-      "btc_7d_change": -3.5899999999999999,
-      "vix_current": 16.289999999999999,
-      "vix_1d_change": -0.71999999999999997
+      "sp500_7d_change": 1.58,
+      "btc_current": 73203.6,
+      "btc_1d_change": -2.11,
+      "btc_7d_change": -3.59,
+      "vix_current": 16.29,
+      "vix_1d_change": -0.72
     },
     "query_count": 24,
     "update_frequency": "Every 6 hours",
@@ -7230,19 +7209,11 @@
     "today": {
       "note": "No engine cycles today yet"
     },
-<<<<<<< HEAD
     "generated": "2026-05-31T08:16:33Z"
   },
   "verification": {
     "version": 1,
     "generated_at": 1780215393,
-=======
-    "generated": "2026-05-31T08:21:20Z"
-  },
-  "verification": {
-    "version": 1,
-    "generated_at": 1780215680,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 24,
@@ -7255,11 +7226,7 @@
     },
     "t2_engine_health": {
       "status": "operational",
-<<<<<<< HEAD
       "cycle": 3641952,
-=======
-      "cycle": 3668813,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
       "vote_total": 2500,
       "vote_up": 0,
       "vote_down": 2500,
@@ -7268,7 +7235,7 @@
       "avg_conviction": 0.0,
       "active_agents": 0,
       "rooms_active": 0,
-      "win_rate": 0.49120000000000003,
+      "win_rate": 0.4912,
       "sharpe": 0.0,
       "capital_current": 50000.0,
       "capital_healthy": true,
@@ -7289,416 +7256,260 @@
       }
     },
     "t4_collector_health": {
-<<<<<<< HEAD
       "generated_at": 1780215395,
-=======
-      "generated_at": 1780215682,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
       "total": 35,
       "ok": 30,
       "warn": 3,
       "fail": 0,
-<<<<<<< HEAD
       "timeout": 1,
       "missing": 0,
       "running": 1,
       "stale": 14,
-=======
-      "timeout": 2,
-      "missing": 0,
-      "running": 0,
-      "stale": 15,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
       "status": "degraded",
       "collectors": [
         {
           "name": "outlier_filter",
           "status": "ok",
-<<<<<<< HEAD
           "last_run": "2026-05-31T04:15:04",
           "age_min": 241,
-=======
-          "last_run": "2026-05-31T04:21:03",
-          "age_min": 240,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "sports",
           "status": "ok",
           "last_run": "2026-05-31T03:45:04",
-<<<<<<< HEAD
           "age_min": 271,
-=======
-          "age_min": 276,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "options_features",
           "status": "ok",
           "last_run": "2026-05-31T03:45:06",
-<<<<<<< HEAD
           "age_min": 271,
-=======
-          "age_min": 276,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "onchain_features",
           "status": "ok",
           "last_run": "2026-05-31T03:45:08",
-<<<<<<< HEAD
           "age_min": 271,
-=======
-          "age_min": 276,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "stablecoin_features",
           "status": "ok",
           "last_run": "2026-05-31T03:45:11",
-<<<<<<< HEAD
           "age_min": 271,
-=======
-          "age_min": 276,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "funding_features",
           "status": "ok",
           "last_run": "2026-05-31T03:45:14",
-<<<<<<< HEAD
           "age_min": 271,
-=======
-          "age_min": 276,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "open_interest",
           "status": "ok",
           "last_run": "2026-05-31T03:45:16",
-<<<<<<< HEAD
           "age_min": 271,
-=======
-          "age_min": 276,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "hashrate_features",
           "status": "ok",
           "last_run": "2026-05-31T03:45:19",
-<<<<<<< HEAD
           "age_min": 271,
-=======
-          "age_min": 276,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "orderbook_archive",
           "status": "ok",
           "last_run": "2026-05-31T03:45:22",
-<<<<<<< HEAD
           "age_min": 271,
-=======
-          "age_min": 276,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "liquidation_features",
           "status": "ok",
           "last_run": "2026-05-31T03:45:25",
-<<<<<<< HEAD
           "age_min": 271,
-=======
-          "age_min": 275,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "ls_ratio",
           "status": "ok",
           "last_run": "2026-05-31T03:45:27",
-<<<<<<< HEAD
           "age_min": 271,
-=======
-          "age_min": 275,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "whale_tracking",
           "status": "ok",
           "last_run": "2026-05-31T03:45:30",
-<<<<<<< HEAD
           "age_min": 271,
-=======
-          "age_min": 275,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "etf_flow",
           "status": "ok",
           "last_run": "2026-05-31T03:45:34",
-<<<<<<< HEAD
           "age_min": 271,
-=======
-          "age_min": 275,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "gdelt_sentiment",
           "status": "ok",
           "last_run": "2026-05-31T03:45:49",
-<<<<<<< HEAD
           "age_min": 270,
-=======
-          "age_min": 275,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "news_rss",
           "status": "ok",
           "last_run": "2026-05-31T03:45:53",
-<<<<<<< HEAD
           "age_min": 270,
-=======
-          "age_min": 275,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "options_flow_monitor",
           "status": "ok",
           "last_run": "2026-05-31T03:46:07",
-<<<<<<< HEAD
           "age_min": 270,
-=======
-          "age_min": 275,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "earnings_calendar",
           "status": "ok",
           "last_run": "2026-05-31T03:46:11",
-<<<<<<< HEAD
           "age_min": 270,
-=======
-          "age_min": 275,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "cycle_all_rooms",
-<<<<<<< HEAD
           "status": "running",
           "last_run": "2026-05-31T04:16:01",
           "age_min": 240,
           "stale": 0
-=======
-          "status": "timeout",
-          "last_run": "2026-05-31T04:21:01",
-          "age_min": 240,
-          "stale": 1
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
         },
         {
           "name": "ws_feed_watchdog",
           "status": "warn",
-<<<<<<< HEAD
           "last_run": "2026-05-31T04:15:06",
           "age_min": 241,
-=======
-          "last_run": "2026-05-31T04:21:05",
-          "age_min": 240,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "economic",
           "status": "ok",
           "last_run": "2026-05-31T03:00:07",
-<<<<<<< HEAD
           "age_min": 316,
-=======
-          "age_min": 321,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "weather",
           "status": "ok",
           "last_run": "2026-05-31T03:00:10",
-<<<<<<< HEAD
           "age_min": 316,
-=======
-          "age_min": 321,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "kalshi",
           "status": "ok",
           "last_run": "2026-05-31T03:00:55",
-<<<<<<< HEAD
           "age_min": 315,
-=======
-          "age_min": 320,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 0
         },
         {
           "name": "dark_pool",
           "status": "ok",
           "last_run": "2026-05-31T01:00:18",
-<<<<<<< HEAD
           "age_min": 436,
-=======
-          "age_min": 441,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "congress_trades",
           "status": "ok",
           "last_run": "2026-05-31T01:00:24",
-<<<<<<< HEAD
           "age_min": 436,
-=======
-          "age_min": 440,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "insider_trades",
           "status": "ok",
           "last_run": "2026-05-31T01:00:46",
-<<<<<<< HEAD
           "age_min": 435,
-=======
-          "age_min": 440,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "13f_holdings",
           "status": "ok",
           "last_run": "2026-05-31T01:00:59",
-<<<<<<< HEAD
           "age_min": 435,
-=======
-          "age_min": 440,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "short_interest",
           "status": "timeout",
           "last_run": "2026-05-31T01:02:01",
-<<<<<<< HEAD
           "age_min": 434,
-=======
-          "age_min": 439,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "market_tide",
           "status": "ok",
           "last_run": "2026-05-31T01:02:05",
-<<<<<<< HEAD
           "age_min": 434,
-=======
-          "age_min": 439,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "etf_holdings",
           "status": "ok",
           "last_run": "2026-05-31T01:02:07",
-<<<<<<< HEAD
           "age_min": 434,
-=======
-          "age_min": 439,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "seasonality",
           "status": "ok",
           "last_run": "2026-05-31T01:02:10",
-<<<<<<< HEAD
           "age_min": 434,
-=======
-          "age_min": 439,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "teacher_bridge",
           "status": "ok",
           "last_run": "2026-05-31T01:02:12",
-<<<<<<< HEAD
           "age_min": 434,
-=======
-          "age_min": 439,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "param_tuner",
           "status": "ok",
           "last_run": "2026-05-31T01:02:14",
-<<<<<<< HEAD
           "age_min": 434,
-=======
-          "age_min": 439,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "polymarket_scan",
           "status": "ok",
           "last_run": "2026-05-31T01:03:44",
-<<<<<<< HEAD
           "age_min": 432,
-=======
-          "age_min": 437,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "auto_test",
           "status": "warn",
           "last_run": "2026-05-31T01:03:46",
-<<<<<<< HEAD
           "age_min": 432,
-=======
-          "age_min": 437,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         },
         {
           "name": "bounty_scan",
           "status": "warn",
           "last_run": "2026-05-31T01:03:46",
-<<<<<<< HEAD
           "age_min": 432,
-=======
-          "age_min": 437,
->>>>>>> 2330622 (site: auto 04:21 hash=2fb45f56c82daead43c192ac0edffdfd)
           "stale": 1
         }
       ]

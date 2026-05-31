@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Demo — Money Room Engine History</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+/* ── Demo page specific styles ── */
+body { min-height: 100vh; }
+
+.page-header { padding: 48px 0 32px; text-align: center; }
+
+.demo-callout {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 16px 24px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  backdrop-filter: blur(12px);
+}
+.demo-callout .badge {
+  background: var(--accent-dim);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.demo-callout .text { color: var(--text-tertiary); flex: 1; }
+.demo-callout a { color: var(--accent); }
+
+.chart-container {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(12px);
+}
+.chart-container h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  margin-bottom: 12px;
+}
+.chart-container canvas { width: 100%; height: 200px; display: block; border-radius: var(--radius-sm); }
+.chart-container .stats-row {
+  display: flex; gap: 20px; flex-wrap: wrap;
+  margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+}
+.chart-container .stats-row .stat { color: var(--text-tertiary); }
+.chart-container .stats-row .stat span { color: var(--text-primary); font-weight: 600; }
+.chart-container .stats-row .stat .green { color: var(--accent); }
+.chart-container .stats-row .stat .red { color: var(--bearish); }
+.chart-container .stats-row .stat .orange { color: var(--orange); }
+
+.demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.snapshot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.snapshot-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  backdrop-filter: blur(12px);
+}
+.snapshot-card .label { font-size: 10px; color: var(--text-quaternary); text-transform: uppercase; letter-spacing: 0.08em; }
+.snapshot-card .value { font-size: 20px; font-weight: 700; color: var(--text-primary); font-family: 'JetBrains Mono', monospace; margin-top: 4px; }
+.snapshot-card .value.green { color: var(--accent); }
+.snapshot-card .value.red { color: var(--bearish); }
+.snapshot-card .value.orange { color: var(--orange); }
+
+.feature-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.feature-table th {
+  text-align: left; padding: 8px 12px;
+  color: var(--text-quaternary); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.feature-table td {
+  padding: 8px 12px; border-bottom: 1px solid var(--border-subtle);
+  font-family: 'JetBrains Mono', monospace;
+}
+.feature-table tr:last-child td { border-bottom: none; }
+.feature-table .imp-bar { height: 4px; border-radius: 2px; background: var(--bg-surface); overflow: hidden; width: 80px; display: inline-block; vertical-align: middle; margin-right: 8px; }
+.feature-table .imp-fill { height: 100%; border-radius: 2px; }
+
+.headline-list { max-height: 300px; overflow-y: auto; }
+.headline-list::-webkit-scrollbar { width: 4px; }
+.headline-list::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
+.headline-item {
+  padding: 10px 0; border-bottom: 1px solid var(--border-subtle);
+  font-size: 12px; line-height: 1.5;
+}
+.headline-item:last-child { border-bottom: none; }
+.headline-item .sentiment {
+  display: inline-block; padding: 1px 8px; border-radius: 3px;
+  font-size: 10px; font-weight: 600; margin-right: 8px;
+}
+.headline-item .sentiment.pos { background: var(--accent-dim); color: var(--accent); }
+.headline-item .sentiment.neg { background: rgba(255,56,96,0.12); color: var(--bearish); }
+.headline-item .sentiment.neu { background: rgba(122,134,154,0.12); color: var(--neutral); }
+
+@media (max-width: 768px) {
+  .demo-grid { grid-template-columns: 1fr; }
+  .snapshot-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href=".." class="logo"><span class="dot"></span> Money <span>Room</span></a>
+    <div class="nav-links">
+      <a href="..">Live</a>
+      <a href="../live.html">Dashboard</a>
+      <a href="../pricing.html">Pricing</a>
+      <a href="https://github.com/waefrebeorn/money-room" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1>📊 Free Demo</h1>
+    <p style="color:var(--text-tertiary);font-size:15px;max-width:500px;margin:8px auto 0">
+      Yesterday's engine data — no sign-in required. Updated every 15 minutes.
+    </p>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom:60px">
+
+  <div class="demo-callout">
+    <span class="badge">Free Tier</span>
+    <span class="text">View yesterday's engine performance, feature importance, and market sentiment data. <a href="../pricing.html">Subscribe</a> for live data, real-time predictions, and API access.</span>
+  </div>
+
+  <!-- Current Snapshot Stats -->
+  <div class="chart-container">
+    <h3>📡 Current Engine State</h3>
+    <div class="snapshot-grid" id="snapshotGrid">
+      <div class="snapshot-card"><div class="label">Cycle</div><div class="value" id="sCycle">—</div></div>
+      <div class="snapshot-card"><div class="label">Win Rate</div><div class="value" id="sWinRate">—</div></div>
+      <div class="snapshot-card"><div class="label">Paper Capital</div><div class="value" id="sCapital">—</div></div>
+      <div class="snapshot-card"><div class="label">Active Agents</div><div class="value" id="sAgents">—</div></div>
+      <div class="snapshot-card"><div class="label">Total Trades</div><div class="value" id="sTrades">—</div></div>
+      <div class="snapshot-card"><div class="label">Sharpe Ratio</div><div class="value" id="sSharpe">—</div></div>
+      <div class="snapshot-card"><div class="label">Drawdown</div><div class="value" id="sDD">—</div></div>
+      <div class="snapshot-card"><div class="label">Last Updated</div><div class="value" id="sUpdated">—</div></div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="demo-grid">
+    <div class="chart-container">
+      <h3>📈 Win Rate Over 24h</h3>
+      <canvas id="chartWinRate" height="180"></canvas>
+      <div class="stats-row" id="wrStats">
+        <span class="stat">Current: <span id="wrCurrent">—</span></span>
+        <span class="stat">24h High: <span id="wrHigh" class="green">—</span></span>
+        <span class="stat">24h Low: <span id="wrLow" class="red">—</span></span>
+        <span class="stat">Mean: <span id="wrMean">—</span></span>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <h3>💰 Capital Curve</h3>
+      <canvas id="chartCapital" height="180"></canvas>
+      <div class="stats-row" id="capStats">
+        <span class="stat">Current: <span id="capCurrent">—</span></span>
+        <span class="stat">Peak: <span id="capPeak" class="green">—</span></span>
+        <span class="stat">Drawdown: <span id="capDD" class="red">—</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-grid">
+    <div class="chart-container">
+      <h3>🔄 Cycle Activity</h3>
+      <canvas id="chartActivity" height="150"></canvas>
+      <div class="stats-row">
+        <span class="stat">Avg Agents/Cycle: <span id="actAvg">—</span></span>
+        <span class="stat">Total Cycles: <span id="actTotal">—</span></span>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <h3>🧬 Room Win Rate</h3>
+      <canvas id="chartRoomWR" height="150"></canvas>
+      <div class="stats-row">
+        <span class="stat">Avg Room WR: <span id="roomWrAvg">—</span></span>
+        <span class="stat">Best: <span id="roomWrBest" class="green">—</span></span>
+        <span class="stat">Worst: <span id="roomWrWorst" class="red">—</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Importance -->
+  <div class="chart-container">
+    <h3>🔬 Feature Importance</h3>
+    <div style="overflow-x:auto">
+      <table class="feature-table" id="featureTable">
+        <thead>
+          <tr><th>Feature</th><th>Directional WR</th><th>Importance</th><th>Trades</th></tr>
+        </thead>
+        <tbody id="featureBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- GDELT Headlines -->
+  <div class="chart-container">
+    <h3>📰 Market Sentiment (GDELT)</h3>
+    <div id="sentimentSummary" style="margin-bottom:12px"></div>
+    <div class="headline-list" id="headlineList"></div>
+  </div>
+
+  <!-- Top Agents -->
+  <div class="chart-container">
+    <h3>🏆 Top Demo Agents</h3>
+    <div id="agentList"></div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="bottom"><span>© 2026 Money Room</span> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a> · <a href="https://github.com/waefrebeorn/money-room">GitHub</a></div>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+ * Free Demo Engine — Canvas Charts + Data
+ * ═══════════════════════════════════════════ */
+
+var BASE = window.location.pathname.includes('/demos/') ? '..' : '.';
+
+function $(id) { return document.getElementById(id); }
+function fmt(n, d) { if(n===undefined||n===null)return'—';if(typeof n==='string')n=parseFloat(n);if(isNaN(n))return'—';return n.toLocaleString(undefined,{minimumFractionDigits:d||0,maximumFractionDigits:d||2});}
+function pct(n) { return (n*100).toFixed(1)+'%'; }
+function ts2short(t) { var d=new Date(t*1000); return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0'); }
+
+/* ── Canvas Chart Helpers ── */
+function drawLineChart(id, data, labels, opts) {
+  var c = $(id); if (!c) return;
+  var ctx = c.getContext('2d');
+  var W = c.parentElement.clientWidth-4;
+  var H = c.height;
+  c.width = W * (window.devicePixelRatio||1); c.height = H * (window.devicePixelRatio||1);
+  ctx.scale(window.devicePixelRatio||1, window.devicePixelRatio||1);
+  c.style.width = W+'px'; c.style.height = H+'px';
+
+  var pad = {top:12,bottom:24,left:50,right:16};
+  var pw = W - pad.left - pad.right;
+  var ph = H - pad.top - pad.bottom;
+
+  ctx.clearRect(0,0,W,H);
+
+  if (!data || data.length < 2) {
+    ctx.fillStyle = '#4a5568'; ctx.font = '13px Inter,sans-serif';
+    ctx.textAlign = 'center'; ctx.fillText('Loading data...', W/2, H/2);
+    return;
+  }
+
+  var min = Math.min.apply(null, data);
+  var max = Math.max.apply(null, data);
+  var range = max - min || 1;
+  var color = opts.color || '#00e5a0';
+  var fillColor = opts.fillColor || 'rgba(0,229,160,0.08)';
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+  ctx.lineWidth = 1;
+  for (var i=0;i<4;i++) {
+    var y = pad.top + (ph/4)*i;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W-pad.right, y); ctx.stroke();
+  }
+
+  // Data line
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.5;
+  for (var i=0;i<data.length;i++) {
+    var x = pad.left + (i/(data.length-1))*pw;
+    var y = pad.top + ph - ((data[i]-min)/range)*ph;
+    if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  // Fill
+  ctx.beginPath();
+  for (var i=0;i<data.length;i++) {
+    var x = pad.left + (i/(data.length-1))*pw;
+    var y = pad.top + ph - ((data[i]-min)/range)*ph;
+    if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.lineTo(pad.left+pw, pad.top+ph);
+  ctx.lineTo(pad.left, pad.top+ph);
+  ctx.closePath();
+  ctx.fillStyle = fillColor;
+  ctx.fill();
+
+  // Y-axis labels
+  ctx.fillStyle = '#4a5568'; ctx.font = '9px JetBrains Mono,monospace'; ctx.textAlign = 'right';
+  for (var i=0;i<=4;i++) {
+    var v = min + (range/4)*i;
+    var y = pad.top + ph - (i/4)*ph;
+    ctx.fillText(opts.format ? opts.format(v) : v.toFixed(2), pad.left-6, y+3);
+  }
+
+  // X-axis labels (first, middle, last)
+  ctx.textAlign = 'center';
+  if (labels) {
+    var idxs = [0, Math.floor(labels.length/2), labels.length-1];
+    idxs.forEach(function(idx) {
+      var x = pad.left + (idx/(labels.length-1))*pw;
+      ctx.fillText(labels[idx], x, H-4);
+    });
+  }
+
+  // Current value annotation
+  var lastY = pad.top + ph - ((data[data.length-1]-min)/range)*ph;
+  ctx.fillStyle = color; ctx.font = 'bold 10px JetBrains Mono,monospace'; ctx.textAlign = 'left';
+  ctx.fillText(opts.format ? opts.format(data[data.length-1]) : data[data.length-1].toFixed(2), pad.left+pw+4, lastY+3);
+}
+
+/* ── Load & Render ── */
+var g_history = [];
+
+function loadHistory() {
+  fetch(BASE+'/demos/demo_history.json', {cache:'no-store'})
+    .then(function(r){if(!r.ok)throw Error();return r.json();})
+    .then(function(d){
+      g_history = d;
+      renderCharts(d);
+    })
+    .catch(function(){ loadSnapshot(); });
+}
+
+function loadSnapshot() {
+  // Use existing data/stats.json as fallback for current state
+  fetch(BASE+'/data/stats.json', {cache:'no-store'})
+    .then(function(r){if(!r.ok)throw Error();return r.json();})
+    .then(function(d){
+      $('sCycle').textContent = fmt(d.cycle);
+      $('sWinRate').textContent = pct(d.win_rate);
+      $('sCapital').textContent = '$'+fmt(d.capital);
+      $('sAgents').textContent = fmt(d.agents);
+      $('sTrades').textContent = fmt(d.trades_total);
+      $('sSharpe').textContent = d.sharpe ? d.sharpe.toFixed(2) : '—';
+      $('sDD').textContent = d.drawdown ? (d.drawdown*100).toFixed(2)+'%' : '0%';
+      $('sUpdated').textContent = d.timestamp ? ts2short(d.timestamp) : '—';
+    })
+    .catch(function(){});
+}
+
+function renderCharts(d) {
+  var h = d.history || [];
+  if (h.length < 2) { loadSnapshot(); return; }
+
+  // ── Snapshot Stats from latest data points ──
+  var last = h[h.length-1];
+  $('sCycle').textContent = fmt(last[0]);
+  $('sWinRate').textContent = pct(last[4]);
+  $('sCapital').textContent = '$'+fmt(last[9]);
+  $('sAgents').textContent = fmt(last[3]);
+  $('sTrades').textContent = fmt(last[7] || 0);
+  $('sSharpe').textContent = last[5] && isFinite(last[5]) ? last[5].toFixed(2) : '—';
+  $('sDD').textContent = last[6] && isFinite(last[6]) ? (last[6]*100).toFixed(2)+'%' : '0%';
+  $('sUpdated').textContent = ts2short(last[1]);
+
+  // Extract series
+  var ts = h.map(function(r){return ts2short(r[1]);});
+  var wrSeries = h.map(function(r){return r[4];});
+  var capSeries = h.map(function(r){return r[9];});
+  var actSeries = h.map(function(r){return r[3];});  // active agents
+  var roomWrSeries = h.map(function(r){return r[8];});  // room_wr
+  var tradesSeries = h.map(function(r){return r[7]||0;});
+
+  // Win Rate chart
+  drawLineChart('chartWinRate', wrSeries, ts, {
+    color: '#00e5a0', fillColor: 'rgba(0,229,160,0.08)',
+    format: function(v){return (v*100).toFixed(1)+'%';}
+  });
+
+  // Stats
+  var wrVals = wrSeries.filter(function(v){return isFinite(v)&&v>0;});
+  if (wrVals.length) {
+    $('wrCurrent').textContent = pct(wrVals[wrVals.length-1]);
+    $('wrHigh').textContent = pct(Math.max.apply(null, wrVals));
+    $('wrLow').textContent = pct(Math.min.apply(null, wrVals));
+    $('wrMean').textContent = pct(wrVals.reduce(function(a,b){return a+b;},0)/wrVals.length);
+  }
+
+  // Capital chart
+  drawLineChart('chartCapital', capSeries, ts, {
+    color: '#4a8bff', fillColor: 'rgba(74,139,255,0.08)',
+    format: function(v){return '$'+fmt(v);}
+  });
+
+  var capVals = capSeries.filter(function(v){return isFinite(v);});
+  if (capVals.length) {
+    var peak = Math.max.apply(null, capVals);
+    var current = capVals[capVals.length-1];
+    var dd = peak > 0 ? (peak - current) / peak : 0;
+    $('capCurrent').textContent = '$'+fmt(current);
+    $('capPeak').textContent = '$'+fmt(peak);
+    $('capDD').textContent = (dd*100).toFixed(2)+'%';
+    $('capDD').className = dd > 0.05 ? 'red' : 'green';
+  }
+
+  // Activity chart
+  drawLineChart('chartActivity', actSeries, ts, {
+    color: '#ff9f43', fillColor: 'rgba(255,159,67,0.08)',
+    format: function(v){return fmt(v);}
+  });
+
+  var actVals = actSeries.filter(function(v){return isFinite(v)&&v>0;});
+  if (actVals.length) {
+    $('actAvg').textContent = fmt(Math.round(actVals.reduce(function(a,b){return a+b;},0)/actVals.length));
+  }
+  // Total cycles = unique cycle values
+  var uniqCycles = {};
+  h.forEach(function(r){uniqCycles[r[0]]=true;});
+  $('actTotal').textContent = fmt(Object.keys(uniqCycles).length);
+
+  // Room WR chart
+  drawLineChart('chartRoomWR', roomWrSeries, ts, {
+    color: '#a855f7', fillColor: 'rgba(168,85,247,0.08)',
+    format: function(v){return (v*100).toFixed(1)+'%';}
+  });
+
+  var rwrVals = roomWrSeries.filter(function(v){return isFinite(v)&&v>0;});
+  if (rwrVals.length) {
+    $('roomWrAvg').textContent = pct(rwrVals.reduce(function(a,b){return a+b;},0)/rwrVals.length);
+    $('roomWrBest').textContent = pct(Math.max.apply(null, rwrVals));
+    $('roomWrWorst').textContent = pct(Math.min.apply(null, rwrVals));
+  }
+}
+
+/* ── Feature Importance from snapshot ── */
+function loadFeaturesSnapshot() {
+  fetch(BASE+'/demos/demo_snapshot.json', {cache:'no-store'})
+    .then(function(r){if(!r.ok)throw Error();return r.json();})
+    .then(function(d){
+      renderFeatures(d);
+      renderHeadlines(d);
+      renderAgents(d);
+    })
+    .catch(function(){});
+}
+
+function renderFeatures(d) {
+  if (!d.features) return;
+  var tbody = $('featureBody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+
+  var feats = [];
+  for (var k in d.features) {
+    if (typeof d.features[k] === 'number') {
+      feats.push({name:k, value:d.features[k]});
+    }
+  }
+  // Sort by absolute value desc
+  feats.sort(function(a,b){return Math.abs(b.value)-Math.abs(a.value);});
+
+  feats.forEach(function(f) {
+    var absv = Math.abs(f.value);
+    var color = f.value > 0 ? '#00e5a0' : (f.value < 0 ? '#ff3860' : '#7a869a');
+    var pctVal = absv; // keep raw
+    var barWidth = Math.min(absv * 10, 100); // scale for visual
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>'+f.name+'</td>'+
+      '<td style="color:'+color+'">'+(f.value > 0 ? '+':'')+f.value.toFixed(4)+'</td>'+
+      '<td><div class="imp-bar"><div class="imp-fill" style="width:'+barWidth+'%;background:'+color+'"></div></div></td>'+
+      '<td>—</td>';
+    tbody.appendChild(tr);
+  });
+
+  // Also add feature importance from the GDELT/snapshot data if available
+  if (d.feature_importance && Array.isArray(d.feature_importance)) {
+    d.feature_importance.forEach(function(fi) {
+      if (!fi) return;
+      var imp = fi.importance || 0;
+      var color = imp > 0 ? '#00e5a0' : '#ff3860';
+      var barWidth = Math.min(Math.abs(imp) * 500, 100);
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+fi.name+'</td>'+
+        '<td style="color:'+color+'">pos:'+((fi.pos_wr||0)*100).toFixed(1)+'% neg:'+((fi.neg_wr||0)*100).toFixed(1)+'%</td>'+
+        '<td><div class="imp-bar"><div class="imp-fill" style="width:'+barWidth+'%;background:'+color+'"></div></div>'+
+        (imp > 0 ? '+':'')+imp.toFixed(4)+'</td>'+
+        '<td>'+(fi.pos_trades||0)+(fi.neg_trades?'/'+fi.neg_trades:'')+'</td>';
+      tbody.appendChild(tr);
+    });
+  }
+}
+
+function renderHeadlines(d) {
+  if (!d.gdelt || !d.gdelt.headlines) return;
+  var list = $('headlineList');
+  var summary = $('sentimentSummary');
+  if (!list) return;
+
+  var g = d.gdelt;
+  var sent = g.global_sentiment || {};
+  var mean = sent.mean || 0;
+  var direction = sent.direction || 'neutral';
+  var total = sent.total_articles || 0;
+
+  summary.innerHTML = '<span class="stat" style="font-size:12px;color:var(--text-tertiary);font-family:JetBrains Mono,monospace">'+
+    'Global Sentiment: <b>'+(mean > 0 ? '<span style="color:var(--accent)">' : mean < 0 ? '<span style="color:var(--bearish)">' : '<span>')+
+    mean.toFixed(3)+' ('+direction+')</span></b> · '+total+' articles · Confidence: '+((sent.confidence||0)*100).toFixed(0)+'%</span>';
+
+  var headlines = g.headlines || [];
+  headlines.slice(0, 20).forEach(function(h) {
+    var div = document.createElement('div');
+    div.className = 'headline-item';
+    var s = h.sentiment || 0;
+    var sClass = s > 0 ? 'pos' : (s < 0 ? 'neg' : 'neu');
+    var sLabel = s > 0 ? 'BULL' : (s < 0 ? 'BEAR' : 'NEU');
+    div.innerHTML = '<span class="sentiment '+sClass+'">'+sLabel+'</span>'+
+      '<a href="'+(h.url||'#')+'" target="_blank" style="color:var(--text-secondary);">'+
+      (h.title||'')+'</a>';
+    list.appendChild(div);
+  });
+}
+
+function renderAgents(d) {
+  if (!d.top_agents) return;
+  var list = $('agentList');
+  if (!list) return;
+  list.innerHTML = '';
+
+  var agents = Array.isArray(d.top_agents) ? d.top_agents : (d.top_agents ? [d.top_agents] : []);
+  if (agents.length === 0) {
+    list.innerHTML = '<div style="color:var(--text-quaternary);font-size:13px;padding:12px 0">No agent data available in demo snapshot.</div>';
+    return;
+  }
+
+  var table = document.createElement('table');
+  table.className = 'feature-table';
+  table.innerHTML = '<thead><tr><th>Rank</th><th>ID</th><th>Capital</th><th>WR</th><th>Trades</th><th>PnL</th></tr></thead>'+
+    '<tbody id="agentBody"></tbody>';
+  list.appendChild(table);
+
+  var tbody = $('agentBody');
+  agents.forEach(function(a, i) {
+    var tr = document.createElement('tr');
+    var pnl = (a.pnl || a.capital - 50);
+    var pnlClass = pnl > 0 ? 'green' : (pnl < 0 ? 'red' : '');
+    var wr = a.win_rate_ema || a.win_rate || 0;
+    tr.innerHTML = '<td>'+(i+1)+'</td><td>#'+(a.id||'—')+'</td>'+
+      '<td>$'+fmt(a.capital||0)+'</td>'+
+      '<td>'+(wr*100).toFixed(1)+'%</td>'+
+      '<td>'+(a.trades||0)+'</td>'+
+      '<td class="'+pnlClass+'">$'+fmt(pnl)+'</td>';
+    tbody.appendChild(tr);
+  });
+}
+
+/* ── Init ── */
+loadHistory();
+loadFeaturesSnapshot();
+// Also load current stats for the snapshot cards
+loadSnapshot();
+
+// Reload every 60s
+setInterval(function(){
+  loadHistory();
+  loadSnapshot();
+}, 60000);
+</script>
+
+</body>
+</html>
