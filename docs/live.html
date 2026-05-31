@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Dashboard — Money Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<style>
+.dashboard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.dashboard-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.agent-list { max-height: 400px; overflow-y: auto; }
+.agent-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border-subtle); font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+.agent-row .rank { color: var(--text-quaternary); width: 24px; }
+.agent-row .name { color: var(--text-secondary); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.agent-row .pnl { font-weight: 600; }
+.agent-row .pnl.pos { color: var(--bullish); }
+.agent-row .pnl.neg { color: var(--bearish); }
+@media (max-width:768px){.dashboard-grid{grid-template-columns:repeat(2,1fr)}.dashboard-row{grid-template-columns:1fr}}
+@media (max-width:480px){.dashboard-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+    <a href="/" class="logo"><span class="dot"></span> Money <span>Room</span></a>
+    <div class="nav-links">
+      <a href="/">Live</a>
+      <a href="/live" class="active">Dashboard</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="https://github.com/waefrebeorn/money-room">GitHub</a>
+      <a href="#" id="navAuth" class="nav-cta">Sign Out</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1>📊 Live Dashboard</h1>
+    <p style="font-size:12px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace" id="dashUpdated">Connecting...</p>
+  </div>
+</div>
+
+<section style="padding-bottom:60px">
+  <div class="container">
+    <div class="dashboard-grid" id="kpiGrid">
+      <div class="live-card"><span class="label">Cycle</span><div class="val" id="kpiCycle">—</div></div>
+      <div class="live-card"><span class="label">Win Rate</span><div class="val" id="kpiWr">—</div><div class="gauge"><div class="gauge-fill green" id="kpiWrGauge" style="width:50%"></div></div></div>
+      <div class="live-card"><span class="label">Capital</span><div class="val" id="kpiCap">—</div></div>
+      <div class="live-card"><span class="label">Agents</span><div class="val" id="kpiAgents">—</div><div class="kpi-down" id="kpiVotes"></div></div>
+    </div>
+    <div class="dashboard-grid" id="kpiGrid2">
+      <div class="live-card"><span class="label">Cycle Time</span><div class="val" id="kpiCycleTime">—</div></div>
+      <div class="live-card"><span class="label">Sharpe</span><div class="val" id="kpiSharpe">—</div></div>
+      <div class="live-card"><span class="label">Drawdown</span><div class="val" id="kpiDd">—</div></div>
+      <div class="live-card"><span class="label">Top Agent PnL</span><div class="val" id="kpiTopPnl">—</div></div>
+    </div>
+
+    <div class="dashboard-row">
+      <div class="live-table">
+        <h3>🏆 Agent Leaderboard</h3>
+        <div class="agent-list" id="agentList"><div style="padding:24px;text-align:center;color:var(--text-quaternary)">Loading...</div></div>
+      </div>
+      <div class="live-table">
+        <h3>⚙️ System</h3>
+        <table id="sysTable">
+          <tr><td>State Age</td><td id="sysStateAge">—</td></tr>
+          <tr><td>Paper Age</td><td id="sysPaperAge">—</td></tr>
+          <tr><td>Latest Cycle</td><td id="sysLatestCycle">—</td></tr>
+          <tr><td>Total Trades</td><td id="sysTrades">—</td></tr>
+          <tr><td>Win Rate</td><td id="sysWr">—</td></tr>
+          <tr><td>Epoch</td><td id="sysEpoch">—</td></tr>
+          <tr><td>Active Crons</td><td id="sysCrons">—</td></tr>
+          <tr><td>BTC (engine)</td><td id="sysBtcPrice">—</td></tr>
+          <tr><td>Features</td><td id="sysFeatures">—</td></tr>
+          <tr><td>Peak Capital</td><td id="sysPeak">—</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="live-table" style="margin-bottom:24px">
+      <h3>🔑 API Key</h3>
+      <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <code style="font-size:12px;color:var(--text-tertiary);word-break:break-all" id="displayKey">—</code>
+        <button onclick="localStorage.removeItem('mr_api_key');window.location.href='/';" style="padding:6px 16px;background:var(--bg-surface);color:var(--text-secondary);border:1px solid var(--border-standard);border-radius:var(--radius-md);font-size:12px;cursor:pointer">Disconnect</button>
+      </div>
+    </div>
+
+    <div class="disclaimer"><p><b>⚠️ NOT FINANCIAL ADVICE</b> — All data from simulated paper trading. Nothing here constitutes financial advice.</p></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="bottom"><span>© 2026 Money Room</span> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a> · <a href="https://github.com/waefrebeorn/money-room">GitHub</a></div>
+  </div>
+</footer>
+
+<script>
+function fmt(n,d){if(n===undefined||n===null)return'—';if(typeof n==='string')n=parseFloat(n);if(isNaN(n))return'—';return n.toLocaleString(undefined,{minimumFractionDigits:d||0,maximumFractionDigits:d||2});}
+function pct(n){if(n===undefined||n===null)return'—';n=typeof n==='string'?parseFloat(n):n;return(n*100).toFixed(1)+'%';}
+function ago(ts){if(!ts)return'—';var d=Math.floor(Date.now()/1000-ts);if(d<0)return'just now';if(d<60)return d+'s';if(d<3600)return Math.floor(d/60)+'m';return Math.floor(d/3600)+'h';}
+function $(id){return document.getElementById(id);}
+function setEl(id,v){var e=$(id);if(e)e.textContent=v;}
+var BASE_URL = window.location.pathname.startsWith('/money-room') ? '/money-room' : '';
+function fetchData(p){return fetch(BASE_URL+'/'+p,{cache:'no-store'});}
+
+/* Auth gate */
+(function(){
+  var key=localStorage.getItem('mr_api_key');
+  if(!key){window.location.href='/';return;}
+  $('displayKey').textContent=key.length>20?key.slice(0,12)+'…'+key.slice(-8):key;
+  $('navAuth').onclick=function(e){e.preventDefault();localStorage.removeItem('mr_api_key');localStorage.removeItem('mr_tier');window.location.href='/';};
+})();
+
+/* Load stats from monkey data */
+function loadStats(){
+  fetchData('data/stats.json').then(function(r){if(!r.ok)throw Error();return r.json();})
+    .then(function(s){
+      setEl('kpiCycle',fmt(s.cycle,0));
+      setEl('kpiAgents',fmt(s.agents,0));
+      setEl('kpiCap',s.capital?'$'+fmt(s.capital,0):'—');
+      setEl('kpiVotes',fmt(s.votes,0)+' votes');
+      setEl('kpiCycleTime',s.cycle_time?s.cycle_time.toFixed(1)+'ms':'—');
+      setEl('kpiSharpe',s.sharpe?s.sharpe.toFixed(2):'—');
+      setEl('kpiDd',s.drawdown?pct(s.drawdown):'—');
+      setEl('sysLatestCycle',fmt(s.cycle,0));
+      setEl('sysTrades',fmt(s.trades_total,0));
+      setEl('sysWr',pct(s.win_rate));
+      setEl('sysEpoch',fmt(s.epoch,0));
+      setEl('sysFeatures',s.features?s.features+'+':'80+');
+      setEl('sysPeak',s.capital_peak?'$'+fmt(s.capital_peak,0):'—');
+      setEl('sysBtcPrice',s.price?'$'+fmt(s.price,0):'—');
+
+      var paperAge=s.paper_age?ago(Date.now()/1000-s.paper_age):null;
+      if(paperAge)setEl('sysPaperAge',paperAge);
+      if(s.timestamp)setEl('sysStateAge',ago(s.timestamp)+' ago');
+
+      var wrEl=$('kpiWr');if(wrEl){wrEl.textContent=pct(s.win_rate);wrEl.style.color=s.win_rate>0.5?'var(--bullish)':s.win_rate>0.45?'var(--neutral)':'var(--bearish)';}
+      var wg=$('kpiWrGauge');if(wg){wg.style.width=(s.win_rate*100)+'%';wg.className='gauge-fill '+(s.win_rate>0.5?'green':'red');}
+
+      var up=$('dashUpdated');
+      if(up)up.textContent='Updated: '+(s.timestamp?new Date(s.timestamp*1000).toLocaleTimeString():'—');
+    }).catch(function(){});
+}
+
+/* Load agents */
+function loadAgents(){
+  fetchData('data/agents.json').then(function(r){if(!r.ok)throw Error();return r.json();})
+    .then(function(d){
+      var al=$('agentList');if(!al)return;
+      if(!d.agents||d.agents.length===0){
+        al.innerHTML='<div style="padding:24px;text-align:center;color:var(--text-quaternary)">No agents yet</div>';
+        return;
+      }
+      al.innerHTML=d.agents.slice(0,50).map(function(a,i){
+        var pnl=a.pnl||0;var cls=pnl>=0?'pos':'neg';
+        return '<div class="agent-row"><span class="rank">#'+a.rank+'</span><span class="name">Agent '+(a.id||i+1)+'</span><span class="pnl '+cls+'">$'+fmt(pnl,2)+'</span></div>';
+      }).join('');
+    }).catch(function(){});
+}
+
+/* Load prices */
+function loadPrices(){
+  fetchData('data/prices.json').then(function(r){if(!r.ok)throw Error();return r.json();})
+    .then(function(d){
+      if(d.BTC)setEl('kpiTopPnl','$'+fmt(d.BTC.usd,0));
+    }).catch(function(){});
+}
+
+loadStats();loadAgents();loadPrices();
+setInterval(loadStats,15000);setInterval(loadAgents,15000);setInterval(loadPrices,60000);
+</script>
+</body>
+</html>
