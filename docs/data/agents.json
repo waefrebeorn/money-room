@@ -1,76 +1,76 @@
 {
   "agents": [
     {
-      "capital": 49.999405000000003,
+      "capital": 49.984408999999999,
       "id": 8967,
       "rank": 1,
-      "trades": 0,
+      "trades": 3,
       "win_rate": 0.5
     },
     {
-      "capital": 49.999195,
-      "id": 2338,
+      "capital": 49.983806999999999,
+      "id": 8473,
       "rank": 2,
-      "trades": 0,
+      "trades": 3,
       "win_rate": 0.5
     },
     {
-      "capital": 49.999195,
-      "id": 2339,
+      "capital": 49.983566000000003,
+      "id": 8499,
       "rank": 3,
-      "trades": 0,
+      "trades": 3,
       "win_rate": 0.5
     },
     {
-      "capital": 49.999195,
-      "id": 2340,
+      "capital": 49.982967000000002,
+      "id": 8466,
       "rank": 4,
-      "trades": 0,
+      "trades": 3,
       "win_rate": 0.5
     },
     {
-      "capital": 49.999195,
-      "id": 2341,
+      "capital": 49.982605,
+      "id": 8486,
       "rank": 5,
-      "trades": 0,
+      "trades": 3,
       "win_rate": 0.5
     },
     {
-      "capital": 49.999195,
-      "id": 2342,
+      "capital": 49.981979000000003,
+      "id": 8459,
       "rank": 6,
-      "trades": 0,
+      "trades": 3,
       "win_rate": 0.5
     },
     {
-      "capital": 49.999195,
-      "id": 2343,
+      "capital": 49.981898999999999,
+      "id": 8469,
       "rank": 7,
-      "trades": 0,
+      "trades": 3,
       "win_rate": 0.5
     },
     {
-      "capital": 49.999195,
-      "id": 2344,
+      "capital": 49.981529000000002,
+      "id": 8476,
       "rank": 8,
-      "trades": 0,
+      "trades": 3,
       "win_rate": 0.5
     },
     {
-      "capital": 49.999195,
-      "id": 2345,
+      "capital": 49.981464000000003,
+      "id": 8471,
       "rank": 9,
-      "trades": 0,
+      "trades": 3,
       "win_rate": 0.5
     },
     {
-      "capital": 49.999195,
-      "id": 2346,
+      "capital": 49.981186000000001,
+      "id": 8477,
       "rank": 10,
-      "trades": 0,
+      "trades": 3,
       "win_rate": 0.5
     }
   ],
   "count": 10,
-  "timestamp": 1780258616
+  "timestamp": 1780258931
 }
