@@ -151,8 +151,12 @@ static double compute_nested_prediction(const MarketTick *tick) {
 }
 
 // ── Signal handler ──
+static volatile int kill_switch_engaged = 0;
 static void handle_sig(int sig) {
-    (void)sig;
+    if (sig == SIGUSR1) {
+        kill_switch_engaged = 1;
+        fprintf(stderr, "\n[KILL SWITCH] ENGAGED via SIGUSR1 — liquidating all positions and shutting down.\n");
+    }
     running = 0;
 }
 
@@ -328,15 +332,25 @@ static RoomError load_or_init_state(void) {
         state->current_total_exposure = 0.0f;
         state->peak_total_exposure = 0.0f;
         // ── T19: Trade rate limit defaults ──
-        state->max_trades_per_cycle = 100;       // Max 100 new trades per cycle
+        state->max_trades_per_cycle = 5000;      // Max 5000 new trades per cycle
         state->trades_deferred = 0;
         state->total_trades_deferred = 0;
         // ── T20: Slippage tracking defaults ──
         state->total_slippage_paid = 0.0f;
         state->slippage_events = 0;
         printf("[ROOM] Initialized %d agents, $50 room seed\n", MAX_AGENTS);
+        printf("[ROOM] CB: consec_room_losses=%d max_consecutive_losses=%d circuit_breaker_cycles=%d\n",
+               state->consec_room_losses, state->max_consecutive_losses, state->circuit_breaker_cycles);
     } else {
         printf("[ROOM] Restored %d agents from state\n", state->stats.active_agents);
+        // ── T001: Validate state on restore — reset if corrupted ──
+        if (state->trade_count > MAX_TRADE_HIST || state->trade_count < 0) {
+            printf("[ROOM] Corrupted trade_count=%d, resetting to 0\n", state->trade_count);
+            state->trade_count = 0;
+        }
+        if (state->consec_room_losses > 10000) {
+            state->consec_room_losses = 0;
+        }
     }
     
     return ERR_OK;
@@ -355,6 +369,7 @@ static int64_t ns_now(void) {
 int main(void) {
     signal(SIGINT, handle_sig);
     signal(SIGTERM, handle_sig);
+    signal(SIGUSR1, handle_sig);
     
     RoomError err = load_or_init_state();
     if (err != ERR_OK) return 1;
@@ -377,13 +392,30 @@ int main(void) {
     }
     
     printf("[ROOM] Engine starting. Target: <100ms/cycle\n");
+    // ── Safety: Force-clear circuit breaker on startup ──
+    state->circuit_breaker_cycles = 0;
+    state->consec_room_losses = 0;
+    state->circuit_breaker_count = 0;
+    // ── Safety: Force-clear trade_count if corrupted ──
+    if (state->trade_count > MAX_TRADE_HIST || state->trade_count < 0) {
+        printf("[ROOM] CORRUPTED trade_count=%d, FORCE RESET to 0\n", state->trade_count);
+        state->trade_count = 0;
+    }
     
-    // Open CSV log header
+    // ── Main loop ──
     FILE *log = fopen(LOG_PATH, "a");
     if (log) {
         fputs("cycle,window_ts,asset,votes,active,win_rate,sharpe,dd_pct,consensus_spread,room_pnl_pct,room_trades,room_wr,room_cap,slippage$\n", log);
         fclose(log);
     }
+    
+    // ── Boot-time hard reset of corruptable fields ──
+    state->trade_count = 0;
+    state->cycle = 0;
+    state->vote_count = 0;
+    state->consec_room_losses = 0;
+    state->circuit_breaker_cycles = 0;
+    state->circuit_breaker_count = 0;
     
     int idle_cycles = 0;
     float prev_close = 0.0f;  // Track for inter-candle comparison
@@ -560,6 +592,28 @@ void room_market_stats(RoomState *state);
             printf("[CB] TRIGGERED! %d consecutive losses. Cooling down %d cycles.\n",
                    state->consec_room_losses, state->circuit_cooldown_cycles / 2);
             goto skip_trading;
+        }
+
+        // ── Kill switch check (SIGUSR1) ──
+        if (kill_switch_engaged) {
+            printf("[KILL SWITCH] Liquidating %d open positions...\n", state->vote_count);
+            // Close all open room trades at current price
+            if (state->room_trade.resolved_at < 0) {
+                // Force-resolve any open room trade as loss (emergency)
+                float exit_px = tick.close;
+                float entry_px = state->room_trade.entry_price;
+                if (entry_px > 0) {
+                    float move_pct = (exit_px - entry_px) / entry_px;
+                    state->room_trade.won = (move_pct > 0) == state->room_trade.majority_up;
+                    state->room_trade.pnl = state->room_trade.won ? state->room_trade.stake * 0.01f : -state->room_trade.stake * 0.01f;
+                    state->room_capital += state->room_trade.pnl;
+                    state->room_trade.exit_price = exit_px;
+                    state->room_trade.resolved_at = tick.window_ts;
+                    printf("[KILL SWITCH] Room trade liquidated: PnL=$%.2f\n", state->room_trade.pnl);
+                }
+            }
+            printf("[KILL SWITCH] All positions closed. Shutting down.\n");
+            break;
         }
 
         // ── Room Trade Execution (one per cycle, $50 seed) ──
