@@ -36,26 +36,19 @@ timeout 300 ./multi_market_trainer --agents 500 --epochs 3 2>&1 | tail -30 >> "$
 TOTAL_TRADES=$(grep "Total:" "$LOGFILE" | tail -1 | grep -oP '\d+' | tail -1)
 log "Phase 1 complete: $TOTAL_TRADES trades across 17 markets."
 
-# Phase 2: Distill best multi-market genomes to paper state
+# Phase 2: Seed live engine with fresh multi-market genomes
+# The engine now loads data/multi_market/*.bin at startup directly
 if [ -f "/home/wubu2/money-room/data/multi_market/BTC.bin" ]; then
-    log "Phase 2: Genome distillation..."
-    # Copy best genomes from each market into engine-compatible format
-    # The genome_distiller reads these and creates a merged population
-    
-    # First, run the existing BTC paper training for a quick cycle
-    if [ ! -f "$PAPER_STATE" ] || [ $(stat -c%s "$PAPER_STATE" 2>/dev/null) -lt 1000000 ]; then
-        log "Paper training kickstart..."
-        timeout 60 ./room_engine_paper 2>&1 | tail -3 >> "$LOGFILE"
-    fi
-    
-    # Then distill multi-market genomes into engine
-    ./genome_distiller --multi-market 2>&1 | tail -5 >> "$LOGFILE"
+    log "Phase 2: Multi-market genomes ready ($(ls /home/wubu2/money-room/data/multi_market/*.bin 2>/dev/null | wc -l) files)"
 fi
 
-# Phase 3: Cycle live engine (5 cycles)
-log "Phase 3: Live engine cycling..."
+# Phase 3: Cycle live engine with fresh genome state (delete stale state to force re-init)
+log "Phase 3: Refreshing engine state with new genomes..."
+rm -f "$PAPER_STATE" "$LIVE_STATE" 2>/dev/null
+log "State files cleared for fresh genome load."
+
 for i in 1 2 3 4 5; do
-    timeout 5 ./room_engine 2>&1 | grep "Shutdown" >> "$LOGFILE" || true
+    timeout 5 ./room_engine 2>&1 | grep "Shutdown\|Loaded\|Multi-market" >> "$LOGFILE" || true
 done
 
 # Phase 4: Report

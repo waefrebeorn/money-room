@@ -638,9 +638,9 @@ static void build_features(const MarketData *md, int idx, float *feats) {
 
 // Initialize one agent
 static void init_agent(AgentState *a) {
-    a->alive = true; a->capital = 10000.0f; a->starting_capital = 10000.0f;
+    a->alive = true; a->capital = 50.0f; a->starting_capital = 50.0f;
     a->trades = 0; a->wins = 0; a->losses = 0; a->total_pnl = 0.0f;
-    a->max_drawdown = 0.0f; a->peak_capital = 10000.0f;
+    a->max_drawdown = 0.0f; a->peak_capital = 50.0f;
     a->consecutive_losses = 0; a->win_rate_ema = 0.5f; a->last_trade_window = -1;
     memset(a->hidden, 0, sizeof(a->hidden));
     a->genome.position_size = 0.01f + (float)rand() / RAND_MAX * 0.49f;
@@ -831,7 +831,7 @@ static void evolve(MarketPop *pop) {
                 new_a[ni].genome.bias += mu * 0.1f;
             }
         }
-        new_a[ni].capital = 10000.0f; new_a[ni].alive = true;
+        new_a[ni].capital = 50.0f; new_a[ni].alive = true;
         // Reset trade stats for clean tracking
         new_a[ni].trades = 0; new_a[ni].wins = 0; new_a[ni].losses = 0;
         new_a[ni].total_pnl = 0.0f;
@@ -916,7 +916,12 @@ static int train_all(MarketDataSet *ds, int n_agents, int epochs) {
         char path[512];
         snprintf(path, sizeof(path), "%s/multi_market/%s.bin", OUT_DIR, pops[m].name);
         FILE *bfp = fopen(path, "wb");
-        if (bfp) { fwrite(&pops[m].agents[bi].genome, sizeof(Genome), 1, bfp); fclose(bfp); }
+        if (bfp) { 
+            fwrite(&pops[m].agents[bi].genome, sizeof(Genome), 1, bfp);
+            int mtype = (int)pops[m].market_type;
+            fwrite(&mtype, sizeof(int), 1, bfp);
+            fclose(bfp); 
+        }
     }
     printf("[TRAIN] Binary genomes: %s/multi_market/*.bin\n", OUT_DIR);
     

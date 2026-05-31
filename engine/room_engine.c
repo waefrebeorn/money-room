@@ -15,6 +15,7 @@
 #include <time.h>
 #include <signal.h>
 #include <math.h>
+#include <dirent.h>
 #include "types.h"
 #include "nested_ht_infer.h"
 
@@ -251,6 +252,59 @@ static RoomError load_or_init_state(void) {
         memset(state, 0, sz);
         state->magic = STATE_MAGIC;
         init_agents(state->agents, MAX_AGENTS);
+        
+        // ── Load multi-market trained genomes if available ──
+        // Seeds a subset of agents with genomes optimized for different market types
+        const char *mm_dir = "/home/wubu2/money-room/data/multi_market";
+        DIR *mm_d = opendir(mm_dir);
+        if (mm_d) {
+            struct dirent *mm_e;
+            int m_idx = 0;
+            int agents_per_market = MAX_AGENTS / 20;  // ~500 agents per market type
+            if (agents_per_market < 1) agents_per_market = 1;
+            
+            while ((mm_e = readdir(mm_d)) != NULL && m_idx < 20) {
+                // Match *.bin files
+                size_t nlen = strlen(mm_e->d_name);
+                if (nlen < 5 || strcmp(mm_e->d_name + nlen - 4, ".bin") != 0) continue;
+                if (strcmp(mm_e->d_name, ".") == 0 || strcmp(mm_e->d_name, "..") == 0) continue;
+                
+                char mm_path[512];
+                snprintf(mm_path, sizeof(mm_path), "%s/%s", mm_dir, mm_e->d_name);
+                
+                FILE *mm_f = fopen(mm_path, "rb");
+                if (!mm_f) continue;
+                
+                Genome trained_genome;
+                int market_type = 0;
+                if (fread(&trained_genome, sizeof(Genome), 1, mm_f) == 1) {
+                    // Try to read market type (may not exist in older files)
+                    fread(&market_type, sizeof(int), 1, mm_f);
+                    
+                    // Seed agents with this genome
+                    int start = m_idx * agents_per_market;
+                    int end = start + agents_per_market;
+                    if (end > MAX_AGENTS) end = MAX_AGENTS;
+                    
+                    for (int i = start; i < end; i++) {
+                        // Copy the trained genome
+                        memcpy(&state->agents[i].genome, &trained_genome, sizeof(Genome));
+                        // Add some noise for diversity
+                        for (int w = 0; w < N_FEATURES; w++) {
+                            float noise = ((float)(rand() % 2001 - 1000)) / 10000.0f;
+                            state->agents[i].genome.feat_weight[w] += noise;
+                        }
+                        state->agents[i].genome.bias += ((float)(rand() % 2001 - 1000)) / 10000.0f;
+                    }
+                    printf("[ROOM] Loaded %s genome into agents %d-%d (market_type=%d)\n",
+                           mm_e->d_name, start, end - 1, market_type);
+                }
+                fclose(mm_f);
+                m_idx++;
+            }
+            closedir(mm_d);
+            printf("[ROOM] Multi-market genomes loaded: %d types\n", m_idx);
+        }
         state->stats.active_agents = MAX_AGENTS;
         state->stats.capital_current = 50.0f * MAX_AGENTS;
         state->stats.capital_peak = 50.0f * MAX_AGENTS;
