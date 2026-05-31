@@ -1,80 +1,80 @@
 {
   "agents": [
     {
-      "capital": 50.0,
-      "id": 7974,
+      "capital": 73215.203125,
+      "id": 100,
       "rank": 1,
       "sharpe": 0.0,
       "trades": 0,
-      "win_rate": 0.5
+      "win_rate": 0.0
     },
     {
-      "capital": 50.0,
-      "id": 8183,
+      "capital": 73215.203125,
+      "id": 309,
       "rank": 2,
       "sharpe": 0.0,
       "trades": 0,
-      "win_rate": 0.5
+      "win_rate": 0.0
     },
     {
-      "capital": 0.5,
-      "id": 1024,
+      "capital": 73215.203125,
+      "id": 518,
       "rank": 3,
       "sharpe": 0.0,
       "trades": 0,
       "win_rate": 0.0
     },
     {
-      "capital": 0.5,
-      "id": 1442,
+      "capital": 73215.203125,
+      "id": 727,
       "rank": 4,
       "sharpe": 0.0,
       "trades": 0,
       "win_rate": 0.0
     },
     {
-      "capital": 0.5,
-      "id": 1860,
+      "capital": 73215.203125,
+      "id": 936,
       "rank": 5,
       "sharpe": 0.0,
       "trades": 0,
       "win_rate": 0.0
     },
     {
-      "capital": 0.5,
-      "id": 2278,
+      "capital": 73215.203125,
+      "id": 1145,
       "rank": 6,
       "sharpe": 0.0,
       "trades": 0,
       "win_rate": 0.0
     },
     {
-      "capital": 0.5,
-      "id": 2487,
+      "capital": 73215.203125,
+      "id": 1354,
       "rank": 7,
       "sharpe": 0.0,
       "trades": 0,
       "win_rate": 0.0
     },
     {
-      "capital": 0.5,
-      "id": 3114,
+      "capital": 73215.203125,
+      "id": 1563,
       "rank": 8,
       "sharpe": 0.0,
       "trades": 0,
       "win_rate": 0.0
     },
     {
-      "capital": 0.5,
-      "id": 3532,
+      "capital": 73215.203125,
+      "id": 1772,
       "rank": 9,
       "sharpe": 0.0,
       "trades": 0,
       "win_rate": 0.0
     },
     {
-      "capital": 0.5,
-      "id": 4368,
+      "capital": 73215.203125,
+      "id": 1981,
       "rank": 10,
       "sharpe": 0.0,
       "trades": 0,
@@ -82,5 +82,5 @@
     }
   ],
   "count": 10,
-  "timestamp": 1780238767
+  "timestamp": 1780239045
 }
