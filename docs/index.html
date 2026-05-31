@@ -121,13 +121,81 @@
     </div>
     <div class="live-banner-divider"></div>
     <div class="live-banner-item">
-      <span class="live-banner-status">📈 WR</span>
-      <span class="live-banner-price" id="tickerWr2">—</span>
+      <span class="live-label">price</span>
+      <span class="live-value" id="priceDisplay">--</span>
+    </div>
+    <div class="live-banner-item">
+      <span class="live-label">agents</span>
+      <span class="live-value" id="agentCount">--</span>
+    </div>
+    <div class="live-banner-item">
+      <span class="live-label">trades</span>
+      <span class="live-value" id="tradeCount">--</span>
+    </div>
+    <div class="live-banner-item">
+      <span class="live-label">win rate</span>
+      <span class="live-value" id="winRateDisplay">--</span>
+    </div>
+    <div class="live-banner-item">
+      <span class="live-label">capital</span>
+      <span class="live-value" id="capitalDisplay">--</span>
+    </div>
+    <div class="live-banner-item">
+      <span class="live-label">features</span>
+      <span class="live-value" id="featureCount">--</span>
+    </div>
+    <div class="live-banner-item">
+      <span class="live-label">cycle</span>
+      <span class="live-value" id="cycleCount">--</span>
+    </div>
+    <div class="live-banner-item">
+      <span class="live-label">sharpe</span>
+      <span class="live-value" id="sharpeDisplay">--</span>
+    </div>
+    <div class="live-banner-item">
+      <span class="live-label">collectors</span>
+      <span class="live-value">68</span>
+    </div>
+    <div class="live-banner-item">
+      <span class="live-label">regime</span>
+      <span class="live-value" id="regimeDisplay">--</span>
     </div>
   </div>
 </div>
 
-<section class="hero">
+<style>
+.engine-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+.engine-stat-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 0.75rem;
+  text-align: center;
+}
+.engine-stat-card .value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.engine-stat-card .label {
+  color: #94a3b8;
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
+}
+.stat-agent { color: #22d3ee; }
+.stat-trade { color: #34d399; }
+.stat-capital { color: #fbbf24; }
+.stat-wr { color: #a78bfa; }
+.stat-cycle { color: #fb7185; }
+.stat-features { color: #f59e0b; }
+.stat-risk { color: #f97316; }
+</style>
+
   <div class="container">
     <div class="hero-data-line" id="dataStream">0x7f 0x3a 0x9c 0x44 0xb1 0x2e 0x88 0x5d █ AGENT_EVOLUTION █ TOURNAMENT_SELECTION █ CROSSOVER_RATE:0.78 █ MUTATION:0.042 █ POPULATION:10K █ FEATURE_VECTOR █ VOLUME_PROFILE █ ORDER_IMBALANCE █ FUNDING_RATE █ 0x1a 0xf4 0x63 0x90 0x2c 0x7b 0x4f 0x15 0x3d 0x8e 0x51 0xc0</div>
     <h1>Algorithmic <span>Market Prediction</span> Engine</h1>
@@ -429,6 +497,15 @@ function loadStats(){
       // Ticker integration
       setEl('tickerCycle',fmt(s.cycle,0));
       setEl('tickerWr',pct(s.win_rate));
+      setEl('agentCount',s.agents?fmt(s.agents,0):'--');
+      setEl('tradeCount',s.trades_total?fmt(s.trades_total,0):'--');
+      setEl('winRateDisplay',pct(s.win_rate));
+      setEl('capitalDisplay',s.capital?'$'+fmt(s.capital,0):'--');
+      setEl('featureCount',s.features?fmt(s.features,0):'--');
+      setEl('cycleCount',s.cycle?fmt(s.cycle,0):'--');
+      setEl('sharpeDisplay',s.sharpe?s.sharpe.toFixed(2):'--');
+      setEl('priceDisplay',s.price?'$'+fmt(s.price,0):'--');
+      setEl('regimeDisplay',s.regime||'--');
       updateTickerDuplicates();
 
       if(s.timestamp){
