@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Sources — Money Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--text:#c8c8d0;--dim:#6b6b7b;--accent:#00e5ff;--green:#00e676;--orange:#ff9100;--red:#ff1744;--purple:#d500f9}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+h1{font-size:1.8rem;font-weight:600;margin:30px 0;color:#fff}
+h1 span{color:var(--accent)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:20px 0}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.stat-card .num{font-size:2.2rem;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace}
+.stat-card .label{font-size:0.85rem;color:var(--dim);margin-top:4px}
+.source-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.85rem}
+.source-table th{text-align:left;padding:12px 16px;border-bottom:2px solid var(--accent);color:var(--accent);font-weight:500;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px}
+.source-table td{padding:10px 16px;border-bottom:1px solid var(--border)}
+.source-table tr:hover{background:rgba(0,229,255,0.03)}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.7rem;font-weight:500}
+.badge-crypto{background:rgba(255,145,0,0.15);color:var(--orange)}
+.badge-macro{background:rgba(0,230,118,0.15);color:var(--green)}
+.badge-equity{background:rgba(0,229,255,0.15);color:var(--accent)}
+.badge-alt{background:rgba(213,0,249,0.15);color:var(--purple)}
+.badge-sentiment{background:rgba(255,23,68,0.15);color:var(--red)}
+.category-group{margin:30px 0}
+.category-group h2{font-size:1.2rem;font-weight:600;color:#fff;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1><span>✦</span> Money Room — Data Sources</h1>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="num" id="sourceCount">54+</div><div class="label">Data Sources</div></div>
+    <div class="stat-card"><div class="num" id="rowCount">160K+</div><div class="label">FRED Series Rows</div></div>
+    <div class="stat-card"><div class="num" id="exCount">7</div><div class="label">Exchanges Monitored</div></div>
+    <div class="stat-card"><div class="num" id="cronCount">95+</div><div class="label">C Jobs Running</div></div>
+  </div>
+
+  <div class="category-group">
+    <h2>🏛️ Federal Reserve Economic Data (FRED) — 54 Series</h2>
+    <table class="source-table">
+      <tr><th>Group</th><th>Series</th><th>Rows</th><th>Latest</th><th>Description</th></tr>
+      <tr><td><span class="badge badge-macro">Yields</span></td><td>DGS10, DGS2, DGS30, DGS5, DGS3MO</td><td>72K</td><td>2026-05-28</td><td>Treasury yield curve (3mo-30yr)</td></tr>
+      <tr><td><span class="badge badge-macro">Spreads</span></td><td>T10Y2Y, T10Y3M</td><td>20K</td><td>2026-05-29</td><td>Yield curve spreads (recession pred)</td></tr>
+      <tr><td><span class="badge badge-macro">Inflation</span></td><td>CPIAUCSL, CPILFESL, PCEPILFE, T5YIE, T10YIE, T5YIFR</td><td>20K</td><td>2026-05-29</td><td>CPI, Core CPI, Core PCE, breakevens</td></tr>
+      <tr><td><span class="badge badge-macro">Labor</span></td><td>UNRATE, PAYEMS, IC4WSA, CC4WSA, UEMPLT5, UEMP27OV, UEMPMEAN, LNS14000003, CIVPART</td><td>12K</td><td>2026-04</td><td>Unemployment, payrolls, claims</td></tr>
+      <tr><td><span class="badge badge-macro">GDP</span></td><td>GDP, GDPPOT, CPI, CP, W875RX1</td><td>2K</td><td>2026-01</td><td>GDP, potential GDP, corp profits</td></tr>
+      <tr><td><span class="badge badge-macro">Money</span></td><td>FEDFUNDS, M2SL, SOFR, RRPONTSYD</td><td>7K</td><td>2026-05</td><td>Fed funds, money supply, SOFR, RRP</td></tr>
+      <tr><td><span class="badge badge-macro">Housing</span></td><td>HOUST, PERMIT, CSUSHPISA, MORTGAGE30US</td><td>5K</td><td>2026-04</td><td>Housing starts, permits, Case-Shiller</td></tr>
+      <tr><td><span class="badge badge-macro">Credit</span></td><td>BAMLH0A0HYM2, BAMLC0A4CBBBEY, REVOLSL, NONREVSL, TOTALSLAR</td><td>4K</td><td>2026-03</td><td>HY spread, corp yield, consumer credit</td></tr>
+      <tr><td><span class="badge badge-macro">Trade</span></td><td>RSXFS, INDPRO, TCU, DGORDER, BUSINV, BOPTEXP, BOPTIMP, PCE, DPI, PSAVERT, TOTCI, USCONS</td><td>10K</td><td>2026-04</td><td>Retail, industrial, trade, consumption</td></tr>
+      <tr><td><span class="badge badge-macro">Indicators</span></td><td>USSLIND, USREC, VIXCLS</td><td>12K</td><td>2026-05</td><td>Leading index, recession, VIX</td></tr>
+    </table>
+  </div>
+
+  <div class="category-group">
+    <h2>🔗 Blockchain On-Chain Data — 15 Charts</h2>
+    <table class="source-table">
+      <tr><th>Chart</th><th>Description</th><th>Frequency</th></tr>
+      <tr><td>n-transactions</td><td>Bitcoin daily transaction count</td><td>7d</td></tr>
+      <tr><td>transaction-fees</td><td>Total BTC transaction fees (BTC)</td><td>7d</td></tr>
+      <tr><td>transaction-fees-usd</td><td>Total BTC transaction fees (USD)</td><td>7d</td></tr>
+      <tr><td>mempool-size</td><td>Mempool transaction size (bytes)</td><td>1d</td></tr>
+      <tr><td>mempool-count</td><td>Mempool pending transaction count</td><td>1d</td></tr>
+      <tr><td>miners-revenue</td><td>Miner revenue (BTC/day)</td><td>30d</td></tr>
+      <tr><td>utxo-count</td><td>UTXO set size</td><td>7d</td></tr>
+      <tr><td>total-bitcoins</td><td>Bitcoin total supply</td><td>7d</td></tr>
+      <tr><td>market-price</td><td>BTC market price (USD)</td><td>1d</td></tr>
+      <tr><td>hash-rate</td><td>Network hash rate (TH/s)</td><td>7d</td></tr>
+      <tr><td>difficulty</td><td>Mining difficulty</td><td>30d</td></tr>
+    </table>
+  </div>
+
+  <div class="category-group">
+    <h2>🏪 Exchange Market Data — 7 Exchanges</h2>
+    <table class="source-table">
+      <tr><th>Exchange</th><th>Ticker</th><th>Order Book</th><th>Funding</th><th>OI</th><th>L/S</th></tr>
+      <tr><td>Binance</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>Coinbase</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>Kraken</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>OKX</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+      <tr><td>Bitfinex</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>Gate.io</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>KuCoin</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    </table>
+  </div>
+
+  <div class="category-group">
+    <h2>📊 Market Microstructure Analytics</h2>
+    <table class="source-table">
+      <tr><th>Analysis</th><th>Battleship Cell</th><th>Description</th></tr>
+      <tr><td>Cross-exchange fee comparison</td><td>T1219</td><td>Spot taker/maker/futures fees across all 7 exchanges</td></tr>
+      <tr><td>Order book imbalance</td><td>T1220</td><td>Bid vs ask volume imbalance in real-time</td></tr>
+      <tr><td>Bid-ask spread tracker</td><td>T1221-T1222</td><td>Spread bps by exchange, liquidity ranking</td></tr>
+      <tr><td>Trade flow analysis</td><td>T1223-T1237</td><td>Cross-exchange price arb detection, volume ranking</td></tr>
+      <tr><td>Volume profile</td><td>T1239-T1242</td><td>Volume concentration by exchange</td></tr>
+    </table>
+  </div>
+
+  <div class="category-group">
+    <h2>🛠️ C Engine Tools — 10 New Binaries</h2>
+    <table class="source-table">
+      <tr><th>Binary</th><th>Purpose</th></tr>
+      <tr><td>fred_csv_curator</td><td>54 FRED economic series → SQLite (160K+ rows)</td></tr>
+      <tr><td>blockchain_com_collector</td><td>15 BTC on-chain charts from blockchain.info</td></tr>
+      <tr><td>exchange_market_collector</td><td>7 exchanges, ticker + order book + funding + OI</td></tr>
+      <tr><td>market_microstructure</td><td>Fee comparison, order imbalance, depth, flow, volume profile</td></tr>
+      <tr><td>benchmark</td><td>Engine performance benchmarking</td></tr>
+      <tr><td>data_pipeline</td><td>Multi-source data aggregation pipeline</td></tr>
+      <tr><td>eco_runner</td><td>Ecosystem room cycling orchestrator</td></tr>
+      <tr><td>forex_collector</td><td>Forex exchange rate collection</td></tr>
+      <tr><td>risk_analytics</td><td>Portfolio risk analytics (VaR, ES, stress testing)</td></tr>
+      <tr><td>survival_stats</td><td>Agent population survival analysis</td></tr>
+    </table>
+  </div>
+
+  <p style="margin-top:40px;color:var(--dim);font-size:0.8rem;text-align:center">
+    Money Room Engine · All C, zero Python · Free data sources only · May 31, 2026
+  </p>
+</div>
+</body>
+</html>

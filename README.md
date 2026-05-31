@@ -57,7 +57,11 @@
 - **Agents**: 10,000 per room (2500 paper mode)
 - **Candles**: 722K BTC 1-min + 3.3M exchange data
 - **Features**: 115 fields (18 active per agent)
-- **Collectors**: 27 C binaries, 68 total
+- **FRED Series**: 54 economic series, 160,763 rows
+- **Exchange Data**: 7 exchanges, 11 live endpoints
+- **Blockchain On-Chain**: 15 BTC metrics, free API
+- **Market Micro.**: 18 analysis dimensions
+- **Collectors**: 30+ C binaries compiled
 - **Crons**: 95+ active, all C-based
 - **Cost**: $0/month (all free APIs)
 - **Revenue**: $0 (pre-launch)
