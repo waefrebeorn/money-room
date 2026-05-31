@@ -19,6 +19,8 @@
 #ifdef PAPER_MODE
 // ── Paper Mode: direct CSV reader ──
 
+#include "paper_feature_bridge.h"
+
 #define BTC_CSV   "/home/wubu2/.hermes/pm_logs/historical/btc_1min_latest.csv"
 #define FNG_CSV   "/home/wubu2/.hermes/pm_logs/historical/raw/fear_greed/fear_greed_all.csv"
 
@@ -158,14 +160,9 @@ RoomError room_feeds_load(MarketTick *tick) {
         tick->close = agg_close;
         tick->volume = agg_vol;
         tick->fear_greed = (float)get_fng(agg_ts);
-        tick->pump_score = (50.0f - tick->fear_greed) / 100.0f;
-        tick->btc_dominance = 62.0f;
-        tick->vix = 16.0f;
-        tick->sp500 = 5000.0f;      // Approx 2024-2025 range
-        tick->btc_30d_volatility = 2.5f;   // Typical BTC 30d vol %
-        tick->btc_30d_mean = 75000.0f;     // Recent BTC range
-        tick->btc_30d_high = 82000.0f;
-        tick->btc_30d_low = 68000.0f;
+        
+        // ── POPULATE aux fields from timeline.db (replaces old hardcoded constants) ──
+        paper_load_aux(tick);
         
         return ERR_OK;
     }

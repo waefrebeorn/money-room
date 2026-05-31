@@ -81,7 +81,10 @@ cd "$ENGINE_DIR"
 make clean > /dev/null 2>&1
 make paper 2>&1 | tail -3
 gcc -O2 -o genome_distiller genome_distiller.c -lm 2>&1
-echo "  ✅ Paper engine + distiller built (2500 agents, 5ms/cycle)"
+
+# Copy paper engine to room dir for execution
+cp room_engine_paper "$ROOM_ENGINE"
+echo "  ✅ Paper engine built + deployed ($(ls -la $ROOM_ENGINE | awk '{print $5}') bytes)"
 
 # Step 2: Run paper training
 # 722K candles at 5ms/cycle = ~71 min for full run

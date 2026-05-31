@@ -1,7 +1,7 @@
 #!/bin/bash
 # multi_training_loop.sh — Full multi-market training pipeline
-# Runs every 60 min. Refreshes all market data → trains across 17 markets → distills → live engine cycle
-set -e
+# Runs every 60 min. Refreshes all market data → trains across 17 markets → distills
+set -euo pipefail
 cd /home/wubu2/money-room/engine
 
 LOCKFILE="/tmp/multi_training_loop.lock"
@@ -12,55 +12,48 @@ trap 'rm -f "$LOCKFILE"' EXIT
 PAPER_STATE="/home/wubu2/.hermes/pm_logs/c_room/room_state_paper.bin"
 LIVE_STATE="/home/wubu2/.hermes/pm_logs/c_room/room_state.bin"
 LOGFILE="/home/wubu2/.hermes/pm_logs/multi_training_loop.log"
+ENGINE_DIR="/home/wubu2/money-room/engine"
 
 log() { echo "[$(date -Iseconds)] $*" >> "$LOGFILE"; echo "$*"; }
 
 log "═══ MULTI-MARKET TRAINING LOOP START ═══"
 
-# Phase 0: Refresh data collectors
-log "Phase 0: Refreshing market data..."
+# Phase 0: Quick data refresh (BTC CSV is always live via 15-min cron)
+log "Phase 0: Quick data checks..."
+# Ensure weather and sports data exist
+[ -f "/home/wubu2/money-room/data/multi_market/weather_data.json" ] || ./weather_collector --days 5 2>&1 | tail -1 >> "$LOGFILE"
+[ -f "/home/wubu2/money-room/data/multi_market/sports_data.json" ] || ./sports_collector --days 15 2>&1 | tail -1 >> "$LOGFILE"
+log "Phase 0 done."
 
-# Weather (8 cities, 365 days)
-./weather_collector --days 365 2>&1 | tail -1 >> "$LOGFILE"
+# Phase 1: Multi-market training (500 agents, 10 epochs — proper evolution)
+log "Phase 1: Multi-market training (17 markets, 10 epochs)..."
+timeout 600 ./multi_market_trainer --agents 500 --epochs 10 2>&1 | tail -50 >> "$LOGFILE"
 
-# Sports (7 leagues, 15 days of games)
-./sports_collector --days 15 2>&1 | tail -1 >> "$LOGFILE"
+log "Phase 1 complete. Checking genome outputs..."
+ls -la /home/wubu2/money-room/data/multi_market/*.bin >> "$LOGFILE" 2>&1
 
-log "Phase 0 complete."
+# Phase 2: Run paper engine with fresh genomes for proper evolution (not stubs)
+log "Phase 2: Paper engine evolution (2500 agents, 10000 cycles)..."
+rm -f "$PAPER_STATE" 2>/dev/null
+timeout 120 ./room_engine_paper 2>&1 | tail -20 >> "$LOGFILE"
+log "Phase 2 complete."
 
-# Phase 1: Multi-market training (500 agents, 3 epochs → 17 markets)
-log "Phase 1: Multi-market training (17 markets)..."
-timeout 300 ./multi_market_trainer --agents 500 --epochs 3 2>&1 | tail -30 >> "$LOGFILE"
-
-# Count total trades
-TOTAL_TRADES=$(grep "Total:" "$LOGFILE" | tail -1 | grep -oP '\d+' | tail -1)
-log "Phase 1 complete: $TOTAL_TRADES trades across 17 markets."
-
-# Phase 2: Seed live engine with fresh multi-market genomes
-# The engine now loads data/multi_market/*.bin at startup directly
-if [ -f "/home/wubu2/money-room/data/multi_market/BTC.bin" ]; then
-    log "Phase 2: Multi-market genomes ready ($(ls /home/wubu2/money-room/data/multi_market/*.bin 2>/dev/null | wc -l) files)"
+# Phase 3: Distill evolved genomes back
+log "Phase 3: Distilling evolved genomes..."
+if [ -f "$PAPER_STATE" ] && [ -x ./genome_distiller ]; then
+    cp "$PAPER_STATE" "${PAPER_STATE}.trained_$(date +%Y%m%d_%H%M%S)" 2>/dev/null || true
+    ./genome_distiller --backup 2>&1 | tail -10 >> "$LOGFILE"
+    log "Phase 3: Genomes distilled."
 fi
-
-# Phase 3: Cycle live engine with fresh genome state (delete stale state to force re-init)
-log "Phase 3: Refreshing engine state with new genomes..."
-rm -f "$PAPER_STATE" "$LIVE_STATE" 2>/dev/null
-log "State files cleared for fresh genome load."
-
-for i in 1 2 3 4 5; do
-    timeout 5 ./room_engine 2>&1 | grep "Shutdown\|Loaded\|Multi-market" >> "$LOGFILE" || true
-done
 
 # Phase 4: Report
 log "═══ MULTI-MARKET TRAINING REPORT ═══"
 echo ""
 echo "Multi-Market Training Complete"
 echo "  17 markets across 7 market types"
-echo "  $(grep -c 'Best:' "$LOGFILE" | head -1) agents evolved"
-echo "  $TOTAL_TRADES total trades"
-echo ""
-echo "Best agents by market:"
-grep "Best:" "$LOGFILE" | tail -20
+echo "  500 agents × 10 epochs"
+echo "  Paper engine: 2500 agents × 10000 cycles"
+echo "  BTC CSV: $(wc -l < /home/wubu2/.hermes/pm_logs/historical/btc_1min_latest.csv) candles"
 echo ""
 
 log "═══ MULTI-MARKET TRAINING LOOP DONE ═══"

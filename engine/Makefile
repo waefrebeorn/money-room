@@ -4,9 +4,11 @@ LDFLAGS = -lm
 
 # All source files
 SRCS = room_engine.c room_feeds.c room_features.c room_vote.c room_capital.c room_darwin.c room_bridge.c
+PAPER_SRCS = $(SRCS) paper_feature_bridge.c
 MKT_SRCS = room_engine.c room_feeds.c room_features.c room_vote.c room_capital.c room_market.c room_darwin.c room_bridge.c
 EXCH_SRCS = exchange_api.c
 OBJS = $(SRCS:.c=.o)
+PAPER_OBJS = $(PAPER_SRCS:.c=.o)
 TARGET = room_engine
 MKT_TARGET = room_engine_market
 
@@ -19,7 +21,10 @@ $(MKT_TARGET): $(MKT_SRCS:.c=.o)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 paper: CFLAGS += -DPAPER_MODE
-paper: clean $(TARGET)
+paper: clean $(TARGET)_paper
+
+$(TARGET)_paper: $(PAPER_OBJS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) -lsqlite3
 
 all: $(TARGET)
 
@@ -29,8 +34,11 @@ $(TARGET): $(OBJS)
 %.o: %.c types.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
+paper_feature_bridge.o: paper_feature_bridge.c paper_feature_bridge.h types.h
+	$(CC) $(CFLAGS) -c paper_feature_bridge.c -o paper_feature_bridge.o
+
 clean:
-	rm -f $(OBJS) $(TARGET) exchange_api.o exchange_api_test room_feed_bridge
+	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge
 
 run: $(TARGET)
 	./$(TARGET)
