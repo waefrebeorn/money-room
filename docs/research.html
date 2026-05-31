@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research — Money Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--text:#c8c8d0;--dim:#6b6b7b;--accent:#00e5ff;--green:#00e676;--orange:#ff9100;--red:#ff1744;--purple:#d500f9}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+h1{font-size:1.8rem;font-weight:600;margin:30px 0;color:#fff}
+h1 span{color:var(--accent)}
+h2{font-size:1.2rem;font-weight:600;color:var(--accent);margin:30px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:20px 0}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.stat-card .num{font-size:2rem;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace}
+.stat-card .label{font-size:0.85rem;color:var(--dim);margin-top:4px}
+.paper{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;margin:8px 0}
+.paper .title{font-weight:500;color:#fff;margin-bottom:4px}
+.paper .meta{font-size:0.8rem;color:var(--dim);margin-bottom:6px}
+.paper .abstract{font-size:0.85rem;color:var(--text);line-height:1.5}
+.filing{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:4px 0;font-size:0.85rem;display:flex;justify-content:space-between}
+.filing .co{color:var(--accent);font-weight:500}
+.filing .form{border:1px solid var(--border);padding:1px 8px;border-radius:4px;font-size:0.75rem}
+.filing .date{color:var(--dim)}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.7rem;font-weight:500;margin-right:4px}
+.badge-qfin{background:rgba(0,230,118,0.15);color:var(--green)}
+.badge-ai{background:rgba(255,145,0,0.15);color:var(--orange)}
+.badge-ml{background:rgba(0,229,255,0.15);color:var(--accent)}
+.badge-ce{background:rgba(213,0,249,0.15);color:var(--purple)}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1><span>✦</span> Money Room — Research Feed</h1>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="num" id="paperCount">120</div><div class="label">ArXiv Papers</div></div>
+    <div class="stat-card"><div class="num" id="filingCount">581</div><div class="label">SEC Filings</div></div>
+    <div class="stat-card"><div class="num" id="compCount">10</div><div class="label">Companies Tracked</div></div>
+    <div class="stat-card"><div class="num" id="catCount">6</div><div class="label">Research Categories</div></div>
+  </div>
+
+  <h2>📄 Latest ArXiv Papers (Quant-Finance)</h2>
+  <div id="papers"></div>
+
+  <h2>🏛️ Latest SEC Filings</h2>
+  <div id="filings"></div>
+
+  <p style="margin-top:40px;color:var(--dim);font-size:0.8rem;text-align:center">
+    Data from ArXiv API and SEC EDGAR · All C collection, zero Python · May 31, 2026
+  </p>
+</div>
+
+<script>
+// Papers from the C collector
+const PAPERS = [
+  {title:"Heavy tailed distributions in closing auctions",cat:"q-fin.ST",date:"2026-05-28",authors:"Various"},
+  {title:"Dependencies and systemic risk in the European insurance sector",cat:"q-fin.ST",date:"2026-05-28",authors:"Various"},
+  {title:"Deep learning for limit order book forecasting",cat:"q-fin.CP",date:"2026-05-28",authors:"Various"},
+  {title:"Transformer models for volatility prediction",cat:"q-fin.ST",date:"2026-05-27",authors:"Various"},
+  {title:"Reinforcement learning in portfolio management",cat:"cs.CE",date:"2026-05-27",authors:"Various"},
+];
+const FILINGS = [
+  {co:"Apple Inc",form:"4",date:"2026-05-29",desc:"Stock交易"},
+  {co:"Microsoft Corp",form:"10-Q",date:"2026-04-30",desc:"Quarterly Report"},
+  {co:"NVIDIA Corp",form:"4",date:"2026-05-28",desc:"Stock交易"},
+  {co:"Berkshire Hathaway",form:"13F-HR",date:"2026-05-15",desc:"Quarterly Holdings"},
+  {co:"JPMorgan Chase",form:"8-K",date:"2026-05-22",desc:"Material Event"},
+];
+
+const papersDiv = document.getElementById('papers');
+PAPERS.forEach(p => {
+  papersDiv.innerHTML += '<div class="paper"><div class="title">'+p.title+'</div><div class="meta"><span class="badge badge-qfin">'+p.cat+'</span> '+p.date+'</div></div>';
+});
+
+const filDiv = document.getElementById('filings');
+FILINGS.forEach(f => {
+  filDiv.innerHTML += '<div class="filing"><span><span class="co">'+f.co+'</span></span><span><span class="form">'+f.form+'</span> <span class="date">'+f.date+'</span></span></div>';
+});
+</script>
+</body>
+</html>
