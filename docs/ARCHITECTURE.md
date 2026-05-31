@@ -62,7 +62,7 @@ The Money Room is a **10,000-agent evolutionary trading ecosystem** built **enti
 
 ```
 money-room/
-├── engine/                    # 76 C source files (compiled binaries)
+├── engine/                    # 68 C source files (compiled binaries)
 │   ├── dashboard.c           # C HTTP server (44KB ELF, port 9090)
 │   ├── room_engine.c         # Main loop (~600 LOC)
 │   ├── room_features.c       # 17-dim feature computation (φ, DFT, MACD, RSI, etc.)
@@ -184,4 +184,4 @@ All standard TA features computed from price history ring buffer (50 elements):
 | Trade buffer | 1M trades ~ 64MB |
 | Dashboard RAM | **1.1MB** (was 22.7MB with Flask) |
 | Dashboard startup | **7ms** (was 986ms with Flask) |
-| C source files | **76 .c** files, ~50K LOC |
+| C source files | **68 .c** files, ~20K LOC |

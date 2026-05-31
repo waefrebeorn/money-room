@@ -62,7 +62,7 @@
 - **Blockchain On-Chain**: 15 BTC metrics, free API
 - **Market Micro.**: 18 analysis dimensions
 - **Collectors**: 30+ C binaries compiled
-- **Crons**: 95+ active, all C-based
+- **Crons**: 24 active, all C-based
 - **Cost**: $0/month (all free APIs)
 - **Revenue**: $0 (pre-launch)
 - **Language**: C99 (production), Python (dead — no new Python)
@@ -87,7 +87,7 @@ make paper && ./room_engine
 
 ## Battleship
 
-See [`~/.hermes/mind-palace/battleship-ultimate.md`] — 1650+ cells tracking all gaps.
+See [`~/.hermes/mind-palace/battleship-ultimate.md`] — 100 active gaps.
 
 ## Data Sources (Free)
 
