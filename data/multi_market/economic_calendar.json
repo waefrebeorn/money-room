@@ -1,0 +1,128 @@
+[
+  {
+    "date": "2026-06-05",
+    "event": "Non-Farm Payrolls",
+    "country": "US",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-05",
+    "event": "Unemployment Rate",
+    "country": "US",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-03",
+    "event": "ISM Manufacturing PMI",
+    "country": "US",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-05",
+    "event": "ISM Services PMI",
+    "country": "US",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-10",
+    "event": "CPI MoM",
+    "country": "US",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-10",
+    "event": "CPI YoY",
+    "country": "US",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-11",
+    "event": "PPI MoM",
+    "country": "US",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-12",
+    "event": "Initial Jobless Claims",
+    "country": "US",
+    "importance": 2,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-17",
+    "event": "FOMC Decision",
+    "country": "US",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-01",
+    "event": "S&P Global Manufacturing PMI",
+    "country": "US",
+    "importance": 2,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-03",
+    "event": "Factory Orders",
+    "country": "US",
+    "importance": 2,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-01",
+    "event": "Consumer Confidence",
+    "country": "US",
+    "importance": 2,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-15",
+    "event": "Retail Sales MoM",
+    "country": "US",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-15",
+    "event": "Industrial Production MoM",
+    "country": "US",
+    "importance": 2,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-01",
+    "event": "GDP Annualized QoQ",
+    "country": "US",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-01",
+    "event": "ECB Interest Rate Decision",
+    "country": "EU",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-01",
+    "event": "BOE Interest Rate Decision",
+    "country": "UK",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  },
+  {
+    "date": "2026-06-01",
+    "event": "BOJ Interest Rate Decision",
+    "country": "JP",
+    "importance": 3,
+    "fetched_at": 1780267891.0
+  }
+]

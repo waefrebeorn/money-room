@@ -1,0 +1,13 @@
+[
+  {
+    "source": "bitstamp_eth_risk_proxy",
+    "price": 2009.26,
+    "timestamp": 1780267891.0
+  },
+  {
+    "source": "bdi_estimated",
+    "value": 1650.0,
+    "note": "BDI ~1650 (May 2026 est) - replace with real scrape",
+    "timestamp": 1780267891.0
+  }
+]
