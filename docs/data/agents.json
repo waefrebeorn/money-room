@@ -1,76 +1,76 @@
 {
   "agents": [
     {
-      "capital": 49.959881000000003,
+      "capital": 49.943165,
       "id": 8473,
       "rank": 1,
-      "trades": 9,
+      "trades": 14,
       "win_rate": 0.5
     },
     {
-      "capital": 49.959266999999997,
+      "capital": 49.942295000000001,
       "id": 8499,
       "rank": 2,
-      "trades": 9,
+      "trades": 14,
       "win_rate": 0.5
     },
     {
-      "capital": 49.958759000000001,
+      "capital": 49.940852999999997,
       "id": 8967,
       "rank": 3,
-      "trades": 9,
+      "trades": 14,
       "win_rate": 0.5
     },
     {
-      "capital": 49.957675999999999,
+      "capital": 49.940013999999998,
       "id": 8466,
       "rank": 4,
-      "trades": 9,
+      "trades": 14,
       "win_rate": 0.5
     },
     {
-      "capital": 49.956710999999999,
+      "capital": 49.938628999999999,
       "id": 8486,
       "rank": 5,
-      "trades": 9,
+      "trades": 14,
       "win_rate": 0.5
     },
     {
-      "capital": 49.955036,
-      "id": 8459,
-      "rank": 6,
-      "trades": 9,
-      "win_rate": 0.5
-    },
-    {
-      "capital": 49.954825999999997,
-      "id": 8469,
-      "rank": 7,
-      "trades": 9,
-      "win_rate": 0.5
-    },
-    {
-      "capital": 49.953850000000003,
-      "id": 8476,
-      "rank": 8,
-      "trades": 9,
-      "win_rate": 0.5
-    },
-    {
-      "capital": 49.953831000000001,
+      "capital": 49.937195000000003,
       "id": 8345,
-      "rank": 9,
-      "trades": 10,
+      "rank": 6,
+      "trades": 15,
       "win_rate": 0.5
     },
     {
-      "capital": 49.953667000000003,
-      "id": 8471,
+      "capital": 49.936405000000001,
+      "id": 8310,
+      "rank": 7,
+      "trades": 15,
+      "win_rate": 0.5
+    },
+    {
+      "capital": 49.936214,
+      "id": 8459,
+      "rank": 8,
+      "trades": 14,
+      "win_rate": 0.5
+    },
+    {
+      "capital": 49.935921,
+      "id": 8469,
+      "rank": 9,
+      "trades": 14,
+      "win_rate": 0.5
+    },
+    {
+      "capital": 49.935780000000001,
+      "id": 8273,
       "rank": 10,
-      "trades": 9,
+      "trades": 15,
       "win_rate": 0.5
     }
   ],
   "count": 10,
-  "timestamp": 1780259246
+  "timestamp": 1780259403
 }
