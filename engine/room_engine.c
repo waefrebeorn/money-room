@@ -54,6 +54,11 @@ static double g_nested_prediction[NESTED_N_MARKETS];  // per-market cascade pred
 // ── Per-agent market type map ──
 static int g_agent_market[MAX_AGENTS];  // market type per agent index (for Darwin evolution)
 
+// ── Hot-reload tracking ──
+static time_t g_last_hot_reload_ts = 0;
+#define HOT_RELOAD_DIR   "/home/wubu2/money-room/data/multi_market"
+#define HOT_RELOAD_CYCLE 1000  // Check every 1000 cycles
+
 // ── Forward decls ──
 RoomError room_feeds_load(MarketTick *tick);
 RoomError room_features_compute(const MarketTick *tick, FeatureVector *fv, const RoomState *s);
@@ -218,6 +223,132 @@ static void handle_sig(int sig) {
         fprintf(stderr, "\n[KILL SWITCH] ENGAGED via SIGUSR1 — liquidating all positions and shutting down.\n");
     }
     running = 0;
+}
+
+// ── Hot-reload genomes from multi-market trainer ──
+// Called every HOT_RELOAD_CYCLE cycles. Scans HOT_RELOAD_DIR for .bin files
+// newer than the last reload. When found, injects trained genomes into the
+// bottom 10% of agents sorted by win_rate_ema for their market type.
+static void hot_reload_genomes(AgentState *agents, int n) {
+    const char *mm_dir = HOT_RELOAD_DIR;
+    DIR *mm_d = opendir(mm_dir);
+    if (!mm_d) return;  // No dir yet — trainer hasn't run
+
+    // Scan for files newer than last reload
+    struct dirent *mm_e;
+    int found_new = 0;
+    while ((mm_e = readdir(mm_d)) != NULL) {
+        size_t nlen = strlen(mm_e->d_name);
+        if (nlen < 5 || strcmp(mm_e->d_name + nlen - 4, ".bin") != 0) continue;
+        if (strcmp(mm_e->d_name, ".") == 0 || strcmp(mm_e->d_name, "..") == 0) continue;
+
+        char mm_path[512];
+        snprintf(mm_path, sizeof(mm_path), "%s/%s", mm_dir, mm_e->d_name);
+        struct stat st;
+        if (stat(mm_path, &st) == 0) {
+            if (st.st_mtime > g_last_hot_reload_ts) {
+                found_new = 1;
+            }
+        }
+    }
+    if (!found_new) { closedir(mm_d); return; }
+
+    printf("\n[HOT] New genomes detected. Reloading...\n");
+    time_t now = time(NULL);
+    g_last_hot_reload_ts = now;
+
+    rewinddir(mm_d);
+
+    int total_injected = 0;
+    while ((mm_e = readdir(mm_d)) != NULL) {
+        size_t nlen = strlen(mm_e->d_name);
+        if (nlen < 5 || strcmp(mm_e->d_name + nlen - 4, ".bin") != 0) continue;
+        if (strcmp(mm_e->d_name, ".") == 0 || strcmp(mm_e->d_name, "..") == 0) continue;
+
+        char mm_path[512];
+        snprintf(mm_path, sizeof(mm_path), "%s/%s", mm_dir, mm_e->d_name);
+
+        FILE *mm_f = fopen(mm_path, "rb");
+        if (!mm_f) continue;
+
+        Genome trained_genome;
+        int market_type = MARKET_CRYPTO;
+        if (fread(&trained_genome, sizeof(Genome), 1, mm_f) != 1) {
+            fclose(mm_f);
+            continue;
+        }
+        // Try to read market type suffix
+        size_t mt_read = fread(&market_type, sizeof(int), 1, mm_f);
+        if (mt_read != 1) market_type = MARKET_CRYPTO;
+        else if (market_type < 0 || market_type >= N_MARKET_TYPES) market_type = MARKET_CRYPTO;
+        fclose(mm_f);
+
+        // Collect agents of this market type, sorted by win_rate_ema ascending (worst first)
+        int mt_agents[MAX_AGENTS];
+        int mt_count = 0;
+        for (int i = 0; i < n; i++) {
+            if (!agents[i].alive) {
+                // Dead agents are always candidates
+                mt_agents[mt_count++] = i;
+            } else {
+                int amt = g_agent_market[i] < N_MARKET_TYPES ? g_agent_market[i] : 0;
+                if (amt == market_type) {
+                    mt_agents[mt_count++] = i;
+                }
+            }
+        }
+
+        if (mt_count < 10) continue;  // Skip tiny groups
+
+        // Sort by win_rate_ema ascending via bubble sort (small set)
+        for (int i = 0; i < mt_count - 1; i++) {
+            for (int j = i + 1; j < mt_count; j++) {
+                if (agents[mt_agents[j]].win_rate_ema < agents[mt_agents[i]].win_rate_ema) {
+                    int tmp = mt_agents[i]; mt_agents[i] = mt_agents[j]; mt_agents[j] = tmp;
+                }
+            }
+        }
+
+        // Replace bottom 10% with trained genome + noise
+        int n_replace = mt_count / 10;
+        if (n_replace < 1) n_replace = 1;
+        if (n_replace > mt_count) n_replace = mt_count;
+
+        for (int r = 0; r < n_replace; r++) {
+            int aid = mt_agents[r];
+            memcpy(&agents[aid].genome, &trained_genome, sizeof(Genome));
+            g_agent_market[aid] = market_type;
+            // Add noise for diversity
+            for (int w = 0; w < N_FEATURES; w++) {
+                float noise = ((float)(rand() % 2001 - 1000)) / 10000.0f;
+                agents[aid].genome.feat_weight[w] += noise;
+                // Clamp weight to [-1, 1]
+                if (agents[aid].genome.feat_weight[w] > 1.0f) agents[aid].genome.feat_weight[w] = 1.0f;
+                if (agents[aid].genome.feat_weight[w] < -1.0f) agents[aid].genome.feat_weight[w] = -1.0f;
+            }
+            agents[aid].genome.bias += ((float)(rand() % 2001 - 1000)) / 10000.0f;
+            if (agents[aid].genome.bias > 1.0f) agents[aid].genome.bias = 1.0f;
+            if (agents[aid].genome.bias < -1.0f) agents[aid].genome.bias = -1.0f;
+
+            // Reset trade stats for clean tracking
+            agents[aid].capital = 50.0f;
+            agents[aid].alive = true;
+            agents[aid].trades = 0;
+            agents[aid].wins = 0;
+            agents[aid].losses = 0;
+            agents[aid].total_pnl = 0.0f;
+            agents[aid].win_rate_ema = 0.5f;
+            agents[aid].peak_capital = 50.0f;
+            agents[aid].max_drawdown = 0.0f;
+            agents[aid].consecutive_losses = 0;
+            agents[aid].starting_capital = 50.0f;
+            agents[aid].last_trade_window = -1;
+        }
+        printf("[HOT]   %s: %d agents injected for market_type=%d\n", mm_e->d_name, n_replace, market_type);
+        total_injected += n_replace;
+    }
+    closedir(mm_d);
+    printf("[HOT] Total agents injected: %d\n\n", total_injected);
 }
 
 // ── Init agents with random genomes ──
@@ -974,6 +1105,11 @@ void room_market_stats(RoomState *state);
             if (scaled > 0)
                 printf("[SCALE] Size-scaling active: %d/%d agents adjusted\n",
                        scaled, state->stats.active_agents);
+        }
+
+        // ── Hot-reload genomes from multi-market trainer (every 1000 cycles) ──
+        if (state->cycle > 0 && state->cycle % HOT_RELOAD_CYCLE == 0) {
+            hot_reload_genomes(state->agents, MAX_AGENTS);
         }
 
 skip_trading:
