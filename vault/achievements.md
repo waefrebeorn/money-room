@@ -18,3 +18,4 @@ Resolved gaps with file:line proof.
 || T011 | Multi-market trainer cron wired: every 4h | Cron `multi-market-trainer` |
 || T009 | Per-market-type cascade features: compute_nested_prediction() now accepts MarketType. Probability-based features for SPORTS/WEATHER/PREDICTION/ELECTION. Per-market ring buffers. | `room_engine.c:69-208` |
 || T010 | Genome load error handling: fopen failure prints WARN; market_type suffix fread return checked; invalid market_type caught with default to CRYPTO. | `room_engine.c:336-356` |
+|| T011 | Weather collector cron wired: daily 6:00 AM. Open-Meteo archive API. 728 entries/8 cities/90 days tested. | crontab |
