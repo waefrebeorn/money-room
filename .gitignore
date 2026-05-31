@@ -1,0 +1,36 @@
+# Object files
+*.o
+*.obj
+*.a
+*.so
+
+# Binaries (only track binaries that are explicitly added)
+engine/room_engine
+engine/room_engine_market
+engine/stock_collector
+engine/exchange_api_test
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Data files
+data/*.json
+data/*.csv
+docs/data/*.json
+docs/demos/*.json
+*.bin
+
+# Environment
+.env
+secrets.env
+**/secrets.env
+
+# Logs
+*.log
+pm_logs/
+
+# Python
+__pycache__/
+*.pyc
