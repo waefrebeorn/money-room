@@ -1,143 +1,64 @@
 /**
- * fear_greed_collector.c — C102: Fear & Greed Index Collector
- *
- * Fetches Fear & Greed index from alternative.me free API.
- * Writes to timeline.db with source='fear_greed_*'.
- *
- * Build: gcc -O2 -o fear_greed_collector fear_greed_collector.c -lcurl -ljansson -lsqlite3
- * Usage: ./fear_greed_collector
+ * fear_greed_collector.c — Alternative.me Fear & Greed Index (T370-T378 proxy)
+ * Free API, no key needed. Crypto market sentiment indicator.
+ * 
+ * Compile: gcc -O3 -Wall -Wextra -o fear_greed_collector fear_greed_collector.c -lcurl -lsqlite3 -lm -ljansson
  */
-#define _POSIX_C_SOURCE 199309L
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
-#include <sqlite3.h>
 #include <curl/curl.h>
+#include <sqlite3.h>
 #include <jansson.h>
+#include <time.h>
+#define DB_PATH "/home/wubu2/money-room/engine/timeline.db"
 
-#define FG_API "https://api.alternative.me/fng"
-#define DB_PATH "/home/wubu2/.hermes/pm_logs/timeline.db"
+typedef struct { char *d; size_t s; } MB;
+static size_t wcb(void *p,size_t sz,size_t n,void *u){MB*b=(MB*)u;size_t t=sz*n;char*nw=realloc(b->d,b->s+t+1);if(!nw)return 0;b->d=nw;memcpy(b->d+b->s,p,t);b->s+=t;b->d[b->s]=0;return t;}
 
-typedef struct { char *data; size_t len; size_t cap; } RespBuf;
-
-static size_t write_cb(void *p, size_t s, size_t n, void *u) {
-    size_t t = s*n; RespBuf *r = u;
-    if (r->len + t >= r->cap) {
-        r->cap = r->len + t + 65536;
-        r->data = realloc(r->data, r->cap);
-    }
-    memcpy(r->data + r->len, p, t);
-    r->len += t; r->data[r->len] = 0;
-    return t;
+static sqlite3 *odb() {
+    sqlite3 *db;if(sqlite3_open(DB_PATH,&db)!=SQLITE_OK)return NULL;
+    sqlite3_exec(db,"CREATE TABLE IF NOT EXISTS fear_greed (obs_date TEXT PRIMARY KEY,value INTEGER,classification TEXT,updated_at TEXT DEFAULT(datetime('now')));",0,0,0);
+    return db;
 }
 
-static RespBuf http_get(const char *url) {
-    RespBuf r = {calloc(1, 65536), 0, 65536};
-    CURL *c = curl_easy_init();
-    if (c) {
-        curl_easy_setopt(c, CURLOPT_URL, url);
-        curl_easy_setopt(c, CURLOPT_WRITEFUNCTION, write_cb);
-        curl_easy_setopt(c, CURLOPT_WRITEDATA, &r);
-        curl_easy_setopt(c, CURLOPT_TIMEOUT, 15L);
-        curl_easy_setopt(c, CURLOPT_USERAGENT, "fng-collector/1.0");
-        curl_easy_perform(c);
-        curl_easy_cleanup(c);
+int main(int argc,char**argv){
+    sqlite3 *db=odb();if(!db)return 1;
+    if(argc>1&&strcmp(argv[1],"stats")==0){
+        sqlite3_stmt*s;sqlite3_prepare_v2(db,"SELECT COUNT(*),AVG(value),MAX(obs_date),MIN(obs_date)FROM fear_greed",-1,&s,0);
+        if(sqlite3_step(s)==SQLITE_ROW)printf("Fear & Greed: %d days, avg=%d, %s to %s\n",sqlite3_column_int(s,0),(int)sqlite3_column_double(s,1),sqlite3_column_text(s,3),sqlite3_column_text(s,2));
+        sqlite3_finalize(s);sqlite3_close(db);return 0;
     }
-    return r;
-}
-
-static sqlite3 *g_db = NULL;
-static void db_init(void) {
-    sqlite3_open(DB_PATH, &g_db);
-    sqlite3_exec(g_db, "PRAGMA journal_mode=WAL;", 0, 0, 0);
-}
-
-static void db_insert(const char *source, long long ts, const char *cat, const char *json_data) {
-    if (!g_db) return;
-    sqlite3_stmt *stmt;
-    const char *sql = "INSERT OR REPLACE INTO timeline (ts, source, category, data, collected_at) VALUES (?,?,?,?,?)";
-    if (sqlite3_prepare_v2(g_db, sql, -1, &stmt, NULL) != SQLITE_OK) return;
-    sqlite3_bind_int64(stmt, 1, ts);
-    sqlite3_bind_text(stmt, 2, source, -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 3, cat, -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 4, json_data, -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int64(stmt, 5, (long long)time(NULL));
-    sqlite3_step(stmt);
-    sqlite3_finalize(stmt);
-}
-
-static void db_close(void) { if (g_db) sqlite3_close(g_db); }
-
-int main(void) {
-    printf("[FG] Fear & Greed Collector\n");
-    curl_global_init(CURL_GLOBAL_DEFAULT);
-    db_init();
-    long long now = (long long)time(NULL);
-    int total = 0;
-
-    /* Current value */
-    {
-        RespBuf resp = http_get(FG_API "/?limit=1");
-        json_error_t err;
-        json_t *root = json_loads(resp.data, 0, &err);
-        free(resp.data);
-
-        if (root) {
-            json_t *data = json_object_get(root, "data");
-            if (data && json_is_array(data) && json_array_size(data) > 0) {
-                json_t *entry = json_array_get(data, 0);
-                const char *val = json_string_value(json_object_get(entry, "value"));
-                const char *cls = json_string_value(json_object_get(entry, "value_classification"));
-                int v = val ? atoi(val) : 50;
-
-                char json_data[256];
-                snprintf(json_data, sizeof(json_data),
-                    "{\"value\":%d,\"classification\":\"%s\"}", v, cls ? cls : "neutral");
-                db_insert("fear_greed_current", now, "sentiment", json_data);
-                total++;
-                printf("  Current: %d (%s)\n", v, cls ? cls : "neutral");
-            }
-            json_decref(root);
-        }
+    curl_global_init(CURL_GLOBAL_DEFAULT);MB b={0};
+    CURL*c=curl_easy_init();if(!c)return 1;
+    curl_easy_setopt(c,CURLOPT_URL,"https://api.alternative.me/fng/?limit=30");
+    curl_easy_setopt(c,CURLOPT_WRITEFUNCTION,wcb);curl_easy_setopt(c,CURLOPT_WRITEDATA,&b);
+    curl_easy_setopt(c,CURLOPT_TIMEOUT,15L);curl_easy_setopt(c,CURLOPT_USERAGENT,"MoneyRoom/1.0");
+    CURLcode r=curl_easy_perform(c);curl_easy_cleanup(c);
+    if(r!=CURLE_OK){free(b.d);curl_global_cleanup();sqlite3_close(db);return 1;}
+    json_t*j=json_loads(b.d,0,0);free(b.d);if(!j||!json_is_object(j)){if(j)json_decref(j);curl_global_cleanup();sqlite3_close(db);return 1;}
+    json_t*data=json_object_get(j,"data");if(!json_is_array(data)){json_decref(j);curl_global_cleanup();sqlite3_close(db);return 1;}
+    int n=(int)json_array_size(data),rows=0;
+    sqlite3_stmt*s;sqlite3_prepare_v2(db,"INSERT OR REPLACE INTO fear_greed(obs_date,value,classification)VALUES(?1,?2,?3)",-1,&s,0);
+    for(int i=0;i<n;i++){
+        json_t*e=json_array_get(data,i);
+        const char*dt=json_string_value(json_object_get(e,"timestamp"));
+        const char*v=json_string_value(json_object_get(e,"value"));
+        const char*cl=json_string_value(json_object_get(e,"value_classification"));
+        if(dt&&v){sqlite3_bind_text(s,1,dt,-1,SQLITE_STATIC);sqlite3_bind_int(s,2,atoi(v));sqlite3_bind_text(s,3,cl?cl:"",-1,SQLITE_STATIC);if(sqlite3_step(s)==SQLITE_DONE)rows++;sqlite3_reset(s);}
     }
-
-    /* Historical (last 30 days) */
-    {
-        RespBuf resp = http_get(FG_API "/?limit=30");
-        json_error_t err;
-        json_t *root = json_loads(resp.data, 0, &err);
-        free(resp.data);
-
-        if (root) {
-            json_t *data = json_object_get(root, "data");
-            if (data && json_is_array(data)) {
-                int n = (int)json_array_size(data);
-                for (int i = 0; i < n; i++) {
-                    json_t *entry = json_array_get(data, i);
-                    const char *val = json_string_value(json_object_get(entry, "value"));
-                    const char *ts_str = json_string_value(json_object_get(entry, "timestamp"));
-                    const char *cls = json_string_value(json_object_get(entry, "value_classification"));
-                    if (!val || !ts_str) continue;
-
-                    int v = atoi(val);
-                    long long entry_ts = (long long)atol(ts_str);
-
-                    char json_data[256];
-                    snprintf(json_data, sizeof(json_data),
-                        "{\"value\":%d,\"classification\":\"%s\",\"timestamp\":%s}",
-                        v, cls ? cls : "neutral", ts_str);
-
-                    db_insert("fear_greed_daily", entry_ts, "sentiment", json_data);
-                    total++;
-                }
-            }
-            json_decref(root);
-        }
+    sqlite3_finalize(s);
+    int current_val = 0;
+    const char *current_cls = "";
+    json_t *first = json_array_get(data, 0);
+    if(first) {
+        const char *v = json_string_value(json_object_get(first, "value"));
+        const char *cl = json_string_value(json_object_get(first, "value_classification"));
+        if(v) current_val = atoi(v);
+        if(cl) current_cls = cl;
     }
-
-    db_close();
-    curl_global_cleanup();
-    printf("[FG] %d sentiment sources updated\n", total);
+    json_decref(j);sqlite3_close(db);curl_global_cleanup();
+    printf("Fear & Greed: %d days stored. Current: %d (%s)\n",rows,current_val,current_cls);
     return 0;
 }
