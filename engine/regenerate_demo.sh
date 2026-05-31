@@ -5,17 +5,17 @@
 CSV="/home/wubu2/.hermes/pm_logs/c_room/room_log.csv"
 OUTDIR="/home/wubu2/money-room/docs/demos"
 
-# Use awk to extract last 24h and write demo data
+# Use awk to extract last 30 days and write demo data
 cd "$(dirname "$0")/.."
 
-# Generate demo history from CSV
-timeout 90 awk -F, '
-BEGIN { cutoff = systime() - 86400; n = 0; }
+# Generate demo history from CSV (30 day window, sampled to 1K pts max)
+timeout 120 awk -F, '
+BEGIN { cutoff = systime() - 2592000; n = 0; target = 1000; }
 !/^cycle/ && $2 >= cutoff && NF >= 13 {
     data[n++] = $0;
 }
 END {
-    step = (n > 288) ? int(n / 288) : 1;
+    step = (n > target) ? int(n / target) : 1;
     system("mkdir -p '"$OUTDIR"'");
     out = "'"$OUTDIR"'/demo_history.json";
     
