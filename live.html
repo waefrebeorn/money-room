@@ -103,7 +103,8 @@ function pct(n){if(n===undefined||n===null)return'—';n=typeof n==='string'?par
 function ago(ts){if(!ts)return'—';var d=Math.floor(Date.now()/1000-ts);if(d<0)return'just now';if(d<60)return d+'s';if(d<3600)return Math.floor(d/60)+'m';return Math.floor(d/3600)+'h';}
 function $(id){return document.getElementById(id);}
 function setEl(id,v){var e=$(id);if(e)e.textContent=v;}
-function fetchData(p){return fetch('/'+p,{cache:'no-store'}).catch(function(){return fetch('/money-room/'+p,{cache:'no-store'});});}
+var BASE_URL = window.location.pathname.startsWith('/money-room') ? '/money-room' : '';
+function fetchData(p){return fetch(BASE_URL+'/'+p,{cache:'no-store'});}
 
 /* Auth gate */
 (function(){
