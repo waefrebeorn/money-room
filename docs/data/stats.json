@@ -1,6 +1,6 @@
 {
   "agents": 10000.0,
-  "capital": 464561.375,
+  "capital": 467323.8125,
   "capital_peak": 500000.0,
   "cycle": 2.0,
   "drawdown": 0.0,
@@ -9,7 +9,7 @@
   "paper_age": 0,
   "price": 73215.199999999997,
   "sharpe": 0.0,
-  "timestamp": 1780237812,
+  "timestamp": 1780238226,
   "trades_total": 20000.0,
   "trades_won": 0.0,
   "votes": 10000.0,
