@@ -1,80 +1,80 @@
 {
   "agents": [
     {
-      "capital": 49.998150000000003,
-      "id": 516,
+      "capital": 73215.203125,
+      "id": 6099,
       "rank": 1,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.997146999999998,
-      "id": 6423,
+      "capital": 73215.203125,
+      "id": 6113,
       "rank": 2,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.996665999999998,
-      "id": 8863,
+      "capital": 73215.203125,
+      "id": 6183,
       "rank": 3,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.996262000000002,
-      "id": 3361,
+      "capital": 73215.203125,
+      "id": 6197,
       "rank": 4,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.996056000000003,
-      "id": 4665,
+      "capital": 73215.203125,
+      "id": 6225,
       "rank": 5,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.995609000000002,
-      "id": 903,
+      "capital": 73215.203125,
+      "id": 6267,
       "rank": 6,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.992778999999999,
-      "id": 530,
+      "capital": 73215.203125,
+      "id": 6295,
       "rank": 7,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.991866999999999,
-      "id": 2058,
+      "capital": 73215.203125,
+      "id": 6351,
       "rank": 8,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.991539000000003,
-      "id": 64,
+      "capital": 73215.203125,
+      "id": 6407,
       "rank": 9,
       "sharpe": 0.0,
       "trades": 1,
       "win_rate": 0.5
     },
     {
-      "capital": 49.990841000000003,
-      "id": 4307,
+      "capital": 73215.203125,
+      "id": 6449,
       "rank": 10,
       "sharpe": 0.0,
       "trades": 1,
@@ -82,5 +82,5 @@
     }
   ],
   "count": 10,
-  "timestamp": 1780228904
+  "timestamp": 1780254360
 }
