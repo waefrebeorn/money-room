@@ -1,0 +1,17 @@
+{
+  "agents": 2500.0,
+  "capital": 124848.0156,
+  "capital_peak": 125000.0,
+  "cycle": 3342935.0,
+  "drawdown": 0.0,
+  "epoch": 29674.0,
+  "features": 10,
+  "paper_age": 1151,
+  "price": 91611.0,
+  "sharpe": 0.0,
+  "timestamp": 1780212237,
+  "trades_total": 596756.0,
+  "trades_won": 287193.0,
+  "votes": 2500.0,
+  "win_rate": 0.48130000000000001
+}

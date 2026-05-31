@@ -3,129 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💰 Money Room — Live Market Data Tiers</title>
-<style>
-  :root { --bg: #0a0a0f; --card: #13131a; --green: #06d6a0; --red: #ef476f; --gold: #ffd166; --text: #e0e0e0; }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace; background: var(--bg); color: var(--text); min-height: 100vh; }
-  .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
-  h1 { font-size: 2.5em; margin-bottom: 10px; }
-  .subtitle { color: #888; margin-bottom: 40px; }
-  .notice { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid var(--gold); border-radius: 12px; padding: 24px; margin-bottom: 32px; text-align: center; }
-  .notice h2 { color: var(--gold); font-size: 1.2em; margin-bottom: 8px; }
-  .notice p { color: #aaa; font-size: 0.9em; line-height: 1.6; }
-  .notice a { color: var(--green); }
-  .donation-bar { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid var(--gold); border-radius: 12px; padding: 30px; text-align: center; margin-bottom: 40px; }
-  .donation-bar h2 { color: var(--gold); font-size: 1.5em; margin-bottom: 15px; }
-  .donation-bar p { margin-bottom: 20px; color: #ccc; }
-  .donate-btn { display: inline-block; background: var(--gold); color: #000; padding: 15px 40px; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 1.2em; }
-  .donate-btn:hover { background: #e6bd5c; }
-  .free-tier { background: #111; border: 1px dashed #444; border-radius: 12px; padding: 30px; margin-bottom: 40px; text-align: center; }
-  .free-tier h3 { color: #888; margin-bottom: 10px; }
-  .free-tier .delay-badge { display: inline-block; background: #333; padding: 4px 12px; border-radius: 4px; font-size: 0.8em; color: var(--gold); margin: 10px 0; }
-  .wallets { background: var(--card); border: 1px solid #222; border-radius: 12px; padding: 30px; margin-bottom: 40px; }
-  .wallets h2 { margin-bottom: 20px; color: var(--gold); }
-  .wallet-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a1a1a; }
-  .wallet-row:last-child { border-bottom: none; }
-  .wallet-asset { font-weight: bold; min-width: 60px; }
-  .wallet-addr { font-family: monospace; color: #ccc; font-size: 0.9em; word-break: break-all; }
-  .pay-btn { display: inline-block; background: #333; color: #aaa; padding: 4px 12px; border-radius: 4px; text-decoration: none; font-size: 0.8em; }
-  .pay-btn:hover { background: var(--green); color: #000; }
-  .footer { text-align: center; padding: 40px 0; color: #555; font-size: 0.9em; }
-  .footer a { color: var(--green); text-decoration: none; }
-  .plaster { background: #1a1a1a; border-top: 1px solid #333; padding: 10px; text-align: center; font-size: 0.8em; color: #888; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; }
-  .plaster a { color: var(--gold); text-decoration: none; }
-  @media (max-width: 600px) {
-    .container { padding: 20px 12px; }
-    h1 { font-size: 1.6em; }
-    .subtitle { font-size: 0.9em; }
-    .donation-bar { padding: 20px; }
-    .donation-bar h2 { font-size: 1.2em; }
-    .donate-btn { padding: 12px 24px; font-size: 1em; }
-    .wallets { padding: 20px; }
-    .wallet-row { flex-direction: column; gap: 4px; }
-    .wallet-addr { font-size: 0.8em; }
-    .free-tier { padding: 20px; }
-  }
-  @media (max-width: 380px) {
-    .container { padding: 16px 10px; }
-    h1 { font-size: 1.3em; }
-  }
-</style>
+<title>Pricing — Money Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<div class="container">
-
-  <h1>💰 Money Room</h1>
-  <p class="subtitle">Open Source BTC Market Prediction Engine · 19-dim active features (80-dim arch) · $50 seed agents · All C</p>
-
-  <!-- ═══════════ STATUS NOTICE ═══════════ -->
-  <div class="notice">
-    <h2>⚡ Paid Tiers: In Development</h2>
-    <p>Premium subscription tiers are planned but not yet implemented. The full engine and data are currently free and open source under MIT license. All agents start with $50 seed capital — harsh paper environment to prove real edge. If you'd like to support development, donations are welcome via the wallet addresses below.</p>
-  </div>
-
-  <!-- ═══════════ DONATION BAR ═══════════ -->
-  <div class="donation-bar">
-    <h2>⚡ Support Open Source AI Trading Research</h2>
-    <p>Your donation keeps the servers running, the agents cycling, and the research open.</p>
-    <a class="donate-btn" href="#wallets">💸 Donate Now — Any Amount Helps</a>
-    <p style="margin-top: 12px; font-size: 0.85em; color: #888;">BTC · ETH · SOL · RTC accepted</p>
-  </div>
-
-  <!-- ═══════════ FREE TIER ═══════════ -->
-  <div class="free-tier">
-    <h3>🆓 Free Tier — Open Source (Current)</h3>
-    <p>All code is MIT-licensed on <a href="https://github.com/waefrebeorn/money-room" style="color: var(--green);">GitHub</a></p>
-    <span class="delay-badge">⏳ Data delayed by 24 hours</span>
-    <p style="margin: 10px 0; color: #888;">Live dashboard with 24h-old market data · 19-dim active engine (80-dim arch) · System health verification</p>
-  </div>
-
-  <!-- ═══════════ WALLETS ═══════════ -->
-  <div class="wallets" id="wallets">
-    <h2>💳 Donate Via Wallet</h2>
-    <p style="margin-bottom: 20px; color: #888;">Send any amount to any of these addresses. Every dollar funds open-source AI trading research.</p>
-
-    <div class="wallet-row">
-      <span class="wallet-asset">₿ BTC</span>
-      <span class="wallet-addr">15wLLZxFzNesJKEXo6E9NMVhpZWEUcAC4R</span>
-      <a class="pay-btn" href="bitcoin:15wLLZxFzNesJKEXo6E9NMVhpZWEUcAC4R">Pay</a>
-    </div>
-    <div class="wallet-row">
-      <span class="wallet-asset">◆ ETH</span>
-      <span class="wallet-addr">0xc5394b12dcb65b2a2aa6fa7a1443c2ba78eb057a</span>
-      <a class="pay-btn" href="ethereum:0xc5394b12dcb65b2a2aa6fa7a1443c2ba78eb057a">Pay</a>
-    </div>
-    <div class="wallet-row">
-      <span class="wallet-asset">◎ SOL</span>
-      <span class="wallet-addr">GGMwroNoy3FzHBVSASDvy76P8oW2r8YzdhGdeYecaCtH</span>
-      <a class="pay-btn" href="solana:GGMwroNoy3FzHBVSASDvy76P8oW2r8YzdhGdeYecaCtH">Pay</a>
-    </div>
-    <div class="wallet-row">
-      <span class="wallet-asset">⟠ RTC</span>
-      <span class="wallet-addr">RTC17c0d21f04f6f65c1a85c0aeb5d4a305d57531096</span>
-      <a class="pay-btn" href="#">Pay</a>
+<nav>
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+    <a href="/" class="logo"><span class="dot"></span> Money <span>Room</span></a>
+    <div class="nav-links">
+      <a href="/">Live</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/pricing.html" class="active">Pricing</a>
+      <a href="https://github.com/waefrebeorn/money-room" target="_blank">GitHub</a>
     </div>
   </div>
+</nav>
 
-  <!-- ═══════════ SUPPORT ═══════════ -->
-  <div style="text-align: center; margin: 50px 0;">
-    <p style="color: #888;">Questions? <a href="https://github.com/waefrebeorn/money-room/issues" style="color: var(--green);">Open an issue</a></p>
+<div class="page-header">
+  <div class="container">
+    <h1>💰 Pricing</h1>
+    <p>Access live market predictions, engine signals, and API data feeds</p>
   </div>
-
-  <div class="footer">
-    <p>💰 Money Room — Open Source BTC Market Prediction Engine</p>
-    <p>MIT License · <a href="https://github.com/waefrebeorn/money-room">GitHub</a> · <a href="https://waefrebeorn.github.io/money-room/">Live Dashboard</a></p>
-    <p style="margin-top: 8px; color: #444;">⚠️ Educational/Research Project Only — Not Financial Advice</p>
-    <p style="margin-top: 4px; color: #444;">Donations accepted: BTC · ETH · SOL · RTC</p>
-  </div>
-
 </div>
 
-<div class="plaster">
-  💰 <b>Money Room</b> — Open Source AI Trading · 
-  <a href="https://github.com/waefrebeorn/money-room">⭐ GitHub</a> · 
-  <a href="#wallets">₿ BTC · ◆ ETH · ◎ SOL · ⟠ RTC</a>
-</div>
+<section style="padding-bottom:60px">
+  <div class="container">
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <div class="plan">Free</div>
+        <div class="price">$0<span class="period">/mo</span></div>
+        <p class="desc">24-hour delayed data. Public dashboard access.</p>
+        <ul class="features">
+          <li>Public dashboard</li>
+          <li>24h delayed market data</li>
+          <li>100 API requests/day</li>
+          <li>1 data feed</li>
+        </ul>
+        <a href="/dashboard.html" class="cta-btn">View Dashboard</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="popular">Popular</div>
+        <div class="plan">Starter</div>
+        <div class="price">$5<span class="period">/mo</span></div>
+        <p class="desc">Real-time data. Direct API access.</p>
+        <ul class="features">
+          <li>Real-time market data</li>
+          <li>1,000 API requests/day</li>
+          <li>3 data feeds</li>
+          <li>Engine signals (basic)</li>
+          <li>Email support</li>
+        </ul>
+        <a href="#" class="cta-btn" onclick="alert('Coming soon — LemonSqueezy checkout')">Subscribe</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="plan">Pro</div>
+        <div class="price">$20<span class="period">/mo</span></div>
+        <p class="desc">Full engine access. All data feeds.</p>
+        <ul class="features">
+          <li>All data feeds (20+)</li>
+          <li>10,000 API requests/day</li>
+          <li>Engine predictions</li>
+          <li>Feature extraction API</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#" class="cta-btn" onclick="alert('Coming soon — LemonSqueezy checkout')">Subscribe</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="plan">Enterprise</div>
+        <div class="price">$100<span class="period">/mo</span></div>
+        <p class="desc">Custom deployment. White-label. SLA.</p>
+        <ul class="features">
+          <li>Custom data feeds</li>
+          <li>100,000 API requests/day</li>
+          <li>On-prem deployment</li>
+          <li>White-label dashboard</li>
+          <li>SLA guarantee</li>
+          <li>Dedicated support</li>
+        </ul>
+        <a href="mailto:eman56447@gmail.com" class="cta-btn">Contact Us</a>
+      </div>
+
+    </div>
+
+    <div class="disclaimer">
+      <p><b>💳 Payment Processing</b> — Subscriptions are processed via LemonSqueezy (Apple Pay, Google Pay, Visa, Mastercard, PayPal). Merchant of Record handles tax compliance. Enterprise plans available for custom requirements. All prices in USD.</p>
+      <p style="margin-top:8px"><b>📋 KYC Notice</b> — Paid tiers may require identity verification where required by law. Free tier requires no KYC.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="bottom">
+      <span>© 2026 Money Room</span> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="https://github.com/waefrebeorn/money-room">GitHub</a>
+    </div>
+  </div>
+</footer>
 </body>
 </html>

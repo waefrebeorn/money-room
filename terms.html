@@ -3,101 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📋 Terms of Service — Money Room</title>
-<style>
-  :root { --bg: #0a0a0f; --card: #13131a; --green: #06d6a0; --text: #e0e0e0; }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.7; }
-  .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-  h1 { font-size: 2em; color: var(--green); margin-bottom: 10px; }
-  h2 { font-size: 1.3em; color: var(--green); margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 1px solid #222; }
-  h3 { font-size: 1.1em; color: #ffd166; margin: 20px 0 10px; }
-  p { margin: 12px 0; color: #bbb; }
-  ul { margin: 12px 0 12px 25px; color: #bbb; }
-  li { margin: 6px 0; }
-  .back { display: inline-block; margin-bottom: 30px; color: var(--green); text-decoration: none; }
-  .back:hover { text-decoration: underline; }
-  strong { color: #fff; }
-  .footer { text-align: center; padding: 40px 0; color: #555; font-size: 0.85em; }
-  .footer a { color: var(--green); }
-</style>
+<title>Terms of Service — Money Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<div class="container">
-  <a href="index.html" class="back">← Back to Dashboard</a>
+<nav>
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+    <a href="/" class="logo"><span class="dot"></span> Money <span>Room</span></a>
+    <div class="nav-links"><a href="/">Live</a><a href="/dashboard.html">Dashboard</a><a href="/pricing.html">Pricing</a></div>
+  </div>
+</nav>
+
+<div class="legal-page container">
   <h1>📋 Terms of Service</h1>
-  <p><em>Last updated: May 29, 2026</em></p>
+  <p><em>Last updated: May 30, 2026</em></p>
 
   <h2>1. Acceptance of Terms</h2>
   <p>By accessing or using Money Room ("the Service"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Service.</p>
 
-  <h2>2. Educational Purpose Only</h2>
-  <p><strong>Money Room is a research and educational project.</strong> All data, predictions, signals, analysis, and content are provided for informational and research purposes only. Nothing on this website constitutes:</p>
+  <h2>2. Description of Service</h2>
+  <p>Money Room is an open-source algorithmic market prediction engine that provides simulated paper trading data, market analysis, and API access to market data. The Service is provided for <b>educational and research purposes only</b>.</p>
+
+  <h2>3. Not Financial Advice</h2>
+  <p><b>⚠️ IMPORTANT:</b> Money Room does NOT provide financial advice. All data, predictions, signals, and analysis are for educational and research purposes only. Nothing on this website constitutes:</p>
   <ul>
     <li>Financial advice, investment advice, or trading advice</li>
-    <li>A recommendation to buy, sell, or hold any cryptocurrency, stock, or asset</li>
-    <li>A solicitation or offer to enter any financial transaction</li>
+    <li>A solicitation to buy, sell, or hold any asset</li>
+    <li>A recommendation to trade any financial instrument</li>
   </ul>
+  <p>Past performance does not guarantee future results. Trading cryptocurrencies, stocks, and prediction markets carries substantial risk of loss. You alone are responsible for your trading decisions.</p>
 
-  <h2>3. No Fiduciary Relationship</h2>
-  <p>No fiduciary, advisory, or professional relationship is created between you and Money Room or its operators by your use of the Service. You alone are responsible for your own financial decisions.</p>
+  <h2>4. Fee Model Disclosure</h2>
+  <p>All engine simulations use Kraken spot fees (0.26% taker + 0.16% maker + slippage model). Real exchange fees vary — Coinbase charges 0.60% + $0.99 minimum per trade. All metrics are from simulated paper trading with real Kraken fee assumptions.</p>
 
-  <h2>4. Risk Acknowledgment</h2>
-  <p>Trading cryptocurrencies, stocks, prediction markets, and other financial instruments carries <strong>substantial risk of loss</strong>. Past performance of any trading strategy, signal, or prediction does not guarantee future results. You should:</p>
+  <h2>5. User Responsibilities</h2>
   <ul>
-    <li>Never trade with money you cannot afford to lose</li>
-    <li>Consult a qualified financial advisor before making investment decisions</li>
-    <li>Understand that algorithmic predictions can be wrong</li>
+    <li>You must comply with all applicable laws and regulations</li>
+    <li>You must not use the Service for illegal purposes</li>
+    <li>You must not attempt to bypass rate limits or security measures</li>
+    <li>You are responsible for maintaining the confidentiality of your API keys</li>
   </ul>
 
-  <h2>5. Service Availability</h2>
-  <p>The Service is provided "as is" without any warranty, express or implied. We do not guarantee:</p>
-  <ul>
-    <li>Uninterrupted or error-free operation</li>
-    <li>Accuracy, completeness, or timeliness of data</li>
-    <li>That predictions or signals will be profitable</li>
-  </ul>
+  <h2 id="kyc">6. KYC & Compliance</h2>
+  <p>Paid tiers (Starter, Pro, Enterprise) may require identity verification (KYC) where required by applicable law. The Free tier requires no KYC. We use LemonSqueezy as Merchant of Record for tax compliance.</p>
 
-  <h2>6. Limitation of Liability</h2>
-  <p>In no event shall Money Room or its operators be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from your use of the Service, including but not limited to trading losses.</p>
+  <h2>7. Limitation of Liability</h2>
+  <p>The Service is provided "as is" without warranties of any kind. In no event shall Money Room be liable for any losses, damages, or trading losses resulting from use of the Service.</p>
 
-  <h2 id="kyc">7. KYC &amp; Compliance</h2>
-  <p><strong>Free tier:</strong> No KYC required. All free-tier data is delayed 24 hours.</p>
-  <p><strong>Paid tiers:</strong> Identity verification (KYC) may be required where mandated by applicable law. By subscribing to a paid tier, you consent to providing identity verification information as required for regulatory compliance. Failure to complete KYC may result in service restriction.</p>
+  <h2 id="tax">8. Tax Reporting</h2>
+  <p>Subscription payments may be subject to tax reporting. Consult a qualified tax professional regarding your tax obligations. LemonSqueezy handles VAT/sales tax compliance as Merchant of Record.</p>
 
-  <h2>8. Prohibited Use</h2>
-  <p>You agree not to:</p>
-  <ul>
-    <li>Use the Service for any illegal purpose</li>
-    <li>Attempt to circumvent rate limits or access restrictions</li>
-    <li>Redistribute or resell the Service without authorization</li>
-    <li>Use automated tools to scrape or extract data except as explicitly permitted</li>
-  </ul>
+  <h2>9. Termination</h2>
+  <p>We reserve the right to terminate or suspend access to the Service at any time, without prior notice, for violation of these terms.</p>
 
-  <h2>9. Subscriptions &amp; Payments</h2>
-  <p>Paid subscriptions are billed through LemonSqueezy. All subscription fees are non-refundable except as required by applicable consumer protection law. We reserve the right to change pricing with 30 days notice.</p>
+  <h2>10. Changes to Terms</h2>
+  <p>We reserve the right to modify these terms at any time. Continued use of the Service after changes constitutes acceptance of the new terms.</p>
 
-  <h2 id="tax">10. Tax Reporting</h2>
-  <p>Donations, subscription payments, and any income received through the Service may be subject to tax reporting requirements under applicable law. Users are solely responsible for:</p>
-  <ul>
-    <li>Reporting any income or gains to their tax authority</li>
-    <li>Paying all applicable taxes</li>
-    <li>Maintaining records of their transactions</li>
-  </ul>
-  <p>Money Room does not provide tax advice. Consult a qualified tax professional.</p>
-
-  <h2>11. Changes to Terms</h2>
-  <p>We reserve the right to modify these terms at any time. Changes are effective upon posting to this URL. Continued use after changes constitutes acceptance.</p>
-
-  <h2>12. Governing Law</h2>
-  <p>These terms are governed by the laws of the State of Ohio and applicable United States federal law. Any disputes shall be resolved in the courts of Ohio.</p>
-
-  <h2>13. Contact</h2>
-  <p>For questions, contact the repository maintainer at <a href="https://github.com/waefrebeorn/money-room" style="color:var(--green);">github.com/waefrebeorn/money-room</a>.</p>
-
-  <div class="footer">
-    <p><a href="index.html">← Dashboard</a> · <a href="privacy.html">Privacy Policy</a> · ⚠️ Not Financial Advice</p>
-  </div>
+  <h2>11. Contact</h2>
+  <p>Email: eman56447@gmail.com</p>
 </div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="bottom"><span>© 2026 Money Room</span> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a> · <a href="https://github.com/waefrebeorn/money-room">GitHub</a></div>
+  </div>
+</footer>
 </body>
 </html>
