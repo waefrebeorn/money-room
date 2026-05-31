@@ -51,6 +51,9 @@ static int g_nested_buf_idx[NESTED_N_MARKETS];
 static double g_prev_volume[NESTED_N_MARKETS];
 static double g_nested_prediction[NESTED_N_MARKETS];  // per-market cascade predictions (0-1)
 
+// ── Per-agent market type map ──
+static int g_agent_market[MAX_AGENTS];  // market type per agent index (for Darwin evolution)
+
 // ── Forward decls ──
 RoomError room_feeds_load(MarketTick *tick);
 RoomError room_features_compute(const MarketTick *tick, FeatureVector *fv, const RoomState *s);
@@ -62,7 +65,7 @@ RoomError room_capital_resolve(TradeRecord *trades, int *tcount,
                                AgentState *agents,
                                int max_trades,
                                FeatureImportance *importance);
-RoomError room_darwin_evolve(AgentState *agents, int n, int cycle, DarwinRecord *rec);
+RoomError room_darwin_evolve(AgentState *agents, int n, int cycle, DarwinRecord *rec, const int *agent_market);
 RoomError room_darwin_compute_diversity(const AgentState *agents, int n, RoomStats *stats);
 void       room_bridge_write(RoomState *state);
 
@@ -278,6 +281,7 @@ static void init_agents(AgentState *agents, int n) {
         memset(agents[i].hidden, 0, sizeof(agents[i].hidden));
         agents[i].last_conviction = 0.0f;
         memset(agents[i].last_features, 0, sizeof(agents[i].last_features));
+        g_agent_market[i] = MARKET_CRYPTO;  // Default market type
     }
 }
 
@@ -360,6 +364,8 @@ static RoomError load_or_init_state(void) {
                     for (int i = start; i < end; i++) {
                         // Copy the trained genome
                         memcpy(&state->agents[i].genome, &trained_genome, sizeof(Genome));
+                        // Set market type for Darwin evolution filtering
+                        g_agent_market[i] = market_type;
                         // Add some noise for diversity
                         for (int w = 0; w < N_FEATURES; w++) {
                             float noise = ((float)(rand() % 2001 - 1000)) / 10000.0f;
@@ -940,7 +946,7 @@ void room_market_stats(RoomState *state);
 
         // ── L5: Darwin evolution (every 100 trades) ──
         if (state->trade_count > 0 && state->trade_count % 100 == 0) {
-            room_darwin_evolve(state->agents, MAX_AGENTS, state->cycle, &state->darwin);
+            room_darwin_evolve(state->agents, MAX_AGENTS, state->cycle, &state->darwin, g_agent_market);
             // C19: Compute diversity metrics after evolution
             room_darwin_compute_diversity(state->agents, MAX_AGENTS, &state->stats);
 

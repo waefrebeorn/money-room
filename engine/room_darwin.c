@@ -91,22 +91,108 @@ static int cmp_agents_desc(const void *a, const void *b) {
 }
 
 // ════════════════════════════════════════════════════════
-//  EVOLVE — Cull bottom 10%, clone+mutate top 10%
+//  EVOLVE — Per-market-type: cull bottom 10%, clone+mutate top 10%
 // ════════════════════════════════════════════════════════
-RoomError room_darwin_evolve(AgentState *agents, int n, int cycle, DarwinRecord *rec) {
+RoomError room_darwin_evolve(AgentState *agents, int n, int cycle, DarwinRecord *rec, const int *agent_market) {
     if (n < 100) return ERR_NO_AGENTS;
     
     rec->epoch = cycle / 100; // Every 100 trades = 1 epoch
     rec->mutation_rate = fmaxf(0.05f, 0.3f - rec->epoch * 0.01f); // Decays
+    rec->culled = 0;
+    rec->cloned = 0;
     
-    // Count alive agents
+    // Count market types present
+    int mt_counts[N_MARKET_TYPES];
+    memset(mt_counts, 0, sizeof(mt_counts));
+    for (int i = 0; i < n; i++) {
+        if (agents[i].alive) {
+            int mt = (agent_market && agent_market[i] < N_MARKET_TYPES) ? agent_market[i] : 0;
+            mt_counts[mt]++;
+        }
+    }
+    
+    // Cull bottom 10% per market type
+    for (int mt = 0; mt < N_MARKET_TYPES; mt++) {
+        if (mt_counts[mt] < 10) continue;  // Skip tiny groups
+        
+        // Collect alive agents of this market type
+        int nmt = mt_counts[mt];
+        AgentState *mt_agents = (AgentState *)malloc(nmt * sizeof(AgentState));
+        if (!mt_agents) continue;
+        int *mt_idx = (int *)malloc(nmt * sizeof(int));  // Map back to original indices
+        if (!mt_idx) { free(mt_agents); continue; }
+        
+        int idx = 0;
+        for (int i = 0; i < n; i++) {
+            if (agents[i].alive) {
+                int amt = (agent_market && agent_market[i] < N_MARKET_TYPES) ? agent_market[i] : 0;
+                if (amt == mt) {
+                    mt_agents[idx] = agents[i];
+                    mt_idx[idx] = i;
+                    idx++;
+                }
+            }
+        }
+        
+        // Sort by win_rate_ema descending
+        qsort(mt_agents, nmt, sizeof(AgentState), cmp_agents_desc);
+        
+        // Cull bottom 10% of this market type
+        int cull_count = nmt / 10;
+        if (cull_count < 1) cull_count = 1;
+        
+        float redistribution_pool = 0;
+        int culled = 0;
+        for (int i = nmt - 1; i >= 0 && culled < cull_count; i--) {
+            if (!mt_agents[i].alive) continue;
+            redistribution_pool += mt_agents[i].capital;
+            mt_agents[i].alive = false;
+            culled++;
+            rec->culled++;
+        }
+        
+        // Clone top 10% within same market type to fill culled slots
+        int clone_from = nmt / 10;
+        if (clone_from < 1) clone_from = 1;
+        float clone_capital = culled > 0 ? redistribution_pool / culled : 1.0f;
+        
+        int cloned = 0;
+        for (int i = nmt - 1; i >= 0 && cloned < culled; i--) {
+            if (mt_agents[i].alive) continue;
+            int src = rand() % clone_from;
+            copy_genome(&mt_agents[i].genome, &mt_agents[src].genome);
+            mutate_genome(&mt_agents[i].genome, rec->mutation_rate);
+            mt_agents[i].alive = true;
+            mt_agents[i].capital = clone_capital;
+            mt_agents[i].starting_capital = mt_agents[i].capital;
+            mt_agents[i].trades = 0;
+            mt_agents[i].wins = 0;
+            mt_agents[i].losses = 0;
+            mt_agents[i].total_pnl = 0;
+            mt_agents[i].max_drawdown = 0;
+            mt_agents[i].peak_capital = mt_agents[i].capital;
+            mt_agents[i].consecutive_losses = 0;
+            mt_agents[i].win_rate_ema = 0.5f;
+            mt_agents[i].last_trade_window = -1;
+            cloned++;
+            rec->cloned++;
+        }
+        
+        // Write back to original indices
+        for (int i = 0; i < nmt; i++) {
+            agents[mt_idx[i]] = mt_agents[i];
+        }
+        
+        free(mt_idx);
+        free(mt_agents);
+    }
+    
+    // ── Repopulation: if too many dead overall ──
     int alive = 0;
     for (int i = 0; i < n; i++) {
         if (agents[i].alive) alive++;
     }
     if (alive < 100) {
-        // Too few alive — repopulate from survivors
-        // Collect all capital from dead agents
         float dead_pool = 0;
         int dead_count = 0;
         for (int i = 0; i < n; i++) {
@@ -117,16 +203,23 @@ RoomError room_darwin_evolve(AgentState *agents, int n, int cycle, DarwinRecord 
         int repop = 0;
         for (int i = 0; i < n && repop < alive; i++) {
             if (!agents[i].alive) {
-                // Clone a random survivor
                 int src = rand() % alive;
                 int si = 0;
                 for (int j = 0; j < n; j++) {
                     if (agents[j].alive) {
                         if (si == src) {
+                            // Clone from same market type when possible
+                            int our_mt = (agent_market && agent_market[i] < N_MARKET_TYPES) ? agent_market[i] : 0;
+                            int src_mt = (agent_market && agent_market[j] < N_MARKET_TYPES) ? agent_market[j] : 0;
                             copy_genome(&agents[i].genome, &agents[j].genome);
-                            mutate_genome(&agents[i].genome, rec->mutation_rate * 2.0f);
+                            // If cross-type, mutate more to adapt
+                            if (our_mt != src_mt) {
+                                mutate_genome(&agents[i].genome, rec->mutation_rate * 3.0f);
+                            } else {
+                                mutate_genome(&agents[i].genome, rec->mutation_rate * 2.0f);
+                            }
                             agents[i].alive = true;
-                            agents[i].capital = repop_cap;  // From dead pool
+                            agents[i].capital = repop_cap;
                             agents[i].starting_capital = agents[i].capital;
                             agents[i].trades = 0;
                             agents[i].wins = 0;
@@ -137,7 +230,6 @@ RoomError room_darwin_evolve(AgentState *agents, int n, int cycle, DarwinRecord 
                             agents[i].consecutive_losses = 0;
                             agents[i].win_rate_ema = 0.5f;
                             agents[i].last_trade_window = -1;
-                            rec->cloned++;
                             break;
                         }
                         si++;
@@ -146,78 +238,7 @@ RoomError room_darwin_evolve(AgentState *agents, int n, int cycle, DarwinRecord 
                 repop++;
             }
         }
-        rec->culled = 0;
-        return ERR_OK;
     }
-    
-    // Sort agents by fitness (win_rate_ema)
-    AgentState *sorted = (AgentState *)malloc(n * sizeof(AgentState));
-    if (!sorted) return ERR_FILE_READ;
-    memcpy(sorted, agents, n * sizeof(AgentState));
-    qsort(sorted, n, sizeof(AgentState), cmp_agents_desc);
-    
-    // Cull bottom 10%
-    int cull_count = alive / 10;
-    if (cull_count < 1) cull_count = 1;
-    
-    // Collect capital from culled agents into redistribution pool
-    float redistribution_pool = 0;
-    rec->culled = 0;
-    int culled = 0;
-    for (int i = n - 1; i >= 0 && culled < cull_count; i--) {
-        if (!sorted[i].alive) continue;
-        redistribution_pool += sorted[i].capital;
-        sorted[i].alive = false;
-        culled++;
-        rec->culled++;
-    }
-    
-    // Clone top 10% to fill culled slots
-    int clone_from = alive / 10;
-    if (clone_from < 1) clone_from = 1;
-    
-    // Each clone gets equal share of redistributed capital
-    float clone_capital = redistribution_pool / culled;
-    
-    rec->cloned = 0;
-    int cloned = 0;
-    for (int i = n - 1; i >= 0 && cloned < culled; i--) {
-        if (sorted[i].alive) continue;
-        // Pick a top performer
-        int src = rand() % clone_from;
-        copy_genome(&sorted[i].genome, &sorted[src].genome);
-        mutate_genome(&sorted[i].genome, rec->mutation_rate);
-        sorted[i].alive = true;
-        sorted[i].capital = clone_capital;  // From redistributed pool — no new capital
-        sorted[i].starting_capital = sorted[i].capital;
-        sorted[i].trades = 0;
-        sorted[i].wins = 0;
-        sorted[i].losses = 0;
-        sorted[i].total_pnl = 0;
-        sorted[i].max_drawdown = 0;
-        sorted[i].peak_capital = sorted[i].capital;
-        sorted[i].consecutive_losses = 0;
-        sorted[i].win_rate_ema = 0.5f;
-        sorted[i].last_trade_window = -1;
-        cloned++;
-        rec->cloned++;
-    }
-    
-    // Write back to original array (preserve order doesn't matter — agents are indexed)
-    // But indices matter for vote tracking. Let's write back preserving index mapping.
-    // Actually, the sorted array has the same agents, just reordered indices.
-    // We need to map sorted indices back. Since both arrays have the same agents
-    // (same index slots), we can compare genomes to find the right slot.
-    // Simplest: memcpy back the entire array.
-    // BUT agent indices matter for vote tracking. So we need to sort in-place
-    // by creating a reverse index map.
-    // This is complex. Simpler: just write sorted back to agents.
-    // Agent IDs in votes reference indices — so if we swap, old vote references break.
-    // But votes reference the INDEX, not the agent. Votes from one cycle are consumed
-    // before the next cycle. New votes will reference correct indices.
-    // So it's safe to reorder.
-    memcpy(agents, sorted, n * sizeof(AgentState));
-    free(sorted);
     
     return ERR_OK;
 }
