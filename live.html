@@ -4,30 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Live Dashboard — Money Room</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
-<style>
-.dashboard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
-.dashboard-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-.agent-list { max-height: 400px; overflow-y: auto; }
-.agent-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border-subtle); font-size: 12px; font-family: 'JetBrains Mono', monospace; }
-.agent-row .rank { color: var(--text-quaternary); width: 24px; }
-.agent-row .name { color: var(--text-secondary); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.agent-row .pnl { font-weight: 600; }
-.agent-row .pnl.pos { color: var(--bullish); }
-.agent-row .pnl.neg { color: var(--bearish); }
-@media (max-width:768px){.dashboard-grid{grid-template-columns:repeat(2,1fr)}.dashboard-row{grid-template-columns:1fr}}
-@media (max-width:480px){.dashboard-grid{grid-template-columns:1fr}}
-</style>
 </head>
 <body>
 
 <nav>
-  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+  <div class="container">
     <a href="/" class="logo"><span class="dot"></span> Money <span>Room</span></a>
     <div class="nav-links">
       <a href="/">Live</a>
-      <a href="/live" class="active">Dashboard</a>
+      <a href="/live.html" class="active">Dashboard</a>
       <a href="/pricing.html">Pricing</a>
       <a href="https://github.com/waefrebeorn/money-room">GitHub</a>
       <a href="#" id="navAuth" class="nav-cta">Sign Out</a>
@@ -38,29 +25,61 @@
 <div class="page-header">
   <div class="container">
     <h1>📊 Live Dashboard</h1>
-    <p style="font-size:12px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace" id="dashUpdated">Connecting...</p>
+    <p style="font-size:12px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace" id="dashUpdated">Connecting to engine...</p>
   </div>
 </div>
 
 <section style="padding-bottom:60px">
   <div class="container">
+
+    <!-- KPI Row -->
     <div class="dashboard-grid" id="kpiGrid">
-      <div class="live-card"><span class="label">Cycle</span><div class="val" id="kpiCycle">—</div></div>
-      <div class="live-card"><span class="label">Win Rate</span><div class="val" id="kpiWr">—</div><div class="gauge"><div class="gauge-fill green" id="kpiWrGauge" style="width:50%"></div></div></div>
-      <div class="live-card"><span class="label">Capital</span><div class="val" id="kpiCap">—</div></div>
-      <div class="live-card"><span class="label">Agents</span><div class="val" id="kpiAgents">—</div><div class="kpi-down" id="kpiVotes"></div></div>
-    </div>
-    <div class="dashboard-grid" id="kpiGrid2">
-      <div class="live-card"><span class="label">Cycle Time</span><div class="val" id="kpiCycleTime">—</div></div>
-      <div class="live-card"><span class="label">Sharpe</span><div class="val" id="kpiSharpe">—</div></div>
-      <div class="live-card"><span class="label">Drawdown</span><div class="val" id="kpiDd">—</div></div>
-      <div class="live-card"><span class="label">Top Agent PnL</span><div class="val" id="kpiTopPnl">—</div></div>
+      <div class="live-card">
+        <span class="label">Cycle</span>
+        <div class="val" id="kpiCycle">—</div>
+      </div>
+      <div class="live-card">
+        <span class="label">Win Rate</span>
+        <div class="val" id="kpiWr" style="color:var(--text-primary)">—</div>
+        <div class="gauge"><div class="gauge-fill green" id="kpiWrGauge" style="width:50%"></div></div>
+      </div>
+      <div class="live-card">
+        <span class="label">Capital</span>
+        <div class="val" id="kpiCap">—</div>
+      </div>
+      <div class="live-card">
+        <span class="label">Agents</span>
+        <div class="val" id="kpiAgents">—</div>
+        <div class="kpi-down" id="kpiVotes"></div>
+      </div>
     </div>
 
+    <div class="dashboard-grid" id="kpiGrid2">
+      <div class="live-card">
+        <span class="label">Cycle Time</span>
+        <div class="val small" id="kpiCycleTime">—</div>
+      </div>
+      <div class="live-card">
+        <span class="label">Sharpe</span>
+        <div class="val small" id="kpiSharpe">—</div>
+      </div>
+      <div class="live-card">
+        <span class="label">Drawdown</span>
+        <div class="val small" id="kpiDd">—</div>
+      </div>
+      <div class="live-card">
+        <span class="label">Top Agent PnL</span>
+        <div class="val small" id="kpiTopPnl">—</div>
+      </div>
+    </div>
+
+    <!-- Agent Leaderboard + System -->
     <div class="dashboard-row">
       <div class="live-table">
         <h3>🏆 Agent Leaderboard</h3>
-        <div class="agent-list" id="agentList"><div style="padding:24px;text-align:center;color:var(--text-quaternary)">Loading...</div></div>
+        <div class="agent-list" id="agentList">
+          <div class="error-state">Loading agents...</div>
+        </div>
       </div>
       <div class="live-table">
         <h3>⚙️ System</h3>
@@ -79,15 +98,17 @@
       </div>
     </div>
 
+    <!-- API Key Display -->
     <div class="live-table" style="margin-bottom:24px">
       <h3>🔑 API Key</h3>
-      <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-        <code style="font-size:12px;color:var(--text-tertiary);word-break:break-all" id="displayKey">—</code>
-        <button onclick="localStorage.removeItem('mr_api_key');window.location.href='/';" style="padding:6px 16px;background:var(--bg-surface);color:var(--text-secondary);border:1px solid var(--border-standard);border-radius:var(--radius-md);font-size:12px;cursor:pointer">Disconnect</button>
+      <div class="dashboard-key-display">
+        <code id="displayKey">—</code>
+        <button class="disconnect-btn" onclick="disconnect()">Disconnect</button>
       </div>
     </div>
 
     <div class="disclaimer"><p><b>⚠️ NOT FINANCIAL ADVICE</b> — All data from simulated paper trading. Nothing here constitutes financial advice.</p></div>
+
   </div>
 </section>
 
@@ -111,8 +132,13 @@ function fetchData(p){return fetch(BASE_URL+'/'+p,{cache:'no-store'});}
   var key=localStorage.getItem('mr_api_key');
   if(!key){window.location.href='/';return;}
   $('displayKey').textContent=key.length>20?key.slice(0,12)+'…'+key.slice(-8):key;
-  $('navAuth').onclick=function(e){e.preventDefault();localStorage.removeItem('mr_api_key');localStorage.removeItem('mr_tier');window.location.href='/';};
 })();
+
+function disconnect(){
+  localStorage.removeItem('mr_api_key');
+  localStorage.removeItem('mr_tier');
+  window.location.href='/';
+}
 
 /* Load stats from monkey data */
 function loadStats(){
@@ -139,37 +165,62 @@ function loadStats(){
 
       var wrEl=$('kpiWr');if(wrEl){wrEl.textContent=pct(s.win_rate);wrEl.style.color=s.win_rate>0.5?'var(--bullish)':s.win_rate>0.45?'var(--neutral)':'var(--bearish)';}
       var wg=$('kpiWrGauge');if(wg){wg.style.width=(s.win_rate*100)+'%';wg.className='gauge-fill '+(s.win_rate>0.5?'green':'red');}
+      setEl('kpiTopPnl',s.trades_total?'$'+fmt(s.trades_total,0):'—');
 
       var up=$('dashUpdated');
-      if(up)up.textContent='Updated: '+(s.timestamp?new Date(s.timestamp*1000).toLocaleTimeString():'—');
+      if(up)up.textContent='Updated: '+(s.timestamp?new Date(s.timestamp*1000).toLocaleTimeString()+' (cycle '+fmt(s.cycle,0)+')':'Connecting...');
     }).catch(function(){});
 }
 
-/* Load agents */
+/* Load agents with PnL bars */
 function loadAgents(){
   fetchData('data/agents.json').then(function(r){if(!r.ok)throw Error();return r.json();})
     .then(function(d){
       var al=$('agentList');if(!al)return;
       if(!d.agents||d.agents.length===0){
-        al.innerHTML='<div style="padding:24px;text-align:center;color:var(--text-quaternary)">No agents yet</div>';
+        al.innerHTML='<div class="error-state">No agents yet — engine still warming up</div>';
         return;
       }
+      // Find max absolute PnL for bar scaling
+      var maxPnl=0;
+      d.agents.slice(0,50).forEach(function(a){var p=Math.abs(a.pnl||0);if(p>maxPnl)maxPnl=p;});
+      if(maxPnl===0)maxPnl=1;
+
       al.innerHTML=d.agents.slice(0,50).map(function(a,i){
-        var pnl=a.pnl||0;var cls=pnl>=0?'pos':'neg';
-        return '<div class="agent-row"><span class="rank">#'+a.rank+'</span><span class="name">Agent '+(a.id||i+1)+'</span><span class="pnl '+cls+'">$'+fmt(pnl,2)+'</span></div>';
+        var pnl=a.pnl||0;
+        var cls=pnl>=0?'pos':'neg';
+        var absPnl=Math.abs(pnl);
+        var barPct=Math.min((absPnl/maxPnl)*100,100);
+        var zeroCls=pnl===0?'zero':'';
+        return '<div class="agent-row">'+
+          '<span class="rank">#'+(a.rank||(i+1))+'</span>'+
+          '<span class="name">Agent '+(a.id||i+1)+'</span>'+
+          '<div class="pnl-bar"><div class="pnl-fill '+cls+'" style="width:'+barPct.toFixed(0)+'%"></div></div>'+
+          '<span class="pnl-val '+cls+' '+zeroCls+'">$'+fmt(pnl,2)+'</span>'+
+          '</div>';
       }).join('');
-    }).catch(function(){});
+    }).catch(function(){
+      var al=$('agentList');if(al)al.innerHTML='<div class="error-state">Failed to load agent data</div>';
+    });
 }
 
 /* Load prices */
 function loadPrices(){
   fetchData('data/prices.json').then(function(r){if(!r.ok)throw Error();return r.json();})
     .then(function(d){
-      if(d.BTC)setEl('kpiTopPnl','$'+fmt(d.BTC.usd,0));
+      if(d.BTC)setEl('sysBtcPrice','$'+fmt(d.BTC.usd,0));
     }).catch(function(){});
 }
 
-loadStats();loadAgents();loadPrices();
+/* Load crons for system stats */
+function loadSystem(){
+  fetchData('data/stats.json').then(function(r){if(!r.ok)throw Error();return r.json();})
+    .then(function(s){
+      if(s.crons_total!==undefined)setEl('sysCrons',fmt(s.crons_total,0));
+    }).catch(function(){});
+}
+
+loadStats();loadAgents();loadPrices();loadSystem();
 setInterval(loadStats,15000);setInterval(loadAgents,15000);setInterval(loadPrices,60000);
 </script>
 </body>
