@@ -6,17 +6,17 @@
 <title>Money Room — Market Prediction Engine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav>
   <div class="container">
-    <a href="/" class="logo"><span class="dot"></span> Money <span>Room</span></a>
+    <a href="." class="logo"><span class="dot"></span> Money <span>Room</span></a>
     <div class="nav-links" id="navLinks">
-      <a href="/" id="navLive" class="active">Live</a>
-      <a href="/live.html" id="navDashboard">Dashboard</a>
-      <a href="/pricing.html">Pricing</a>
+      <a href="." id="navLive" class="active">Live</a>
+      <a href="live.html" id="navDashboard">Dashboard</a>
+      <a href="pricing.html">Pricing</a>
       <a href="https://github.com/waefrebeorn/money-room" target="_blank">GitHub</a>
       <a href="#" id="navAuth" class="nav-cta">Sign In</a>
     </div>
@@ -131,8 +131,8 @@
     <h1>Algorithmic <span>Market Prediction</span> Engine</h1>
     <p class="subtitle">10,000 agent genomes evolving in real-time against live multi-market data. Genetic tournament selection. Multi-dimensional feature space. Realistic paper trading with exchange-grade fee models.</p>
     <div class="cta">
-      <a href="/live.html" class="primary" id="heroCta">📊 Live Dashboard</a>
-      <a href="/pricing.html" class="secondary">💰 Pricing</a>
+      <a href="live.html" class="primary" id="heroCta">📊 Live Dashboard</a>
+      <a href="pricing.html" class="secondary">💰 Pricing</a>
       <a href="https://github.com/waefrebeorn/money-room" class="secondary" target="_blank">⭐ GitHub</a>
     </div>
   </div>
@@ -216,7 +216,7 @@
 <div class="modal-overlay" id="loginModal">
   <div class="modal">
     <h2>🔑 Sign In</h2>
-    <p>Enter your API key to access the live dashboard. No account? <a href="/pricing.html">Subscribe here</a>.</p>
+    <p>Enter your API key to access the live dashboard. No account? <a href="pricing.html">Subscribe here</a>.</p>
     <input type="password" id="apiKeyInput" placeholder="Your API key (e.g. mr_...)" autocomplete="off">
     <div class="btn-row">
       <button class="btn-secondary" onclick="closeLogin()">Cancel</button>
@@ -230,12 +230,12 @@
   <div class="container">
     <div class="grid">
       <div class="brand"><div class="logo">Money <span>Room</span></div><p>Open-source algorithmic market prediction engine running 10,000 agent genomes on live multi-market data.</p></div>
-      <div><h4>Product</h4><a href="/live.html">Dashboard</a><br><a href="/pricing.html">Pricing</a><br><a href="https://github.com/waefrebeorn/money-room">GitHub</a></div>
-      <div><h4>Legal</h4><a href="/terms.html">Terms</a><br><a href="/privacy.html">Privacy</a></div>
+      <div><h4>Product</h4><a href="live.html">Dashboard</a><br><a href="pricing.html">Pricing</a><br><a href="https://github.com/waefrebeorn/money-room">GitHub</a></div>
+      <div><h4>Legal</h4><a href="terms.html">Terms</a><br><a href="privacy.html">Privacy</a></div>
       <div><h4>Network</h4><a href="https://github.com/waefrebeorn/money-room">Source Code</a><br><span style="color:var(--text-quaternary);font-size:13px;">⚡ BTC: 15wLLZxFzNesJKEXo6E9NMVhpZWEUcAC4R</span></div>
     </div>
     <div class="disclaimer"><p><b>⚠️ NOT FINANCIAL ADVICE</b> — Money Room is an open-source algorithmic research project. All data, predictions, and analysis are provided for <b>educational and research purposes only</b>. Nothing on this website constitutes financial advice, investment advice, or trading advice. Past performance does not guarantee future results. All metrics are from simulated paper trading with real exchange fee assumptions.</p></div>
-    <div class="bottom"><span>© 2026 Money Room</span> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a> · <a href="https://github.com/waefrebeorn/money-room">GitHub</a></div>
+    <div class="bottom"><span>© 2026 Money Room</span> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="https://github.com/waefrebeorn/money-room">GitHub</a></div>
   </div>
 </footer>
 
@@ -266,13 +266,13 @@ function login(){
   $('loginStatus').textContent='Validating...';$('loginStatus').className='status';
   fetch(BASE_URL+'/.auth?key='+encodeURIComponent(k),{cache:'no-store'})
     .then(function(r){
-      if(r.ok){ r.json().then(function(j){setApiKey(k,j.tier||'user');closeLogin();updateNav();window.location.href='/live.html';}); }
+      if(r.ok){ r.json().then(function(j){setApiKey(k,j.tier||'user');closeLogin();updateNav();window.location.href='live.html';}); }
       else if(r.status===401){
         fetch(BASE_URL+'/.auth.json',{cache:'no-store'}).then(function(ar){
           if(!ar.ok)throw Error();
           ar.json().then(function(ad){
             var hash = btoa(k);
-            if(ad.keys && ad.keys.indexOf(hash) >= 0){ setApiKey(k,'user');closeLogin();updateNav();window.location.href='/live.html'; }
+            if(ad.keys && ad.keys.indexOf(hash) >= 0){ setApiKey(k,'user');closeLogin();updateNav();window.location.href='live.html'; }
             else { $('loginStatus').textContent='Invalid key. Try again or subscribe.';$('loginStatus').className='status error'; }
           });
         }).catch(function(){ $('loginStatus').textContent='Invalid key.';$('loginStatus').className='status error'; });
@@ -283,10 +283,10 @@ function login(){
         if(!ar.ok)throw Error();
         ar.json().then(function(ad){
           var hash = btoa(k);
-          if(ad.keys && ad.keys.indexOf(hash) >= 0){ setApiKey(k,'user');closeLogin();updateNav();window.location.href='/live.html'; }
+          if(ad.keys && ad.keys.indexOf(hash) >= 0){ setApiKey(k,'user');closeLogin();updateNav();window.location.href='live.html'; }
           else { $('loginStatus').textContent='Invalid key.';$('loginStatus').className='status error'; }
         });
-      }).catch(function(){ setApiKey(k,'local');closeLogin();updateNav();$('loginStatus').textContent='Offline — local access only';$('loginStatus').className='status';setTimeout(function(){window.location.href='/live.html';},500); });
+      }).catch(function(){ setApiKey(k,'local');closeLogin();updateNav();$('loginStatus').textContent='Offline — local access only';$('loginStatus').className='status';setTimeout(function(){window.location.href='live.html';},500); });
     });
 }
 function logout(){clearApiKey();updateNav();$('navDashboard').style.display='none';}
