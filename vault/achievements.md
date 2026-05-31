@@ -19,3 +19,5 @@ Resolved gaps with file:line proof.
 || T009 | Per-market-type cascade features: compute_nested_prediction() now accepts MarketType. Probability-based features for SPORTS/WEATHER/PREDICTION/ELECTION. Per-market ring buffers. | `room_engine.c:69-208` |
 || T010 | Genome load error handling: fopen failure prints WARN; market_type suffix fread return checked; invalid market_type caught with default to CRYPTO. | `room_engine.c:336-356` |
 || T011 | Weather collector cron wired: daily 6:00 AM. Open-Meteo archive API. 728 entries/8 cities/90 days tested. | crontab |
+|| T012 | Sports collector cron wired: daily 6:30 AM. ESPN free API. 62 games/3 leagues tested. | crontab |
+|| T013 | Multi-market trainer cron wired: daily 7:00 AM (after data refresh). Trains 17 .bin genomes. | crontab |
