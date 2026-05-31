@@ -1,5 +1,8 @@
 /**
- * soccer_advanced_collector.c — Soccer Advanced Stats (xG, possession, passing)
+ * soccer_advanced_collector.c — Soccer Advanced Stats
+ * Extracts team records and statistics from ESPN soccer endpoints
+ * Soccer API structure differs from US sports — stats in team.recordSummary
+ *
  * Compile: gcc -O2 -Wall -o soccer_advanced_collector soccer_advanced_collector.c -lcurl -ljansson -lsqlite3 -lm
  */
 #define _POSIX_C_SOURCE 199309L
@@ -46,50 +49,74 @@ int main(void) {
     sqlite3 *db; sqlite3_open(DB_PATH, &db);
     sqlite3_exec(db,"CREATE TABLE IF NOT EXISTS soccer_advanced (league TEXT,team TEXT,stat_name TEXT,stat_value TEXT,fetched_at INTEGER,PRIMARY KEY(league,team,stat_name))",NULL,NULL,NULL);
     json_t *root = json_array();
-    
+
     for(int l=0;l<NL;l++) {
         char url[256]; snprintf(url,sizeof(url),"https://site.api.espn.com/apis/site/v2/sports/%s/%s/teams",LEAGUES[l].sport,LEAGUES[l].league);
         char *resp = get(url); if(!resp) continue;
         json_error_t err; json_t *j = json_loads(resp,0,&err); free(resp); if(!j) continue;
         json_t *ta = json_object_get(json_array_get(json_object_get(json_array_get(json_object_get(j,"sports"),0),"leagues"),0),"teams");
-        int ids[100], n=0; size_t ti; json_t *te;
-        json_array_foreach(ta,ti,te){int id=atoi(sstr(json_object_get(te,"team"),"id"));if(id>0&&n<100)ids[n++]=id;}
-        json_decref(j);
-        printf("[SOCCER] %s: %d teams\n", LEAGUES[l].name, n);
         
-        for(int t=0;t<n;t++){
-            snprintf(url,sizeof(url),"https://site.api.espn.com/apis/site/v2/sports/%s/%s/teams/%d/statistics",LEAGUES[l].sport,LEAGUES[l].league,ids[t]);
-            char *tr = get(url); if(!tr) continue;
-            json_t *tj = json_loads(tr,0,&err); free(tr); if(!tj) continue;
-            const char *tn = sstr(json_object_get(tj,"team"),"displayName");
-            if(!tn[0]){json_decref(tj);continue;}
-            json_t *cats = json_object_get(json_object_get(json_object_get(tj,"results"),"stats"),"categories");
-            if(!cats||!json_is_array(cats)){json_decref(tj);continue;}
-            json_t *entry = json_object(); json_object_set_new(entry,"team",json_string(tn));
+        size_t ti; json_t *te;
+        json_array_foreach(ta,ti,te) {
+            json_t *team = json_object_get(te,"team");
+            const char *tn = sstr(team,"displayName");
+            const char *rec = sstr(team,"recordSummary");
+            const char *stand = sstr(team,"standingSummary");
+            if(!tn[0]) continue;
+
+            json_t *entry = json_object(); 
+            json_object_set_new(entry,"team",json_string(tn));
             json_object_set_new(entry,"league",json_string(LEAGUES[l].name));
-            size_t ci; json_t *cat;
-            json_array_foreach(cats,ci,cat){
-                json_t *cs=json_object_get(cat,"stats"); if(!cs||!json_is_array(cs)) continue;
-                size_t si; json_t *st;
-                json_array_foreach(cs,si,st){
-                    const char *nm=json_string_value(json_object_get(st,"displayName"));
-                    const char *vl=json_string_value(json_object_get(st,"displayValue"));
-                    if(!nm) nm=json_string_value(json_object_get(st,"name"));
-                    if(!nm||!vl) continue;
-                    json_object_set_new(entry,nm,json_string(vl));
-                    sqlite3_stmt *st2;
-                    if(sqlite3_prepare_v2(db,"INSERT OR REPLACE INTO soccer_advanced VALUES(?,?,?,?,?)",-1,&st2,NULL)==SQLITE_OK){
-                        sqlite3_bind_text(st2,1,LEAGUES[l].name,-1,SQLITE_STATIC); sqlite3_bind_text(st2,2,tn,-1,SQLITE_STATIC);
-                        sqlite3_bind_text(st2,3,nm,-1,SQLITE_STATIC); sqlite3_bind_text(st2,4,vl,-1,SQLITE_STATIC);
-                        sqlite3_bind_int64(st2,5,(sqlite3_int64)time(NULL));
-                        sqlite3_step(st2); sqlite3_finalize(st2);
+            
+            // Parse recordSummary like "20-11-7" (wins-draws-losses)
+            if(rec[0]) {
+                json_object_set_new(entry,"record",json_string(rec));
+                int w=0,d=0,ls=0;
+                sscanf(rec,"%d-%d-%d",&w,&d,&ls);
+                char gs[32]; snprintf(gs,sizeof(gs),"%d",w+d+ls);
+                json_object_set_new(entry,"played",json_string(gs));
+                json_object_set_new(entry,"wins",json_integer(w));
+                json_object_set_new(entry,"draws",json_integer(d));
+                json_object_set_new(entry,"losses",json_integer(ls));
+                
+                sqlite3_stmt *st;
+                char vals[5][32];
+                snprintf(vals[0],sizeof(vals[0]),"%d",w);
+                snprintf(vals[1],sizeof(vals[1]),"%d",d);
+                snprintf(vals[2],sizeof(vals[2]),"%d",ls);
+                snprintf(vals[3],sizeof(vals[3]),"%d",w+d+ls);
+                const char *sn[] = {"wins","draws","losses","played","record"};
+                const char *sv[] = {vals[0],vals[1],vals[2],vals[3],rec};
+                for(int i=0;i<5;i++){
+                    if(sqlite3_prepare_v2(db,"INSERT OR REPLACE INTO soccer_advanced VALUES(?,?,?,?,?)",-1,&st,NULL)==SQLITE_OK){
+                        sqlite3_bind_text(st,1,LEAGUES[l].name,-1,SQLITE_STATIC);
+                        sqlite3_bind_text(st,2,tn,-1,SQLITE_STATIC);
+                        sqlite3_bind_text(st,3,sn[i],-1,SQLITE_STATIC);
+                        sqlite3_bind_text(st,4,sv[i],-1,SQLITE_STATIC);
+                        sqlite3_bind_int64(st,5,(sqlite3_int64)time(NULL));
+                        sqlite3_step(st); sqlite3_finalize(st);
                     }
                 }
             }
-            json_array_append_new(root,entry); json_decref(tj);
+            if(stand[0]) {
+                json_object_set_new(entry,"standing",json_string(stand));
+                sqlite3_stmt *st;
+                if(sqlite3_prepare_v2(db,"INSERT OR REPLACE INTO soccer_advanced VALUES(?,?,?,?,?)",-1,&st,NULL)==SQLITE_OK){
+                    sqlite3_bind_text(st,1,LEAGUES[l].name,-1,SQLITE_STATIC);
+                    sqlite3_bind_text(st,2,tn,-1,SQLITE_STATIC);
+                    sqlite3_bind_text(st,3,"standing",-1,SQLITE_STATIC);
+                    sqlite3_bind_text(st,4,stand,-1,SQLITE_STATIC);
+                    sqlite3_bind_int64(st,5,(sqlite3_int64)time(NULL));
+                    sqlite3_step(st); sqlite3_finalize(st);
+                }
+            }
+            json_array_append_new(root,entry);
         }
+        json_decref(j);
+        printf("[SOCCER] %s: %zu teams\n", LEAGUES[l].name, json_array_size(root));
     }
+
     mkdir(OUT_DIR,0755); json_dump_file(root,OUT_FILE,JSON_INDENT(2));
-    printf("[SOCCER] %zu teams total -> %s\n",json_array_size(root),OUT_FILE);
+    printf("[SOCCER] Total: %zu teams -> %s\n", json_array_size(root), OUT_FILE);
     json_decref(root); sqlite3_close(db); curl_global_cleanup(); return 0;
 }

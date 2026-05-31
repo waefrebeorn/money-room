@@ -1,1 +1,362 @@
-[]
+[
+  {
+    "team": "AFC Bournemouth",
+    "league": "EPL"
+  },
+  {
+    "team": "Arsenal",
+    "league": "EPL"
+  },
+  {
+    "team": "Aston Villa",
+    "league": "EPL"
+  },
+  {
+    "team": "Brentford",
+    "league": "EPL"
+  },
+  {
+    "team": "Brighton & Hove Albion",
+    "league": "EPL"
+  },
+  {
+    "team": "Burnley",
+    "league": "EPL"
+  },
+  {
+    "team": "Chelsea",
+    "league": "EPL"
+  },
+  {
+    "team": "Crystal Palace",
+    "league": "EPL"
+  },
+  {
+    "team": "Everton",
+    "league": "EPL"
+  },
+  {
+    "team": "Fulham",
+    "league": "EPL"
+  },
+  {
+    "team": "Leeds United",
+    "league": "EPL"
+  },
+  {
+    "team": "Liverpool",
+    "league": "EPL"
+  },
+  {
+    "team": "Manchester City",
+    "league": "EPL"
+  },
+  {
+    "team": "Manchester United",
+    "league": "EPL"
+  },
+  {
+    "team": "Newcastle United",
+    "league": "EPL"
+  },
+  {
+    "team": "Nottingham Forest",
+    "league": "EPL"
+  },
+  {
+    "team": "Sunderland",
+    "league": "EPL"
+  },
+  {
+    "team": "Tottenham Hotspur",
+    "league": "EPL"
+  },
+  {
+    "team": "West Ham United",
+    "league": "EPL"
+  },
+  {
+    "team": "Wolverhampton Wanderers",
+    "league": "EPL"
+  },
+  {
+    "team": "Alavés",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Athletic Club",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Atlético Madrid",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Barcelona",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Celta Vigo",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Elche",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Espanyol",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Getafe",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Girona",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Levante",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Mallorca",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Osasuna",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Rayo Vallecano",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Real Betis",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Real Madrid",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Real Oviedo",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Real Sociedad",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Sevilla",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Valencia",
+    "league": "LaLiga"
+  },
+  {
+    "team": "Villarreal",
+    "league": "LaLiga"
+  },
+  {
+    "team": "AC Milan",
+    "league": "SerieA"
+  },
+  {
+    "team": "AS Roma",
+    "league": "SerieA"
+  },
+  {
+    "team": "Atalanta",
+    "league": "SerieA"
+  },
+  {
+    "team": "Bologna",
+    "league": "SerieA"
+  },
+  {
+    "team": "Cagliari",
+    "league": "SerieA"
+  },
+  {
+    "team": "Como",
+    "league": "SerieA"
+  },
+  {
+    "team": "Cremonese",
+    "league": "SerieA"
+  },
+  {
+    "team": "Fiorentina",
+    "league": "SerieA"
+  },
+  {
+    "team": "Genoa",
+    "league": "SerieA"
+  },
+  {
+    "team": "Hellas Verona",
+    "league": "SerieA"
+  },
+  {
+    "team": "Internazionale",
+    "league": "SerieA"
+  },
+  {
+    "team": "Juventus",
+    "league": "SerieA"
+  },
+  {
+    "team": "Lazio",
+    "league": "SerieA"
+  },
+  {
+    "team": "Lecce",
+    "league": "SerieA"
+  },
+  {
+    "team": "Napoli",
+    "league": "SerieA"
+  },
+  {
+    "team": "Parma",
+    "league": "SerieA"
+  },
+  {
+    "team": "Pisa",
+    "league": "SerieA"
+  },
+  {
+    "team": "Sassuolo",
+    "league": "SerieA"
+  },
+  {
+    "team": "Torino",
+    "league": "SerieA"
+  },
+  {
+    "team": "Udinese",
+    "league": "SerieA"
+  },
+  {
+    "team": "Atlanta United FC",
+    "league": "MLS"
+  },
+  {
+    "team": "Austin FC",
+    "league": "MLS"
+  },
+  {
+    "team": "CF Montréal",
+    "league": "MLS"
+  },
+  {
+    "team": "Charlotte FC",
+    "league": "MLS"
+  },
+  {
+    "team": "Chicago Fire FC",
+    "league": "MLS"
+  },
+  {
+    "team": "Colorado Rapids",
+    "league": "MLS"
+  },
+  {
+    "team": "Columbus Crew",
+    "league": "MLS"
+  },
+  {
+    "team": "D.C. United",
+    "league": "MLS"
+  },
+  {
+    "team": "FC Cincinnati",
+    "league": "MLS"
+  },
+  {
+    "team": "FC Dallas",
+    "league": "MLS"
+  },
+  {
+    "team": "Houston Dynamo FC",
+    "league": "MLS"
+  },
+  {
+    "team": "Inter Miami CF",
+    "league": "MLS"
+  },
+  {
+    "team": "LA Galaxy",
+    "league": "MLS"
+  },
+  {
+    "team": "LAFC",
+    "league": "MLS"
+  },
+  {
+    "team": "Minnesota United FC",
+    "league": "MLS"
+  },
+  {
+    "team": "Nashville SC",
+    "league": "MLS"
+  },
+  {
+    "team": "New England Revolution",
+    "league": "MLS"
+  },
+  {
+    "team": "New York City FC",
+    "league": "MLS"
+  },
+  {
+    "team": "Orlando City SC",
+    "league": "MLS"
+  },
+  {
+    "team": "Philadelphia Union",
+    "league": "MLS"
+  },
+  {
+    "team": "Portland Timbers",
+    "league": "MLS"
+  },
+  {
+    "team": "Real Salt Lake",
+    "league": "MLS"
+  },
+  {
+    "team": "Red Bull New York",
+    "league": "MLS"
+  },
+  {
+    "team": "San Diego FC",
+    "league": "MLS"
+  },
+  {
+    "team": "San Jose Earthquakes",
+    "league": "MLS"
+  },
+  {
+    "team": "Seattle Sounders FC",
+    "league": "MLS"
+  },
+  {
+    "team": "Sporting Kansas City",
+    "league": "MLS"
+  },
+  {
+    "team": "St. Louis CITY SC",
+    "league": "MLS"
+  },
+  {
+    "team": "Toronto FC",
+    "league": "MLS"
+  },
+  {
+    "team": "Vancouver Whitecaps",
+    "league": "MLS"
+  }
+]
