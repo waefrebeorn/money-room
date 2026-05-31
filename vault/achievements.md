@@ -24,4 +24,5 @@ Resolved gaps with file:line proof.
 ||| T021 | Timestamp validation: LIVE_MODE feed rejects stale (>24h) and future (>5min) timestamps with WARN + ERR_NO_DATA. | `room_feeds.c:247-266` |
 ||| T027 | Per-market-type Darwin evolution: cull/clone within same market type. g_agent_market[] map. Same-type pref in repopulation. | `room_darwin.c:94-250` |
 |||| T028 | Per-market feature buffers (10×50). Binary price normalized to probability. F1/F2 market-type-aware. RSI/EMA/MACD/Bollinger per-market. | `room_features.c:250-368` |
-|||| T030 | Hot-reload genomes: every 1000 cycles scans data/multi_market/*.bin for new mtime, injects trained genome+noise into bottom 10% agents per market type, resets trade stats. Build-tested 5.5K+ cycles clean. | `room_engine.c:230-362` |
+||||| T030 | Hot-reload genomes: every 1000 cycles scans data/multi_market/*.bin for new mtime, injects trained genome+noise into bottom 10% agents per market type, resets trade stats. Build-tested 5.5K+ cycles clean. | `room_engine.c:230-362` |
+||||| T025 | Full feature matrix for binary markets: MarketData.double**feats stores all N_FEATURES per row. Sports/weather/prediction loaders use md_add_full(). train_market() reads feats directly instead of OHLCV compression. 550K trades across 17 markets. | `multi_market_trainer.c:41-520,769-789` |

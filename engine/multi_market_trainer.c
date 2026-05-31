@@ -4,7 +4,7 @@
  * Self-contained: loads CSV/DB data, trains agents, outputs genomes.
  * 
  * Compile:
- *   gcc -O3 -o multi_market_trainer multi_market_trainer.c -lsqlite3 -lm -I.
+ *   gcc -O3 -o multi_market_trainer multi_market_trainer.c -lsqlite3 -ljansson -lm -I.
  * Usage:
  *   ./multi_market_trainer [--epochs N] [--agents N]
  */
@@ -43,6 +43,7 @@ typedef struct {
     int64_t    *timestamps;
     double     *opens, *highs, *lows, *closes;
     double     *volumes;
+    double    **feats;         // Full feature matrix [n_rows][N_FEATURES] for binary markets
     int         n_rows;
     int         capacity;
 } MarketData;
@@ -98,8 +99,11 @@ static int md_grow(MarketData *md, int min_rows) {
     md->lows       = realloc(md->lows,       new_cap * sizeof(double));
     md->closes     = realloc(md->closes,     new_cap * sizeof(double));
     md->volumes    = realloc(md->volumes,    new_cap * sizeof(double));
-    if (!md->timestamps || !md->opens || !md->highs || !md->lows || !md->closes || !md->volumes)
+    md->feats      = realloc(md->feats,      new_cap * sizeof(double *));
+    if (!md->timestamps || !md->opens || !md->highs || !md->lows || !md->closes || !md->volumes || !md->feats)
         return -1;
+    // Zero new feat pointers
+    for (int i = md->capacity; i < new_cap; i++) md->feats[i] = NULL;
     md->capacity = new_cap;
     return 0;
 }
@@ -113,6 +117,24 @@ static int md_add(MarketData *md, int64_t ts, double o, double h, double l, doub
     md->lows[i] = l;
     md->closes[i] = c;
     md->volumes[i] = v;
+    md->feats[i] = NULL;  // Not a binary row
+    return 0;
+}
+
+// Store a row with full N_FEATURES feature vector (binary markets)
+static int md_add_full(MarketData *md, int64_t ts, const double *f, double outcome) {
+    if (md_grow(md, md->n_rows + 1) != 0) return -1;
+    int i = md->n_rows++;
+    md->timestamps[i] = ts;
+    md->opens[i] = outcome;  // Keep outcome in opens for backward compat (build_features)
+    md->highs[i] = 0;
+    md->lows[i] = 0;
+    md->closes[i] = outcome;
+    md->volumes[i] = 0;
+    // Allocate and copy full feature vector
+    md->feats[i] = malloc(N_FEATURES * sizeof(double));
+    if (!md->feats[i]) return -1;
+    memcpy(md->feats[i], f, N_FEATURES * sizeof(double));
     return 0;
 }
 
@@ -121,6 +143,7 @@ static void md_init(MarketData *md, MarketType type, const char *name, const cha
     md->type = type;
     strncpy(md->name, name, sizeof(md->name) - 1);
     strncpy(md->asset, asset, sizeof(md->asset) - 1);
+    md->feats = NULL;
 }
 
 // Load Yahoo-finance CSV: Date,Open,High,Low,Close,Volume,...
@@ -319,6 +342,12 @@ static void free_md(MarketDataSet *ds) {
         free(ds->markets[i].lows);
         free(ds->markets[i].closes);
         free(ds->markets[i].volumes);
+        // Free feature rows
+        if (ds->markets[i].feats) {
+            for (int r = 0; r < ds->markets[i].n_rows; r++)
+                free(ds->markets[i].feats[r]);
+            free(ds->markets[i].feats);
+        }
     }
     ds->n_markets = 0;
 }
@@ -396,8 +425,8 @@ static int load_sports_json(MarketData *md) {
                 f[f_idx] = 0.5;
         }
         
-        double o = f[0], h = f_idx_ge(f, 1, 5), l = f_idx_ge(f, 5, 10);
-        if (md_add(md, ts, o, h, l, outcome, 0) == 0) loaded++;
+        // Store full feature vector for training
+        if (md_add_full(md, ts, f, outcome) == 0) loaded++;
     }
     
     json_decref(root);
@@ -439,8 +468,8 @@ static int load_weather_json(MarketData *md) {
         for (int f_idx = 0; f_idx < N_FEATURES && f_idx < (int)json_array_size(jfeats); f_idx++)
             f[f_idx] = json_number_value(json_array_get(jfeats, f_idx));
         
-        double o = f[0], h = f_idx_ge(f, 1, 3), l = f_idx_ge(f, 3, 5);
-        if (md_add(md, ts, o, h, l, outcome, 0) == 0) loaded++;
+        // Store full feature vector for training
+        if (md_add_full(md, ts, f, outcome) == 0) loaded++;
     }
     
     json_decref(root);
@@ -479,8 +508,13 @@ static int load_prediction_market(MarketData *md) {
         double f4 = sqlite3_column_double(stmt, 7);
         double f5 = sqlite3_column_double(stmt, 8);
         
-        double o = f0, h = (f1 + f2 + f3) / 3.0, l = (f4 + f5) / 2.0;
-        if (md_add(md, ts, o, h, l, outcome, volume) == 0) loaded++;
+        // Build full feature array
+        double feats[N_FEATURES];
+        memset(feats, 0, sizeof(feats));
+        feats[0] = f0; feats[1] = f1; feats[2] = f2;
+        feats[3] = f3; feats[4] = f4; feats[5] = f5;
+        
+        if (md_add_full(md, ts, feats, outcome) == 0) loaded++;
     }
     
     sqlite3_finalize(stmt);
@@ -730,12 +764,17 @@ static int train_market(MarketPop *pop, const MarketData *md) {
         // Build features differently for binary vs OHLCV markets
         float feats[N_FEATURES];
         if (is_binary) {
-            // Binary market: features are packed in OHLCV fields
-            for (int i = 0; i < N_FEATURES; i++) feats[i] = 0.5f;
-            feats[0] = (float)md->opens[idx];         // F0 from opens
-            feats[1] = (float)md->highs[idx];         // F1-F3 avg packed in highs
-            feats[2] = (float)md->lows[idx];          // F3-F5 avg packed in lows
-            feats[17] = (float)(md->closes[idx] >= 1 ? 0.8f : 0.2f);  // outcome bias
+            // Binary market: prefer full feature matrix, fallback to OHLCV compression
+            if (md->feats && md->feats[idx]) {
+                for (int i = 0; i < N_FEATURES; i++)
+                    feats[i] = (float)md->feats[idx][i];
+            } else {
+                for (int i = 0; i < N_FEATURES; i++) feats[i] = 0.5f;
+                feats[0] = (float)md->opens[idx];
+                feats[1] = (float)md->highs[idx];
+                feats[2] = (float)md->lows[idx];
+                feats[17] = (float)(md->closes[idx] >= 1 ? 0.8f : 0.2f);
+            }
         } else {
             build_features(md, idx, feats);
         }
