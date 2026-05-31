@@ -1,0 +1,36 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Deploy site files to gh-pages
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git fetch origin gh-pages
+          git checkout gh-pages
+
+          # Overwrite ALL site files from main
+          git checkout main -- index.html live.html pricing.html terms.html privacy.html style.css data/stats.json data/prices.json data/agents.json .auth.json .nojekyll
+
+          # Stage ONLY site files — not vendor/binaries/docs/symlinks
+          git add index.html live.html pricing.html terms.html privacy.html style.css data/ data/stats.json data/prices.json data/agents.json .auth.json .nojekyll
+
+          git commit -m "deploy: $(date +'%Y-%m-%d %H:%M')" || echo "nothing to commit"
+          git push origin gh-pages
