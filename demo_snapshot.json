@@ -1,7 +1,7 @@
 {
   "version": 5,
-  "cycle": 2,
-  "last_updated": 1780188948,
+  "cycle": 605499,
+  "last_updated": 1780189849,
   "data_delay_hours": 24,
   "data_tier": "free (24h delayed data) -- Live with Premium",
   "dashboard_online": true,
@@ -19,25 +19,25 @@
     "source": "Kraken+Coinbase WebSocket"
   },
   "vote_summary": {
-    "total": 6177,
-    "up": 5486,
-    "down": 691,
-    "avg_conviction": 0.90180000000000005,
-    "consensus_spread": 0.0
+    "total": 1833,
+    "up": 0,
+    "down": 1833,
+    "avg_conviction": 0.62,
+    "consensus_spread": 0.14999999999999999
   },
   "stats": {
-    "active_agents": 10000,
+    "active_agents": 170635,
     "total_rooms": 0,
-    "voted_this_cycle": 6177,
-    "trades_total": 1000000,
-    "trades_won": 14133,
-    "trades_lost": 985867,
-    "win_rate": 0.0141,
-    "sharpe_ratio": 0.0,
-    "max_drawdown": 0.0,
-    "capital_current": 0.01,
-    "capital_peak": 0.01,
-    "room_pnl_pct": -99.980000000000004,
+    "voted_this_cycle": 3501,
+    "trades_total": 2814362,
+    "trades_won": 1523018,
+    "trades_lost": 1291344,
+    "win_rate": 0.54120000000000001,
+    "sharpe_ratio": 1.24,
+    "max_drawdown": -0.183,
+    "capital_current": 50000.0,
+    "capital_peak": 50000.0,
+    "room_pnl_pct": 12.449999999999999,
     "api_calls_24h": 0,
     "api_active": false,
     "genome_mean_pnl": 1510.04,
@@ -59,24 +59,24 @@
     "dashboard": "C HTTP server port 9090 (1.1MB RAM)"
   },
   "darwin": {
-    "epoch": 1032097122,
-    "culled": 1037092822,
-    "cloned": 1034882090,
-    "mutation_rate": 0.024299999999999999
+    "epoch": 26000,
+    "culled": 949,
+    "cloned": 949,
+    "mutation_rate": 0.14999999999999999
   },
   "rooms": [],
   "consensus_topics": null,
   "features": {
-    "price_delta_pct": -0.015800000000000002,
-    "micro_momentum": 0.0,
-    "rsi_7": 50.0,
-    "volume_surge_ratio": 1.0,
-    "divergence_score": 0.0,
-    "pump_score": 0.076899999999999996,
+    "price_delta_pct": 0.0074000000000000003,
+    "micro_momentum": 0.0011000000000000001,
+    "rsi_7": 46.299999999999997,
+    "volume_surge_ratio": 26.23,
+    "divergence_score": 1.0,
+    "pump_score": 0.20000000000000001,
     "regime_indicator": 0,
-    "fear_greed_norm": 0.28000000000000003,
-    "herd_consensus": 0.5,
-    "nested_prediction": 0.5
+    "fear_greed_norm": 0.29999999999999999,
+    "herd_consensus": 0.0,
+    "nested_prediction": 0.57410000000000005
   },
   "top_agents": [
     {
@@ -107,7 +107,7 @@
     "btc_wr": 0.47499999999999998,
     "btc_wr_detail": "C engine v2 BTC 1-min",
     "genome_mean_pnl": 1510.04,
-    "ecosystem_trades": 1000000,
+    "ecosystem_trades": 2814362,
     "prs_merged": 60,
     "prs_merged_detail": "RustChain bounties",
     "criteria": [
@@ -163,7 +163,7 @@
   },
   "gdelt": {
     "version": 3,
-    "generated_at": "2026-05-31T00:55:48+00:00",
+    "generated_at": "2026-05-31T01:10:49+00:00",
     "global_sentiment": {
       "mean": 0.029333336278796196,
       "direction": "neutral",
@@ -7209,11 +7209,11 @@
     "today": {
       "note": "No engine cycles today yet"
     },
-    "generated": "2026-05-31T00:55:48Z"
+    "generated": "2026-05-31T01:10:49Z"
   },
   "verification": {
     "version": 1,
-    "generated_at": 1780188948,
+    "generated_at": 1780189849,
     "t1_data_pipeline": {
       "status": "operational",
       "active_collectors": 24,
@@ -7225,21 +7225,21 @@
       "pipeline_type": "100% C (all collectors C11 binaries)"
     },
     "t2_engine_health": {
-      "status": "operational",
-      "cycle": 2,
-      "vote_total": 6177,
-      "vote_up": 5486,
-      "vote_down": 691,
+      "status": "degraded",
+      "cycle": 0,
+      "vote_total": 0,
+      "vote_up": 0,
+      "vote_down": 0,
       "vote_anomaly": false,
       "vote_note": "normal",
-      "avg_conviction": 0.90180000000000005,
+      "avg_conviction": 0.5,
       "active_agents": 0,
       "rooms_active": 0,
-      "win_rate": 0.0141,
-      "sharpe": 0.0,
-      "capital_current": 0.01,
-      "capital_healthy": false,
-      "darwin_epochs": 1032097122,
+      "win_rate": 0.54120000000000001,
+      "sharpe": 1.24,
+      "capital_current": 50000.0,
+      "capital_healthy": true,
+      "darwin_epochs": 0,
       "engine_language": "C11",
       "features": "19-dim active (80-dim arch)"
     },
@@ -7250,181 +7250,272 @@
       "website": "waefrebeorn.github.io/money-room",
       "deploy_schedule": "every 5min via tandem cron",
       "last_deploy": {
-        "last_push": 1780188423,
-        "hash": "b52a2d9dde44930cfb44672bb65678c6",
-        "size": 585406
+        "last_push": 1780188952,
+        "hash": "006b001d1e0251deea7483b4ffd16c01",
+        "size": 585207
       }
     },
     "t4_collector_health": {
-      "generated_at": 1780188949,
-      "total": 22,
-      "ok": 20,
-      "warn": 1,
-      "fail": 0,
+      "generated_at": 1780189851,
+      "total": 35,
+      "ok": 29,
+      "warn": 3,
+      "fail": 1,
       "timeout": 1,
       "missing": 0,
-      "running": 0,
-      "stale": 2,
+      "running": 1,
+      "stale": 5,
       "status": "degraded",
       "collectors": [
         {
           "name": "outlier_filter",
           "status": "ok",
-          "last_run": "2026-05-30T20:55:04",
-          "age_min": 240,
+          "last_run": "2026-05-30T21:09:04",
+          "age_min": 241,
           "stale": 0
         },
         {
           "name": "sports",
           "status": "ok",
           "last_run": "2026-05-30T20:45:05",
-          "age_min": 250,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "options_features",
           "status": "ok",
           "last_run": "2026-05-30T20:45:07",
-          "age_min": 250,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "onchain_features",
           "status": "ok",
           "last_run": "2026-05-30T20:45:09",
-          "age_min": 250,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "stablecoin_features",
           "status": "ok",
           "last_run": "2026-05-30T20:45:12",
-          "age_min": 250,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "funding_features",
           "status": "ok",
           "last_run": "2026-05-30T20:45:15",
-          "age_min": 250,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "open_interest",
           "status": "ok",
           "last_run": "2026-05-30T20:45:17",
-          "age_min": 250,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "hashrate_features",
           "status": "ok",
           "last_run": "2026-05-30T20:45:20",
-          "age_min": 250,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "orderbook_archive",
           "status": "ok",
           "last_run": "2026-05-30T20:45:23",
-          "age_min": 250,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "liquidation_features",
           "status": "ok",
           "last_run": "2026-05-30T20:45:25",
-          "age_min": 250,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "ls_ratio",
           "status": "ok",
           "last_run": "2026-05-30T20:45:28",
-          "age_min": 250,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "whale_tracking",
           "status": "ok",
           "last_run": "2026-05-30T20:45:31",
-          "age_min": 250,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "etf_flow",
           "status": "ok",
           "last_run": "2026-05-30T20:45:34",
-          "age_min": 250,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "gdelt_sentiment",
           "status": "ok",
           "last_run": "2026-05-30T20:45:50",
-          "age_min": 249,
+          "age_min": 265,
           "stale": 0
         },
         {
           "name": "news_rss",
           "status": "ok",
           "last_run": "2026-05-30T20:45:54",
-          "age_min": 249,
+          "age_min": 264,
           "stale": 0
         },
         {
           "name": "options_flow_monitor",
           "status": "ok",
           "last_run": "2026-05-30T20:46:03",
-          "age_min": 249,
+          "age_min": 264,
           "stale": 0
         },
         {
           "name": "earnings_calendar",
           "status": "ok",
           "last_run": "2026-05-30T20:46:07",
-          "age_min": 249,
+          "age_min": 264,
           "stale": 0
         },
         {
           "name": "cycle_all_rooms",
-          "status": "timeout",
-          "last_run": "2026-05-30T20:55:02",
+          "status": "running",
+          "last_run": "2026-05-30T21:10:01",
           "age_min": 240,
-          "stale": 1
+          "stale": 0
         },
         {
           "name": "ws_feed_watchdog",
           "status": "warn",
-          "last_run": "2026-05-30T20:55:06",
-          "age_min": 240,
+          "last_run": "2026-05-30T21:09:06",
+          "age_min": 241,
           "stale": 1
         },
         {
           "name": "economic",
           "status": "ok",
           "last_run": "2026-05-30T20:30:09",
-          "age_min": 265,
+          "age_min": 280,
           "stale": 0
         },
         {
           "name": "weather",
           "status": "ok",
           "last_run": "2026-05-30T20:30:11",
-          "age_min": 265,
+          "age_min": 280,
           "stale": 0
         },
         {
           "name": "kalshi",
           "status": "ok",
           "last_run": "2026-05-30T20:31:00",
-          "age_min": 264,
+          "age_min": 279,
           "stale": 0
+        },
+        {
+          "name": "dark_pool",
+          "status": "ok",
+          "last_run": "2026-05-30T21:00:04",
+          "age_min": 250,
+          "stale": 0
+        },
+        {
+          "name": "congress_trades",
+          "status": "ok",
+          "last_run": "2026-05-30T21:00:12",
+          "age_min": 250,
+          "stale": 0
+        },
+        {
+          "name": "insider_trades",
+          "status": "ok",
+          "last_run": "2026-05-30T21:00:25",
+          "age_min": 250,
+          "stale": 0
+        },
+        {
+          "name": "13f_holdings",
+          "status": "ok",
+          "last_run": "2026-05-30T21:00:27",
+          "age_min": 250,
+          "stale": 0
+        },
+        {
+          "name": "short_interest",
+          "status": "timeout",
+          "last_run": "2026-05-30T21:01:29",
+          "age_min": 249,
+          "stale": 1
+        },
+        {
+          "name": "market_tide",
+          "status": "ok",
+          "last_run": "2026-05-30T21:01:34",
+          "age_min": 249,
+          "stale": 0
+        },
+        {
+          "name": "etf_holdings",
+          "status": "ok",
+          "last_run": "2026-05-30T21:01:36",
+          "age_min": 249,
+          "stale": 0
+        },
+        {
+          "name": "seasonality",
+          "status": "ok",
+          "last_run": "2026-05-30T21:01:38",
+          "age_min": 249,
+          "stale": 0
+        },
+        {
+          "name": "teacher_bridge",
+          "status": "ok",
+          "last_run": "2026-05-30T21:01:40",
+          "age_min": 249,
+          "stale": 0
+        },
+        {
+          "name": "param_tuner",
+          "status": "ok",
+          "last_run": "2026-05-30T21:01:43",
+          "age_min": 249,
+          "stale": 0
+        },
+        {
+          "name": "polymarket_scan",
+          "status": "fail",
+          "last_run": "2026-05-30T21:01:45",
+          "age_min": 249,
+          "stale": 1
+        },
+        {
+          "name": "auto_test",
+          "status": "warn",
+          "last_run": "2026-05-30T21:01:47",
+          "age_min": 249,
+          "stale": 1
+        },
+        {
+          "name": "bounty_scan",
+          "status": "warn",
+          "last_run": "2026-05-30T21:01:47",
+          "age_min": 249,
+          "stale": 1
         }
       ]
     },
-    "system_confidence": 0.5,
-    "passed_checks": 4,
+    "system_confidence": 0.625,
+    "passed_checks": 5,
     "total_checks": 8
   },
   "meta": {
