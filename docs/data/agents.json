@@ -1,70 +1,70 @@
 {
   "agents": [
     {
-      "capital": 49.999240999999998,
+      "capital": 49.999104000000003,
       "id": 8967,
       "rank": 1,
       "trades": 0,
       "win_rate": 0.5
     },
     {
-      "capital": 49.998916999999999,
+      "capital": 49.998722000000001,
       "id": 8714,
       "rank": 2,
       "trades": 0,
       "win_rate": 0.5
     },
     {
-      "capital": 49.998753000000001,
+      "capital": 49.998531,
       "id": 8822,
       "rank": 3,
       "trades": 0,
       "win_rate": 0.5
     },
     {
-      "capital": 49.998286999999998,
+      "capital": 49.997985999999997,
       "id": 8784,
       "rank": 4,
       "trades": 0,
       "win_rate": 0.5
     },
     {
-      "capital": 49.997574,
+      "capital": 49.997154000000002,
       "id": 8850,
       "rank": 5,
       "trades": 0,
       "win_rate": 0.5
     },
     {
-      "capital": 49.996681000000002,
+      "capital": 49.996101000000003,
       "id": 8801,
       "rank": 6,
       "trades": 0,
       "win_rate": 0.5
     },
     {
-      "capital": 49.996498000000003,
+      "capital": 49.995894999999997,
       "id": 8503,
       "rank": 7,
       "trades": 0,
       "win_rate": 0.5
     },
     {
-      "capital": 49.996304000000002,
+      "capital": 49.995659000000003,
       "id": 8581,
       "rank": 8,
       "trades": 0,
       "win_rate": 0.5
     },
     {
-      "capital": 49.994689999999999,
+      "capital": 49.993771000000002,
       "id": 8746,
       "rank": 9,
       "trades": 0,
       "win_rate": 0.5
     },
     {
-      "capital": 49.993808999999999,
+      "capital": 49.992736999999998,
       "id": 8803,
       "rank": 10,
       "trades": 0,
@@ -72,5 +72,5 @@
     }
   ],
   "count": 10,
-  "timestamp": 1780265704
+  "timestamp": 1780266019
 }
