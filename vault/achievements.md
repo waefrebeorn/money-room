@@ -28,6 +28,15 @@ Resolved gaps with file:line proof.
 28|||||| T025 | Full feature matrix for binary markets: MarketData.double**feats stores all N_FEATURES per row. Sports/weather/prediction loaders use md_add_full(). train_market() reads feats directly instead of OHLCV compression. 550K trades across 17 markets. | `multi_market_trainer.c:41-520,769-789` |
 29|||||| T022 | Pipeline health dashboard: C pipeline_monitor.c inspects 20 pipeline components (cron log mtimes, data freshness, engine state), writes `pipeline_status.json`. HTML dashboard at `dashboard.html` with KPI cards + filterable table. Cron every 5 min. | `engine/pipeline_monitor.c`, `docs/dashboard.html` |
 |30|||||| T017 | Data quality checks: C data_quality.c validates 22 data sources — row counts, file age, JSON parse, value ranges. Writes `data_quality.json`. Dashboard tab shows pass/warn/fail with issue tags. Cron every 10 min. | `engine/data_quality.c`, `docs/dashboard.html` |
+| T031 | **gdelt_sentiment missing binary found in mega-era backup**, copied to money-room/engine/ | `engine/gdelt_sentiment` |
+| T032 | **options_feat missing binary found in mega-era backup**, copied to money-room/engine/ | `engine/options_feat` |
+| T033 | **economic_collector missing binary found in mega-era backup**, copied to money-room/engine/ | `engine/economic_collector` |
+| T034 | **cross_asset_c restored from git history (42048fb)**, recompiled, reads timeline.db | `engine/cross_asset_c.c` |
+| T035 | **accuracy_scorer written from scratch** — 75-line C scorer reads outcomes.db | `engine/accuracy_scorer.c` |
+| T036 | **room_engine_v3 rebuilt** with all 7 source files (was 89min stale, link errors from missing .c files) | `engine/room_engine_v3` |
+| T037 | **frankfurter_collector ELF binary → .sh wrapper** — Hermes cron Script field cannot run ELF directly | `~/.hermes/scripts/frankfurter_wrapper.sh` |
+| T038 | **cycle-all-rooms-c duplicate removed** — system crontab already runs C binary every minute | Cron removed |
+| T039 | **Dual training pipeline consolidated** — removed 2 wasteful LLM-driven trainers (multi-market-training, multi-market-trainer). Kept daily paper-train (3am) + system crontab (7am). | Cron removed |
 |31|31|||||| T031 | Paper_feature_bridge: replaces hardcoded aux values (vix=16, sp500=5000) with real historical data from timeline.db. SP500: 2239→7580, VIX: 11→57.8 across 2017-2026. | `engine/paper_feature_bridge.c:1-310`, `room_feeds.c:154-165` |
 |32|32|||||| T032 | BTC CSV refresh: btc_csv_refresher fetches Coinbase/Kraken OHLC every 15 min. BTC CSV went from 7 days stale to ~1 min latency. 723K candles. | `engine/btc_csv_refresher.c`, crontab |
 |33|33|||||| T033 | Daytime paper trading: paper_live_bridge runs 2500 agents on live feed, outputs stats every 60s to paper_stats.json. Auto-dashboard at paper.html with leaderboard, capital distribution, PnL tracking. | `engine/paper_live_bridge.c`, `docs/paper.html` |

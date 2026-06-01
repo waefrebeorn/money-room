@@ -42,10 +42,10 @@ paper_feature_bridge.o: paper_feature_bridge.c paper_feature_bridge.h types.h
 	$(CC) $(CFLAGS) -c paper_feature_bridge.c -o paper_feature_bridge.o
 
 clean:
-	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge $(TOOLS)
+	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge $(TOOLS) cross_asset_c accuracy_scorer
 
 # ── Shell-to-C conversions ──
-tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all
+tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer
 
 cycle_all_rooms: cycle_all_rooms.c
 	$(CC) -O2 -o $@ $<
@@ -90,3 +90,14 @@ sports_collector: sports_collector.c
 	$(CC) -O2 -o sports_collector sports_collector.c -lcurl -ljansson -lm
 
 all_collectors: weather_collector sports_collector multi_market_trainer
+
+# ── Cross-asset correlation engine (reads timeline.db) ──
+cross_asset_c: cross_asset_c.c
+	$(CC) -O2 -o $@ $< $(LDFLAGS) -lsqlite3 -lm
+
+cross: cross_asset_c
+	@./cross_asset_c
+
+# ── Accuracy scorer (reads outcomes.db) ──
+accuracy_scorer: accuracy_scorer.c
+	$(CC) -O2 -o $@ $< $(LDFLAGS) -lsqlite3 -lm
