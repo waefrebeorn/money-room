@@ -168,6 +168,7 @@ static CollectorTask SLOW_TASKS[] = {
     {"pm_data_collector.sh",   "polymarket_scan",   120},
     {"auto_test_runner.sh",    "auto_test",         120},
     {"bounty_scanner_wrapper.sh", "bounty_scan",    60},
+    {"polymarket_collector.sh","polymarket",        60},
 };
 #define N_SLOW (sizeof(SLOW_TASKS) / sizeof(SLOW_TASKS[0]))
 
