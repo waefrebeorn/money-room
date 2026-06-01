@@ -1,18 +1,28 @@
 # ACHIEVEMENTS — Money Room Vault
 
-## Batch 2026-06-01 — CB-STOCK Closure
-- **volatility_calc.c** (168 lines C) — HV10/HV30 calculator from timeline.db OHLCV
-  - Reads close prices from yahoo_collector data, computes rolling HV10/HV30
-  - Outputs docs/data/volatility.json for 27 tickers (ETFs, sectors, commodities, crypto)
-  - Wires into collector_runner SLOW queue, wrapper at ~/.hermes/scripts/volatility_fetch.sh
-  - All 6/6 Stock tools PORTED: info, chains, max pain, IV rank, volatility, Greeks
-- Battleship fully cleared: 15/15 Unusual Whales categories PORTED
+## Batch 2026-06-01 — DA Cleanup + CB-STOCK Closure
+- **volatility_calc.c** (201 lines C) — HV10/HV30 calculator from timeline.db OHLCV
+  - 27 tickers: SPY HV10=10.4%, QQQ HV10=16.0%, BTC HV10=17.6%/HV30=20.6%
+  - Wired into collector_runner SLOW via ~/.hermes/scripts/volatility_fetch.sh
+- **earnings_calendar.c** rebuilt, **earnings_cal.c** (159 lines) compiled for first time
+  - Both added to Makefile build targets, clean, and tools list
+- **Battleship doc sweep**: corrected "12/15 PORTED, 3 PARTIAL" (was overstating)
+  - Execution order section removed (stale past-tense)
+  - CB-MARKET, CB-OPTIONS, CB-NEWS honestly labeled PARTIAL with gaps listed
+  - Line counts updated to match source (393→stock_collector, 326→screener, etc.)
 
 ## Previous Achievements
-- CB-POLITICIAN PORTED (politician_portfolio.c 388 lines)
-- CB-SEASONALITY confirmed PORTED (seasonality.c)
-- IV rank tracker (iv_rank.c 180 lines)
-- 7 CB categories PORTED in prior batches
-- Key rotation health monitor (key_rotation.c 314 lines)
-- Min trade stake enforcement
-- On-chain blending into pump_score (feed_bridge.c)
+- CB-POLITICIAN PORTED — politician_portfolio.c (388 lines C, compiled, cron 240min)
+- CB-SEASONALITY PORTED — seasonality.c (203 lines C, compiled, cron 30min)
+- IV rank tracker — iv_rank.c (181 lines C, wired collector_runner 60min)
+- CB-CONGRESS PORTED — congress_trades.c (363 lines C, cron 60min)
+- CB-INSIDER PORTED — insider_trades.c (338 lines C, cron 60min)
+- CB-DARKPOOL PORTED — dark_pool_feat.c (546 lines C, cron 60min)
+- CB-INSTITUTIONS PORTED — 13f_holdings.c (338 lines C)
+- CB-SCREENER PORTED — stock_screener.c (326 lines C, cron 60min)
+- CB-SHORTS PORTED — short_interest_feat.c (727 lines C)
+- CB-ETF PORTED — etf_flow_feat.c (174 lines C) + etf_holdings.c (151 lines C)
+- CB-EARNINGS PORTED — earnings_calendar.c (251 lines C) + earnings_cal.c (159 lines C)
+- Key rotation health monitor — key_rotation.c (314 lines, 16 API keys, daily cron)
+- Min trade stake enforcement — MIN_TRADE_STAKE=$1 in types.h/room_capital.c
+- On-chain blending into pump_score — feed_bridge.c (BTC dominance 30% weight)
