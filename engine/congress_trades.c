@@ -274,7 +274,7 @@ static int write_features(sqlite3 *db) {
 static void cmd_fetch(int pages) {
     char cmd[256];
     snprintf(cmd, sizeof(cmd), "mkdir -p %s", DB_DIR);
-    system(cmd);
+    int _r = system(cmd); (void)_r;
     sqlite3 *db = open_db();
     if (!db) { fprintf(stderr, "DB error\n"); return; }
     printf("Fetching congressional trades...\n");
@@ -353,7 +353,7 @@ int main(int argc, char **argv) {
         long sz = ftell(f);
         rewind(f);
         char *b = malloc(sz + 1);
-        fread(b, 1, sz, f);
+        size_t _r2 = fread(b, 1, sz, f); (void)_r2;
         b[sz] = '\0';
         fclose(f);
         printf("%s\n", b);

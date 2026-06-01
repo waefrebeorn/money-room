@@ -75,6 +75,7 @@ static sqlite3 *dbo(const char *path) {
 }
 
 static double scale(double val, double max_val, double neutral) {
+    (void)neutral;
     if (val <= MISSING / 2) return -1;
     double s = fmin(val / max_val * 100.0, 100.0);
     return (s < 0) ? 0 : s;
@@ -277,6 +278,9 @@ static void print_ticker(const TickerSignal *s) {
 }
 
 int main(int argc, char **argv) {
+    // Suppress unused function warnings for dead code that may be useful later
+    (void)scale;
+    (void)qi;
     int limit = 10;
     const char *filter_ticker = NULL;
     if (argc >= 2) { limit = atoi(argv[1]); if (limit <= 0 || limit > 100) limit = 10; }

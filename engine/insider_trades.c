@@ -96,7 +96,7 @@ static int fetch_form4(const char *start_date, const char *end_date, int page,
             json_t *ciks = json_object_get(source, "ciks");
             json_t *file_date = json_object_get(source, "file_date");
             json_t *period = json_object_get(source, "period_ending");
-            json_t *file_num = json_object_get(source, "file_num");
+            json_t *file_num = json_object_get(source, "file_num"); (void)file_num;
 
             // Extract filing detail URL from _id
             const char *id = json_string_value(json_object_get(hit, "_id"));
@@ -272,7 +272,7 @@ static int write_features(sqlite3 *db) {
 static void cmd_fetch(void) {
     char cmd[256];
     snprintf(cmd, sizeof(cmd), "mkdir -p %s", DB_DIR);
-    system(cmd);
+    int _r = system(cmd); (void)_r;
 
     sqlite3 *db = open_db();
     if (!db) { fprintf(stderr, "DB error\n"); return; }

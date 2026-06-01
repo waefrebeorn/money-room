@@ -471,7 +471,7 @@ static void cmd_latest(const char *ticker) {
     long sz = ftell(f);
     rewind(f);
     char *buf = malloc(sz + 1);
-    fread(buf, 1, sz, f);
+    size_t _r2 = fread(buf, 1, sz, f); (void)_r2;
     buf[sz] = '\0';
     fclose(f);
     printf("%s\n", buf);
@@ -526,7 +526,7 @@ int main(int argc, char **argv) {
     // Ensure cache directory exists
     char mkdir_cmd[256];
     snprintf(mkdir_cmd, sizeof(mkdir_cmd), "mkdir -p %s", DB_DIR);
-    system(mkdir_cmd);
+    int _s = system(mkdir_cmd); (void)_s;
 
     if (strcmp(argv[1], "fetch") == 0 && argc >= 3) {
         cmd_fetch(argv[2]);

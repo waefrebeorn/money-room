@@ -104,3 +104,13 @@ Resolved gaps with file:line proof.
 100|100|100|100|100|100|100|100|100|100||| T098 | **Key rotation health monitor**: 314-line C binary scans secrets.env, tracks key age in key_rotation.db, flags keys >90 days. Outputs JSON to docs/data/key_health.json. Detects 4 empty placeholders. Cron: daily at 3am. | `engine/key_rotation.c`, `engine/Makefile` |
 
 101|101|101|101|101|101|101|101|101|101||| T088 | **On-chain blended into pump_score**: feed_bridge.c now reads ONCHAIN_FEAT (BTC dominance %) and blends it into pump_score (30% weight). On-chain sentiment reaches engine without genome changes. | `engine/feed_bridge.c:178-192` |
+102|
+103|102|102|102|102|102|102|102|102|102|102||| CB-CONGRESS | **Congress Trades compiled**: congress_trades.c (363 lines) compiled to binary, 0 warnings. Wrapper existed, collector_runner already wired every 60min. Capitol Trades public API, no key needed. | `engine/congress_trades.c`, `engine/Makefile` |
+104|
+105|103|103|103|103|103|103|103|103|103|103||| CB-INSIDER | **Insider Trades compiled**: insider_trades.c (338 lines) compiled to binary, 0 warnings. SEC EDGAR Form 4 collector. Wrapper existed, collector_runner wired every 60min. | `engine/insider_trades.c`, `engine/Makefile` |
+106|
+107|104|104|104|104|104|104|104|104|104|104||| CB-DARKPOOL | **Dark Pool Features compiled**: dark_pool_feat.c (546 lines) compiled to binary, 0 warnings. FINRA/CBOE dark pool data, SQLite-backed. Wrapper existed, collector_runner wired every 60min. | `engine/dark_pool_feat.c`, `engine/Makefile` |
+108|
+109|105|105|105|105|105|105|105|105|105|105||| CB-ETF-FLOW | **ETF Flow compiled**: etf_flow_feat.c (173 lines) compiled to binary, 0 warnings. 7 BTC ETFs tracked. Wrapper existed, collector_runner wired every 30min. | `engine/etf_flow_feat.c`, `engine/Makefile` |
+110|
+111|106|106|106|106|106|106|106|106|106|106||| CB-SCREENER | **Stock Screener compiled + wired**: stock_screener.c (322 lines) compiled to binary, 0 warnings. Multi-source composite screener (joins 12 DBs). Wrapper script created, added to collector_runner SLOW (every 60min). | `engine/stock_screener.c`, `~/.hermes/scripts/stock_screener.sh`, `engine/collector_runner.c:172` |

@@ -17,7 +17,7 @@ MKT_TARGET = room_engine_market
 # Tools: shell-to-C conversions
 TOOLS = cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all
 TOOL_SRCS = $(addsuffix .c, $(TOOLS))
-TOOL_BINS = $(TOOLS) cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler test_runner key_rotation
+TOOL_BINS = $(TOOLS) cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler test_runner key_rotation congress_trades insider_trades stock_screener dark_pool_feat etf_flow_feat
 
 market: CFLAGS += -DMARKET_MODE
 market: clean $(MKT_TARGET)
@@ -43,10 +43,10 @@ paper_feature_bridge.o: paper_feature_bridge.c paper_feature_bridge.h types.h
 	$(CC) $(CFLAGS) -c paper_feature_bridge.c -o paper_feature_bridge.o
 
 clean:
-	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge $(TOOL_BINS)
+	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge $(TOOL_BINS) congress_trades insider_trades stock_screener dark_pool_feat etf_flow_feat
 
 # ── Shell-to-C conversions ──
-tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler test_runner
+tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler test_runner congress_trades insider_trades stock_screener dark_pool_feat etf_flow_feat
 
 cycle_all_rooms: cycle_all_rooms.c
 	$(CC) -O2 -o $@ $<
@@ -132,6 +132,18 @@ key_rotation: key_rotation.c
 	$(CC) -O2 -o $@ $< -lm
 key_health: key_rotation
 	./key_rotation
+
+# ── Clough Bill collectors (CB-STOCK, CB-FLOW, CB-CONGRESS, CB-INSIDER, CB-DARKPOOL) ──
+congress_trades: congress_trades.c
+	$(CC) -O2 -o $@ $< -lcurl -ljansson -lsqlite3 -lm
+insider_trades: insider_trades.c
+	$(CC) -O2 -o $@ $< -lcurl -ljansson -lsqlite3 -lm
+stock_screener: stock_screener.c
+	$(CC) -O2 -o $@ $< -lsqlite3 -lm
+dark_pool_feat: dark_pool_feat.c
+	$(CC) -O2 -o $@ $< -lcurl -ljansson -lsqlite3 -lm
+etf_flow_feat: etf_flow_feat.c
+	$(CC) -O2 -o $@ $< -lcurl -ljansson -lsqlite3 -lm
 
 # ── Run test suite ──
 test: test_runner

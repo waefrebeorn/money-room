@@ -1,9 +1,9 @@
 # BATTLESHIP INDEX
 ## Money Room vs Unusual Whales — Complete Gap Analysis
 
-**Date:** May 28, 2026
+**Date:** June 1, 2026
 **Target:** Clone the Unusual Whales MCP (18 tools, 123+ endpoints, 15 categories)
-**Status:** We have 14 data pipelines covering ~7/15 categories. **8 categories to clone.**
+**Status:** We have 14 data pipelines covering ~11/15 categories. **4 categories to clone.**
 
 ---
 
@@ -14,32 +14,40 @@
 || 1 | **Stock** | 8 tools (info, chains, Greeks, IV, max pain, volatility) | ❌ None | FULL | 🔴 P0 | `CB-STOCK` |
 || 2 | **Options** | Contract flow, historic prices, volume profiles | ✅ PCR/IV skew/max pain + large trade flow (P62) + OI PCR (P36) | LOW | 🟢 CLOSED | `CB-FLOW` |
 || 3 | **Flow** | Options flow alerts, full tape, net flow | ✅ CBOE options flow alert system (P62) + PCR (P5) | MEDIUM | 🟡 P4 | `CB-OPTIONS` |
-|| 4 | **Dark Pool** | Recent trades, ticker-level filtering | ❌ None | FULL | 🔴 P1 | `CB-DARKPOOL` |
-|| 5 | **Congress** | Member trades, late reports, recent activity | ❌ None | FULL | 🟠 P2 | `CB-CONGRESS` |
+|| 4 | **Dark Pool** | Recent trades, ticker-level filtering | ✅ CBOE/FINRA dark pool feat via dark_pool_feat.c (546 lines C, compiled) | MEDIUM | 🟡 P4 | `CB-DARKPOOL` |
+|| 5 | **Congress** | Member trades, late reports, recent activity | ✅ Capitol Trades via congress_trades.c (363 lines C, compiled, cron every 60min) | MEDIUM | 🟡 P3 | `CB-CONGRESS` |
 || 6 | **Politicians** | Portfolios, holdings by ticker *(Premium)* | ❌ None | FULL | ⚪ P6 | `CB-POLITICIAN` |
-|| 7 | **Insider** | Transactions, sector flow, ticker flow | ❌ None | FULL | 🟠 P2 | `CB-INSIDER` |
-|| 8 | **Institutions** | 13F filings, holdings, sector exposure | ❌ None | FULL | 🟠 P2 | `CB-INSTITUTIONS` |
+|| 7 | **Insider** | Transactions, sector flow, ticker flow | ✅ SEC EDGAR Form 4 via insider_trades.c (338 lines C, compiled, cron every 60min) | MEDIUM | 🟡 P3 | `CB-INSIDER` |
+|| 8 | **Institutions** | 13F filings, holdings, sector exposure | ✅ SEC EDGAR 13F via 13f_holdings.c (338 lines C, compiled) | MEDIUM | 🟡 P3 | `CB-INSTITUTIONS` |
 || 9 | **Market** | Tide, sector tide, economic/FDA calendar, correlations | ✅ Macro events (P8), cross-asset (P9), L/S ratio (P37), ETF flow (P40) | MEDIUM | 🟡 P3 | `CB-MARKET` |
 || 10 | **Earnings** | Premarket/afterhours schedules, historical | ✅ Earnings calendar + density (P32) | MEDIUM | 🟡 P3 | `CB-EARNINGS` |
 || 11 | **ETF** | Holdings, exposure, inflows/outflows, weights | ✅ BTC ETF flow proxy from 7 ETFs (P40) | MEDIUM | 🟡 P4 | `CB-ETF` |
-|| 12 | **Shorts** | Short interest, FTDs, short volume, borrow rates | ❌ None | FULL | 🟠 P2 | `CB-SHORTS` |
+|| 12 | **Shorts** | Short interest, FTDs, short volume, borrow rates | ✅ FINRA short vol + FTD via short_interest_feat.c (727 lines C, compiled) | MEDIUM | 🟡 P3 | `CB-SHORTS` |
 || 13 | **Seasonality** | Monthly performers, yearly patterns | ❌ None | FULL | ⚪ P5 | `CB-SEASONALITY` |
-|| 14 | **Screener** | Stock/Option screener, analyst ratings | ❌ None | FULL | 🟠 P2 | `CB-SCREENER` |
+|| 14 | **Screener** | Stock/Option screener, analyst ratings | ✅ Composite multi-source screener via stock_screener.c (322 lines C, compiled) | MEDIUM | 🟡 P3 | `CB-SCREENER` |
 || 15 | **News** | Market news headlines | ✅ GDELT sentiment (P7) + on-chain/whale (P39) | LOW | ⚪ P5 | `CB-NEWS` |
 
 ---
 
 ## ── EXISTING VS TARGET ──
 
-### What We Have (10 tools, ~4 categories)
+### What We Have (14 tools, ~11 categories)
 
 | Tool | Our Source | UW Equivalent | Gap |
 |------|-----------|---------------|-----|
 | `get_room_state` | C engine mmap | — | Unique (our engine) |
-| `get_options_flow` | options_pipeline (CBOE/VIX/PCR) | `get_stock_greek_exposure`, `get_stock_max_pain`, `get_stock_iv_rank` | No Greeks, no chains, no IV term structure |
+| `get_options_flow` | options_flow.c / options_chain.c (CBOE/VIX/PCR) | `get_stock_greek_exposure`, `get_stock_max_pain`, `get_stock_iv_rank` | No Greeks, no chains, no IV term structure |
+| `get_dark_pool` | dark_pool_feat.c (FINRA/CBOE, C) | `get_darkpool_trades` | LOW |
+| `get_congress_trades` | congress_trades.c (Capitol Trades API) | `get_congress_trades` | LOW |
+| `get_insider_trades` | insider_trades.c (SEC EDGAR, C) | `get_insider_transactions` | LOW |
+| `get_13f_holdings` | 13f_holdings.c (SEC EDGAR, C) | `get_institution_holdings` | LOW |
+| `get_short_interest` | short_interest_feat.c (FINRA, C) | `get_short_interest` | LOW |
 | `get_gdelt_sentiment` | gdelt_pipeline | `get_news_headlines` | Limited (headlines only, no classification) |
 | `get_cross_asset` | cross_asset_pipeline | `get_market_tide` (partial) | No sector tide, no correlation matrix |
 | `get_macro_events` | macro_pipeline | `get_market_economic_calendar` | No FDA calendar, no earnings calendar |
+| `get_earnings` | earnings_calendar.c (Yahoo Finance, C) | `get_earnings_calendar` | LOW |
+| `get_etf_flow` | etf_flow_feat.c / etf_holdings.c (C) | `get_etf_holdings`, `get_etf_flow` | LOW |
+| `get_screener` | stock_screener.c (12 DB join, C) | `get_screener_stocks` | LOW |
 | `get_feature_importance` | C engine bridge | — | Unique (our engine) |
 | `get_tail_risk` | C engine | — | Unique (our engine) |
 | `get_prediction` | C engine | — | Unique (our engine) |
@@ -88,13 +96,13 @@ Each bill below is a self-contained pipeline plan. Free data. No API keys requir
 - `get_stock_iv_rank` — IV percentile over 52 weeks
 - `get_stock_volatility` — historical volatility, HV10/HV30
 - `get_stock_greeks` — delta, gamma, theta, vega for strikes
-**Cost:** Free + yfinance pip install
+**Cost:** Free (Yahoo Finance HTTP via libcurl)
 
 ### 🔴 CB-FLOW (P0) — Options Flow Alerts & Tape
-**Gap:** No options flow alerting system
-**Free source:** CBOE live options quotes (delayed 15min) + our options pipeline
-**Pipeline:** `flow_pipeline.py` → `~/.hermes/flow_cache/flow.db`
-**Cron:** every 15min
+**Status:** ✅ Compiling — options_flow.c (667 lines C) compiled, collector_runner wired every 30min
+**Free source:** CBOE live options quotes (delayed 15min) via cdn.cboe.com
+**Pipeline:** `./options_flow monitor SPY` (C binary, no deps beyond libcurl/libjansson/libsqlite3)
+**Cron:** every 30min (via collector_runner NORMAL)
 **MCP tools:**
 - `get_flow_alerts` — unusual options activity (volume > 2x avg OI)
 - `get_flow_net_premium` — net premium flow by ticker
@@ -102,20 +110,20 @@ Each bill below is a self-contained pipeline plan. Free data. No API keys requir
 **Cost:** Free (CBOE delayed data)
 
 ### 🟠 CB-DARKPOOL (P1) — Dark Pool Trade Tracking
-**Gap:** No dark pool data at all
-**Free source:** FINRA OTC Transparency Data (free CSV download, weekly)
-**Pipeline:** `darkpool_pipeline.py` → `~/.hermes/darkpool_cache/darkpool.db`
-**Cron:** weekly (FINRA publishes T+2)
+**Status:** ✅ PORTED — dark_pool_feat.c (546 lines C) compiled, collector_runner wired every 60min
+**Free source:** FINRA OTC Transparency + dark_pool_feat.c fetch SPY
+**Pipeline:** `./dark_pool_feat fetch-all` (C binary, FINRA/CBOE)
+**Cron:** every 60min (via collector_runner SLOW)
 **MCP tools:**
 - `get_darkpool_recent` — recent off-exchange trades
 - `get_darkpool_ticker` — dark pool activity for specific ticker
 **Cost:** Free (FINRA public data)
 
 ### 🟠 CB-CONGRESS (P2) — Congressional Trading Tracker
-**Gap:** No congressional trading data
-**Free source:** Senate.gov STOCK Act filings + capitoltrades.com API (free tier, 100 req/day)
-**Pipeline:** `congress_pipeline.py` → `~/.hermes/congress_cache/congress.db`
-**Cron:** daily
+**Status:** ✅ PORTED — congress_trades.c (363 lines C) compiled, collector_runner wired every 60min
+**Free source:** capitoltrades.com API (free tier, 100 req/day)
+**Pipeline:** `./congress_trades fetch` (C binary, Capitol Trades API)
+**Cron:** every 60min (via collector_runner SLOW)
 **MCP tools:**
 - `get_congress_recent` — recent congressional trades
 - `get_congress_trader` — trades by member name
@@ -123,10 +131,10 @@ Each bill below is a self-contained pipeline plan. Free data. No API keys requir
 **Cost:** Free (public filings)
 
 ### 🟠 CB-INSIDER (P2) — Insider Transaction Tracker
-**Gap:** No insider trading data
-**Free source:** SEC EDGAR Form 4 (XML, free API), InsiderMonkey free tier scrape
-**Pipeline:** `insider_pipeline.py` → `~/.hermes/insider_cache/insider.db`
-**Cron:** daily
+**Status:** ✅ PORTED — insider_trades.c (338 lines C) compiled, collector_runner wired every 60min
+**Free source:** SEC EDGAR Form 4 (XML, free API)
+**Pipeline:** `./insider_trades fetch` (C binary, SEC EDGAR)
+**Cron:** every 60min (via collector_runner SLOW)
 **MCP tools:**
 - `get_insider_recent` — recent insider trades
 - `get_insider_ticker` — insider activity by ticker
@@ -134,9 +142,9 @@ Each bill below is a self-contained pipeline plan. Free data. No API keys requir
 **Cost:** Free (SEC EDGAR)
 
 ### 🟠 CB-INSTITUTIONS (P2) — Institutional Holdings (13F)
-**Gap:** No institutional data
-**Free source:** SEC EDGAR 13F filings (XML, free), Dataroma (free scrape)
-**Pipeline:** `institutions_pipeline.py` → `~/.hermes/inst_cache/institutions.db`
+**Status:** ✅ PORTED — 13f_holdings.c (338 lines C, compiled)
+**Free source:** SEC EDGAR 13F filings (XML, free)
+**Pipeline:** `./13f_holdings` (C binary, SEC EDGAR)
 **Cron:** quarterly (13F filing season)
 **MCP tools:**
 - `get_institution_holdings` — institutional holdings for ticker
@@ -145,10 +153,10 @@ Each bill below is a self-contained pipeline plan. Free data. No API keys requir
 **Cost:** Free (SEC EDGAR)
 
 ### 🟠 CB-SCREENER (P2) — Stock & Options Screener
-**Gap:** No screening capability
-**Free source:** Yahoo Finance screener API + yfinance scanning + Finviz scrape
-**Pipeline:** `screener_pipeline.py` → `~/.hermes/screener_cache/screener.db`
-**Cron:** every 1h
+**Status:** ✅ PORTED — stock_screener.c (322 lines C) compiled, collector_runner wired every 60min
+**Free source:** Local SQLite DBs (joins 12 data sources)
+**Pipeline:** `./stock_screener` (C binary, multi-source composite scoring)
+**Cron:** every 60min (via collector_runner SLOW)
 **MCP tools:**
 - `get_screener_stocks` — stock screener (volume, price, RS, sector filters)
 - `get_screener_options` — highest IV, unusual OI options chains
@@ -156,9 +164,9 @@ Each bill below is a self-contained pipeline plan. Free data. No API keys requir
 **Cost:** Free (scrape)
 
 ### 🟠 CB-SHORTS (P2) — Short Interest & FTD Tracker
-**Gap:** No short data
-**Free source:** FINRA short volume (daily CSV), SEC FTD data (biweekly), iborrowdesk
-**Pipeline:** `shorts_pipeline.py` → `~/.hermes/shorts_cache/shorts.db`
+**Status:** ✅ PORTED — short_interest_feat.c (727 lines C, compiled)
+**Free source:** FINRA short volume (daily CSV), SEC FTD data (biweekly)
+**Pipeline:** `./short_interest_feat` (C binary, FINRA/SEC)
 **Cron:** daily
 **MCP tools:**
 - `get_short_interest` — SI by ticker
@@ -178,9 +186,9 @@ Each bill below is a self-contained pipeline plan. Free data. No API keys requir
 **Cost:** Free (FRED API key = free)
 
 ### 🟡 CB-EARNINGS (P3) — Earnings Calendar & History
-**Gap:** No earnings data
-**Free source:** Yahoo Finance earnings calendar, Financial Modeling Prep (free tier 250/day)
-**Pipeline:** `earnings_pipeline.py` → `~/.hermes/earnings_cache/earnings.db`
+**Status:** ✅ PORTED — earnings_calendar.c (251 lines C) + earnings_cal.c (159 lines C, compiled)
+**Free source:** Yahoo Finance earnings calendar
+**Pipeline:** `./earnings_calendar` (C binary, Yahoo Finance)
 **Cron:** daily
 **MCP tools:**
 - `get_earnings_calendar` — upcoming earnings
@@ -189,10 +197,10 @@ Each bill below is a self-contained pipeline plan. Free data. No API keys requir
 **Cost:** Free
 
 ### 🟡 CB-ETF (P4) — ETF Holdings & Flow
-**Gap:** No ETF data
-**Free source:** Yahoo Finance ETF data, etfdb.com scrape
-**Pipeline:** `etf_pipeline.py` → `~/.hermes/etf_cache/etf.db`
-**Cron:** daily
+**Status:** ✅ PORTED — etf_flow_feat.c (173 lines C, compiled) + etf_holdings.c (151 lines C, compiled)
+**Free source:** Yahoo Finance ETF data via libcurl
+**Pipeline:** `./etf_flow_feat` (C binary, 7 BTC ETFs)
+**Cron:** every 30min (via collector_runner NORMAL)
 **MCP tools:**
 - `get_etf_holdings` — top holdings for an ETF
 - `get_etf_sector` — sector breakdown

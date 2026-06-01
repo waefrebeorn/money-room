@@ -27,7 +27,8 @@ typedef struct { char *data; size_t len; } HttpBuf;
 static size_t write_cb(void *ptr, size_t size, size_t nmemb, void *user) {
     HttpBuf *b = (HttpBuf*)user; size_t n = size * nmemb;
     char *p = realloc(b->data, b->len + n + 1);
-    if (!p) return 0; memcpy(p + b->len, ptr, n);
+    if (!p) return 0;
+    memcpy(p + b->len, ptr, n);
     b->data = p; b->len += n; b->data[b->len] = '\0'; return n;
 }
 
