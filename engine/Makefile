@@ -17,7 +17,7 @@ MKT_TARGET = room_engine_market
 # Tools: shell-to-C conversions
 TOOLS = cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all
 TOOL_SRCS = $(addsuffix .c, $(TOOLS))
-TOOL_BINS = $(TOOLS) cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler
+TOOL_BINS = $(TOOLS) cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler test_runner
 
 market: CFLAGS += -DMARKET_MODE
 market: clean $(MKT_TARGET)
@@ -43,10 +43,10 @@ paper_feature_bridge.o: paper_feature_bridge.c paper_feature_bridge.h types.h
 	$(CC) $(CFLAGS) -c paper_feature_bridge.c -o paper_feature_bridge.o
 
 clean:
-	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge $(TOOL_BINS) data_server
+	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge $(TOOL_BINS)
 
 # ── Shell-to-C conversions ──
-tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler
+tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler test_runner
 
 cycle_all_rooms: cycle_all_rooms.c
 	$(CC) -O2 -o $@ $<
@@ -118,3 +118,11 @@ data_server: data_server.c
 # ── Withdrawal scheduler (SQLite-backed) ──
 withdrawal_scheduler: withdrawal_scheduler.c
 	$(CC) -O3 -march=native -o $@ $< -lsqlite3 -lm
+
+# ── Test runner (integration test harness) ──
+test_runner: test_runner.c
+	$(CC) -O2 -o $@ $< -lm
+
+# ── Run test suite ──
+test: test_runner
+	@./test_runner
