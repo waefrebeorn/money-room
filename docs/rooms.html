@@ -1,39 +1,182 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Money Room — 16 strategy rooms powered by 10K agents each. Differentiated market strategies in C."><title>Rooms — Money Room</title><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="style.css"><style>.room-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:24px}.room-card{padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}.room-card h3{margin:0 0 4px}.room-type{font-size:11px;color:var(--text-tertiary);margin-bottom:12px}.room-stat{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;border-bottom:1px solid var(--border)}.room-stat:last-child{border:0}.label{color:var(--text-tertiary)}.val{font-family:'JetBrains Mono',monospace}</style></head><body><nav><div class="container"><a href="." class="logo"><span class="dot"></span> Money <span>Room</span></a><div class="nav-links"><a href=".">Live</a><a href="live.html">Dashboard</a><a href="rooms.html" class="active">Rooms</a><a href="pricing.html">Pricing</a><a href="https://github.com/waefrebeorn/money-room" target="_blank" rel="noopener noreferrer">GitHub</a></div></div></nav>
-<div class="page-header"><div class="container"><h1>🏠 Strategy Rooms</h1><p>16 differentiated trading strategies — each with 10K agent genomes</p></div></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="description" content="Money Room — 16 strategy rooms with live performance data, capital distribution, and agent leaderboard."><link rel="icon" type="image/svg+xml" href="favicon.svg"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Rooms — Money Room</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><style>
+:root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--text:#c8c8d0;--dim:#6b6b7b;--accent:#00e5ff;--green:#00e676;--orange:#ff9100;--red:#ff1744;--purple:#d500f9}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.live-header{padding:30px 0;border-bottom:1px solid var(--border);margin-bottom:24px}
+.live-header h1{font-size:1.8rem;font-weight:600;color:#fff;display:flex;align-items:center;gap:12px}
+.live-header h1 span{color:var(--accent)}
+.live-header .sub{color:var(--dim);font-size:0.85rem;margin-top:4px}
+.live-badge{font-size:0.65rem;padding:3px 8px;border-radius:4px;background:rgba(0,229,255,0.12);color:var(--accent);border:1px solid rgba(0,229,255,0.2)}
+.stats-row{display:flex;gap:12px;margin:20px 0;flex-wrap:wrap}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;flex:1;min-width:110px;text-align:center}
+.stat-card .num{font-size:1.6rem;font-weight:700;font-family:'JetBrains Mono',monospace}
+.stat-card .label{font-size:0.7rem;color:var(--dim);margin-top:2px;text-transform:uppercase}
+.chart-row{display:flex;gap:16px;margin:24px 0;flex-wrap:wrap}
+.chart-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;flex:1;min-width:280px}
+.chart-box h3{font-size:0.85rem;color:var(--dim);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px}
+.chart-box svg{width:100%;height:auto}
+.bar{fill:var(--accent);transition:fill .2s}
+.bar:hover{fill:var(--green)}
+.bar-label{fill:var(--dim);font-size:9px;font-family:'JetBrains Mono',monospace;text-anchor:middle}
+.bar-value{fill:var(--text);font-size:9px;font-family:'JetBrains Mono',monospace;text-anchor:middle}
+.lead-bar{fill:var(--purple);transition:fill .2s}
+.lead-bar:hover{fill:var(--accent)}
+.lead-label{fill:var(--dim);font-size:8px;font-family:'JetBrains Mono',monospace}
+.lead-value{fill:var(--text);font-size:8px;font-family:'JetBrains Mono',monospace;text-anchor:end}
+.room-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px}
+.room-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px}
+.room-card:hover{border-color:var(--accent)}
+.room-card h3{font-size:1rem;font-weight:600;margin:0 0 2px;color:#fff}
+.room-type{font-size:0.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.room-card p{font-size:0.8rem;color:var(--dim);margin:0 0 10px;line-height:1.5}
+.room-stat{display:flex;justify-content:space-between;font-size:0.75rem;padding:3px 0;border-bottom:1px solid rgba(30,30,46,0.5)}
+.room-stat:last-child{border:0}
+.footer{margin-top:40px;padding:20px;text-align:center;font-size:0.7rem;color:var(--dim);border-top:1px solid var(--border)}
+</style></head><body>
+<nav><div class="container"><a href="." class="logo"><span class="dot"></span> Money <span>Room</span></a><div class="nav-links"><a href=".">Live</a><a href="live.html">Dashboard</a><a href="rooms.html" class="active">Rooms</a><a href="pricing.html">Pricing</a><a href="https://github.com/waefrebeorn/money-room" target="_blank" rel="noopener noreferrer">GitHub</a></div></div></nav>
+
+<div class="page-header"><div class="container"><h1>🏠 Strategy Rooms</h1><p>16 differentiated trading strategies — each powered by 10K agent genomes</p></div></div>
+
 <section style="padding-bottom:60px"><div class="container">
-<div class="room-grid" id="roomGrid"></div></div></section>
-<script src="app.js"></script>
+
+<!-- Live stats header -->
+<div class="live-header" id="liveHeader">
+  <h1><span>Paper Engine</span> <span class="live-badge" id="liveBadge">⏳ loading...</span></h1>
+  <div class="sub">Live stats from the paper trading engine</div>
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card"><div class="num" id="sCycle">—</div><div class="label">Cycle</div></div>
+    <div class="stat-card"><div class="num" id="sAgents">—</div><div class="label">Active Agents</div></div>
+    <div class="stat-card"><div class="num" id="sTrades">—</div><div class="label">Total Trades</div></div>
+    <div class="stat-card"><div class="num" id="sCapital">—</div><div class="label">Avg Capital</div></div>
+    <div class="stat-card"><div class="num" id="sPnl">—</div><div class="label">Room PnL</div></div>
+  </div>
+</div>
+
+<!-- SVG Charts -->
+<div class="chart-row">
+  <div class="chart-box" id="capDistChart"><h3>Capital Distribution</h3><svg viewBox="0 0 300 160" id="capSvg"><rect x="0" y="0" width="300" height="160" fill="none"/></svg></div>
+  <div class="chart-box" id="leadChart"><h3>Leaderboard (Top 10)</h3><svg viewBox="0 0 300 160" id="leadSvg"><rect x="0" y="0" width="300" height="160" fill="none"/></svg></div>
+</div>
+
+<!-- 16 room cards -->
+<h2 style="font-size:1rem;color:var(--dim);margin:24px 0 8px;text-transform:uppercase;letter-spacing:1px">Strategy Rooms</h2>
+<div class="room-grid" id="roomGrid"></div>
+
+</div></section>
+
+<div class="footer">Money Room · <span id="ts"></span></div>
+
 <script>
 const ROOMS = [
-  {name:"btc_main",type:"CRYPTO",desc:"Primary BTC directional trading. 1-min timeframe, Kraken fees, slippage model."},
-  {name:"crypto_prices",type:"CRYPTO",desc:"Multi-crypto signal aggregation. Reads BTC, ETH, SOL from market feed."},
-  {name:"economic",type:"MACRO",desc:"Macroeconomic event trading. CPI, NFP, FOMC decisions via Kalshi."},
-  {name:"elections",type:"PREDICTION",desc:"Election/political prediction markets. Binary outcomes, volume-weighted."},
-  {name:"kalshi",type:"PREDICTION",desc:"Kalshi event contracts. Economic indicators, climate, health."},
-  {name:"macro",type:"MACRO",desc:"Cross-asset macro rotation. SP500, VIX, DXY, Gold correlations."},
-  {name:"manifold",type:"PREDICTION",desc:"Manifold Markets. Community prediction markets, long-tail events."},
-  {name:"momentum",type:"EQUITY",desc:"Momentum strategy. Trend-following on index ETFs and sector funds."},
-  {name:"options",type:"EQUITY",desc:"Options flow analysis. Unusual options activity, IV skew, put/call ratios."},
-  {name:"polymarket",type:"PREDICTION",desc:"Polymarket CLOB. Real-money prediction markets with limit orders."},
-  {name:"predictit",type:"PREDICTION",desc:"PredictIt political markets. Regulation-limited position sizes."},
-  {name:"science_tech",type:"ALTERNATIVE",desc:"Tech/science event prediction. FDA approvals, product launches."},
-  {name:"sports",type:"SPORTS",desc:"Sports betting simulation. NBA, NFL, NHL, MLB, EPL odds analysis."},
-  {name:"stocks",type:"EQUITY",desc:"Equity screening. SEC filings, insider trades, short interest, earnings."},
-  {name:"weather",type:"WEATHER",desc:"Temperature prediction. 8 global cities, 7-dim feature vector."},
-  {name:"consensus",type:"META",desc:"Meta-room. Vote aggregation across all rooms for ensemble signals."}
+  {name:"btc_main",type:"CRYPTO",desc:"Primary BTC directional trading. 1-min timeframe, Kraken fees, slippage model.",feeds:"BTC price, volume, order book"},
+  {name:"crypto_prices",type:"CRYPTO",desc:"Multi-crypto signal aggregation. Reads BTC, ETH, SOL from market feed.",feeds:"BTC, ETH, SOL, altcoin prices"},
+  {name:"economic",type:"MACRO",desc:"Macroeconomic event trading. CPI, NFP, FOMC decisions via Kalshi.",feeds:"Kalshi event contracts, FRED"},
+  {name:"elections",type:"PREDICTION",desc:"Election/political prediction markets. Binary outcomes, volume-weighted.",feeds:"Polymarket, Kalshi, PredictIt"},
+  {name:"kalshi",type:"PREDICTION",desc:"Kalshi event contracts. Economic indicators, climate, health.",feeds:"Kalshi API, economic calendar"},
+  {name:"macro",type:"MACRO",desc:"Cross-asset macro rotation. SP500, VIX, DXY, Gold correlations.",feeds:"FRED, SP500, VIX, DXY, Gold"},
+  {name:"manifold",type:"PREDICTION",desc:"Manifold Markets. Community prediction markets, long-tail events.",feeds:"Manifold API, social sentiment"},
+  {name:"momentum",type:"EQUITY",desc:"Momentum strategy. Trend-following on index ETFs and sector funds.",feeds:"Yahoo Finance, sector ETFs"},
+  {name:"options",type:"EQUITY",desc:"Options flow analysis. Unusual options activity, IV skew, put/call ratios.",feeds:"CBOE, options chain, PCR"},
+  {name:"polymarket",type:"PREDICTION",desc:"Polymarket CLOB. Real-money prediction markets with limit orders.",feeds:"Gamma API, CLOB order book"},
+  {name:"predictit",type:"PREDICTION",desc:"PredictIt political markets. Regulation-limited position sizes.",feeds:"PredictIt API, election data"},
+  {name:"science_tech",type:"ALTERNATIVE",desc:"Tech/science event prediction. FDA approvals, product launches.",feeds:"FDA calendar, news sentiment"},
+  {name:"sports",type:"SPORTS",desc:"Sports betting simulation. NBA, NFL, NHL, MLB, EPL odds analysis.",feeds:"ESPN API, sports outcomes"},
+  {name:"stocks",type:"EQUITY",desc:"Equity screening. SEC filings, insider trades, short interest, earnings.",feeds:"SEC EDGAR, FINRA, earnings"},
+  {name:"weather",type:"WEATHER",desc:"Temperature prediction. 8 global cities, 7-dim feature vector.",feeds:"Open-Meteo, weather history"},
+  {name:"consensus",type:"META",desc:"Meta-room. Vote aggregation across all rooms for ensemble signals.",feeds:"All rooms aggregated"}
 ];
-function init(){
-  var h="";
-  ROOMS.forEach(function(r){
+
+function fmtNum(n){if(typeof n!=='number')return'—';if(Math.abs(n)>=1e6)return(n/1e6).toFixed(1)+'M';if(Math.abs(n)>=1e3)return(n/1e3).toFixed(1)+'K';return n.toFixed(typeof n==='number'&&Number.isInteger(n)?0:1)}
+function fmtDollar(n){if(typeof n!=='number')return'—';var s=n<0?'-':'';n=Math.abs(n);if(n>=1e6)return s+'$'+(n/1e6).toFixed(2)+'M';return s+'$'+n.toFixed(2)}
+
+/* Decimal to color */
+function pnlColor(v){if(typeof v!=='number')return'var(--dim)';return v>0?'var(--green)':v<0?'var(--red)':'var(--dim)'}
+
+/* Render static room cards */
+function renderRooms(){
+  var h='';ROOMS.forEach(function(r){
     h+='<div class="room-card"><h3>'+r.name.replace(/_/g,' ').replace(/\b\w/g,function(l){return l.toUpperCase()})+'</h3>';
-    h+='<div class="room-type">'+r.type+'</div><p style="font-size:13px;color:var(--text-tertiary);margin:0 0 12px">'+r.desc+'</p>';
-    h+='<div class="room-stat"><span class="label">Market Type</span><span class="val">'+r.type+'</span></div>';
-    h+='<div class="room-stat"><span class="label">Agents</span><span class="val">10K</span></div>';
-    h+='<div class="room-stat"><span class="label">Genome</span><span class="val">'+(r.type==='SPORTS'||r.type==='WEATHER'?'87-param':'87-param')+'</span></div>';
+    h+='<div class="room-type">'+r.type+'</div><p>'+r.desc+'</p>';
+    h+='<div class="room-stat"><span class="label">Market Type</span><span>'+r.type+'</span></div>';
+    h+='<div class="room-stat"><span class="label">Agents</span><span>10K</span></div>';
+    h+='<div class="room-stat"><span class="label">Data Sources</span><span style="font-size:0.65rem;color:var(--dim)">'+r.feeds+'</span></div>';
     h+='</div>';
   });
   document.getElementById('roomGrid').innerHTML=h;
 }
-init();
+
+/* SVG: Capital distribution bar chart */
+function drawCapDist(dist){
+  var svg=document.getElementById('capSvg');
+  if(!dist||dist.length===0){svg.innerHTML='<text x="150" y="80" fill="var(--dim)" font-size="12" text-anchor="middle">No data</text>';return}
+  var max=0;dist.forEach(function(v){if(v>max)max=v});
+  if(max===0){svg.innerHTML='<text x="150" y="80" fill="var(--dim)" font-size="12" text-anchor="middle">No distribution data</text>';return}
+  var barW=26,gap=4,padL=10,padR=10,padB=20,padT=10,w=300,h=160,chartW=w-padL-padR,chartH=h-padB-padT
+  var html='';
+  dist.forEach(function(v,i){
+    var barH=(v/max)*(chartH-10);
+    var x=padL+i*(barW+gap);
+    var y=chartH-barH+padT;
+    html+='<rect class="bar" x="'+x+'" y="'+y+'" width="'+barW+'" height="'+barH+'" rx="2"></rect>';
+    html+='<text class="bar-value" x="'+(x+barW/2)+'" y="'+(y-4)+'">'+v+'</text>';
+  });
+  svg.innerHTML=html;
+}
+
+/* SVG: Leaderboard bar chart */
+function drawLeaderboard(leaders){
+  var svg=document.getElementById('leadSvg');
+  if(!leaders||leaders.length===0){svg.innerHTML='<text x="150" y="80" fill="var(--dim)" font-size="12" text-anchor="middle">No data</text>';return}
+  var maxCap=leaders[0].capital||1;
+  var barH=12,gap=4,padL=40,padR=50,padT=6,w=300,h=160,chartW=w-padL-padR
+  var html='';
+  leaders.slice(0,10).forEach(function(a,i){
+    var y=padT+i*(barH+gap);
+    var bw=(a.capital/maxCap)*(chartW-10);
+    html+='<rect class="lead-bar" x="'+padL+'" y="'+y+'" width="'+bw+'" height="'+barH+'" rx="2"></rect>';
+    html+='<text class="lead-label" x="'+(padL-4)+'" y="'+(y+barH-2)+'" text-anchor="end">#'+a.id+'</text>';
+    html+='<text class="lead-label" x="'+(padL+bw+4)+'" y="'+(y+barH-2)+'">'+fmtDollar(a.capital)+'</text>';
+  });
+  svg.innerHTML=html;
+}
+
+/* Fetch live data */
+var fetchUrl='data/paper_stats.json';
+var agentUrl='data/agents.json';
+
+function loadData(){
+  var badge=document.getElementById('liveBadge');
+  badge.textContent='⟳ fetching...';
+  badge.style.color='var(--orange)';
+  badge.style.borderColor='var(--orange)';
+
+  fetch(fetchUrl+'?_='+Date.now()).then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(function(d){
+    document.getElementById('sCycle').textContent=fmtNum(d.cycle);
+    document.getElementById('sAgents').textContent=d.active_agents+'/'+d.total_agents;
+    document.getElementById('sTrades').textContent=fmtNum(d.total_trades);
+    document.getElementById('sCapital').textContent=fmtDollar(d.avg_capital);
+    var pnlEl=document.getElementById('sPnl');
+    pnlEl.textContent=fmtDollar(d.room_pnl_pct);
+    pnlEl.style.color=pnlColor(d.room_pnl_pct);
+
+    badge.textContent='✅ live';
+    badge.style.color='var(--green)';
+    badge.style.borderColor='rgba(0,230,118,0.3)';
+
+    if(d.capital_distribution) drawCapDist(d.capital_distribution);
+    if(d.leaderboard) drawLeaderboard(d.leaderboard);
+    document.getElementById('ts').textContent='Updated '+new Date().toLocaleTimeString();
+  }).catch(function(e){
+    badge.textContent='⚠️ offline';
+    badge.style.color='var(--dim)';
+    badge.style.borderColor='var(--border)';
+    document.getElementById('ts').textContent='Room engine offline';
+    /* Show sample data on failure — NOP for now */
+  });
+}
+
+/* Init */
+renderRooms();
+loadData();
+setInterval(loadData,30000);
 </script>
 </body></html>
