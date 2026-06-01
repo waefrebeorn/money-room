@@ -146,6 +146,10 @@ stress_json: stress_test
 	./stress_test /home/wubu2/.hermes/pm_logs/c_room/room_state.bin > ../docs/data/stress_test_result.txt 2>&1
 	@echo "Stress test result written to docs/data/stress_test_result.txt"
 
+# ── Survival stats (agent age, generation, survival rate) ──
+survival_json: survival_stats
+	./survival_stats /home/wubu2/.hermes/pm_logs/c_room/room_state.bin 2>&1 | head -30
+
 memcheck: health_check withdrawal_scheduler paper_live_bridge paper_mode_sync data_server
 	@echo "=== health_check ===" && timeout 15 valgrind --leak-check=full --show-leak-kinds=definite --error-exitcode=1 ./health_check 2>&1 | grep -E "definitely lost|ERROR SUMMARY|All heap blocks"
 	@echo "=== withdrawal_scheduler ===" && timeout 10 valgrind --leak-check=full --show-leak-kinds=definite --error-exitcode=1 ./withdrawal_scheduler status 2>&1 | grep -E "definitely lost|ERROR SUMMARY|All heap blocks"
