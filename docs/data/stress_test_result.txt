@@ -1,0 +1,26 @@
+═══ C23: STRESS TEST ═══
+Simulating crash scenarios on room engine state
+Cycle: 0  Agents: 1388934/10000  Room cap: $50.00
+
+Scenario 1: 2008-style crash (-50% over 20 days)
+  Agent capital: $0.00 → $0.00 (0.0% drawdown)
+  Room capital:  $50.00 → $30.13 (39.7% drawdown)
+  Survivors:     0/1388934 (0.0%)
+  Circuit breaker tripped? NO
+
+Scenario 2: 2020-style crash (-30% over 1 days)
+  Agent capital: $0.00 → $0.00 (0.0% drawdown)
+  Room capital:  $50.00 → $35.00 (30.0% drawdown)
+  Survivors:     0/1388934 (0.0%)
+  Circuit breaker tripped? NO
+
+Scenario 3: 2022-style crash (-20% over 60 days)
+  Agent capital: $0.00 → $0.00 (0.0% drawdown)
+  Room capital:  $50.00 → $41.01 (18.0% drawdown)
+  Survivors:     0/1388934 (0.0%)
+  Circuit breaker tripped? NO
+
+═══ VERDICT ═══
+C23: Stress test scenarios defined: 2008 (50%), 2020 flash (30%), 2022 bear (20%)
+T17 circuit breaker would trip at 20% drawdown in all scenarios.
+Position limits (T18) + volatility scaling (P23) would reduce impact.

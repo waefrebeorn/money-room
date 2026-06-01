@@ -129,6 +129,16 @@ trade_journal: trade_journal.c
 
 # ── Run test suite ──
 test: test_runner
+	@echo "--- checking for stale 0-byte binaries ---"; \
+	STALE=""; \
+	for b in health_check withdrawal_scheduler data_server test_runner; do \
+		if [ -f "$$b" ] && [ ! -s "$$b" ]; then STALE="$$STALE $$b"; fi; \
+	done; \
+	if [ -n "$$STALE" ]; then \
+		echo "STALE 0-byte binaries detected:$$STALE"; \
+		echo "Run 'rm -f$$STALE && make $$STALE' to rebuild"; \
+		exit 1; \
+	fi
 	@./test_runner
 
 # ── Regime detection (reads BTC 1-min CSV, writes docs/data/regime.json) ──

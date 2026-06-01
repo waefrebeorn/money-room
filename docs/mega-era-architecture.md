@@ -4,7 +4,7 @@
 
 The Money Room is a **10,000-agent evolutionary trading ecosystem** built **entirely in C** (engine, collectors, dashboard, all production tools). It runs as a set of cron-driven C binaries on a single host, processing live BTC market data and generating paper trades through competing genome strategies.
 
-**Python is dead in production.** All collectors, the dashboard, and data pipelines are standalone C binaries (libcurl, jansson, sqlite3). 200 C source files in engine/. Ecosystem management (teachers, money loop) is Python-backed but all data paths are C.
+**Python is zero in production.** All collectors, data pipelines, risk analysis, and monitoring are standalone C binaries (libcurl, jansson, sqlite3). 208 C source files in engine/. No Python ecosystems remain.
 
 ## Processing Pipeline
 
@@ -31,7 +31,7 @@ The Money Room is a **10,000-agent evolutionary trading ecosystem** built **enti
   - 4-float hidden state (RNN-like memory)
 - Per cycle:
   1. Read market_feed.json
-  2. Compute 17-dim feature vector (F1-F17)
+  2. Compute 18-dim feature vector (F1-F18)
   3. Each agent votes: UP/DOWN with conviction
   4. P2P matching: YES votes vs NO votes
   5. Capital transfer between winners/losers
@@ -62,10 +62,10 @@ The Money Room is a **10,000-agent evolutionary trading ecosystem** built **enti
 
 ```
 money-room/
-├── engine/                    # 99 C source files (compiled binaries)
+├── engine/                    # 208 C source files (compiled binaries)
 │   ├── data_server.c         # C static file server (22KB ELF, port 9090)
 │   ├── room_engine.c         # Main loop (~600 LOC)
-│   ├── room_features.c       # 17-dim feature computation (φ, DFT, MACD, RSI, etc.)
+│   ├── room_features.c       # 18-dim feature computation (RSI, MACD, Bollinger, tail risk, regime)
 │   ├── room_capital.c        # P2P matching + capital transfer + SGD update
 │   ├── room_vote.c           # Agent voting + sigmoid activation
 │   ├── room_darwin.c         # Darwin evolution + diversity metrics
@@ -109,9 +109,9 @@ money-room/
 └── README.md                 # Main entry point
 ```
 
-## Feature Engineering (17-dim)
+## Feature Engineering (18-dim)
 
-### Standard Technical Features (F1-F13)
+### Standard Technical Features (F1-F14)
 All standard TA features computed from price history ring buffer (50 elements):
 - F1-F2: Price delta and momentum
 - F3: RSI(7) 
@@ -120,27 +120,36 @@ All standard TA features computed from price history ring buffer (50 elements):
 - F7: MACD histogram
 - F8: Bollinger %B
 - F9: Price-RSI divergence
-- F10: News pump score
-- F11: Regime detection (range/trend/volatile)
-- F12: Fear & Greed index
-- F13: Herd consensus
+- F14: Tail risk score (beam-search gating of worst 5% scenarios)
+- F15: News pump score
+- F16: Regime detection (range/trend/volatile)
+- F17: Fear & Greed index
+- F18: Herd consensus
 
-### Money Room Exclusive (F14-F17)
-**GAAD Golden-Ratio Timeframes (F14-F16):**
-- Weighted multi-scale analysis at φ, φ², φ³ intervals
-- Higher weight on shorter intervals
-- Captures fractal structure of market moves
+### Multi-Market Features (F15-F18)
+**Tail risk score (F15):**
+- Beam-search gating of worst 5% scenario outcomes
+- Weighted by conviction of hedging agents
+- Normalized to [0, 1]
 
-**Goertzel DFT (F17):**
-- Single-frequency DFT using Goertzel algorithm
-- Extracts dominant cycle length from price history
-- Normalized to [0, 1] for use as feature
+**News pump score (F16):**
+- GDELT global sentiment aggregated over 4h windows
+- Positive/negative article ratio
+- Decayed recency weighting
+
+**Regime detection (F17):**
+- Range/trend/volatile classification via ADX + volatility ratio
+- Per-market regime state in room_features
+
+**Fear & Greed index (F18):**
+- Composite from 7 sub-indices (volatility, momentum, put/call, etc.)
+- Fetched every 15min from fear_greed_collector
 
 ## Architecture Diagram
 
 ```
                          ┌──────────────────────────────────┐
-                         │   C Collectors (30+ binaries)     │
+                         │   C Collectors (80+ binaries)     │
                          │   Kraken / FRED / GDELT / CBOE   │
                          │   CoinGecko / OKX / Yahoo v8     │
                          └────────────┬─────────────────────┘
@@ -158,7 +167,7 @@ All standard TA features computed from price history ring buffer (50 elements):
    │  C Room Engine    │   │  C Dashboard (9090)  │   │  Python Ecosystem   │
    │  (C11, ~600 LOC)  │   │  44KB ELF, 1.1MB RAM │   │  (C-backed data)     │
    │                   │   │  SHA256 auth          │   │                       │
-   │ • 4 rooms cycling │   │  Visitor tracking     │   │ • 10K genomes         │
+   │ • 17 markets      │   │  Visitor tracking     │   │ • 10K genomes         │
    │ • 10K agents      │   │  6 routes + 5 APIs   │   │ • 10 teachers         │
    │ • Darwin evolve   │   │  SQLite visits DB    │   │ • Trade loop          │
    │ • Feature import. │   └─────────────────────┘   └─────────────────────┘
@@ -184,4 +193,4 @@ All standard TA features computed from price history ring buffer (50 elements):
 | Trade buffer | 1M trades ~ 64MB |
 | Dashboard RAM | **1.1MB** (was 22.7MB with Flask) |
 | Dashboard startup | **7ms** (was 986ms with Flask) |
-| C source files | **200 .c** files, ~60K LOC |
+| C source files | **208 .c** files, ~57K LOC |

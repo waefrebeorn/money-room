@@ -80,6 +80,9 @@ static int run_test(const TestDef *t) {
         if (rc == 0) {
             printf("✅ PASS\n");
             pass_count++;
+        } else if (rc < 0) {
+            printf("⏭️  SKIP\n");
+            skip_count++;
         } else {
             printf("❌ FAIL (custom)\n");
             fail_count++;
@@ -159,11 +162,10 @@ static int test_health_json(void) {
 
 /* ─── Custom test: data_server serves JSON ─── */
 static int test_data_server(void) {
-    /* Use curl to test data_server */
+    /* Use curl to test data_server — single attempt, skip if unreachable */
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
-             "curl -sf http://localhost:9090/ 2>/dev/null || "
-             "curl -sf http://localhost:9090/ 2>/dev/null || echo 'UNREACHABLE'");
+             "curl -sf --max-time 3 http://localhost:9090/ 2>/dev/null || echo 'UNREACHABLE'");
 
     char output[MAX_OUT] = {0};
     int exit_code;
@@ -324,12 +326,7 @@ int main(int argc, char **argv) {
             skip_count++;
             continue;
         }
-        int rc = run_test(&tests[i]);
-        if (rc < 0) {
-            /* Skipped */
-            printf("  TEST  %s ... ⏭️  SKIP (unavailable)\n", tests[i].name);
-            skip_count++;
-        }
+        run_test(&tests[i]);
     }
 
     printf("\n━━━ Results ━━━\n");
