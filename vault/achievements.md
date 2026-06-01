@@ -72,3 +72,4 @@ Resolved gaps with file:line proof.
 |||48|48|48|48||| T074 | **edgar_collector scheduled**: 0 */12 * * * system crontab. SEC filings for AAPL/MSFT/AMZN/GOOGL/NVDA (55-73 filings each). Free API, no key. | engine/edgar_collector.c, crontab |
 |||49|49|49|49||| T077 | **market_microstructure scheduled**: */30 * * * * system crontab. 18-dim analysis: fee comparison, order book imbalance, depth, trade flow, volume profile, VWAP/TWAP, kill zone, delta divergence. Reads from timeline.db. | engine/market_microstructure.c, crontab |
 |||50|50|50|50||| T076 | **data_pipeline scheduled**: 0 5 * * * system crontab. Daily aggregator: 2,454 samples × 21 features from timeline.db (SP500/VIX/DGS10/BTC/MCAP). Writes training_data.bin. | engine/data_pipeline.c, crontab |
+|||51|51|51|51||| T078 | **timeline_aggregator scheduled**: 0 * * * * system crontab. Rebuilds timeline_hourly (124,799 rows). Processes last 48h each run. | engine/timeline_aggregator.c, crontab |
