@@ -46,7 +46,7 @@ clean:
 	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge $(TOOL_BINS)
 
 # ── Shell-to-C conversions ──
-tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer health_check
+tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer health_check health_alerter
 
 cycle_all_rooms: cycle_all_rooms.c
 	$(CC) -O2 -o $@ $<
@@ -105,4 +105,8 @@ accuracy_scorer: accuracy_scorer.c
 
 # ── Health endpoint (libjansson) ──
 health_check: health_check.c
+	$(CC) -O2 -o $@ $< -ljansson
+
+# ── Health alerter (alerts on health_check failure) ──
+health_alerter: health_alerter.c
 	$(CC) -O2 -o $@ $< -ljansson
