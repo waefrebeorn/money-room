@@ -23,7 +23,7 @@
 #include "types.h"
 
 #define FEED_PATH       "/home/wubu2/.hermes/pm_logs/c_room/market_feed.json"
-#define STATS_OUT       "/home/wubu2/money-room/data/paper_stats.json"
+#define STATS_OUT       "/home/wubu2/money-room/docs/data/paper_stats.json"
 #define LEADERBOARD_OUT "/home/wubu2/money-room/data/paper_leaderboard.json"
 #define N_AGENTS        2500
 #define SEED_CAPITAL     50.0f
