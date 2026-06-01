@@ -1,0 +1,21 @@
+{
+  "markets": [
+    {"market":"BTC","type":"CRYPTO","wr":0.669,"trades":181,"wins":121,"pnl":15.32},
+    {"market":"SP500","type":"EQUITY","wr":1.000,"trades":200,"wins":200,"pnl":23.81},
+    {"market":"DOW","type":"EQUITY","wr":0.751,"trades":177,"wins":133,"pnl":11.10},
+    {"market":"NASDAQ","type":"EQUITY","wr":0.930,"trades":142,"wins":132,"pnl":3.65},
+    {"market":"FTSE100","type":"EQUITY","wr":0.791,"trades":191,"wins":151,"pnl":23.52},
+    {"market":"NIKKEI","type":"EQUITY","wr":0.762,"trades":168,"wins":128,"pnl":25.45},
+    {"market":"EURUSD","type":"FOREX","wr":1.000,"trades":200,"wins":200,"pnl":9.42},
+    {"market":"GBPUSD","type":"FOREX","wr":0.594,"trades":170,"wins":101,"pnl":1.23},
+    {"market":"USDJPY","type":"FOREX","wr":0.990,"trades":193,"wins":191,"pnl":65.15},
+    {"market":"GOLD","type":"COMMODITY","wr":0.751,"trades":169,"wins":127,"pnl":2.64},
+    {"market":"SILVER","type":"COMMODITY","wr":0.728,"trades":151,"wins":110,"pnl":16.73},
+    {"market":"CRUDE_OIL","type":"COMMODITY","wr":0.931,"trades":189,"wins":176,"pnl":4.04},
+    {"market":"DGS10","type":"BOND","wr":0.869,"trades":199,"wins":173,"pnl":9.45},
+    {"market":"VIX","type":"VOLATILITY","wr":0.788,"trades":179,"wins":141,"pnl":1.52},
+    {"market":"WEATHER","type":"WEATHER","wr":0.000,"trades":0,"wins":0,"pnl":0.00},
+    {"market":"PMARKET","type":"PREDICTION","wr":0.568,"trades":176,"wins":100,"pnl":6.08}
+  ],
+  "summary": {"markets_trained":16,"generations":1}
+}

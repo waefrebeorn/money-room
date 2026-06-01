@@ -355,6 +355,7 @@ static void free_md(MarketDataSet *ds) {
 // ── Binary market definitions ──
 #define OUT_DIR     "/home/wubu2/money-room/data"
 #define GENOME_OUT  "/home/wubu2/money-room/data/trained_genomes.json"
+#define SUMMARY_OUT "/home/wubu2/money-room/data/multi_market/market_summary.json"
 
 static double f_idx_ge(double *f, int start, int end) {
     double val = 0;
@@ -940,7 +941,31 @@ static int train_all(MarketDataSet *ds, int n_agents, int epochs) {
         }
         fprintf(out, "  ],\n  \"summary\": {\"markets_trained\":%d,\"generations\":%d}\n}\n", ds->n_markets, pops[0].generation);
         fclose(out);
+
+        // Also write summary to multi_market dir for path alignment
+        FILE *sout = fopen(SUMMARY_OUT, "w");
+        if (sout) {
+            fprintf(sout, "{\n  \"markets\": [\n");
+            for (int m = 0; m < ds->n_markets; m++) {
+                int bi = 0; float bf = -1;
+                for (int i = 0; i < pops[m].n_agents; i++) {
+                    float fit = pops[m].agents[i].trades > 5 ? (float)pops[m].agents[i].wins / pops[m].agents[i].trades : 0.5f;
+                    fit *= sqrtf((float)(pops[m].agents[i].trades + 1));
+                    if (fit > bf) { bf = fit; bi = i; }
+                }
+                fprintf(sout, "    {\"market\":\"%s\",\"type\":\"%s\",\"wr\":%.3f,\"trades\":%d,\"wins\":%d,\"pnl\":%.2f}",
+                        pops[m].name, MARKET_TYPE_NAMES[pops[m].market_type],
+                        pops[m].agents[bi].trades > 0 ? (float)pops[m].agents[bi].wins / pops[m].agents[bi].trades : 0,
+                        pops[m].agents[bi].trades, pops[m].agents[bi].wins,
+                        pops[m].agents[bi].total_pnl);
+                fprintf(sout, "%s\n", (m < ds->n_markets - 1) ? "," : "");
+            }
+            fprintf(sout, "  ],\n  \"summary\": {\"markets_trained\":%d,\"generations\":%d}\n}\n", ds->n_markets, pops[0].generation);
+            fclose(sout);
+        }
+
         printf("\n[TRAIN] Genomes: %s\n", GENOME_OUT);
+        printf("[TRAIN] Summary: %s\n", SUMMARY_OUT);
     }
     
     // Write binary genomes per market
