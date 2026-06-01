@@ -95,21 +95,108 @@ static void handle_client(int client_fd, const char *data_root) {
         close(client_fd); return;
     }
 
-    /* Only GET */
-    if (strcmp(method, "GET") != 0) {
-        const char *body = "{\"error\":\"method_not_allowed\"}";
+    /* POST /register — accept new registrations */
+    if (strcmp(method, "POST") == 0 && strcmp(path, "/register") == 0) {
+        /* Extract body after headers */
+        const char *body_start = strstr(buf, "\r\n\r\n");
+        if (!body_start) {
+            const char *resp = "{\"error\":\"bad_request\"}";
+            char hdr[512]; int hlen = snprintf(hdr,sizeof(hdr),
+                "HTTP/1.1 400 Bad Request\r\nContent-Type: application/json\r\nContent-Length: %zu\r\nAccess-Control-Allow-Origin: *\r\nConnection: close\r\n\r\n",strlen(resp));
+            write_all(client_fd,hdr,(size_t)hlen); write_all(client_fd,resp,strlen(resp));
+            close(client_fd); return;
+        }
+        body_start += 4; /* skip \r\n\r\n */
+
+        /* Parse JSON body */
+        /* Expected: {"email":"...","name":"...","key":"...","tier":"...","expires_in":N} */
+        /* Extract fields with simple string search (no jansson dep) */
+        char email[256]={0}, name[256]={0}, ckey[256]={0}, tier[64]={0};
+        int expires_in = 24;
+
+        const char *p;
+        if ((p = strstr(body_start,"\"email\""))) {
+            p = strchr(p,':'); if(p){ while(*p=='"'||*p==' '||*p==':')p++;
+            const char *e = strchr(p,'"'); if(e){ size_t l=(size_t)(e-p); if(l>255)l=255; memcpy(email,p,l); }}
+        }
+        if ((p = strstr(body_start,"\"name\""))) {
+            p = strchr(p,':'); if(p){ while(*p=='"'||*p==' '||*p==':')p++;
+            const char *e = strchr(p,'"'); if(e){ size_t l=(size_t)(e-p); if(l>255)l=255; memcpy(name,p,l); }}
+        }
+        if ((p = strstr(body_start,"\"key\""))) {
+            p = strchr(p,':'); if(p){ while(*p=='"'||*p==' '||*p==':')p++;
+            const char *e = strchr(p,'"'); if(e){ size_t l=(size_t)(e-p); if(l>255)l=255; memcpy(ckey,p,l); }}
+        }
+        if ((p = strstr(body_start,"\"tier\""))) {
+            p = strchr(p,':'); if(p){ while(*p=='"'||*p==' '||*p==':')p++;
+            const char *e = strchr(p,'"'); if(e){ size_t l=(size_t)(e-p); if(l>63)l=63; memcpy(tier,p,l); }}
+        }
+        if ((p = strstr(body_start,"\"expires_in\""))) {
+            p = strchr(p,':'); if(p){ p++; while(*p==' ')p++; expires_in = atoi(p); if(expires_in<1)expires_in=24; }
+        }
+
+        /* Generate key if not provided */
+        if (strlen(ckey) == 0) {
+            static const char hex[] = "0123456789abcdef";
+            ckey[0]='m'; ckey[1]='r'; ckey[2]='_';
+            for (int i=3; i<35; i++) ckey[i] = hex[rand() % 16];
+            ckey[35]=0;
+        }
+
+        time_t now = time(NULL);
+        time_t expires_at = now + (time_t)expires_in * 3600;
+
+        /* Build registration record */
+        char line[2048];
+        int llen = snprintf(line, sizeof(line),
+            "{\"email\":\"%s\",\"name\":\"%s\",\"key\":\"%s\",\"tier\":\"%s\","
+            "\"expires_in\":%d,\"expires_at\":%ld,\"registered_at\":%ld}\n",
+            email, name, ckey, tier, expires_in, (long)expires_at, (long)now);
+
+        /* Append to registrations.json */
+        char reg_path[2048];
+        snprintf(reg_path, sizeof(reg_path), "%s/registrations.json", data_root);
+        FILE *rf = fopen(reg_path, "a");
+        if (rf) {
+            fwrite(line, 1, (size_t)llen, rf);
+            fclose(rf);
+        }
+
+        /* Build response */
+        char resp_body[1024];
+        int rlen = snprintf(resp_body, sizeof(resp_body),
+            "{\"success\":true,\"key\":\"%s\",\"tier\":\"%s\",\"expires_in\":%d}",
+            ckey, strlen(tier)?tier:"trial_1d", expires_in);
         char hdr[512];
         int hlen = snprintf(hdr, sizeof(hdr),
-            "HTTP/1.1 405 Method Not Allowed\r\n"
+            "HTTP/1.1 200 OK\r\n"
             "Content-Type: application/json\r\n"
-            "Content-Length: %zu\r\n"
+            "Content-Length: %d\r\n"
             "Access-Control-Allow-Origin: *\r\n"
-            "Connection: close\r\n\r\n", strlen(body));
+            "Access-Control-Allow-Methods: POST, GET, OPTIONS\r\n"
+            "Access-Control-Allow-Headers: Content-Type\r\n"
+            "Connection: close\r\n\r\n", rlen);
         write_all(client_fd, hdr, (size_t)hlen);
-        write_all(client_fd, body, strlen(body));
+        write_all(client_fd, resp_body, (size_t)rlen);
+        close(client_fd);
+        printf("[REG] Registered: %s (%s) key=%s\n", email, tier, ckey);
+        return;
+    }
+
+    /* OPTIONS /register — CORS preflight */
+    if (strcmp(method, "OPTIONS") == 0 && strcmp(path, "/register") == 0) {
+        const char *hdr = "HTTP/1.1 204 No Content\r\n"
+            "Access-Control-Allow-Origin: *\r\n"
+            "Access-Control-Allow-Methods: POST, GET, OPTIONS\r\n"
+            "Access-Control-Allow-Headers: Content-Type\r\n"
+            "Access-Control-Max-Age: 86400\r\n"
+            "Connection: close\r\n\r\n";
+        write_all(client_fd, hdr, strlen(hdr));
         close(client_fd);
         return;
     }
+
+    /* Only GET */
 
     /* Validate path */
     if (!safe_path(path)) {
@@ -295,7 +382,9 @@ int main(int argc, char **argv) {
 
     printf("[DATA] Money Room data server on port %d\n", port);
     printf("[DATA] Serving: %s/\n", abs_root);
-    printf("[DATA] Endpoints: GET /, GET /<filename>, GET /data/<filename>\n");
+    printf("[DATA] GET  /, /<file>, /data/<file>  — static file serving\n");
+    printf("[DATA] POST /register                  — API key registration\n");
+    printf("[DATA] No auth required. CORS enabled.\n");
 
     while (1) {
         struct sockaddr_in client;

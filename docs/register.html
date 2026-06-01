@@ -155,9 +155,12 @@
 
 var BASE = '..';
 
+/* Data server URL for registration (CORS-enabled) */
+var DATA_SERVER = 'http://localhost:9090';
+
 function $(id) { return document.getElementById(id); }
 
-/* Generate random key: mr_<32 hex chars> */
+/* Generate random key: mr_<32 hex chars> (client-side fallback) */
 function generateKey() {
   var chars = '0123456789abcdef';
   var hex = '';
@@ -165,6 +168,7 @@ function generateKey() {
   return 'mr_' + hex;
 }
 
+/* Try server-side registration first, fall back to client-side */
 function register() {
   var email = $('regEmail').value.trim();
   var name = $('regName').value.trim();
@@ -183,56 +187,53 @@ function register() {
   }
 
   btn.disabled = true;
-  btn.textContent = '⏳ Generating...';
-  status.className = 'status-msg';
+  btn.textContent = '⏳ Registering...';
+  status.className = 'status-msg info';
+  status.textContent = 'Connecting to registration server...';
 
-  /* Generate key */
-  var key = generateKey();
-
-  /* Store in localStorage (instant access) */
-  localStorage.setItem('mr_api_key', key);
-  localStorage.setItem('mr_tier', 'trial_1d');
-  localStorage.setItem('mr_email', email);
-  localStorage.setItem('mr_registered', Date.now().toString());
-
-  /* Queue registration for server-side processing */
-  queueRegistration(email, name, key);
-
-  /* Show success */
-  $('formView').style.display = 'none';
-  $('newKeyDisplay').textContent = key;
-  $('successView').style.display = 'block';
-}
-
-function queueRegistration(email, name, key) {
-  /* Save to local queue — the cron will pick it up via deploy_data */
-  var queue = JSON.parse(localStorage.getItem('mr_pending_regs') || '[]');
-  queue.push({
-    email: email,
-    name: name,
-    key: key,
-    tier: 'trial_1d',
-    expires_in: 24,
-    registered_at: Date.now()
-  });
-  localStorage.setItem('mr_pending_regs', JSON.stringify(queue));
-
-  /* Also try to submit via a fetch to the local C server (port 8080) */
+  /* Try server-side registration */
   var payload = JSON.stringify({
-    action: 'register',
     email: email,
     name: name,
-    key: key,
     tier: 'trial_1d',
     expires_in: 24
   });
 
-  /* Try local C server first (port 8080 has /register endpoint via serve.c) */
-  fetch(BASE+'/register?data='+encodeURIComponent(payload), {cache:'no-store',mode:'no-cors'})
-    .catch(function(){});
+  fetch(DATA_SERVER + '/register', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {'Content-Type': 'application/json'},
+    body: payload
+  }).then(function(r){
+    if (!r.ok) throw Error('HTTP ' + r.status);
+    return r.json();
+  }).then(function(d){
+    if (d.success) {
+      /* Server generated the key */
+      localStorage.setItem('mr_api_key', d.key);
+      localStorage.setItem('mr_tier', d.tier);
+      localStorage.setItem('mr_email', email);
+      localStorage.setItem('mr_registered', Date.now().toString());
+      showSuccess(d.key);
+    } else {
+      throw Error('server rejected');
+    }
+  }).catch(function(){
+    /* Fall back to client-side generation */
+    status.textContent = 'Server unreachable — generating key locally...';
+    var key = generateKey();
+    localStorage.setItem('mr_api_key', key);
+    localStorage.setItem('mr_tier', 'trial_1d');
+    localStorage.setItem('mr_email', email);
+    localStorage.setItem('mr_registered', Date.now().toString());
+    showSuccess(key);
+  });
+}
 
-  /* Also queue to GA/analytics-free storage — just log it */
-  console.log('[REG] Queued:', email, key);
+function showSuccess(key) {
+  $('formView').style.display = 'none';
+  $('newKeyDisplay').textContent = key;
+  $('successView').style.display = 'block';
 }
 
 function goToDashboard() {
