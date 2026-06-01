@@ -4,7 +4,7 @@
 
 The Money Room is a **10,000-agent evolutionary trading ecosystem** built **entirely in C** (engine, collectors, dashboard, all production tools). It runs as a set of cron-driven C binaries on a single host, processing live BTC market data and generating paper trades through competing genome strategies.
 
-**Python is dead in production.** All collectors, the dashboard, and data pipelines are standalone C binaries (libcurl, jansson, sqlite3). 76 C source files in engine/. Ecosystem management (teachers, money loop) is Python-backed but all data paths are C.
+**Python is dead in production.** All collectors, the dashboard, and data pipelines are standalone C binaries (libcurl, jansson, sqlite3). 99 C source files in engine/. Ecosystem management (teachers, money loop) is Python-backed but all data paths are C.
 
 ## Processing Pipeline
 
@@ -14,7 +14,7 @@ The Money Room is a **10,000-agent evolutionary trading ecosystem** built **enti
 - `gdelt_sentiment.c` — GDELT news → pump_score calculation
 - `onchain_feat.c` — CoinGecko → market cap, BTC dominance
 - `market_tide.c` — Yahoo Finance → sector ETF breadth
-- + 30+ more C pipelines covering options, funding, OI, liquidations, whales, ETF, hashrate, dark pool, congress, insider, 13F, shorts
+- + 99 C source files total: collectors, analytics, pipeline monitors, dashboards, bridges
 
 ### Layer 2: Feed Bridge (`feed_bridge.c` — C binary)
 - Runs every 60s via system cron
