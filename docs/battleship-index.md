@@ -3,7 +3,7 @@
 
 **Date:** June 1, 2026
 **Target:** Clone the Unusual Whales MCP (18 tools, 123+ endpoints, 15 categories)
-**Status:** We have 14 data pipelines covering ~13/15 categories. **2 categories to clone.**
+**Status:** ✅ All 15 categories PORTED.
 
 ---
 
@@ -11,7 +11,7 @@
 
 || # | Category | UW Tools | Our Coverage | Gap | Priority | Clough Bill |
 ||---|----------|----------|-------------|-----|----------|-------------|
-|| 1 | **Stock** | 8 tools (info, chains, Greeks, IV, max pain, volatility) | ❌ None | FULL | 🔴 P0 | `CB-STOCK` |
+||| 1 | **Stock** | 8 tools (info, chains, Greeks, IV, max pain, volatility) | ✅ 6/6 PORTED | CLOSED | 🔴 CLOSED | `CB-STOCK` |
 || 2 | **Options** | Contract flow, historic prices, volume profiles | ✅ PCR/IV skew/max pain + large trade flow (P62) + OI PCR (P36) | LOW | 🟢 CLOSED | `CB-FLOW` |
 || 3 | **Flow** | Options flow alerts, full tape, net flow | ✅ CBOE options flow alert system (P62) + PCR (P5) | MEDIUM | 🟡 P4 | `CB-OPTIONS` |
 || 4 | **Dark Pool** | Recent trades, ticker-level filtering | ✅ CBOE/FINRA dark pool feat via dark_pool_feat.c (546 lines C, compiled) | MEDIUM | 🟡 P4 | `CB-DARKPOOL` |
@@ -87,7 +87,7 @@
 Each bill below is a self-contained pipeline plan. Free data. No API keys required (except where free tier noted).
 
 ### 🔴 CB-STOCK (P0) — Stock Fundamentals & Technicals
-**Status:** ✅ PARTIAL — stock_collector.c (375 lines C, compiled) + options_chain.c (CBOE chains)
+|**Status:** ✅ PORTED — stock_collector.c (375 lines C) + options_chain.c + iv_rank.c + volatility_calc.c
 **Free source:** Finnhub free API (300 req/day) + Yahoo Finance v7 chart (via yahoo_collector.c)
 **Pipeline:** `./stock_collector fetch-all` (C binary, 50 tickers, Finnhub)
 **Cron:** every 4h (via collector_runner SLOW)
@@ -95,8 +95,8 @@ Each bill below is a self-contained pipeline plan. Free data. No API keys requir
 - `get_stock_info` — company profile, PE, market cap, dividend ✅ (stock_collector)
 - `get_stock_option_chains` — available expiry chains for a ticker ✅ (options_chain.c)
 - `get_stock_max_pain` — max pain calculation from OI ✅ (options_chain.c F70)
-- `get_stock_iv_rank` — IV percentile over 52 weeks ❌ (missing)
-- `get_stock_volatility` — historical volatility, HV10/HV30 ❌ (missing)
+- `get_stock_iv_rank` — IV percentile over 52 weeks ✅ (iv_rank.c)
+- `get_stock_volatility` — historical volatility, HV10/HV30 ✅ (volatility_calc.c)
 - `get_stock_greeks` — delta, gamma, theta, vega for strikes ✅ (options_flow.c)
 **Cost:** Free (Finnhub free tier)
 

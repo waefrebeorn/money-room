@@ -173,9 +173,10 @@ static CollectorTask SLOW_TASKS[] = {
     {"stock_collector.sh",      "stock_collector",   240},
     {"politician_portfolio.sh", "politician_portfolio", 240},
     {"iv_rank.sh",              "iv_rank",            60},
+    {"volatility_fetch.sh",     "volatility_calc",    60},
 };
-#define N_SLOW (sizeof(SLOW_TASKS) / sizeof(SLOW_TASKS[0]))
 
+#define N_SLOW (sizeof(SLOW_TASKS) / sizeof(SLOW_TASKS[0]))
 static CollectorTask SPORTS_TASKS[] = {
     {"sports_collector.sh",    "sports",            60},
     {"economic_collector.sh",  "economic",          60},

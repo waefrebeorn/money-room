@@ -17,7 +17,7 @@ MKT_TARGET = room_engine_market
 # Tools: shell-to-C conversions
 TOOLS = cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all
 TOOL_SRCS = $(addsuffix .c, $(TOOLS))
-TOOL_BINS = $(TOOLS) cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler test_runner key_rotation congress_trades insider_trades stock_screener dark_pool_feat etf_flow_feat stock_collector politician_portfolio iv_rank
+TOOL_BINS = $(TOOLS) cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler test_runner key_rotation congress_trades insider_trades stock_screener dark_pool_feat etf_flow_feat stock_collector politician_portfolio iv_rank volatility_calc
 
 market: CFLAGS += -DMARKET_MODE
 market: clean $(MKT_TARGET)
@@ -46,7 +46,7 @@ clean:
 	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge $(TOOL_BINS) congress_trades insider_trades stock_screener dark_pool_feat etf_flow_feat
 
 # ── Shell-to-C conversions ──
-tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler test_runner congress_trades insider_trades stock_screener dark_pool_feat etf_flow_feat stock_collector politician_portfolio iv_rank
+tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler test_runner congress_trades insider_trades stock_screener dark_pool_feat etf_flow_feat stock_collector politician_portfolio iv_rank volatility_calc
 
 cycle_all_rooms: cycle_all_rooms.c
 	$(CC) -O2 -o $@ $<
@@ -153,6 +153,9 @@ politician_portfolio: politician_portfolio.c
 
 iv_rank: iv_rank.c
 	$(CC) -O2 -o $@ $< -lsqlite3 -lm
+
+volatility_calc: volatility_calc.c
+	$(CC) -O2 -o $@ $< -lcurl -ljansson -lsqlite3 -lm
 
 # ── Run test suite ──
 test: test_runner

@@ -4,7 +4,7 @@
 
 The Money Room is a **10,000-agent evolutionary trading ecosystem** built **entirely in C** (engine, collectors, dashboard, all production tools). It runs as a set of cron-driven C binaries on a single host, processing live BTC market data and generating paper trades through competing genome strategies.
 
-**Python is zero in production.** All collectors, data pipelines, risk analysis, and monitoring are standalone C binaries (libcurl, jansson, sqlite3). 209 C source files in engine/. No Python ecosystems remain.
+**Python is zero in production.** All collectors, data pipelines, risk analysis, and monitoring are standalone C binaries (libcurl, jansson, sqlite3). 210 C source files in engine/. No Python ecosystems remain.
 
 ## Processing Pipeline
 
@@ -14,7 +14,7 @@ The Money Room is a **10,000-agent evolutionary trading ecosystem** built **enti
 - `gdelt_sentiment.c` — GDELT news → pump_score calculation
 - `onchain_feat.c` — CoinGecko → market cap, BTC dominance
 - `market_tide.c` — Yahoo Finance → sector ETF breadth
-- + 209 C source files total: collectors, analytics, pipeline monitors, risk reports, data server, regime detection, health alerts, bridges
+- + 210 C source files total: collectors, analytics, pipeline monitors, risk reports, data server, regime detection, health alerts, bridges
 
 ### Layer 2: Feed Bridge (`feed_bridge.c` — C binary)
 - Runs every 60s via system cron
@@ -62,7 +62,7 @@ The Money Room is a **10,000-agent evolutionary trading ecosystem** built **enti
 
 ```
 money-room/
-| engine/                    # 209 C source files (compiled binaries)
+| engine/                    # 210 C source files (compiled binaries)
 │   ├── data_server.c         # C static file server (22KB ELF, port 9090)
 │   ├── room_engine.c         # Main loop (~600 LOC)
 │   ├── room_features.c       # 18-dim feature computation (RSI, MACD, Bollinger, tail risk, regime)
