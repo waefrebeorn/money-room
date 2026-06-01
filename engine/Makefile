@@ -134,6 +134,13 @@ test: test_runner
 # ── Regime detection (reads BTC 1-min CSV, writes docs/data/regime.json) ──
 regime_json: regime_detect
 	./regime_detect /home/wubu2/.hermes/pm_logs/historical/btc_1min_latest.csv --window 20 --smooth 14 > ../docs/data/regime.json
+
+# ── Risk report (VaR, Sharpe, Sortino from trade_log.csv) ──
+risk_report: risk_report.c
+	$(CC) -O2 -o $@ $< -lm
+risk_json: risk_report
+	./risk_report
+
 memcheck: health_check withdrawal_scheduler paper_live_bridge paper_mode_sync data_server
 	@echo "=== health_check ===" && timeout 15 valgrind --leak-check=full --show-leak-kinds=definite --error-exitcode=1 ./health_check 2>&1 | grep -E "definitely lost|ERROR SUMMARY|All heap blocks"
 	@echo "=== withdrawal_scheduler ===" && timeout 10 valgrind --leak-check=full --show-leak-kinds=definite --error-exitcode=1 ./withdrawal_scheduler status 2>&1 | grep -E "definitely lost|ERROR SUMMARY|All heap blocks"
