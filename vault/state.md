@@ -10,12 +10,13 @@
 
 ## Battleship Remaining
 Active gaps from battleship-index.md (Clough Bills vs Unusual Whales):
-- **CB-STOCK (P0)** — Stock fundamentals/technicals: stock_collector.c (Finnhub: PE, EPS, mcap, dividend, beta, 52W range). Options chain exists. Greeks/IV/max pain still missing. STATE: PARTIAL
-- **CB-POLITICIAN (P6)** — Politician portfolios: politician_portfolio.c exists. STATE: UNVERIFIED
-- **CB-SEASONALITY (P5)** — Seasonality patterns: seasonality.c exists. STATE: UNVERIFIED
+- **CB-STOCK (P0)** — Stock fundamentals: stock_collector.c + options_chain.c + options_flow.c cover 4/6 tools. IV rank infrastructure built (iv_rank.c), need 52 weeks of data. HV10/HV30 volatility calculator still missing. STATE: PARTIAL
 
 ## Closed in this batch (current)
-- CB-STOCK fundamentals: stock_collector.c (375 lines, Finnhub, 50 tickers, 3 tables), compiled clean, wired collector_runner 240min
+- CB-POLITICIAN (P6) → PORTED: politician_portfolio.c (388 lines) compiled 0w 0e, wired collector_runner 240min
+- CB-SEASONALITY (P5) → PORTED: seasonality.c (203 lines) was already compiled and running. Verified binary exists, collector_runner wired every 30min
+- IV rank tracker: iv_rank.c (180 lines) — reads options flow DBs, computes IV rank/percentile. Writes docs/data/iv_rank.json. Wired collector_runner 60min
+
 
 ## Closed in previous batch
 - CB-CONGRESS, CB-INSIDER, CB-DARKPOOL, CB-ETF-FLOW, CB-SCREENER compiled + wired

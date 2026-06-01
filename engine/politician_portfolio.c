@@ -158,7 +158,7 @@ static int cmd_update(void) {
     int tickers = get_ticker_count(db);
 
     /* Read existing congress_features.json if it exists */
-    json_t *root = NULL;
+    json_t *root = NULL; (void)root;
     FILE *f = fopen(FEAT_PATH, "r");
     if (f) {
         fseek(f, 0, SEEK_END);
@@ -354,7 +354,7 @@ static void cmd_signals(void) {
     long sz = ftell(f);
     rewind(f);
     char *b = malloc(sz + 1);
-    fread(b, 1, sz, f);
+    size_t _r = fread(b, 1, sz, f); (void)_r;
     b[sz] = '\0';
     fclose(f);
     printf("%s\n", b);

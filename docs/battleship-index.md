@@ -3,7 +3,7 @@
 
 **Date:** June 1, 2026
 **Target:** Clone the Unusual Whales MCP (18 tools, 123+ endpoints, 15 categories)
-**Status:** We have 14 data pipelines covering ~11/15 categories. **4 categories to clone.**
+**Status:** We have 14 data pipelines covering ~13/15 categories. **2 categories to clone.**
 
 ---
 
@@ -16,14 +16,14 @@
 || 3 | **Flow** | Options flow alerts, full tape, net flow | ✅ CBOE options flow alert system (P62) + PCR (P5) | MEDIUM | 🟡 P4 | `CB-OPTIONS` |
 || 4 | **Dark Pool** | Recent trades, ticker-level filtering | ✅ CBOE/FINRA dark pool feat via dark_pool_feat.c (546 lines C, compiled) | MEDIUM | 🟡 P4 | `CB-DARKPOOL` |
 || 5 | **Congress** | Member trades, late reports, recent activity | ✅ Capitol Trades via congress_trades.c (363 lines C, compiled, cron every 60min) | MEDIUM | 🟡 P3 | `CB-CONGRESS` |
-|| 6 | **Politicians** | Portfolios, holdings by ticker *(Premium)* | ❌ None | FULL | ⚪ P6 | `CB-POLITICIAN` |
+|| 6 | **Politicians** | Portfolios, holdings by ticker *(Premium)* | ✅ Portfolio aggregator via politician_portfolio.c (388 lines C, compiled, cron 240min) | MEDIUM | 🟡 P4 | `CB-POLITICIAN` |
 || 7 | **Insider** | Transactions, sector flow, ticker flow | ✅ SEC EDGAR Form 4 via insider_trades.c (338 lines C, compiled, cron every 60min) | MEDIUM | 🟡 P3 | `CB-INSIDER` |
 || 8 | **Institutions** | 13F filings, holdings, sector exposure | ✅ SEC EDGAR 13F via 13f_holdings.c (338 lines C, compiled) | MEDIUM | 🟡 P3 | `CB-INSTITUTIONS` |
 || 9 | **Market** | Tide, sector tide, economic/FDA calendar, correlations | ✅ Macro events (P8), cross-asset (P9), L/S ratio (P37), ETF flow (P40) | MEDIUM | 🟡 P3 | `CB-MARKET` |
 || 10 | **Earnings** | Premarket/afterhours schedules, historical | ✅ Earnings calendar + density (P32) | MEDIUM | 🟡 P3 | `CB-EARNINGS` |
 || 11 | **ETF** | Holdings, exposure, inflows/outflows, weights | ✅ BTC ETF flow proxy from 7 ETFs (P40) | MEDIUM | 🟡 P4 | `CB-ETF` |
 || 12 | **Shorts** | Short interest, FTDs, short volume, borrow rates | ✅ FINRA short vol + FTD via short_interest_feat.c (727 lines C, compiled) | MEDIUM | 🟡 P3 | `CB-SHORTS` |
-|| 13 | **Seasonality** | Monthly performers, yearly patterns | ❌ None | FULL | ⚪ P5 | `CB-SEASONALITY` |
+|| 13 | **Seasonality** | Monthly performers, yearly patterns | ✅ 5yr SPY history via seasonality.c (203 lines C, compiled, cron 30min) | MEDIUM | 🟡 P4 | `CB-SEASONALITY` |
 || 14 | **Screener** | Stock/Option screener, analyst ratings | ✅ Composite multi-source screener via stock_screener.c (322 lines C, compiled) | MEDIUM | 🟡 P3 | `CB-SCREENER` |
 || 15 | **News** | Market news headlines | ✅ GDELT sentiment (P7) + on-chain/whale (P39) | LOW | ⚪ P5 | `CB-NEWS` |
 
@@ -31,11 +31,13 @@
 
 ## ── EXISTING VS TARGET ──
 
-### What We Have (14 tools, ~11 categories)
+### What We Have (16 tools, ~13 categories)
 
 | Tool | Our Source | UW Equivalent | Gap |
 |------|-----------|---------------|-----|
 | `get_room_state` | C engine mmap | — | Unique (our engine) |
+| `get_iv_rank` | iv_rank.c (options flow DB, C) | `get_stock_iv_rank` | LOW (needs 52wk data accumulation) |
+| `get_politician_portfolio` | politician_portfolio.c (C) | `get_politician_portfolio` | LOW |
 | `get_options_flow` | options_flow.c / options_chain.c (CBOE/VIX/PCR) | `get_stock_greek_exposure`, `get_stock_max_pain`, `get_stock_iv_rank` | No Greeks, no chains, no IV term structure |
 | `get_dark_pool` | dark_pool_feat.c (FINRA/CBOE, C) | `get_darkpool_trades` | LOW |
 | `get_congress_trades` | congress_trades.c (Capitol Trades API) | `get_congress_trades` | LOW |
@@ -292,6 +294,6 @@ Total: 15 new C pipelines, +15 grid cells (P61-P75), 36 total MCP tools
 **We will have:** 25+ tools, 55+ endpoints, completely free
 **Our edge:** C engine (10K agents, feature importance, tail risk, nested cascade) — they can't touch that
 **Their edge:** Real-time OPRA options flow, dark pool — they pay for exchange data
-**Our strategy:** Clone their free/free-tierable categories (12/15). Accept the paid categories (Options Flow real-time, Dark Pool real-time) as "nice to have." Win on breadth + unique engine.
+**Our strategy:** Clone their free/free-tierable categories (13/15). Accept the paid categories (Options Flow real-time, Dark Pool real-time) as "nice to have." Win on breadth + unique engine.
 
 **The repo is the banner. The banner is the walk.**
