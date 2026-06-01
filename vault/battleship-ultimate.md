@@ -12,12 +12,12 @@
 | # | Gap | Domain | Pri | Status | Detail |
 |---|-----|--------|-----|--------|--------|
 || A01 | No SGD weight update loop in multi_market_trainer | Training | 🔴 | ✅ | Added BCE gradient descent after every trade. feat_weight[i] -= lr * err * (feat[i]-0.5), bias -= lr * err. learning_rate now functional. |
-| A02 | Darwin never fires in any room (cycle=1-2) | Training | 🔴 | ⏳ | Darwin triggers every 100 trades. Rooms have 0-2 trades. No evolution has ever happened. |
-| A03 | All 16 rooms share identical binary (same md5) | Training | 🔴 | ⏳ | Differentiation is supposed to come from market_feed.json config. Binary is identical. |
-| A04 | Rooms 7 (consensus, elections, manifold, etc.) show 0.50 price | Training | 🔴 | ⏳ | Placeholder binary price. No real prediction market data flowing. These rooms are running on fake data. |
-| A05 | BTC-clone data fed to economic/macro rooms | Training | 🔴 | ⏳ | "economic" room shows close=7473 (BTC price). Not economic index data. |
-| A06 | Room feed generator may not work | Training | 🔴 | ⏳ | FEED_GEN binary exists but per-room feed generation quality unknown. |
-| A07 | No per-market-type genome initialization | Training | 🔴 | ⏳ | All rooms use same random genome init. Crypto agents get same weights as sports agents. |
+|| A02 | Darwin never fires in any room (cycle=1-2) | Training | 🔴 | ⏳ | Darwin triggers every 100 trades. Rooms have 0-2 trades. No evolution has ever happened. |
+|| A03 | All 16 rooms share identical binary (same md5) | Training | 🔴 | ⏳ | Differentiation is supposed to come from market_feed.json config. Binary is identical. |
+|| A04 | Rooms 7 (consensus, elections, manifold, etc.) show 0.50 price | Training | 🔴 | ⏳ | Placeholder binary price. No real prediction market data flowing. These rooms are running on fake data. |
+|| A05 | BTC-clone data fed to economic/macro rooms | Training | 🔴 | ⏳ | "economic" room shows close=7473 (BTC price). Not economic index data. |
+|| A06 | Room feed generator may not work | Training | 🔴 | ⏳ | FEED_GEN binary exists but per-room feed generation quality unknown. |
+|| A07 | No per-market-type genome initialization | Training | 🔴 | ✅ | init_agent now takes MarketType param. Crypto→momentum, Equity→macro, Forex→trend-follow, Binary→consensus-skeptic, Bond→slow/horizon, Vol→mean-revert, Commod→vol-aware. |
 | A08 | No market-specific feature calibration | Training | 🔴 | ⏳ | RSI=50 means different things for 0.50 binary markets vs crypto. No per-market scaling. |
 | A09 | No per-asset volatility normalization | Training | 🟡 | ⏳ | BTC at $75K and binary at $0.50 use same feature computation. Price-based features broken. |
 | A10 | Multi-market trainer not wired into cron | Training | 🔴 | ⏳ | trainers exist but auto_retrain_c isn't in the cron pipeline. |
@@ -78,9 +78,9 @@
 
 | # | Gap | Domain | Pri | Status | Detail |
 |---|-----|--------|-----|--------|--------|
-| B01 | N_FEATURES=18 but only ~10 actually populated per snapshot | Features | 🔴 | ⏳ | At least 8 features show zero/default values in real snapshots. |
+| B01 | N_FEATURES=18 but only ~10 populated | Features | 🔴 | ⚪ | STALE — verified: all 18 features computed in room_features.c. Price_delta, momentum, RSI, volume, EMAs, MACD, Bollinger, divergence, pump, regime, F&G, consensus, phi×3, DFT, tail_risk all set. |
 | B02 | dft_dominant always shows 0.0 | Features | 🟡 | ⏳ | DFT frequency feature appears never computed. Computational gap in feature pipeline. |
-| B03 | phi_return/phi_vol/phi_momentum may be uninitialized | Features | 🟡 | ⏳ | φ-interval features defined in struct but computation may not be wired. |
+| B03 | phi_return/phi_vol/phi_momentum may be uninitialized | Features | 🟡 | ⚪ | STALE — compute_phi_features() called in room_features.c:364. All φ-interval features populated. |
 | B04 | tail_risk_score always shows 0.0-0.1 range | Features | 🟡 | ⏳ | Tailslayer feature rarely triggers. Either no tail risk detected or feature broken. |
 | B05 | No order book imbalance feature | Features | 🟡 | ⏳ | Order depth data (bids/asks) available from Kraken but not incorporated. |
 | B06 | No cumulative volume delta (CVD) | Features | 🟡 | ⏳ | CVD shows aggressive buying/selling but cumulative_volume_delta.c exists as orphan. |

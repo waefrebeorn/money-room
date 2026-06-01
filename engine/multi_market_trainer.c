@@ -671,8 +671,8 @@ static void build_features(const MarketData *md, int idx, float *feats) {
     if (feats[17] < 0) feats[17] = 0; if (feats[17] > 1) feats[17] = 1;
 }
 
-// Initialize one agent
-static void init_agent(AgentState *a) {
+// Initialize one agent with market-type-specific priors
+static void init_agent(AgentState *a, MarketType market_type) {
     a->alive = true; a->capital = 50.0f; a->starting_capital = 50.0f;
     a->trades = 0; a->wins = 0; a->losses = 0; a->total_pnl = 0.0f;
     a->max_drawdown = 0.0f; a->peak_capital = 50.0f;
@@ -690,8 +690,70 @@ static void init_agent(AgentState *a) {
     a->genome.mean_reversion_bias = -1.0f + (float)rand() / RAND_MAX * 2.0f;
     a->genome.bias = ((float)rand() / RAND_MAX - 0.5f) * 0.3f;
     a->genome.learning_rate = 0.005f + (float)rand() / RAND_MAX * 0.015f;
+    
+    // ── Market-type-specific feat_weight priors ──
+    // Base random weights
     for (int w = 0; w < N_FEATURES; w++)
         a->genome.feat_weight[w] = ((float)rand() / RAND_MAX - 0.5f) * 2.0f;
+    
+    // Apply market-specific bias to feat_weights
+    switch (market_type) {
+        case MARKET_CRYPTO:
+            // Momentum-heavy: price_delta, micro_momentum, volume_surge
+            a->genome.feat_weight[0] += 0.3f;  // price_delta_pct
+            a->genome.feat_weight[1] += 0.4f;  // micro_momentum
+            a->genome.feat_weight[3] += 0.3f;  // volume_surge_ratio
+            a->genome.time_horizon = 0.2f + (float)rand() / RAND_MAX * 3.0f;
+            break;
+        case MARKET_EQUITY:
+            // Value/macro: bollinger, divergence, fear_greed, phi
+            a->genome.feat_weight[7] += 0.3f;  // bollinger_pct
+            a->genome.feat_weight[8] += 0.3f;  // divergence_score
+            a->genome.feat_weight[11] += 0.3f; // fear_greed_norm
+            a->genome.feat_weight[13] += 0.2f; // phi_return
+            break;
+        case MARKET_FOREX:
+            // Trend-following: ema_fast, ema_slow, macd
+            a->genome.feat_weight[4] += 0.4f;  // ema_fast
+            a->genome.feat_weight[5] += 0.4f;  // ema_slow
+            a->genome.feat_weight[6] += 0.3f;  // macd_hist
+            a->genome.mean_reversion_bias = -0.3f;  // anti-revert = trend-follow
+            break;
+        case MARKET_COMMODITY:
+            // Volatility-aware: bollinger, RSI, vol features
+            a->genome.feat_weight[2] += 0.3f;  // rsi_7
+            a->genome.feat_weight[7] += 0.3f;  // bollinger_pct
+            a->genome.feat_weight[14] += 0.3f; // phi_vol
+            a->genome.stop_loss_pct = 0.05f;  // wider stops for commodities
+            break;
+        case MARKET_BOND:
+            // Slow, macro-driven: phi_return, phi_momentum, time_horizon long
+            a->genome.feat_weight[13] += 0.3f; // phi_return
+            a->genome.feat_weight[15] += 0.3f; // phi_momentum
+            a->genome.time_horizon = 2.0f + (float)rand() / RAND_MAX * 8.0f;
+            break;
+        case MARKET_VOLATILITY:
+            // Mean-reversion heavy: divergence, regime, dft
+            a->genome.feat_weight[8] += 0.4f;  // divergence_score
+            a->genome.feat_weight[10] += 0.3f; // regime_indicator
+            a->genome.feat_weight[16] += 0.3f; // dft_dominant
+            a->genome.mean_reversion_bias = 0.6f;  // strong mean-revert
+            break;
+        case MARKET_PREDICTION:
+        case MARKET_SPORTS:
+        case MARKET_WEATHER:
+        case MARKET_ELECTION:
+            // Binary markets: consensus-skeptic, pump-aware
+            a->genome.feat_weight[9] += 0.3f;   // pump_score
+            a->genome.feat_weight[12] += 0.3f;  // herd_consensus
+            a->genome.feat_weight[17] += 0.2f;  // tail_risk_score
+            a->genome.herd_antipathy = 0.3f + (float)rand() / RAND_MAX * 0.6f;
+            a->genome.lie_sensitivity = 0.4f + (float)rand() / RAND_MAX * 0.5f;
+            break;
+        default:
+            break;
+    }
+    
     for (int r = 0; r < N_REGS; r++) {
         for (int w = 0; w < N_FEATURES; w++)
             a->genome.regime_weight[r][w] = a->genome.feat_weight[w] + ((float)rand() / RAND_MAX - 0.5f) * 0.5f;
@@ -729,7 +791,7 @@ static void init_pop(MarketPop *p, MarketType type, const char *name, int n) {
     memset(p, 0, sizeof(MarketPop));
     p->market_type = type; strncpy(p->name, name, sizeof(p->name) - 1);
     p->n_agents = n; p->agents = malloc(n * sizeof(AgentState));
-    for (int i = 0; i < n; i++) init_agent(&p->agents[i]);
+    for (int i = 0; i < n; i++) init_agent(&p->agents[i], p->market_type);
 }
 
 // Train one population on one market
@@ -892,7 +954,7 @@ static void evolve(MarketPop *pop) {
         new_a[ni].total_pnl = 0.0f;
         ni++;
     }
-    while (ni < n) { init_agent(&new_a[ni]); ni++; }
+    while (ni < n) { init_agent(&new_a[ni], pop->market_type); ni++; }
     memcpy(pop->agents, new_a, n * sizeof(AgentState));
     free(new_a); free(fits);
     pop->generation++;
