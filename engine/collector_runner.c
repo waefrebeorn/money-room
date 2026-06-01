@@ -24,6 +24,8 @@
 #define BASE_DIR  "/home/wubu2/.hermes/scripts"
 #define LOG_FILE  "/home/wubu2/.hermes/pm_logs/collector_runner.log"
 #define LOCK_FILE "/tmp/collector_runner.lock"
+#define MAX_RETRIES 3
+#define RETRY_DELAY_SEC 5
 
 typedef struct {
     const char *script;
@@ -47,54 +49,71 @@ static int run_script(const CollectorTask *t) {
     char path[512];
     snprintf(path, sizeof(path), "%s/%s", BASE_DIR, t->script);
 
-    struct stat st;
-    if (stat(path, &st) != 0 || !(st.st_mode & S_IXUSR)) {
-        char warn[256];
-        snprintf(warn, sizeof(warn), "  WARN: %s binary not found", t->name);
-        log_msg(warn, 1);
-        return 1;
-    }
-
-    char run_msg[256];
-    snprintf(run_msg, sizeof(run_msg), "  RUN: %s (timeout=%ds)", t->name, t->timeout_sec);
-    log_msg(run_msg, 1);
-
-    pid_t pid = fork();
-    if (pid < 0) { perror("fork"); return 1; }
-
-    if (pid == 0) {
-        execl(path, path, NULL);
-        _exit(127);
-    }
-
-    // Wait with timeout
-    int status;
-    struct timespec ts = {0, 50000000L};  // 50ms poll
-    for (int waited = 0; waited < t->timeout_sec * 20; waited++) {
-        pid_t r = waitpid(pid, &status, WNOHANG);
-        if (r == pid) {
-            int exit = WIFEXITED(status) ? WEXITSTATUS(status) : -3;
-            char result[256];
-            if (exit == 0)
-                snprintf(result, sizeof(result), "  OK: %s", t->name);
-            else
-                snprintf(result, sizeof(result), "  EXIT: %s (exit=%d)", t->name, exit);
-            log_msg(result, 1);
-            // Rate limit
-            nanosleep(&(struct timespec){2, 0}, NULL);
-            return exit;
+    for (int attempt = 0; attempt < MAX_RETRIES; attempt++) {
+        struct stat st;
+        if (stat(path, &st) != 0 || !(st.st_mode & S_IXUSR)) {
+            char warn[256];
+            snprintf(warn, sizeof(warn), "  WARN: %s binary not found (attempt %d/%d)", t->name, attempt + 1, MAX_RETRIES);
+            log_msg(warn, 1);
+            if (attempt < MAX_RETRIES - 1) { struct timespec d = {RETRY_DELAY_SEC, 0}; nanosleep(&d, NULL); }
+            continue;
         }
-        nanosleep(&ts, NULL);
+
+        char run_msg[256];
+        snprintf(run_msg, sizeof(run_msg), "  [%d/%d] RUN: %s (timeout=%ds)", attempt + 1, MAX_RETRIES, t->name, t->timeout_sec);
+        log_msg(run_msg, 1);
+
+        pid_t pid = fork();
+        if (pid < 0) { perror("fork"); continue; }
+
+        if (pid == 0) {
+            execl(path, path, NULL);
+            _exit(127);
+        }
+
+        // Wait with timeout
+        int status;
+        struct timespec ts = {0, 50000000L};
+        int timed_out = 0;
+        for (int waited = 0; waited < t->timeout_sec * 20; waited++) {
+            pid_t r = waitpid(pid, &status, WNOHANG);
+            if (r == pid) {
+                int exit = WIFEXITED(status) ? WEXITSTATUS(status) : -3;
+                if (exit == 0) {
+                    char ok[256];
+                    snprintf(ok, sizeof(ok), "  OK: %s (attempt %d)", t->name, attempt + 1);
+                    log_msg(ok, 1);
+                    nanosleep(&(struct timespec){2, 0}, NULL);
+                    return 0;
+                }
+                char fail[256];
+                snprintf(fail, sizeof(fail), "  FAIL: %s exit=%d (attempt %d/%d)", t->name, exit, attempt + 1, MAX_RETRIES);
+                log_msg(fail, 1);
+                timed_out = 1;
+                break;
+            }
+            nanosleep(&ts, NULL);
+        }
+
+        if (!timed_out) {
+            // Timeout
+            kill(pid, SIGTERM);
+            nanosleep(&(struct timespec){1, 0}, NULL);
+            char timeout_msg[256];
+            snprintf(timeout_msg, sizeof(timeout_msg), "  TIMEOUT: %s after %ds (attempt %d/%d)", t->name, t->timeout_sec, attempt + 1, MAX_RETRIES);
+            log_msg(timeout_msg, 1);
+        }
+
+        if (attempt < MAX_RETRIES - 1) {
+            struct timespec d = {RETRY_DELAY_SEC, 0};
+            nanosleep(&d, NULL);
+        }
     }
 
-    // Timeout
-    kill(pid, SIGTERM);
-    nanosleep(&(struct timespec){1, 0}, NULL);
-    char timeout_msg[256];
-    snprintf(timeout_msg, sizeof(timeout_msg), "  TIMEOUT: %s after %ds", t->name, t->timeout_sec);
-    log_msg(timeout_msg, 1);
-    nanosleep(&(struct timespec){2, 0}, NULL);
-    return 124;  // Same exit code as timeout command
+    char fatal[256];
+    snprintf(fatal, sizeof(fatal), "  FATAL: %s failed after %d attempts", t->name, MAX_RETRIES);
+    log_msg(fatal, 1);
+    return 1;
 }
 
 static void run_category(const CollectorTask *tasks, int n, const char *label) {
