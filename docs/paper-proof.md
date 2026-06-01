@@ -58,7 +58,7 @@ The v1 hardcoded formula achieved 36% WR. v2 learned weights found +11.5 percent
 
 ## 10K Genome Ecosystem
 
-In parallel with the C engine, we run a **10,000-genome Python ecosystem** that trades paper positions on live market data:
+In parallel with the C engine, we run a **10,000-genome C ecosystem** that trades paper positions on live market data (all C, zero Python):
 
 | Metric | Value |
 |--------|-------|
