@@ -25,6 +25,7 @@
 #define FEED_PATH       "/home/wubu2/.hermes/pm_logs/c_room/market_feed.json"
 #define STATS_OUT       "/home/wubu2/money-room/docs/data/paper_stats.json"
 #define LEADERBOARD_OUT "/home/wubu2/money-room/data/paper_leaderboard.json"
+#define GENOME_PATH     "/home/wubu2/money-room/data/multi_market/BTC.bin"
 #define N_AGENTS        2500
 #define SEED_CAPITAL     50.0f
 
@@ -50,8 +51,24 @@ static int g_warmup_cycles = 0;
 const float MAX_POSITION_FRACTION = 0.01f;  // Max 1% per trade
 const float MAX_CAPITAL = 1000.0f;           // Reset agents above $1000 (unrealistic)
 
+// ── Load evolved genome or use random ──
+static int load_trained_genome(Genome *out) {
+    FILE *f = fopen(GENOME_PATH, "rb");
+    if (!f) { printf("[PAPER] No trained genome found at %s, using random\n", GENOME_PATH); return -1; }
+    if (fread(out, sizeof(Genome), 1, f) != 1) {
+        printf("[PAPER] Failed to read genome from %s\n", GENOME_PATH);
+        fclose(f); return -1;
+    }
+    fclose(f);
+    printf("[PAPER] Loaded trained genome from %s\n", GENOME_PATH);
+    return 0;
+}
+
 // ── Initialize agents ──
 static void init_agents(void) {
+    Genome trained;
+    int has_trained = load_trained_genome(&trained);
+    
     for (int i = 0; i < N_AGENTS; i++) {
         g_agents[i].alive = true;
         g_agents[i].capital = SEED_CAPITAL;
@@ -62,16 +79,25 @@ static void init_agents(void) {
         g_agents[i].total_pnl = 0.0f;
         g_agents[i].win_rate = 0.5f;
         
-        // Conservative random genome
-        g_agents[i].genome.bias = ((float)rand() / RAND_MAX - 0.5f) * 0.1f;
-        g_agents[i].genome.position_size = 0.005f + (float)rand() / RAND_MAX * 0.02f;  // 0.5-2.5% risk
-        g_agents[i].genome.conviction_threshold = 0.15f + (float)rand() / RAND_MAX * 0.35f;
-        g_agents[i].genome.stop_loss_pct = 0.05f + (float)rand() / RAND_MAX * 0.15f;
-        g_agents[i].genome.take_profit_pct = 0.05f + (float)rand() / RAND_MAX * 0.25f;
-        for (int w = 0; w < N_FEATURES; w++)
-            g_agents[i].genome.feat_weight[w] = ((float)rand() / RAND_MAX - 0.5f) * 0.5f;
+        if (has_trained == 0) {
+            // Start from trained genome + small noise for diversity
+            g_agents[i].genome = trained;
+            g_agents[i].genome.bias += ((float)rand() / RAND_MAX - 0.5f) * 0.02f;
+            g_agents[i].genome.position_size *= (0.8f + (float)rand() / RAND_MAX * 0.4f);
+            for (int w = 0; w < N_FEATURES; w++)
+                g_agents[i].genome.feat_weight[w] += ((float)rand() / RAND_MAX - 0.5f) * 0.1f;
+        } else {
+            // Conservative random genome
+            g_agents[i].genome.bias = ((float)rand() / RAND_MAX - 0.5f) * 0.1f;
+            g_agents[i].genome.position_size = 0.005f + (float)rand() / RAND_MAX * 0.02f;
+            g_agents[i].genome.conviction_threshold = 0.15f + (float)rand() / RAND_MAX * 0.35f;
+            g_agents[i].genome.stop_loss_pct = 0.05f + (float)rand() / RAND_MAX * 0.15f;
+            g_agents[i].genome.take_profit_pct = 0.05f + (float)rand() / RAND_MAX * 0.25f;
+            for (int w = 0; w < N_FEATURES; w++)
+                g_agents[i].genome.feat_weight[w] = ((float)rand() / RAND_MAX - 0.5f) * 0.5f;
+        }
     }
-    printf("[PAPER] Initialized %d agents (conservative: 1%% max/trade)\n", N_AGENTS);
+    printf("[PAPER] Initialized %d agents (source: %s)\n", N_AGENTS, has_trained == 0 ? "trained" : "random");
 }
 
 // ── Parse market_feed.json ──

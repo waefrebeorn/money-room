@@ -19,7 +19,7 @@
 
 #define LOG_DIR     "/home/wubu2/.hermes/pm_logs/paper_training"
 #define STATE_DIR   "/home/wubu2/.hermes/pm_logs/c_room"
-#define OUT_DIR     "/home/wubu2/money-room/data"
+#define OUT_DIR     "/home/wubu2/money-room/docs/data"
 
 // Simple JSON writer
 typedef struct {
