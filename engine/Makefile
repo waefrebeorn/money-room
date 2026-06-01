@@ -12,7 +12,11 @@ PAPER_OBJS = $(PAPER_SRCS:.c=.o)
 TARGET = room_engine
 MKT_TARGET = room_engine_market
 
-.PHONY: all clean run paper market feed_bridge exchange_test
+.PHONY: all clean run paper market feed_bridge exchange_test tools
+
+# Tools: shell-to-C conversions
+TOOLS = cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all
+TOOL_SRCS = $(addsuffix .c, $(TOOLS))
 
 market: CFLAGS += -DMARKET_MODE
 market: clean $(MKT_TARGET)
@@ -38,7 +42,25 @@ paper_feature_bridge.o: paper_feature_bridge.c paper_feature_bridge.h types.h
 	$(CC) $(CFLAGS) -c paper_feature_bridge.c -o paper_feature_bridge.o
 
 clean:
-	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge
+	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge $(TOOLS)
+
+# ── Shell-to-C conversions ──
+tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all
+
+cycle_all_rooms: cycle_all_rooms.c
+	$(CC) -O2 -o $@ $<
+
+room_feed_bridge: room_feed_bridge.c
+	$(CC) -O2 -o $@ $<
+
+paper_train: paper_train.c
+	$(CC) -O2 -o $@ $<
+
+collector_runner: collector_runner.c
+	$(CC) -O2 -o $@ $<
+
+refresh_all: refresh_all.c
+	$(CC) -O2 -o $@ $< -lsqlite3
 
 run: $(TARGET)
 	./$(TARGET)
