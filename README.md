@@ -70,7 +70,7 @@
 | **Multi-market** | C | multi_market_trainer.c | 17 market .bin genomes |
 | **Data server** | C | data_server.c | HTTP server, port 9090, CORS |
 | **Feed bridge** | C | feed_bridge.c | 191-field live feed |
-| **Collector runner** | C | collector_runner.c | 38 tasks, 4 categories |
+| **Collector runner** | C | collector_runner.c | 39 tasks, 4 categories |
 | **Paper live bridge** | C | paper_live_bridge.c | 2500 agents, live feed |
 | **Health monitor** | C | health_check+alerter | 5-min cycle, auto-alert |
 | **Website** | HTML/CSS/JS | docs/ | Dark trading floor theme |

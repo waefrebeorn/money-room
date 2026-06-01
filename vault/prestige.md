@@ -6,7 +6,7 @@
 - **Dashboard:** Live data at docs/data/ (13 JSON feeds), data_server port 9090, 8 test suite passes
 - **Key systems:** Health check/monitoring (every 5 min), regime detection (30 min), risk report (hourly), stress test, survival stats
 - **Infrastructure:** systemd services, logrotate, git auto-CHANGELOG, GH Pages auto-deploy
-- **99 closed achievements** in vault/achievements.md
+- **107 closed achievements** in vault/achievements.md
 
 ## Milestones Closed
 - T000: Engine core verified (5,589 cycles, 66,479 trades, $124,685 from $50)

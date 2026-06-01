@@ -6,19 +6,17 @@
 - **Data:** 13 JSON feeds serving live to docs/data/, 24 C crons running
 - **Crontab:** 35 system cron entries + 3 Hermes crons (CHANGELOG, morning brief, key rotation)
 - **Test:** `make test` — 8/8 pass, `make memcheck` — 0 leaks
-- **Latest commit:** T088 on-chain→pump_score (41a2a9d)
+- **Latest commit:** CB batch 2 — stock_collector.c (Finnhub fundamentals, 50 tickers)
 
 ## Battleship Remaining
 Active gaps from battleship-index.md (Clough Bills vs Unusual Whales):
-- **CB-STOCK (P0)** — Stock fundamentals/technicals: stock_screener.c compiled. Options chain exists. Greeks/IV/max pain still missing. STATE: PARTIAL
+- **CB-STOCK (P0)** — Stock fundamentals/technicals: stock_collector.c (Finnhub: PE, EPS, mcap, dividend, beta, 52W range). Options chain exists. Greeks/IV/max pain still missing. STATE: PARTIAL
 - **CB-POLITICIAN (P6)** — Politician portfolios: politician_portfolio.c exists. STATE: UNVERIFIED
 - **CB-SEASONALITY (P5)** — Seasonality patterns: seasonality.c exists. STATE: UNVERIFIED
 
-## Closed in this batch
-- CB-CONGRESS (P2) → PORTED: congress_trades.c compiled, collector_runner wired 60min
-- CB-INSIDER (P2) → PORTED: insider_trades.c compiled, collector_runner wired 60min
-- CB-DARKPOOL (P1) → PORTED: dark_pool_feat.c compiled, collector_runner wired 60min
-- CB-ETF-FLOW (P4) → PORTED: etf_flow_feat.c compiled, collector_runner wired 30min
-- CB-SCREENER (P2) → PORTED: stock_screener.c compiled + wrapper created + collector_runner wired 60min
-- CB-INSTITUTIONS → PORTED (confirmed): 13f_holdings.c binary existed
-- CB-SHORTS → PORTED (confirmed): short_interest_feat.c binary existed
+## Closed in this batch (current)
+- CB-STOCK fundamentals: stock_collector.c (375 lines, Finnhub, 50 tickers, 3 tables), compiled clean, wired collector_runner 240min
+
+## Closed in previous batch
+- CB-CONGRESS, CB-INSIDER, CB-DARKPOOL, CB-ETF-FLOW, CB-SCREENER compiled + wired
+- CB-INSTITUTIONS, CB-SHORTS confirmed PORTED

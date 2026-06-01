@@ -85,18 +85,18 @@
 Each bill below is a self-contained pipeline plan. Free data. No API keys required (except where free tier noted).
 
 ### 🔴 CB-STOCK (P0) — Stock Fundamentals & Technicals
-**Gap:** 8 missing tools — stock info, option chains, Greeks, IV rank, max pain, volatility stats
-**Free source:** `yfinance` (Python, MIT, no API key, Yahoo Finance data)
-**Pipeline:** `stocks_pipeline.py` → `~/.hermes/stocks_cache/stocks.db`
-**Cron:** every 1h (market hours)
-**MCP tools:** 
-- `get_stock_info` — company profile, PE, market cap, dividend
-- `get_stock_option_chains` — available expiry chains for a ticker
-- `get_stock_max_pain` — max pain calculation from OI
-- `get_stock_iv_rank` — IV percentile over 52 weeks
-- `get_stock_volatility` — historical volatility, HV10/HV30
-- `get_stock_greeks` — delta, gamma, theta, vega for strikes
-**Cost:** Free (Yahoo Finance HTTP via libcurl)
+**Status:** ✅ PARTIAL — stock_collector.c (375 lines C, compiled) + options_chain.c (CBOE chains)
+**Free source:** Finnhub free API (300 req/day) + Yahoo Finance v7 chart (via yahoo_collector.c)
+**Pipeline:** `./stock_collector fetch-all` (C binary, 50 tickers, Finnhub)
+**Cron:** every 4h (via collector_runner SLOW)
+**MCP tools:**
+- `get_stock_info` — company profile, PE, market cap, dividend ✅ (stock_collector)
+- `get_stock_option_chains` — available expiry chains for a ticker ✅ (options_chain.c)
+- `get_stock_max_pain` — max pain calculation from OI ✅ (options_chain.c F70)
+- `get_stock_iv_rank` — IV percentile over 52 weeks ❌ (missing)
+- `get_stock_volatility` — historical volatility, HV10/HV30 ❌ (missing)
+- `get_stock_greeks` — delta, gamma, theta, vega for strikes ✅ (options_flow.c)
+**Cost:** Free (Finnhub free tier)
 
 ### 🔴 CB-FLOW (P0) — Options Flow Alerts & Tape
 **Status:** ✅ Compiling — options_flow.c (667 lines C) compiled, collector_runner wired every 30min

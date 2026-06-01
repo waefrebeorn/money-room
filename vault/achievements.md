@@ -114,3 +114,5 @@ Resolved gaps with file:line proof.
 109|105|105|105|105|105|105|105|105|105|105||| CB-ETF-FLOW | **ETF Flow compiled**: etf_flow_feat.c (173 lines) compiled to binary, 0 warnings. 7 BTC ETFs tracked. Wrapper existed, collector_runner wired every 30min. | `engine/etf_flow_feat.c`, `engine/Makefile` |
 110|
 111|106|106|106|106|106|106|106|106|106|106||| CB-SCREENER | **Stock Screener compiled + wired**: stock_screener.c (322 lines) compiled to binary, 0 warnings. Multi-source composite screener (joins 12 DBs). Wrapper script created, added to collector_runner SLOW (every 60min). | `engine/stock_screener.c`, `~/.hermes/scripts/stock_screener.sh`, `engine/collector_runner.c:172` |
+107|
+108|107|107|107|107|107|107|107|107|107|107||| CB-STOCK | **Stock Fundamentals Collector**: stock_collector.c (375 lines C) — Finnhub free API, 50 tickers, 3 SQLite tables (profile/metrics/quote). Provides PE, EPS, market cap, dividend yield, dividend rate, beta, 52W range, current price. Compiled clean 0w 0e. Wrapper + collector_runner SLOW 240min. | `engine/stock_collector.c`, `~/.hermes/scripts/stock_collector.sh`, `engine/collector_runner.c:173` |
