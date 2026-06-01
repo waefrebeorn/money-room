@@ -152,14 +152,43 @@ RoomError room_darwin_evolve(AgentState *agents, int n, int cycle, DarwinRecord 
         }
         
         // Clone top 10% within same market type to fill culled slots
+        // Use diversity-weighted selection: prefer parents whose genome
+        // differs most from the culled agents to counter convergence.
         int clone_from = nmt / 10;
         if (clone_from < 1) clone_from = 1;
         float clone_capital = culled > 0 ? redistribution_pool / culled : 1.0f;
-        
+
+        // Collect genome of culled (bottom) agents for diversity reference
+        float bottom_feats[N_FEATURES] = {0};
+        int bottom_count = 0;
+        for (int i = nmt - 1; i >= nmt - cull_count && i >= 0; i--) {
+            for (int f = 0; f < N_FEATURES; f++) {
+                bottom_feats[f] += mt_agents[i].genome.feat_weight[f];
+            }
+            bottom_count++;
+        }
+        if (bottom_count > 0) {
+            for (int f = 0; f < N_FEATURES; f++) bottom_feats[f] /= bottom_count;
+        }
+
         int cloned = 0;
         for (int i = nmt - 1; i >= 0 && cloned < culled; i--) {
             if (mt_agents[i].alive) continue;
-            int src = rand() % clone_from;
+            // Diversity-weighted parent selection: blend win_rate (60%) + genome distance from bottom (40%)
+            float best_score = -1e9;
+            int best_src = 0;
+            for (int s = 0; s < clone_from; s++) {
+                float dist = 0;
+                for (int f = 0; f < N_FEATURES; f++) {
+                    dist += fabsf(mt_agents[s].genome.feat_weight[f] - bottom_feats[f]);
+                }
+                float div_score = 0.6f * mt_agents[s].win_rate_ema + 0.4f * (dist / N_FEATURES);
+                if (div_score > best_score) {
+                    best_score = div_score;
+                    best_src = s;
+                }
+            }
+            int src = best_src;
             copy_genome(&mt_agents[i].genome, &mt_agents[src].genome);
             mutate_genome(&mt_agents[i].genome, rec->mutation_rate);
             mt_agents[i].alive = true;

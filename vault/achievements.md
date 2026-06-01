@@ -96,3 +96,5 @@ Resolved gaps with file:line proof.
 \
 96|96|96|96|96|96|96|96|96|96||| T103 | **Hot-reload full agent coverage**: bottom 50% get genome replacement + noise, top 50% get noise-only mutation. Changed `mt_count / 10` to `mt_count / 2` with tiered injection. ~100% agents affected per reload. | `engine/room_engine.c:335-382` |
 |||||||72|72|72|72||| D001 | **Barnacle hunt — doc sweep across 6 files**: README.md, ARCHITECTURE.md, mega-era-architecture.md: fixed 7+ stale claims (203→208 C files, 45→58 crons, 17→18 dim, 115→18 features, 200→208 files, feed_builder→actual components, battleship-ultimate→battleship-index, dead Python ecosystem refs). Verified 6 more docs clean. | README.md, docs/ARCHITECTURE.md, docs/mega-era-architecture.md, vault/achievements.md |
+\
+97|97|97|97|97|97|97|97|97|97||| T092 | **Darwin diversity-weighted selection**: clone parents now selected by blend of win_rate (60%) + genome distance from culled agents (40%). Replaces random-from-top-10%. Diversity metrics now actually DRIVE selection, not just computed-as-dead-code. | `engine/room_darwin.c:155-190` |
