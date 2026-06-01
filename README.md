@@ -82,7 +82,7 @@
 - **Exchange Data**: 7 exchanges, 11 live endpoints
 - **Blockchain On-Chain**: 15 BTC metrics, free API
 - **Market Micro.**: 18 analysis dimensions
-- **Collectors**: 99 C files compiled, 45 crons active
+- **Collectors**: 203 C files compiled, 45 crons active
 - **Cost**: $0/month (all free APIs)
 - **Revenue**: $0 (pre-launch)
 - **Language**: C99 (production), Python (dead — no new Python)
