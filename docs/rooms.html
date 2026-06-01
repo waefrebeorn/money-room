@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Money Room — 16 strategy rooms powered by 10K agents each. Differentiated market strategies in C."><title>Rooms — Money Room</title><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="style.css"><style>.room-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:24px}.room-card{padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}.room-card h3{margin:0 0 4px}.room-type{font-size:11px;color:var(--text-tertiary);margin-bottom:12px}.room-stat{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;border-bottom:1px solid var(--border)}.room-stat:last-child{border:0}.label{color:var(--text-tertiary)}.val{font-family:'JetBrains Mono',monospace}</style></head><body><nav><div class="container"><a href="." class="logo"><span class="dot"></span> Money <span>Room</span></a><div class="nav-links"><a href=".">Live</a><a href="live.html">Dashboard</a><a href="rooms.html" class="active">Rooms</a><a href="pricing.html">Pricing</a><a href="https://github.com/waefrebeorn/money-room" target="_blank" rel="noopener noreferrer">GitHub</a></div></div></nav>
+<div class="page-header"><div class="container"><h1>🏠 Strategy Rooms</h1><p>16 differentiated trading strategies — each with 10K agent genomes</p></div></div>
+<section style="padding-bottom:60px"><div class="container">
+<div class="room-grid" id="roomGrid"></div></div></section>
+<script src="app.js"></script>
+<script>
+const ROOMS = [
+  {name:"btc_main",type:"CRYPTO",desc:"Primary BTC directional trading. 1-min timeframe, Kraken fees, slippage model."},
+  {name:"crypto_prices",type:"CRYPTO",desc:"Multi-crypto signal aggregation. Reads BTC, ETH, SOL from market feed."},
+  {name:"economic",type:"MACRO",desc:"Macroeconomic event trading. CPI, NFP, FOMC decisions via Kalshi."},
+  {name:"elections",type:"PREDICTION",desc:"Election/political prediction markets. Binary outcomes, volume-weighted."},
+  {name:"kalshi",type:"PREDICTION",desc:"Kalshi event contracts. Economic indicators, climate, health."},
+  {name:"macro",type:"MACRO",desc:"Cross-asset macro rotation. SP500, VIX, DXY, Gold correlations."},
+  {name:"manifold",type:"PREDICTION",desc:"Manifold Markets. Community prediction markets, long-tail events."},
+  {name:"momentum",type:"EQUITY",desc:"Momentum strategy. Trend-following on index ETFs and sector funds."},
+  {name:"options",type:"EQUITY",desc:"Options flow analysis. Unusual options activity, IV skew, put/call ratios."},
+  {name:"polymarket",type:"PREDICTION",desc:"Polymarket CLOB. Real-money prediction markets with limit orders."},
+  {name:"predictit",type:"PREDICTION",desc:"PredictIt political markets. Regulation-limited position sizes."},
+  {name:"science_tech",type:"ALTERNATIVE",desc:"Tech/science event prediction. FDA approvals, product launches."},
+  {name:"sports",type:"SPORTS",desc:"Sports betting simulation. NBA, NFL, NHL, MLB, EPL odds analysis."},
+  {name:"stocks",type:"EQUITY",desc:"Equity screening. SEC filings, insider trades, short interest, earnings."},
+  {name:"weather",type:"WEATHER",desc:"Temperature prediction. 8 global cities, 7-dim feature vector."},
+  {name:"consensus",type:"META",desc:"Meta-room. Vote aggregation across all rooms for ensemble signals."}
+];
+function init(){
+  var h="";
+  ROOMS.forEach(function(r){
+    h+='<div class="room-card"><h3>'+r.name.replace(/_/g,' ').replace(/\b\w/g,function(l){return l.toUpperCase()})+'</h3>';
+    h+='<div class="room-type">'+r.type+'</div><p style="font-size:13px;color:var(--text-tertiary);margin:0 0 12px">'+r.desc+'</p>';
+    h+='<div class="room-stat"><span class="label">Market Type</span><span class="val">'+r.type+'</span></div>';
+    h+='<div class="room-stat"><span class="label">Agents</span><span class="val">10K</span></div>';
+    h+='<div class="room-stat"><span class="label">Genome</span><span class="val">'+(r.type==='SPORTS'||r.type==='WEATHER'?'87-param':'87-param')+'</span></div>';
+    h+='</div>';
+  });
+  document.getElementById('roomGrid').innerHTML=h;
+}
+init();
+</script>
+</body></html>
