@@ -1,6 +1,10 @@
 # ACHIEVEMENTS — Money Room Vault
 
-## Batch 2026-06-01 — DA Cleanup + CB-STOCK Closure
+## Batch 2026-06-01 — DA Triple Research + CB-STOCK Closure
+- **365-cell battleship** (vault/battleship-ultimate.md) — 9-domain gap analysis: 35 🔴 P0, 172 🟡 P1, 158 ⚪ P3
+- **65-task homework** (vault/homework-list.md) — 3 tiers: 20 free signups, 25 desk tasks, 20 setup tasks
+- **Go-mantra pasteback** for perpetual gap-closing loop
+- **Key DA finding:** 16 rooms all share same binary (same md5). 7 on fake 0.50 data. Darwin.epoch=0 across all rooms.
 - **volatility_calc.c** (201 lines C) — HV10/HV30 calculator from timeline.db OHLCV
   - 27 tickers: SPY HV10=10.4%, QQQ HV10=16.0%, BTC HV10=17.6%/HV30=20.6%
   - Wired into collector_runner SLOW via ~/.hermes/scripts/volatility_fetch.sh
