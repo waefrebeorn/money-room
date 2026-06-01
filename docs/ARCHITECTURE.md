@@ -38,12 +38,12 @@ The Money Room is a **10,000-agent evolutionary trading ecosystem** built **enti
   6. Nested HT cascade inference for trade bias
   7. Darwin evolution every 100 trades
 
-### Layer 4: C Dashboard (`dashboard.c` — 44KB ELF, 1.1MB RAM)
-- Raw HTTP server on port 9090
-- SHA256 auth, session cookies, SQLite visitor tracking
-- Routes: / /login /logout /tracking /api/rooms /api/consensus /api/stats /api/tracking
-- Shows 16 rooms, timeline stats, 8-topic consensus, visitor data
-- Started via systemd (money-room-dashboard.service) — 7ms startup
+### Layer 4: C Dashboard (`data_server.c` — 22KB ELF)
+- Static file server on port 9090
+- Serves `docs/data/` JSON files (pipeline_status, paper_stats, health, etc.)
+- CORS for browser access
+- GET /lists files, GET /data/<file> serves JSON, POST /register handles signups
+- Runs via systemd (money-room-dashboard.service) — fork-per-connection
 
 ### Layer 5: Teacher Strategies (Python, C-backed)
 - 10 independent daemon processes
@@ -62,8 +62,8 @@ The Money Room is a **10,000-agent evolutionary trading ecosystem** built **enti
 
 ```
 money-room/
-├── engine/                    # 68 C source files (compiled binaries)
-│   ├── dashboard.c           # C HTTP server (44KB ELF, port 9090)
+├── engine/                    # 99 C source files (compiled binaries)
+│   ├── data_server.c         # C static file server (22KB ELF, port 9090)
 │   ├── room_engine.c         # Main loop (~600 LOC)
 │   ├── room_features.c       # 17-dim feature computation (φ, DFT, MACD, RSI, etc.)
 │   ├── room_capital.c        # P2P matching + capital transfer + SGD update
@@ -92,7 +92,7 @@ money-room/
 │   ├── market_controller.c   # Q-controller
 │   ├── money_loop.c          # Ecosystem money loop
 │   └── ... (+ 50+ more .c files)
-│   └── Makefile              # Build targets: production, paper, market, dashboard
+│   └── Makefile              # Build targets: all, tools, paper, test, memcheck
 ├── ecosystem/                 # Python ecosystem (C-backed data paths)
 │   ├── pm_money_loop.py      # 10K genome trading loop
 │   ├── pm_teachers.py        # 10 teacher daemons
