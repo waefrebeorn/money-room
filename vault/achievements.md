@@ -41,6 +41,18 @@ Resolved gaps with file:line proof.
 | T020 | **Error recovery added**: collector_runner now retries failed collectors 3× with 5s backoff. Timeout, non-zero exit, and missing binary all trigger retry. FATAL logged after all attempts exhausted. | `engine/collector_runner.c:49-119` |
 | T024 | **Weather features 3→7 dims**: Added precipitation intensity, wind speed, wind gust ratio, solar radiation. API fetches 6 daily params from Open-Meteo. | `engine/weather_collector.c:103-194` |
 | T029 | **Polymarket live collector**: New C binary fetches resolved events from Gamma API. Incremental insert by poly_event_id. Wired into collector_runner SLOW. DB grows hourly. | `engine/polymarket_collector.c`, DB at 505 events |
+| T014 | **market_summary path aligned**: Trainer writes summary to data/multi_market/market_summary.json in addition to data/trained_genomes.json. | `engine/multi_market_trainer.c:944-968` |
+| T016 | **collector_runner verified**: 36 tasks across 4 categories (FAST/NORMAL/SLOW/SPORTS). All confirmed running. | `engine/collector_runner.c:130-182` |
+| T026 | **Genome size math verified**: 348-byte struct + 4-byte market_type = 352 bytes. 87 floats, not "48 floats" as previously claimed. | `engine/types.h:64-82` |
+| T032 | **rooms.html created**: 16 room cards showing all strategy rooms with descriptions and stat cards. | `docs/rooms.html` |
+| T034 | **Sign In button fixed**: Points to register.html with JS login modal. Both navAuth + navRegister functional. | `docs/index.html:38-40` |
+| T036 | **GH Pages auto-deploy**: .github/workflows/deploy.yml auto-deploys docs/ on push. | `.github/workflows/deploy.yml` |
+| T037 | **data-sources.html cron count accurate**: Shows "24 C Jobs Running" — actual active count. | `docs/data-sources.html:44` |
+| T041 | **research.html populated**: 5 quant-finance papers with abstracts, live SEC filings from JSON data. | `docs/research.html` |
+| T043 | **404.html created**: Custom error page matching site theme. | `docs/404.html` |
+| T049 | **paper-proof.md Python→C**: "10K-genome Python ecosystem" → "C ecosystem (all C, zero Python)". | `docs/paper-proof.md:61` |
+| T050 | **battleship focused**: 166-line active-gap tracker with clean TODO/DONE separation. | battleship-ultimate.md |
+| T065 | **CI/CD deploy**: GH Actions auto-deploy for docs/. | `.github/workflows/deploy.yml` |
 |31|31|||||| T031 | Paper_feature_bridge: replaces hardcoded aux values (vix=16, sp500=5000) with real historical data from timeline.db. SP500: 2239→7580, VIX: 11→57.8 across 2017-2026. | `engine/paper_feature_bridge.c:1-310`, `room_feeds.c:154-165` |
 |32|32|||||| T032 | BTC CSV refresh: btc_csv_refresher fetches Coinbase/Kraken OHLC every 15 min. BTC CSV went from 7 days stale to ~1 min latency. 723K candles. | `engine/btc_csv_refresher.c`, crontab |
 |33|33|||||| T033 | Daytime paper trading: paper_live_bridge runs 2500 agents on live feed, outputs stats every 60s to paper_stats.json. Auto-dashboard at paper.html with leaderboard, capital distribution, PnL tracking. | `engine/paper_live_bridge.c`, `docs/paper.html` |
