@@ -103,7 +103,7 @@ int main(int argc, char **argv) {
             "https://archive-api.open-meteo.com/v1/archive"
             "?latitude=%s&longitude=%s"
             "&start_date=%s&end_date=%s"
-            "&daily=temperature_2m_max,temperature_2m_min,precipitation_sum"
+            "&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max,wind_gusts_10m_max,shortwave_radiation_sum"
             "&timezone=UTC",
             CITIES[c].lat, CITIES[c].lon, start_date, end_date);
         
@@ -122,6 +122,9 @@ int main(int argc, char **argv) {
         json_t *jmax = json_object_get(daily, "temperature_2m_max");
         json_t *jmin = json_object_get(daily, "temperature_2m_min");
         json_t *jprecip = json_object_get(daily, "precipitation_sum");
+        json_t *jwind = json_object_get(daily, "wind_speed_10m_max");
+        json_t *jgust = json_object_get(daily, "wind_gusts_10m_max");
+        json_t *jsolar = json_object_get(daily, "shortwave_radiation_sum");
         
         if (!jtime || !jmax || !json_is_array(jtime)) { json_decref(j); continue; }
         
@@ -147,6 +150,9 @@ int main(int argc, char **argv) {
             double tmax = temps[i];
             double tmin = json_number_value(json_array_get(jmin, i));
             double precip = jprecip ? json_number_value(json_array_get(jprecip, i)) : 0;
+            double wind = jwind ? json_number_value(json_array_get(jwind, i)) : 0;
+            double gust = jgust ? json_number_value(json_array_get(jgust, i)) : 0;
+            double solar = jsolar ? json_number_value(json_array_get(jsolar, i)) : 0;
             
             // Update rolling window
             if (i >= 30) {
@@ -169,6 +175,9 @@ int main(int argc, char **argv) {
             json_object_set_new(entry, "temp_max", json_real(tmax));
             json_object_set_new(entry, "temp_min", json_real(tmin));
             json_object_set_new(entry, "precip", json_real(precip));
+            json_object_set_new(entry, "wind_speed", json_real(wind));
+            json_object_set_new(entry, "wind_gust", json_real(gust));
+            json_object_set_new(entry, "solar_radiation", json_real(solar));
             json_object_set_new(entry, "avg_30day", json_real(avg30));
             json_object_set_new(entry, "outcome", json_integer(outcome));
             
@@ -179,6 +188,14 @@ int main(int argc, char **argv) {
             // F2: Was yesterday warm? (0/1)
             int prev_outcome = (i > 0) ? ((temps[i-1] > (i>1 ? (window_sum - tmax + (i>=30 ? temps[i-30] : 0)) / (window_count) : avg30)) ? 1 : 0) : outcome;
             json_array_append_new(feats, json_integer(prev_outcome));
+            // F3: Precipitation intensity (normalized to 0-1 by 50mm cap)
+            json_array_append_new(feats, json_real(fmin(precip / 50.0, 1.0)));
+            // F4: Wind speed normalized (0-1 by 20 m/s cap)
+            json_array_append_new(feats, json_real(fmin(wind / 20.0, 1.0)));
+            // F5: Wind gust / speed ratio (gustiness)
+            json_array_append_new(feats, json_real(wind > 0 ? fmin(gust / wind, 3.0) / 3.0 : 0.0));
+            // F6: Solar radiation normalized (0-1 by 400 Wh/m² cap)
+            json_array_append_new(feats, json_real(fmin(solar / 400.0, 1.0)));
             json_object_set_new(entry, "features", feats);
             
             json_array_append_new(root, entry);
