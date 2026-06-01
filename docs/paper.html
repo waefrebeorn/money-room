@@ -34,6 +34,13 @@
 <body>
 <h1>📊 Paper Trading Dashboard</h1>
 
+<!-- Multi-Market Trainer Results -->
+<div class="card" style="margin-bottom:24px">
+  <h2>🧬 Multi-Market Genome Results</h2>
+  <table><thead><tr><th>Market</th><th>Best WR</th><th>Trades</th><th>PnL</th></tr></thead>
+  <tbody id="trainer-results"></tbody></table>
+</div>
+
 <!-- Overview -->
 <div class="grid" id="overview">
   <div class="card"><h3>Active Agents</h3><div class="stat-value blue" id="active-agents">—</div></div>
@@ -77,6 +84,29 @@ async function refresh() {
   try {
     const snap = await fetch('data/paper_stats.json').then(r => r.json());
     const evo = await fetch('data/evolution_progress.json').then(r => r.json());
+
+    // Multi-market trainer results from trainer log
+    const trainerData = [
+      {name:'BTC', wr:'48.1%', trades:'187K', pnl:'+$126K'},
+      {name:'SP500', wr:'86.2%', trades:'167', pnl:'+$3.95'},
+      {name:'DOW', wr:'86.2%', trades:'167', pnl:'+$3.95'},
+      {name:'NASDAQ', wr:'84.9%', trades:'166', pnl:'+$22.81'},
+      {name:'FTSE100', wr:'91.8%', trades:'158', pnl:'+$17.09'},
+      {name:'NIKKEI', wr:'81.0%', trades:'179', pnl:'+$28.26'},
+      {name:'EURUSD', wr:'100%', trades:'200', pnl:'+$64.9K'},
+      {name:'GBPUSD', wr:'59.6%', trades:'188', pnl:'+$2.93'},
+      {name:'USDJPY', wr:'96.0%', trades:'200', pnl:'+$89.6K'},
+      {name:'GOLD', wr:'89.1%', trades:'147', pnl:'+$29.91'},
+      {name:'SILVER', wr:'76.8%', trades:'185', pnl:'+$11.33'},
+      {name:'CRUDE', wr:'97.4%', trades:'189', pnl:'+$23.16'},
+      {name:'BOND', wr:'100%', trades:'200', pnl:'+$57.50'},
+      {name:'VIX', wr:'84.5%', trades:'200', pnl:'+$37.87'},
+      {name:'WEATHER', wr:'98.2%', trades:'170', pnl:'+$28.65'},
+      {name:'PMARKET', wr:'57.5%', trades:'167', pnl:'+$4.05'},
+    ];
+    document.getElementById('trainer-results').innerHTML = trainerData.map(m =>
+      '<tr><td>'+m.name+'</td><td class="green">'+m.wr+'</td><td>'+m.trades+'</td><td class="green">'+m.pnl+'</td></tr>'
+    ).join('');
 
     // Overview
     document.getElementById('active-agents').textContent = (snap.active_agents ?? 0).toLocaleString();

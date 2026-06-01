@@ -46,6 +46,9 @@ static int g_cycle = 0;
 static int g_total_trades = 0;
 static int g_total_wins = 0;
 static int g_active = 0;
+static int g_warmup_cycles = 0;
+const float MAX_POSITION_FRACTION = 0.01f;  // Max 1% per trade
+const float MAX_CAPITAL = 1000.0f;           // Reset agents above $1000 (unrealistic)
 
 // ── Initialize agents ──
 static void init_agents(void) {
@@ -59,16 +62,16 @@ static void init_agents(void) {
         g_agents[i].total_pnl = 0.0f;
         g_agents[i].win_rate = 0.5f;
         
-        // Random genome
-        g_agents[i].genome.bias = ((float)rand() / RAND_MAX - 0.5f) * 0.3f;
-        g_agents[i].genome.position_size = 0.01f + (float)rand() / RAND_MAX * 0.49f;
-        g_agents[i].genome.conviction_threshold = 0.05f + (float)rand() / RAND_MAX * 0.40f;
-        g_agents[i].genome.stop_loss_pct = 0.01f + (float)rand() / RAND_MAX * 0.24f;
-        g_agents[i].genome.take_profit_pct = 0.01f + (float)rand() / RAND_MAX * 0.59f;
+        // Conservative random genome
+        g_agents[i].genome.bias = ((float)rand() / RAND_MAX - 0.5f) * 0.1f;
+        g_agents[i].genome.position_size = 0.005f + (float)rand() / RAND_MAX * 0.02f;  // 0.5-2.5% risk
+        g_agents[i].genome.conviction_threshold = 0.15f + (float)rand() / RAND_MAX * 0.35f;
+        g_agents[i].genome.stop_loss_pct = 0.05f + (float)rand() / RAND_MAX * 0.15f;
+        g_agents[i].genome.take_profit_pct = 0.05f + (float)rand() / RAND_MAX * 0.25f;
         for (int w = 0; w < N_FEATURES; w++)
-            g_agents[i].genome.feat_weight[w] = ((float)rand() / RAND_MAX - 0.5f) * 2.0f;
+            g_agents[i].genome.feat_weight[w] = ((float)rand() / RAND_MAX - 0.5f) * 0.5f;
     }
-    printf("[PAPER] Initialized %d agents\n", N_AGENTS);
+    printf("[PAPER] Initialized %d agents (conservative: 1%% max/trade)\n", N_AGENTS);
 }
 
 // ── Parse market_feed.json ──
@@ -226,6 +229,8 @@ static void write_stats(void) {
 int main(int argc, char **argv) {
     int continuous = (argc > 1 && strcmp(argv[1], "--continuous") == 0);
     
+    setbuf(stdout, NULL);  // Unbuffer stdout for real-time log
+    
     srand((unsigned)time(NULL));
     init_agents();
     
@@ -234,6 +239,14 @@ int main(int argc, char **argv) {
     
     printf("[PAPER] Starting paper live bridge (%s mode)\n",
            continuous ? "continuous" : "single-cycle");
+    
+    // Debug: verify first 3 agents
+    printf("[PAPER] Debug: agent[0] cap=%.2f pos=%.4f bias=%.4f\n",
+           g_agents[0].capital, g_agents[0].genome.position_size, g_agents[0].genome.bias);
+    printf("[PAPER] Debug: agent[1] cap=%.2f pos=%.4f\n",
+           g_agents[1].capital, g_agents[1].genome.position_size);
+    printf("[PAPER] Debug: agent[2] cap=%.2f pos=%.4f\n",
+           g_agents[2].capital, g_agents[2].genome.position_size);
     
     for (int c = 0; c < run_cycles; c++) {
         MarketTick tick;
@@ -250,7 +263,16 @@ int main(int argc, char **argv) {
         }
         last_ts = tick.window_ts;
         
+        // ── Warmup: skip first cycle for feature history ──
+        g_warmup_cycles++;
+        if (g_warmup_cycles < 2) {
+            if (continuous) { sleep(1); continue; } else break;
+        }
+        
         g_cycle++;
+        
+        // Write stats immediately on first cycle for debug
+        if (g_cycle == 1) write_stats();
         
         // Compute features
         float feats[N_FEATURES];
@@ -259,9 +281,25 @@ int main(int argc, char **argv) {
         // Run vote
         int voted = 0, up = 0, down = 0;
         float total_conv = 0;
+        float room_drawdown = 0;
         
         for (int i = 0; i < N_AGENTS; i++) {
             if (!g_agents[i].alive) continue;
+            
+            // ── Circuit breaker: reset agents with absurd capital ──
+            if (g_agents[i].capital > MAX_CAPITAL) {
+                printf("[PAPER] Agent %d reset: cap=$%.0f exceeded limit\n", i, g_agents[i].capital);
+                g_agents[i].capital = SEED_CAPITAL;
+                g_agents[i].peak_capital = SEED_CAPITAL;
+                g_agents[i].trades = 0;
+                g_agents[i].wins = 0;
+                g_agents[i].losses = 0;
+                g_agents[i].total_pnl = 0;
+            }
+            
+            // ── Stop loss: death at 50% drawdown ──
+            float dd = (g_agents[i].peak_capital - g_agents[i].capital) / fmax(g_agents[i].peak_capital, 0.01f);
+            if (dd > 0.5f) { g_agents[i].alive = false; continue; }
             
             bool dir; float conv;
             if (!agent_vote(&g_agents[i], feats, &dir, &conv)) continue;
@@ -274,9 +312,9 @@ int main(int argc, char **argv) {
             bool was_up = tick.close >= tick.open;
             bool won = (dir == was_up);
             
-            // Simple payoff
-            float pos = g_agents[i].genome.position_size * g_agents[i].capital;
-            float payout = won ? pos * 0.95f : -pos;  // 5% slippage
+            // Fixed position sizing: cap at 1% of capital
+            float pos = fmin(g_agents[i].genome.position_size, MAX_POSITION_FRACTION) * g_agents[i].capital;
+            float payout = won ? pos * 0.95f : -pos;
             g_agents[i].capital += payout;
             g_agents[i].total_pnl += payout;
             g_agents[i].trades++;
@@ -284,17 +322,12 @@ int main(int argc, char **argv) {
             else { g_agents[i].losses++; }
             g_total_trades++;
             
-            // Update win rate (EMA)
-            float new_wr = (float)g_agents[i].wins / fmax(g_agents[i].trades, 1);
-            g_agents[i].win_rate = g_agents[i].win_rate * 0.9f + new_wr * 0.1f;
+            // Update win rate
+            g_agents[i].win_rate = g_agents[i].trades > 0 ? (float)g_agents[i].wins / g_agents[i].trades : 0.5f;
             
             // Track peak
             if (g_agents[i].capital > g_agents[i].peak_capital)
                 g_agents[i].peak_capital = g_agents[i].capital;
-            
-            // Stop loss
-            float dd = (g_agents[i].peak_capital - g_agents[i].capital) / g_agents[i].peak_capital;
-            if (dd > 0.5f) g_agents[i].alive = false;
         }
         
         // Write stats every 60 cycles (or every cycle in non-continuous)
