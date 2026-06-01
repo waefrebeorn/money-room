@@ -29,7 +29,7 @@
 │  10K agents | 16 rooms | 18 features | 3 regimes         │
 │  SGD learning | Darwin evolution | Kelly sizing           │
 │  Platform fees (Kraken 0.26%, Coinbase 0.6%+$0.99)       │
-│  Slippage | PDT enforcement | $10 min trade              │
+│  Slippage | Min $1 trades | 3x retry on errors              │
 └─────────┬────────────┬──────────────┬────────────────────┘
           │            │              │
           ▼            ▼              ▼
@@ -84,7 +84,7 @@
 - **Exchange Data**: 7 exchanges, 11 live endpoints
 - **Blockchain On-Chain**: 15 BTC metrics, free API
 - **Market Micro.**: 18 analysis dimensions
-- **Collectors**: 208 C files compiled, 58 crons active
+- **Collectors**: 209 C files compiled, 35 crons active
 - **Cost**: $0/month (all free APIs)
 - **Revenue**: $0 (pre-launch)
 - **Language**: C11 (production), zero Python
@@ -123,7 +123,7 @@ See [`docs/battleship-index.md`](docs/battleship-index.md) — Unusual Whales co
 
 ## Internal Gap Tracker
 
-All T-number gaps (T001–T107) are resolved and recorded in [`vault/achievements.md`](vault/achievements.md).
+All T-number gaps (T001–T107+) are resolved and recorded in [`vault/achievements.md`](vault/achievements.md).
 
 ## Data Sources (Free)
 
