@@ -46,6 +46,8 @@ extern const char *MARKET_TYPE_NAMES[];
 // Fee constants (shared across modules)
 #define TAKER_FEE    0.001f   // Kraken spot taker 0.1% (paper)
 #define MATCH_FEE    0.002f   // Match fee on loser pool (0.2%)
+// ── T97: Minimum trade size ──
+#define MIN_TRADE_STAKE   1.0f    // Minimum $1 stake per trade (skip smaller)
 // ── T20: Slippage model ──
 #define SLIPPAGE_BPS          5.0f    // 5 bps = 0.05% baseline slippage
 #define SLIPPAGE_VOL_SCALE   5.0f    // Additional bps per $100 of position (market impact)

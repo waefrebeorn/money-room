@@ -59,6 +59,7 @@ RoomError room_capital_apply(VoteRecord *votes, int count,
         float max_loss = a->capital * 0.05f;
         if (stake > max_loss) stake = max_loss;
         if (stake > a->capital * 0.5f) stake = a->capital * 0.5f;
+        if (stake < MIN_TRADE_STAKE) continue;  // T97: skip tiny trades
         if (stake <= 0) continue;
 
         if (votes[i].direction) {
