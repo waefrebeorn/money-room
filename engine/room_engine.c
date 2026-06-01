@@ -250,8 +250,9 @@ static void handle_sig(int sig) {
 
 // ── Hot-reload genomes from multi-market trainer ──
 // Called every HOT_RELOAD_CYCLE cycles. Scans HOT_RELOAD_DIR for .bin files
-// newer than the last reload. When found, injects trained genomes into the
-// bottom 10% of agents sorted by win_rate_ema for their market type.
+// newer than the last reload. When found, injects trained genomes into ALL
+// agents for that market type. Bottom 50% get full genome replacement + noise;
+// top 50% get noise-only mutation to preserve successful weights.
 static void hot_reload_genomes(AgentState *agents, int n) {
     const char *mm_dir = HOT_RELOAD_DIR;
     DIR *mm_d = opendir(mm_dir);
@@ -332,40 +333,50 @@ static void hot_reload_genomes(AgentState *agents, int n) {
             }
         }
 
-        // Replace bottom 10% with trained genome + noise
-        int n_replace = mt_count / 10;
+        // Replace bottom 50% with trained genome + noise
+        int n_replace = mt_count / 2;
         if (n_replace < 1) n_replace = 1;
         if (n_replace > mt_count) n_replace = mt_count;
 
-        for (int r = 0; r < n_replace; r++) {
+        for (int r = 0; r < mt_count; r++) {
             int aid = mt_agents[r];
-            memcpy(&agents[aid].genome, &trained_genome, sizeof(Genome));
-            g_agent_market[aid] = market_type;
-            // Add noise for diversity
-            for (int w = 0; w < N_FEATURES; w++) {
-                float noise = ((float)(rand() % 2001 - 1000)) / 10000.0f;
-                agents[aid].genome.feat_weight[w] += noise;
-                // Clamp weight to [-1, 1]
-                if (agents[aid].genome.feat_weight[w] > 1.0f) agents[aid].genome.feat_weight[w] = 1.0f;
-                if (agents[aid].genome.feat_weight[w] < -1.0f) agents[aid].genome.feat_weight[w] = -1.0f;
+            if (r < n_replace) {
+                // Bottom 50%: full genome replacement + noise
+                memcpy(&agents[aid].genome, &trained_genome, sizeof(Genome));
+                for (int w = 0; w < N_FEATURES; w++) {
+                    float noise = ((float)(rand() % 2001 - 1000)) / 10000.0f;
+                    agents[aid].genome.feat_weight[w] += noise;
+                    if (agents[aid].genome.feat_weight[w] > 1.0f) agents[aid].genome.feat_weight[w] = 1.0f;
+                    if (agents[aid].genome.feat_weight[w] < -1.0f) agents[aid].genome.feat_weight[w] = -1.0f;
+                }
+                agents[aid].genome.bias += ((float)(rand() % 2001 - 1000)) / 10000.0f;
+                if (agents[aid].genome.bias > 1.0f) agents[aid].genome.bias = 1.0f;
+                if (agents[aid].genome.bias < -1.0f) agents[aid].genome.bias = -1.0f;
+                agents[aid].capital = 50.0f;
+                agents[aid].alive = true;
+                agents[aid].trades = 0;
+                agents[aid].wins = 0;
+                agents[aid].losses = 0;
+                agents[aid].total_pnl = 0.0f;
+                agents[aid].win_rate_ema = 0.5f;
+                agents[aid].peak_capital = 50.0f;
+                agents[aid].max_drawdown = 0.0f;
+                agents[aid].consecutive_losses = 0;
+                agents[aid].starting_capital = 50.0f;
+                agents[aid].last_trade_window = -1;
+            } else {
+                // Top 50%: noise-only mutation on existing genome
+                for (int w = 0; w < N_FEATURES; w++) {
+                    float noise = ((float)(rand() % 2001 - 1000)) / 20000.0f;
+                    agents[aid].genome.feat_weight[w] += noise;
+                    if (agents[aid].genome.feat_weight[w] > 1.0f) agents[aid].genome.feat_weight[w] = 1.0f;
+                    if (agents[aid].genome.feat_weight[w] < -1.0f) agents[aid].genome.feat_weight[w] = -1.0f;
+                }
+                agents[aid].genome.bias += ((float)(rand() % 2001 - 1000)) / 20000.0f;
+                if (agents[aid].genome.bias > 1.0f) agents[aid].genome.bias = 1.0f;
+                if (agents[aid].genome.bias < -1.0f) agents[aid].genome.bias = -1.0f;
             }
-            agents[aid].genome.bias += ((float)(rand() % 2001 - 1000)) / 10000.0f;
-            if (agents[aid].genome.bias > 1.0f) agents[aid].genome.bias = 1.0f;
-            if (agents[aid].genome.bias < -1.0f) agents[aid].genome.bias = -1.0f;
-
-            // Reset trade stats for clean tracking
-            agents[aid].capital = 50.0f;
-            agents[aid].alive = true;
-            agents[aid].trades = 0;
-            agents[aid].wins = 0;
-            agents[aid].losses = 0;
-            agents[aid].total_pnl = 0.0f;
-            agents[aid].win_rate_ema = 0.5f;
-            agents[aid].peak_capital = 50.0f;
-            agents[aid].max_drawdown = 0.0f;
-            agents[aid].consecutive_losses = 0;
-            agents[aid].starting_capital = 50.0f;
-            agents[aid].last_trade_window = -1;
+            g_agent_market[aid] = market_type;
         }
         printf("[HOT]   %s: %d agents injected for market_type=%d\n", mm_e->d_name, n_replace, market_type);
         total_injected += n_replace;
