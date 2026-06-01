@@ -17,7 +17,7 @@ MKT_TARGET = room_engine_market
 # Tools: shell-to-C conversions
 TOOLS = cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all
 TOOL_SRCS = $(addsuffix .c, $(TOOLS))
-TOOL_BINS = $(TOOLS) cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler test_runner
+TOOL_BINS = $(TOOLS) cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler test_runner key_rotation
 
 market: CFLAGS += -DMARKET_MODE
 market: clean $(MKT_TARGET)
@@ -126,6 +126,12 @@ test_runner: test_runner.c
 # ── Trade journal (reads trade_log.csv, writes docs/data/trade_journal.json) ──
 trade_journal: trade_journal.c
 	$(CC) -O2 -o $@ $< -lm
+
+# ── T098: Key rotation health check ──
+key_rotation: key_rotation.c
+	$(CC) -O2 -o $@ $< -lm
+key_health: key_rotation
+	./key_rotation
 
 # ── Run test suite ──
 test: test_runner

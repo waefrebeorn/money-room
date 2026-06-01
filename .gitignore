@@ -34,3 +34,10 @@ pm_logs/
 # Python
 __pycache__/
 *.pyc
+# Built C binaries
+engine/key_rotation
+engine/risk_report
+engine/survival_stats
+engine/stress_test
+engine/regime_detect
+engine/trade_journal
