@@ -74,3 +74,4 @@ Resolved gaps with file:line proof.
 |||50|50|50|50||| T076 | **data_pipeline scheduled**: 0 5 * * * system crontab. Daily aggregator: 2,454 samples × 21 features from timeline.db (SP500/VIX/DGS10/BTC/MCAP). Writes training_data.bin. | engine/data_pipeline.c, crontab |
 |||51|51|51|51||| T078 | **timeline_aggregator scheduled**: 0 * * * * system crontab. Rebuilds timeline_hourly (124,799 rows). Processes last 48h each run. | engine/timeline_aggregator.c, crontab |
 |||52|52|52|52||| T069 | **blockchain_com_collector scheduled**: 0 */6 * * * system crontab. 15 BTC on-chain charts (tx count, fees, mempool, miner revenue, UTXOs, supply). Free API. | engine/blockchain_com_collector.c, crontab |
+|||53|53|53|53||| T061 | **Log rotation configured**: /etc/logrotate.d/money-room installed. Weekly rotation, 4-weeks keep, compress, copytruncate. Systemd timer handles daily trigger. | /etc/logrotate.d/money-room |
