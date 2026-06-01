@@ -123,6 +123,10 @@ withdrawal_scheduler: withdrawal_scheduler.c
 test_runner: test_runner.c
 	$(CC) -O2 -o $@ $< -lm
 
+# ── Trade journal (reads trade_log.csv, writes docs/data/trade_journal.json) ──
+trade_journal: trade_journal.c
+	$(CC) -O2 -o $@ $< -lm
+
 # ── Run test suite ──
 test: test_runner
 	@./test_runner
