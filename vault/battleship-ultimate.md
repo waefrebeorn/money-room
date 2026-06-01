@@ -20,7 +20,7 @@
 || A07 | No per-market-type genome initialization | Training | 🔴 | ✅ | init_agent now takes MarketType param. Crypto→momentum, Equity→macro, Forex→trend-follow, Binary→consensus-skeptic, Bond→slow/horizon, Vol→mean-revert, Commod→vol-aware. |
 | A08 | No market-specific feature calibration | Training | 🔴 | ⏳ | RSI=50 means different things for 0.50 binary markets vs crypto. No per-market scaling. |
 | A09 | No per-asset volatility normalization | Training | 🟡 | ⏳ | BTC at $75K and binary at $0.50 use same feature computation. Price-based features broken. |
-| A10 | Multi-market trainer not wired into cron | Training | 🔴 | ⏳ | trainers exist but auto_retrain_c isn't in the cron pipeline. |
+|| A10 | Multi-market trainer not wired into cron | Training | 🔴 | ⚪ | STALE — already on daily cron (`0 7 * * *`). auto_retrain_c binary runs every 15min. |
 | A11 | No walked-forward validation | Training | 🔴 | ⏳ | Training uses full dataset. No train/test split, no walk-forward. Overfit risk is 100%. |
 | A12 | No out-of-sample test set | Training | 🔴 | ⏳ | All available data is training data. No holdout period. |
 | A13 | No regime transition model | Training | 🟡 | ⏳ | Regime is computed per-tick but no Markov transition matrix to predict next regime. |
