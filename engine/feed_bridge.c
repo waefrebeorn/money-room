@@ -138,7 +138,7 @@ static Candle get_latest_btc_candle(void) {
     return c;
 }
 
-/* ─── Get pump_score from latest news run ─── */
+/* ─── Get pump_score from latest news run + on-chain data ─── */
 static double get_latest_pump_score(void) {
     /* Find latest news_*.json file */
     char cmd[512];
@@ -175,9 +175,25 @@ static double get_latest_pump_score(void) {
         }
     }
     json_decref(root);
+
+    /* Blend on-chain congestion signal (T088) — uses BTC dominance as sentiment proxy */
+    json_t *oc_root = json_load_file(ONCHAIN_FEAT, 0, &err);
+    if (oc_root) {
+        json_t *dom_val = json_object_get(oc_root, "btc_dominance_pct");
+        if (json_is_real(dom_val)) {
+            double dom = json_real_value(dom_val);
+            /* BTC dominance 30-70% range. Normalize to [-1, 1] around 50% midpoint */
+            double onchain_signal = (dom - 50.0) / 20.0;
+            if (onchain_signal > 1.0) onchain_signal = 1.0;
+            if (onchain_signal < -1.0) onchain_signal = -1.0;
+            /* Blend: 70% news pump, 30% on-chain dominance */
+            score = score * 0.7 + onchain_signal * 0.3;
+        }
+        json_decref(oc_root);
+    }
+
     return score;
 }
-
 /* ─── Fetch fear & greed index ─── */
 static int get_fear_greed(void) {
     char *body = http_get(FEAR_GREED_URL);
