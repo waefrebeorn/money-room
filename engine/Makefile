@@ -131,7 +131,9 @@ trade_journal: trade_journal.c
 test: test_runner
 	@./test_runner
 
-# ── Memory leak check (valgrind on critical binaries) ──
+# ── Regime detection (reads BTC 1-min CSV, writes docs/data/regime.json) ──
+regime_json: regime_detect
+	./regime_detect /home/wubu2/.hermes/pm_logs/historical/btc_1min_latest.csv --window 20 --smooth 14 > ../docs/data/regime.json
 memcheck: health_check withdrawal_scheduler paper_live_bridge paper_mode_sync data_server
 	@echo "=== health_check ===" && timeout 15 valgrind --leak-check=full --show-leak-kinds=definite --error-exitcode=1 ./health_check 2>&1 | grep -E "definitely lost|ERROR SUMMARY|All heap blocks"
 	@echo "=== withdrawal_scheduler ===" && timeout 10 valgrind --leak-check=full --show-leak-kinds=definite --error-exitcode=1 ./withdrawal_scheduler status 2>&1 | grep -E "definitely lost|ERROR SUMMARY|All heap blocks"
