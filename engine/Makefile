@@ -17,6 +17,7 @@ MKT_TARGET = room_engine_market
 # Tools: shell-to-C conversions
 TOOLS = cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all
 TOOL_SRCS = $(addsuffix .c, $(TOOLS))
+TOOL_BINS = $(TOOLS) cross_asset_c accuracy_scorer health_check
 
 market: CFLAGS += -DMARKET_MODE
 market: clean $(MKT_TARGET)
@@ -42,10 +43,10 @@ paper_feature_bridge.o: paper_feature_bridge.c paper_feature_bridge.h types.h
 	$(CC) $(CFLAGS) -c paper_feature_bridge.c -o paper_feature_bridge.o
 
 clean:
-	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge $(TOOLS) cross_asset_c accuracy_scorer
+	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge $(TOOL_BINS)
 
 # ── Shell-to-C conversions ──
-tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer
+tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer health_check
 
 cycle_all_rooms: cycle_all_rooms.c
 	$(CC) -O2 -o $@ $<
@@ -101,3 +102,7 @@ cross: cross_asset_c
 # ── Accuracy scorer (reads outcomes.db) ──
 accuracy_scorer: accuracy_scorer.c
 	$(CC) -O2 -o $@ $< $(LDFLAGS) -lsqlite3 -lm
+
+# ── Health endpoint (libjansson) ──
+health_check: health_check.c
+	$(CC) -O2 -o $@ $< -ljansson
