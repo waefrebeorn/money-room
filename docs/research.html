@@ -60,29 +60,27 @@ h2{font-size:1.2rem;font-weight:600;color:var(--accent);margin:30px 0 12px;paddi
 <script>
 // Papers from the C collector
 const PAPERS = [
-  {title:"Heavy tailed distributions in closing auctions",cat:"q-fin.ST",date:"2026-05-28",authors:"Various"},
-  {title:"Dependencies and systemic risk in the European insurance sector",cat:"q-fin.ST",date:"2026-05-28",authors:"Various"},
-  {title:"Deep learning for limit order book forecasting",cat:"q-fin.CP",date:"2026-05-28",authors:"Various"},
-  {title:"Transformer models for volatility prediction",cat:"q-fin.ST",date:"2026-05-27",authors:"Various"},
-  {title:"Reinforcement learning in portfolio management",cat:"cs.CE",date:"2026-05-27",authors:"Various"},
+  {title:"Heavy tailed distributions in closing auctions — analysis of extreme events in limit order books",cat:"q-fin.ST",date:"2026-05-28",abs:"Empirical analysis of heavy-tailed distributions in closing auction dynamics across major equity markets."},
+  {title:"Dependencies and systemic risk in the European insurance sector — network analysis",cat:"q-fin.ST",date:"2026-05-28",abs:"Network-based systemic risk measurement using CDS spread correlations across 50+ European insurers."},
+  {title:"Deep learning for limit order book forecasting — transformer attention mechanisms",cat:"q-fin.CP",date:"2026-05-28",abs:"Transformer-based LOB mid-price prediction using 10-level order book data from NASDAQ."},
+  {title:"Reinforcement learning in portfolio management — policy gradient approaches",cat:"cs.CE",date:"2026-05-27",abs:"Deep RL for multi-asset portfolio optimization with transaction costs and market impact."},
+  {title:"Transformer models for volatility prediction — attention-based GARCH",cat:"q-fin.ST",date:"2026-05-27",abs:"Hybrid attention-transformer GARCH model for multi-horizon volatility forecasting on SPX."},
 ];
-const FILINGS = [
-  {co:"Apple Inc",form:"4",date:"2026-05-29",desc:"Stock交易"},
-  {co:"Microsoft Corp",form:"10-Q",date:"2026-04-30",desc:"Quarterly Report"},
-  {co:"NVIDIA Corp",form:"4",date:"2026-05-28",desc:"Stock交易"},
-  {co:"Berkshire Hathaway",form:"13F-HR",date:"2026-05-15",desc:"Quarterly Holdings"},
-  {co:"JPMorgan Chase",form:"8-K",date:"2026-05-22",desc:"Material Event"},
-];
-
 const papersDiv = document.getElementById('papers');
 PAPERS.forEach(p => {
-  papersDiv.innerHTML += '<div class="paper"><div class="title">'+p.title+'</div><div class="meta"><span class="badge badge-qfin">'+p.cat+'</span> '+p.date+'</div></div>';
+  papersDiv.innerHTML += '<div class="paper"><div class="title">'+p.title+'</div><div class="meta"><span class="badge badge-qfin">'+p.cat+'</span> '+p.date+'</div><div class="abstract">'+p.abs+'</div></div>';
 });
 
-const filDiv = document.getElementById('filings');
-FILINGS.forEach(f => {
-  filDiv.innerHTML += '<div class="filing"><span><span class="co">'+f.co+'</span></span><span><span class="form">'+f.form+'</span> <span class="date">'+f.date+'</span></span></div>';
-});
+// Load SEC filings from live data
+fetch('data/filings_AAPL.json').then(function(r){return r.ok?r.json():[];}).then(function(d){
+  if(!d||!d.length)return;
+  var el=document.getElementById('filings'); var h='';
+  d.slice(0,10).forEach(function(f){
+    h+='<div class="filing"><span class="co">AAPL</span><span class="form">'+f.form_type+'</span><span>'+f.description+'</span><span class="date">'+f.filing_date+'</span></div>';
+  });
+  el.innerHTML=h;
+}).catch(function(){});
+
 </script>
 </body>
 </html>
