@@ -1,17 +1,17 @@
 {
   "agents": 2030.0,
-  "capital": 124531.7188,
+  "capital": 124516.52340000001,
   "capital_peak": 125000.0,
-  "cycle": 4427.0,
-  "drawdown": 0.0037000000000000002,
+  "cycle": 64049.0,
+  "drawdown": 0.0038999999999999998,
   "epoch": 0.0,
   "features": 10,
-  "paper_age": 23,
-  "price": 93682.0,
+  "paper_age": 13,
+  "price": 96919.0,
   "sharpe": -64.384900000000002,
-  "timestamp": 418456,
-  "trades_total": 68444.0,
-  "trades_won": 33684.0,
+  "timestamp": 418773,
+  "trades_total": 71024.0,
+  "trades_won": 34863.0,
   "votes": 2030.0,
-  "win_rate": 0.49209999999999998
+  "win_rate": 0.4909
 }
