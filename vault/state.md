@@ -14,7 +14,7 @@
 - `vault/go-mantra.md` — compact pasteback for loop
 
 ## Top 🔴 P0 Killers
-1. No SGD weight update loop (A01)
+1. ~~No SGD weight update loop (A01)~~ — DONE: added BCE gradient descent to multi_market_trainer
 2. Darwin never fires in any room (A02)
 3. All 16 rooms identical binary, not differentiated (A03)
 4. 7 rooms on fake 0.50 prices (A04)

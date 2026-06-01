@@ -800,6 +800,21 @@ static int train_market(MarketPop *pop, const MarketData *md) {
             float pos = pop->agents[i].genome.position_size * pop->agents[i].capital;
             float pnl = won ? pos * 0.01f : -pos * 0.01f;
             
+            // ── SGD weight update from BCE loss ──
+            // loss = -(y*log(p) + (1-y)*log(1-p))
+            // d(loss)/dw = (p - y) * (feat - 0.5)
+            // y_true = 1 if won else 0; y_pred = sigmoid(score) ≈ 0.5 + conv * sign(dir)
+            float y_true = won ? 1.0f : 0.0f;
+            float pred_score = pop->agents[i].genome.bias;
+            for (int w = 0; w < N_FEATURES; w++)
+                pred_score += (feats[w] - 0.5f) * pop->agents[i].genome.feat_weight[w];
+            float y_pred = 1.0f / (1.0f + expf(-pred_score));
+            float err = y_pred - y_true;  // BCE gradient w.r.t. logits
+            float lr = pop->agents[i].genome.learning_rate;
+            for (int w = 0; w < N_FEATURES; w++)
+                pop->agents[i].genome.feat_weight[w] -= lr * err * (feats[w] - 0.5f);
+            pop->agents[i].genome.bias -= lr * err;
+            
             tcount[i]++; if (won) wcount[i]++;
             pop->agents[i].capital += pnl;
             pop->agents[i].trades++;

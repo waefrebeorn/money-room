@@ -11,7 +11,7 @@
 
 | # | Gap | Domain | Pri | Status | Detail |
 |---|-----|--------|-----|--------|--------|
-| A01 | No SGD weight update loop in multi_market_trainer | Training | 🔴 | ⏳ | Genome weights initialized but never gradient-updated. Feat_weight[x] stays at init values. |
+|| A01 | No SGD weight update loop in multi_market_trainer | Training | 🔴 | ✅ | Added BCE gradient descent after every trade. feat_weight[i] -= lr * err * (feat[i]-0.5), bias -= lr * err. learning_rate now functional. |
 | A02 | Darwin never fires in any room (cycle=1-2) | Training | 🔴 | ⏳ | Darwin triggers every 100 trades. Rooms have 0-2 trades. No evolution has ever happened. |
 | A03 | All 16 rooms share identical binary (same md5) | Training | 🔴 | ⏳ | Differentiation is supposed to come from market_feed.json config. Binary is identical. |
 | A04 | Rooms 7 (consensus, elections, manifold, etc.) show 0.50 price | Training | 🔴 | ⏳ | Placeholder binary price. No real prediction market data flowing. These rooms are running on fake data. |

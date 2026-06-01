@@ -1,15 +1,10 @@
 # PLAN — Money Room Walkway
 
 ## Current Focus
-All 15 Clough Bill categories PORTED. Battleship is empty of active gaps.
+Running perpetual gap-closing loop against vault/battleship-ultimate.md (365 cells).
 
-## Completed Queues
-1. ~~Compile missing binaries~~ — DONE
-2. ~~CB-STOCK fundamentals~~ — DONE (stock_collector.c)
-3. ~~CB-POLITICIAN verified~~ — DONE (compiled, wired)
-4. ~~CB-SEASONALITY verified~~ — DONE (already PORTED)
-5. ~~IV rank tracker~~ — DONE (iv_rank.c, wired)
-6. ~~HV10/HV30 volatility calculator~~ — DONE (volatility_calc.c, wired)
+## Completed
+1. ~~A01: No SGD weight update loop~~ — DONE: added BCE gradient descent to multi_market_trainer.c
 
 ## Next Cell
-Battleship fully PORTED. Awaiting direction for next objective.
+A02: Darwin never fires in any room (cycle=1-2)
