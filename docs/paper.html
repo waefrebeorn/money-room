@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paper Trading Dashboard — Money Room</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --green: #3fb950; --red: #f85149; --blue: #58a6ff; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 20px; }
+  h1 { color: #f0f6fc; margin-bottom: 24px; font-size: 1.5em; }
+  h2 { color: var(--blue); font-size: 1em; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .card h3 { font-size: 0.75em; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .stat-value { font-size: 1.5em; font-weight: 600; }
+  .green { color: var(--green); } .red { color: var(--red); } .blue { color: var(--blue); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+  th, td { padding: 8px 12px; text-align: right; border-bottom: 1px solid var(--border); }
+  th { color: #8b949e; font-weight: 500; text-transform: uppercase; font-size: 0.7em; }
+  td:first-child, th:first-child { text-align: left; }
+  tr:hover { background: #1c2128; }
+  .progress-bar { height: 6px; background: #21262d; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--blue); border-radius: 3px; transition: width 1s; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75em; font-weight: 600; }
+  .badge-green { background: rgba(63,185,80,0.15); color: var(--green); }
+  .badge-red { background: rgba(248,81,73,0.15); color: var(--red); }
+  .badge-yellow { background: rgba(210,153,34,0.15); color: #d29922; }
+  .flex { display: flex; justify-content: space-between; align-items: center; }
+  .last-update { color: #8b949e; font-size: 0.7em; margin-top: 16px; text-align: right; }
+  .kap { font-size: 0.55em; color: #8b949e; margin-left: 4px; }
+</style>
+</head>
+<body>
+<h1>📊 Paper Trading Dashboard</h1>
+
+<!-- Overview -->
+<div class="grid" id="overview">
+  <div class="card"><h3>Active Agents</h3><div class="stat-value blue" id="active-agents">—</div></div>
+  <div class="card"><h3>Avg Capital</h3><div class="stat-value green" id="avg-capital">—</div></div>
+  <div class="card"><h3>Win Rate</h3><div class="stat-value" id="win-rate">—</div></div>
+  <div class="card"><h3>Total Trades</h3><div class="stat-value" id="total-trades">—</div></div>
+  <div class="card"><h3>Room PnL</h3><div class="stat-value" id="room-pnl">—</div></div>
+  <div class="card"><h3>BTC CSV Age</h3><div class="stat-value" id="btc-freshness">—</div></div>
+</div>
+
+<!-- Training Progress -->
+<div class="card" style="margin-bottom:24px">
+  <div class="flex"><h2>📈 Paper Training Progress</h2><span id="training-status" class="badge badge-yellow">—</span></div>
+  <div class="progress-bar"><div class="progress-fill" id="training-progress" style="width:0%"></div></div>
+  <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:0.8em;color:#8b949e">
+    <span id="training-cycle">—</span>
+    <span id="training-progress-pct">—</span>
+  </div>
+</div>
+
+<!-- Leaderboard -->
+<div class="card" style="margin-bottom:24px">
+  <h2>🏆 Top 10 Agents</h2>
+  <table><thead><tr><th>Rank</th><th>Agent</th><th>Capital</th><th>Trades</th><th>Wins</th><th>Win Rate</th><th>PnL</th></tr></thead>
+  <tbody id="leaderboard"></tbody></table>
+</div>
+
+<!-- Capital Distribution -->
+<div class="card">
+  <h2>📊 Capital Distribution</h2>
+  <div style="display:flex;align-items:flex-end;height:100px;gap:4px;margin-top:12px" id="cap-dist"></div>
+  <div style="display:flex;justify-content:space-between;font-size:0.65em;color:#8b949e;margin-top:4px">
+    <span>$0</span><span>$10</span><span>$25</span><span>$50</span><span>$75</span><span>$100</span><span>$150</span><span>$200</span><span>$500</span><span>$1K+</span>
+  </div>
+</div>
+
+<div class="last-update" id="last-update"></div>
+
+<script>
+async function refresh() {
+  try {
+    const snap = await fetch('data/paper_stats.json').then(r => r.json());
+    const evo = await fetch('data/evolution_progress.json').then(r => r.json());
+
+    // Overview
+    document.getElementById('active-agents').textContent = (snap.active_agents ?? 0).toLocaleString();
+    document.getElementById('avg-capital').textContent = '$' + (snap.avg_capital ?? 0).toFixed(2);
+    const wr = (snap.avg_win_rate ?? 0) * 100;
+    document.getElementById('win-rate').textContent = wr.toFixed(1) + '%';
+    document.getElementById('win-rate').className = 'stat-value ' + (wr >= 50 ? 'green' : 'red');
+    document.getElementById('total-trades').textContent = (snap.total_trades ?? 0).toLocaleString();
+    const pnl = snap.room_pnl_pct ?? 0;
+    document.getElementById('room-pnl').textContent = (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%';
+    document.getElementById('room-pnl').className = 'stat-value ' + (pnl >= 0 ? 'green' : 'red');
+
+    // BTC freshness
+    const age = evo.btc_csv?.age_sec ?? 99999;
+    document.getElementById('btc-freshness').textContent = age < 60 ? '<1m' : age < 3600 ? Math.floor(age/60)+'m' : Math.floor(age/3600)+'h';
+    document.getElementById('btc-freshness').className = 'stat-value ' + (age < 900 ? 'green' : age < 3600 ? 'blue' : 'red');
+
+    // Training progress
+    const tp = evo.paper_training ?? {};
+    const pct = Math.min(tp.progress_pct ?? 0, 100);
+    document.getElementById('training-progress').style.width = pct + '%';
+    document.getElementById('training-cycle').textContent = 'Cycle: ' + (tp.current_cycle ?? 0).toLocaleString();
+    document.getElementById('training-progress-pct').textContent = pct.toFixed(1) + '%';
+    const st = document.getElementById('training-status');
+    if (tp.status === 'complete') { st.textContent = '✅ Complete'; st.className = 'badge badge-green'; }
+    else if (tp.status === 'running') { st.textContent = '▶️ Running'; st.className = 'badge badge-yellow'; }
+    else { st.textContent = '⏸️ Idle'; st.className = 'badge badge-red'; }
+
+    // Leaderboard
+    const lb = snap.leaderboard ?? [];
+    const tbody = document.getElementById('leaderboard');
+    tbody.innerHTML = lb.map((a, i) =>
+      '<tr><td>'+(i+1)+'</td><td>#'+a.id+'</td><td class="green">$'+a.capital.toFixed(2)+
+      '</td><td>'+a.trades+'</td><td class="green">'+a.wins+'</td><td>'+(a.win_rate*100).toFixed(1)+'%'+
+      '</td><td class="'+(a.total_pnl>=0?'green':'red')+'">'+(a.total_pnl>=0?'+':'')+a.total_pnl.toFixed(2)+'</td></tr>'
+    ).join('');
+
+    // Capital distribution
+    const dist = snap.capital_distribution ?? [];
+    const maxVal = Math.max(...dist, 1);
+    document.getElementById('cap-dist').innerHTML = dist.map(v =>
+      '<div style="flex:1;background:var(--blue);height:'+(v/maxVal*100)+'px;border-radius:2px 2px 0 0;opacity:'+(0.3+v/maxVal*0.7)+'"></div>'
+    ).join('');
+
+    document.getElementById('last-update').textContent = 'Updated: ' + new Date().toLocaleTimeString();
+  } catch(e) {
+    document.getElementById('last-update').textContent = '⏳ Waiting for data...';
+  }
+}
+refresh();
+setInterval(refresh, 10000);
+</script>
+</body>
+</html>

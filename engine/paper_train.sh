@@ -16,7 +16,7 @@ set -euo pipefail
 
 ENGINE_DIR="/home/wubu2/money-room/engine"
 ROOM_DIR="/home/wubu2/.hermes/pm_logs/c_room"
-ROOM_ENGINE="$ROOM_DIR/room_engine"  # Binary lives in c_room with its state
+ROOM_ENGINE="$ENGINE_DIR/room_engine_paper"  # Paper binary lives in engine dir (not c_room)
 STATE_BIN="$ROOM_DIR/room_state_paper.bin"  # Separate from live room_state.bin!
 LOG_DIR="/home/wubu2/.hermes/pm_logs/paper_training"
 START_TS=$(date +%s)
