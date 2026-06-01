@@ -3,25 +3,25 @@
 ## Current Status
 - **Engine:** 210 C files, 10K agent paper trading (2500 active), 17 markets
 - **Website:** GH Pages at waefrebeorn.github.io/money-room/, data_server port 9090
-- **Data:** 14 JSON feeds serving live to docs/data/, 25 C crons running
-- **Crontab:** 35 system cron entries + 4 Hermes crons (CHANGELOG, morning brief, key rotation, volatility)
-- **Test:** `make test` — 8/8 pass, `make memcheck` — 0 leaks
-- **Latest batch:** DA cleanup — battleship corrected, earnings_cal compiled, vault cleaned
+- **Battleship:** 365 cells across 9 domains (35 🔴 P0, 172 🟡 P1, 158 ⚪ P3)
+- **Rooms:** 16 configured. All same binary (same md5). 7 on fake data. Darwin.epoch=0.
+- **Data:** 14 JSON feeds serving live, 25+ collectors, timeline.db has 21-33 rows/ticker
+- **Latest batch:** DA Triple Research — full system gap audit
 
-## Battleship Status
-12/15 Unusual Whales categories PORTED.
-3 PARTIAL: CB-MARKET (sector tide/FDA), CB-OPTIONS (chain-level extraction), CB-NEWS (news headlines)
+## Gap Map Available
+- `vault/battleship-ultimate.md` — 365 cells (training, features, risk, data, execution, infra, security, website, monetization)
+- `vault/homework-list.md` — 65 human tasks in 3 tiers
+- `vault/go-mantra.md` — compact pasteback for loop
 
-## Closed in this batch
-- **DA cleanup**: Fixed overstated header "All 15 PORTED" → "12/15 PORTED, 3 PARTIAL"
-- **earnings_cal.c** (159 lines) compiled for first time — was claimed "compiled" but no binary existed
-- **earnings_calendar** binary rebuilt (source was 7h newer than stale binary)
-- **Battleship doc** stripped stale execution order, updated line counts, marked partials honestly
-- **Vault** cleaned: replaced vague "7 CB categories" / "Min trade stake enforcement" with specific file:line refs
-
-## Previously closed
-- CB-STOCK PORTED: volatility_calc.c (HV10/HV30)
-- CB-POLITICIAN, CB-SEASONALITY, IV rank tracker
-- CB-CONGRESS, CB-INSIDER, CB-DARKPOOL, CB-ETF-FLOW, CB-SCREENER
-- CB-INSTITUTIONS, CB-SHORTS confirmed PORTED
-- Fundamentals, options chains, max pain, Greeks, stock screener
+## Top 🔴 P0 Killers
+1. No SGD weight update loop (A01)
+2. Darwin never fires in any room (A02)
+3. All 16 rooms identical binary, not differentiated (A03)
+4. 7 rooms on fake 0.50 prices (A04)
+5. BTC-clone data in economic/macro rooms (A05)
+6. N_FEATURES=18 but only ~10 populated (B01)
+7. No live exchange API integration (E01-E04)
+8. API keys in plaintext, no encryption (G01)
+9. No prompt injection guard (G05)
+10. No DA guard on wallet ops (G06)
+11. LemonSqueezy KYC blocked (I01)
