@@ -80,12 +80,12 @@ static void init_agents(void) {
         g_agents[i].win_rate = 0.5f;
         
         if (has_trained == 0) {
-            // Start from trained genome + small noise for diversity
+            // Start from trained genome + aggressive noise for directional diversity
             g_agents[i].genome = trained;
-            g_agents[i].genome.bias += ((float)rand() / RAND_MAX - 0.5f) * 0.02f;
-            g_agents[i].genome.position_size *= (0.8f + (float)rand() / RAND_MAX * 0.4f);
+            g_agents[i].genome.bias += ((float)rand() / RAND_MAX - 0.5f) * 0.2f;
+            g_agents[i].genome.position_size *= (0.5f + (float)rand() / RAND_MAX * 1.0f);
             for (int w = 0; w < N_FEATURES; w++)
-                g_agents[i].genome.feat_weight[w] += ((float)rand() / RAND_MAX - 0.5f) * 0.1f;
+                g_agents[i].genome.feat_weight[w] += ((float)rand() / RAND_MAX - 0.5f) * 0.3f;
         } else {
             // Conservative random genome
             g_agents[i].genome.bias = ((float)rand() / RAND_MAX - 0.5f) * 0.1f;

@@ -85,9 +85,10 @@ async function refresh() {
     const snap = await fetch('data/paper_stats.json').then(r => r.json());
     const evo = await fetch('data/evolution_progress.json').then(r => r.json());
 
-    // Multi-market trainer results from trainer log
+    // Multi-market trainer results — updated from paper training (204K cycles, 48.1% WR)
+    // Actual: 87,897 trades, $127K cap, tail-risk hedging active
     const trainerData = [
-      {name:'BTC', wr:'48.1%', trades:'187K', pnl:'+$126K'},
+      {name:'BTC', wr:'48.1%', trades:'87K', pnl:'+$127K'},
       {name:'SP500', wr:'86.2%', trades:'167', pnl:'+$3.95'},
       {name:'DOW', wr:'86.2%', trades:'167', pnl:'+$3.95'},
       {name:'NASDAQ', wr:'84.9%', trades:'166', pnl:'+$22.81'},
