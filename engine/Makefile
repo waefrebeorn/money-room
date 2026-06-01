@@ -17,7 +17,7 @@ MKT_TARGET = room_engine_market
 # Tools: shell-to-C conversions
 TOOLS = cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all
 TOOL_SRCS = $(addsuffix .c, $(TOOLS))
-TOOL_BINS = $(TOOLS) cross_asset_c accuracy_scorer health_check health_alerter data_server
+TOOL_BINS = $(TOOLS) cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler
 
 market: CFLAGS += -DMARKET_MODE
 market: clean $(MKT_TARGET)
@@ -46,7 +46,7 @@ clean:
 	rm -f $(OBJS) $(PAPER_OBJS) $(TARGET) $(TARGET)_paper exchange_api.o exchange_api_test room_feed_bridge $(TOOL_BINS) data_server
 
 # ── Shell-to-C conversions ──
-tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer health_check health_alerter data_server
+tools: cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all cross_asset_c accuracy_scorer health_check health_alerter data_server withdrawal_scheduler
 
 cycle_all_rooms: cycle_all_rooms.c
 	$(CC) -O2 -o $@ $<
@@ -114,3 +114,7 @@ health_alerter: health_alerter.c
 # ── Data server (static file server for docs/data/) ──
 data_server: data_server.c
 	$(CC) -O2 -o $@ $<
+
+# ── Withdrawal scheduler (SQLite-backed) ──
+withdrawal_scheduler: withdrawal_scheduler.c
+	$(CC) -O3 -march=native -o $@ $< -lsqlite3 -lm
