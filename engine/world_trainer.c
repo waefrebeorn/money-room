@@ -491,7 +491,7 @@ static void darwin_evolve(AgentState *agents) {
         g->risk_tolerance *= 0.8f + frand() * 0.4f;
         g->time_horizon *= 0.8f + frand() * 0.4f;
         g->position_size = clampf(g->position_size, 0.01f, 0.5f);
-        g->conviction_threshold = clampf(g->conviction_threshold, 0.2f, 0.95f);
+        g->conviction_threshold = clampf(g->conviction_threshold, 0.08f, 0.80f);
         g->risk_tolerance = clampf(g->risk_tolerance, 0.05f, 1.0f);
         g->time_horizon = clampf(g->time_horizon, 0.1f, 10.0f);
         
@@ -880,7 +880,7 @@ static void init_archetype_population(AgentState *agents, int archetype, int cou
         switch (archetype) {
             case ARCH_TRADER:
                 g->position_size = 0.05f + frand() * 0.15f;
-                g->conviction_threshold = 0.50f + frand() * 0.20f;
+                g->conviction_threshold = 0.20f + frand() * 0.15f;
                 g->risk_tolerance = 0.3f + frand() * 0.4f;
                 g->time_horizon = 1.0f + frand() * 5.0f;
                 g->stop_loss_pct = 0.05f + frand() * 0.10f;
@@ -891,7 +891,7 @@ static void init_archetype_population(AgentState *agents, int archetype, int cou
                 break;
             case ARCH_BETTOR:
                 g->position_size = 0.02f + frand() * 0.08f;
-                g->conviction_threshold = 0.55f;
+                g->conviction_threshold = 0.25f;
                 g->risk_tolerance = 0.2f + frand() * 0.3f;
                 g->mean_reversion_bias = 0.3f;
                 g->time_horizon = 0.5f + frand() * 2.0f;
@@ -899,7 +899,7 @@ static void init_archetype_population(AgentState *agents, int archetype, int cou
                 break;
             case ARCH_SPECULATOR:
                 g->position_size = 0.10f + frand() * 0.20f;
-                g->conviction_threshold = 0.40f;
+                g->conviction_threshold = 0.20f;
                 g->risk_tolerance = 0.5f + frand() * 0.4f;
                 g->herd_antipathy = -0.3f;
                 g->take_profit_pct = 0.20f + frand() * 0.30f;
@@ -907,7 +907,7 @@ static void init_archetype_population(AgentState *agents, int archetype, int cou
                 break;
             case ARCH_HEDGER:
                 g->position_size = 0.01f + frand() * 0.03f;
-                g->conviction_threshold = 0.60f;
+                g->conviction_threshold = 0.30f;
                 g->risk_tolerance = 0.1f + frand() * 0.2f;
                 g->mean_reversion_bias = -0.5f;
                 g->min_edge_pct = 5.0f;

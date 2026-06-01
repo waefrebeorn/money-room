@@ -31,11 +31,11 @@ static inline float sigmoid(float x) {
 // This simulates evaluating multiple future scenarios and only acting if conviction
 // survives the beam width (1+tail_risk). Acts as a beam-search ensemble filter.
 static float tailslayer_threshold(float base_conviction_threshold, float tail_risk) {
-    // Base threshold is scaled by (1 + tail_risk * 2), so at tail_risk=1.0,
-    // effective threshold is 3× normal. At tail_risk=0, threshold is unchanged.
-    // Clamps at 0.95 max to prevent total gridlock.
-    float threshold = base_conviction_threshold * (1.0f + tail_risk * 2.0f);
-    if (threshold > 0.95f) threshold = 0.95f;
+    // Base threshold is scaled by (1 + tail_risk), so at tail_risk=1.0,
+    // effective threshold is 2× normal. At tail_risk=0, threshold is unchanged.
+    // Clamps at 0.80 max to prevent total gridlock.
+    float threshold = base_conviction_threshold * (1.0f + tail_risk);
+    if (threshold > 0.80f) threshold = 0.80f;
     return threshold;
 }
 
