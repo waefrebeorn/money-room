@@ -17,6 +17,7 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <stddef.h>
+#include <dirent.h>
 #include "types.h"
 
 #define PAPER_STATE "/home/wubu2/.hermes/pm_logs/c_room/room_state_paper.bin"
@@ -113,8 +114,77 @@ int main(int argc, char **argv) {
     printf("[DISTILLER] Found %d valid agents in paper state (out of %d slots)\n", n_agents, max_extract);
     
     if(n_agents == 0) {
-        printf("  ❌ No valid agents found. Paper state may be empty or corrupted.\n");
-        free(agents); return 1;
+        printf("  ⚠ No valid agents found in paper state (all went bankrupt).\n");
+        printf("  ⚠ Falling back to multi_market trained genomes...\n");
+        free(agents);
+        
+        // Fallback: load trained genomes from multi_market/*.bin
+        const char *mm_dir = "/home/wubu2/money-room/data/multi_market";
+        DIR *mm_d = opendir(mm_dir);
+        if (!mm_d) {
+            printf("  ❌ Cannot open %s for fallback.\n", mm_dir);
+            return 1;
+        }
+        
+        struct dirent *mm_e;
+        Agent *fallback = malloc(max_extract * sizeof(Agent));
+        n_agents = 0;
+        
+        while ((mm_e = readdir(mm_d)) != NULL && n_agents < max_extract) {
+            size_t nlen = strlen(mm_e->d_name);
+            if (nlen < 5 || strcmp(mm_e->d_name + nlen - 4, ".bin") != 0) continue;
+            if (strcmp(mm_e->d_name, ".") == 0 || strcmp(mm_e->d_name, "..") == 0) continue;
+            
+            char mm_path[512];
+            snprintf(mm_path, sizeof(mm_path), "%s/%s", mm_dir, mm_e->d_name);
+            
+            FILE *mm_f = fopen(mm_path, "rb");
+            if (!mm_f) continue;
+            
+            // Strip .bin suffix for market name
+            char mname[32];
+            size_t nl = strlen(mm_e->d_name);
+            memcpy(mname, mm_e->d_name, nl - 4);
+            mname[nl - 4] = '\0';
+            
+            Genome g;
+            int mtype = MARKET_CRYPTO;
+            if (fread(&g, sizeof(Genome), 1, mm_f) == 1) {
+                fread(&mtype, sizeof(int), 1, mm_f);
+                if (mtype < 0 || mtype >= N_MARKET_TYPES) mtype = MARKET_CRYPTO;
+                
+                fallback[n_agents].id = n_agents;
+                fallback[n_agents].capital = 50.0f;
+                fallback[n_agents].win_rate = 0.5;
+                fallback[n_agents].trades = 0;
+                fallback[n_agents].wins = 0;
+                double *p = fallback[n_agents].params;
+                p[0] = g.position_size;
+                p[1] = g.conviction_threshold;
+                p[2] = g.risk_tolerance;
+                p[3] = g.lie_sensitivity;
+                p[4] = g.herd_antipathy;
+                p[5] = g.stop_loss_pct;
+                p[6] = g.take_profit_pct;
+                p[7] = g.min_edge_pct;
+                p[8] = g.time_horizon;
+                p[9] = g.mean_reversion_bias;
+                p[10] = g.learning_rate;
+                fallback[n_agents].fitness = 50.0;
+                n_agents++;
+            }
+            fclose(mm_f);
+        }
+        closedir(mm_d);
+        
+        if (n_agents == 0) {
+            printf("  ❌ No trained genomes found in %s/*.bin\n", mm_dir);
+            free(fallback);
+            return 1;
+        }
+        
+        printf("  ✅ Fallback: loaded %d trained genomes from multi_market/\n", n_agents);
+        agents = fallback;
     }
     
     /* Sort by fitness */

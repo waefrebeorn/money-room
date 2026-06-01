@@ -256,18 +256,24 @@ int main(int argc, char **argv) {
             continue;
         }
         
-        // Skip duplicate timestamps
+        // ── Warmup: bypass duplicate-check during warmup so we always get past it ──
+        g_warmup_cycles++;
+        if (g_warmup_cycles < 2) {
+            last_ts = tick.window_ts;
+            write_stats();
+            printf("[PAPER] warmup=%d\n", g_warmup_cycles);
+            if (continuous) { sleep(1); continue; } else break;
+        }
+        
+        // Skip duplicate timestamps but STILL write stats to keep website current
         if (tick.window_ts == last_ts) {
-            if (continuous) sleep(1);
+            if (continuous) {
+                if (c % 60 == 0) write_stats();
+                sleep(1);
+            }
             continue;
         }
         last_ts = tick.window_ts;
-        
-        // ── Warmup: skip first cycle for feature history ──
-        g_warmup_cycles++;
-        if (g_warmup_cycles < 2) {
-            if (continuous) { sleep(1); continue; } else break;
-        }
         
         g_cycle++;
         

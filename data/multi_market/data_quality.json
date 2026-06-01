@@ -6,7 +6,7 @@
     {
       "check": "sports_outcomes_db",
       "status": "pass",
-      "total_games": 7178,
+      "total_games": 7182,
       "last_update_hours": 0,
       "detail": "Good data coverage"
     },
@@ -63,70 +63,70 @@
       "check": "team_stats.json",
       "status": "pass",
       "exists": 1,
-      "age_hours": 1,
+      "age_hours": 2,
       "detail": "Fresh"
     },
     {
       "check": "injuries.json",
       "status": "pass",
       "exists": 1,
-      "age_hours": 1,
+      "age_hours": 2,
       "detail": "Fresh"
     },
     {
       "check": "head2head.json",
       "status": "pass",
       "exists": 1,
-      "age_hours": 1,
+      "age_hours": 2,
       "detail": "Fresh"
     },
     {
       "check": "sports_news.json",
       "status": "pass",
       "exists": 1,
-      "age_hours": 1,
+      "age_hours": 2,
       "detail": "Fresh"
     },
     {
       "check": "sports_training_features.json",
       "status": "pass",
       "exists": 1,
-      "age_hours": 1,
+      "age_hours": 0,
       "detail": "Fresh"
     },
     {
       "check": "schedule.json",
       "status": "pass",
       "exists": 1,
-      "age_hours": 1,
+      "age_hours": 2,
       "detail": "Fresh"
     },
     {
       "check": "game_timing.json",
       "status": "pass",
       "exists": 1,
-      "age_hours": 1,
+      "age_hours": 2,
       "detail": "Fresh"
     },
     {
       "check": "nba_advanced.json",
       "status": "pass",
       "exists": 1,
-      "age_hours": 0,
+      "age_hours": 1,
       "detail": "Fresh"
     },
     {
       "check": "mlb_advanced.json",
       "status": "pass",
       "exists": 1,
-      "age_hours": 0,
+      "age_hours": 1,
       "detail": "Fresh"
     },
     {
       "check": "nfl_advanced.json",
       "status": "pass",
       "exists": 1,
-      "age_hours": 0,
+      "age_hours": 1,
       "detail": "Fresh"
     }
   ]
