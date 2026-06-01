@@ -137,7 +137,7 @@ ExchangeTicker fetch_kraken_ticker(const char *pair, int timeout_sec) {
         
         json_t *jo = json_object_get(val, "o");  // Open price (string)
         if (jo) {
-            double open = kraken_val(json_array(), 0); // open is single string, not array
+            double open;
             // Kraken "o" is a single string price, not an array
             if (json_is_string(jo)) open = atof(json_string_value(jo));
             else open = json_number_value(jo);

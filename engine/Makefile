@@ -12,7 +12,7 @@ PAPER_OBJS = $(PAPER_SRCS:.c=.o)
 TARGET = room_engine
 MKT_TARGET = room_engine_market
 
-.PHONY: all clean run paper market feed_bridge exchange_test tools
+.PHONY: all clean run paper market feed_bridge exchange_test tools test memcheck
 
 # Tools: shell-to-C conversions
 TOOLS = cycle_all_rooms room_feed_bridge paper_train collector_runner refresh_all
@@ -126,3 +126,11 @@ test_runner: test_runner.c
 # ── Run test suite ──
 test: test_runner
 	@./test_runner
+
+# ── Memory leak check (valgrind on critical binaries) ──
+memcheck: health_check withdrawal_scheduler paper_live_bridge paper_mode_sync data_server
+	@echo "=== health_check ===" && timeout 15 valgrind --leak-check=full --show-leak-kinds=definite --error-exitcode=1 ./health_check 2>&1 | grep -E "definitely lost|ERROR SUMMARY|All heap blocks"
+	@echo "=== withdrawal_scheduler ===" && timeout 10 valgrind --leak-check=full --show-leak-kinds=definite --error-exitcode=1 ./withdrawal_scheduler status 2>&1 | grep -E "definitely lost|ERROR SUMMARY|All heap blocks"
+	@echo "=== paper_live_bridge ===" && timeout 15 valgrind --leak-check=full --show-leak-kinds=definite --error-exitcode=1 ./paper_live_bridge 2>&1 | grep -E "definitely lost|ERROR SUMMARY|All heap blocks"
+	@echo "=== paper_mode_sync ===" && timeout 15 valgrind --leak-check=full --show-leak-kinds=definite --error-exitcode=1 ./paper_mode_sync 2>&1 | grep -E "definitely lost|ERROR SUMMARY|All heap blocks"
+	@echo "=== data_server ===" && timeout 5 valgrind --leak-check=full --show-leak-kinds=definite --error-exitcode=1 ./data_server 2>&1 | grep -E "definitely lost|ERROR SUMMARY|All heap blocks"

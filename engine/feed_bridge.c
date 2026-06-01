@@ -294,6 +294,7 @@ static double get_yahoo_index(const char *url, const char *name) {
     CURL *curl = curl_easy_init();
     if (!curl) return 0.0;
 
+    struct curl_slist *headers = curl_slist_append(NULL, "Accept: application/json");
     struct MemBuf buf = {NULL, 0};
     curl_easy_setopt(curl, CURLOPT_URL, url);
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_cb);
@@ -301,7 +302,7 @@ static double get_yahoo_index(const char *url, const char *name) {
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10L);
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36");
-    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, curl_slist_append(NULL, "Accept: application/json"));
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
     CURLcode res = curl_easy_perform(curl);
     double price = 0.0;
@@ -324,6 +325,7 @@ static double get_yahoo_index(const char *url, const char *name) {
         }
     }
     free(buf.data);
+    curl_slist_free_all(headers);
     curl_easy_cleanup(curl);
     if (price > 0) printf("[feed] %s: %.2f\n", name, price);
     return price;
