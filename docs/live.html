@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="Engine dashboard with cycle metrics, agent PnL, win rate, and capital tracking from live paper trading.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Live Dashboard — Money Room</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -18,7 +20,7 @@
       <a href="pricing.html">Pricing</a>
       <a href="demos/" style="color:var(--orange);font-weight:600">Free&nbsp;Demo</a>
       <a href="register.html" style="background:transparent;color:var(--accent);border:1px solid var(--accent);box-shadow:none;padding:6px 16px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none">Get&nbsp;Key</a>
-      <a href="https://github.com/waefrebeorn/money-room">GitHub</a>
+      <a href="https://github.com/waefrebeorn/money-room" target="_blank" rel="noopener noreferrer">
       <a href="#" id="navAuth" class="nav-cta">Sign Out</a>
     </div>
   </div>
@@ -124,6 +126,7 @@
   </div>
 </footer>
 
+<script src="app.js"></script>
 <script>
 function fmt(n,d){if(n===undefined||n===null)return'—';if(typeof n==='string')n=parseFloat(n);if(isNaN(n))return'—';return n.toLocaleString(undefined,{minimumFractionDigits:d||0,maximumFractionDigits:d||2});}
 function pct(n){if(n===undefined||n===null)return'—';n=typeof n==='string'?parseFloat(n):n;return(n*100).toFixed(1)+'%';}
@@ -185,7 +188,7 @@ function loadStats(){
       setEl('sysTrades',fmt(s.trades_total,0));
       setEl('sysWr',pct(s.win_rate));
       setEl('sysEpoch',fmt(s.epoch,0));
-      setEl('sysFeatures',s.features?s.features+'+':'80+');
+      setEl('sysFeatures',s.features?s.features+'':'115');
       setEl('sysPeak',s.capital_peak?'$'+fmt(s.capital_peak,0):'—');
       setEl('sysBtcPrice',s.price?'$'+fmt(s.price,0):'—');
 

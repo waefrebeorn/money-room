@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>System Status — Money Room</title><link rel="stylesheet" href="style.css"><style>.status-row{display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border)}.status-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px}.up{background:var(--green)}.down{background:var(--red)}.degraded{background:var(--orange)}</style></head><body>
+<nav><div class="container"><a href="." class="logo"><span class="dot"></span> Money <span>Room</span></a><div class="nav-links"><a href=".">Live</a><a href="dashboard.html">Pipeline</a><a href="https://github.com/waefrebeorn/money-room" target="_blank" rel="noopener noreferrer">GitHub</a></div></div></nav>
+<div class="page-header"><div class="container"><h1>🔵 System Status</h1><p>Live health of all Money Room components</p></div></div>
+<section style="padding-bottom:60px"><div class="container" style="max-width:600px" id="statusBody"><p style="color:var(--text-tertiary)">Loading status...</p></div></section>
+<script>
+fetch("data/pipeline_status.json").then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+  var h="";
+  h+='<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px">';
+  h+='<div class="status-row" style="font-weight:600;border-bottom:2px solid var(--border)"><span>Component</span><span>Status</span></div>';
+  for(var k in d.components||[]){var c=d.components[k];
+    var dot=c.ok?"up":c.warn?"degraded":"down";
+    h+='<div class="status-row"><span>'+k+'</span><span><span class="status-dot '+dot+'"></span>'+(c.ok?"Operational":c.warn?"Degraded":"Down")+'</span></div>';}
+  h+="</div>";
+  document.getElementById("statusBody").innerHTML=h;
+}).catch(function(){document.getElementById("statusBody").innerHTML='<p style="color:var(--red)">Could not load status data. The pipeline may be down.</p>';});
+</script>
+</body></html>

@@ -1,0 +1,11 @@
+/* TEAM */
+WaefreBeorn — Architecture, Engine, Trading
+AI Assistant — Code generation, DevOps
+
+/* SITE */
+Language: English
+DoB: 2026
+GitHub: github.com/waefrebeorn/money-room
+
+/* THANKS */
+C language, libcurl, jansson, sqlite3

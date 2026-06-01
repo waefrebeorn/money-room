@@ -3,7 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Money Room — Market Prediction Engine</title>
+<meta name="description" content="Open-source algorithmic market prediction engine. 10,000 agent genomes, 200+ C collectors, 16 strategy rooms. Live paper trading on multi-market data.">
+<meta property="og:title" content="Money Room — Market Prediction Engine">
+<meta property="og:description" content="10,000-agent evolutionary trading engine. All C, zero Python. Live paper trading.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://waefrebeorn.github.io/money-room/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Money Room — Market Prediction Engine">
+<meta name="twitter:description" content="10,000-agent evolutionary trading engine. All C, zero Python.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -24,7 +37,7 @@
       <a href="paper.html" style="color:var(--green);font-weight:500">📊 Paper</a>
       <a href="register.html" id="navRegister" class="nav-cta" style="background:transparent;color:var(--accent);border:1px solid var(--accent);box-shadow:none">Get&nbsp;Key</a>
       <a href="https://github.com/waefrebeorn/money-room" target="_blank">GitHub</a>
-      <a href="/money-room/register.html" id="navAuth" class="nav-cta">Sign In</a>
+      <a href="register.html" id="navAuth" class="nav-cta">Get API Key</a>
     </div>
   </div>
 </nav>
@@ -37,7 +50,7 @@
     <div class="live-banner-divider"></div>
     <div class="live-banner-item">
       <span class="live-banner-symbol">BTC</span>
-      <span class="live-banner-price" id="tickerBtc">—</span>
+      <span class="live-banner-price" id="tickerBtc"><span class="loading-pulse">—</span></span>
       <span class="live-banner-chg" id="tickerBtcChg"></span>
     </div>
     <div class="live-banner-divider"></div>
@@ -201,9 +214,9 @@
 </style>
 
   <div class="container">
-    <div class="hero-data-line" id="dataStream">0x7f 0x3a 0x9c 0x44 0xb1 0x2e 0x88 0x5d █ AGENT_EVOLUTION █ TOURNAMENT_SELECTION █ CROSSOVER_RATE:0.78 █ MUTATION:0.042 █ POPULATION:10K █ FEATURE_VECTOR █ VOLUME_PROFILE █ ORDER_IMBALANCE █ FUNDING_RATE █ 0x1a 0xf4 0x63 0x90 0x2c 0x7b 0x4f 0x15 0x3d 0x8e 0x51 0xc0</div>
+    <div class="hero-data-line" id="dataStream">BTC:73119 SPY:7586 VIX:12.8 █ RSI:54.2 EMA_CROSS:BULL BOLLINGER:WIDE █ VOLUME_SURGE:+22% ORDER_IMBALANCE:0.032 FUNDING:0.007% █ FEATURE_VECTOR[115] █ 10K_AGENTS █ CYCLE:142K</div>
     <h1>Algorithmic <span>Market Prediction</span> Engine</h1>
-    <p class="subtitle">10,000 agent genomes evolving in real-time against live multi-market data. Genetic tournament selection. Multi-dimensional feature space. Realistic paper trading with exchange-grade fee models.</p>
+    <p class="subtitle">10,000 agent genomes trading live multi-market data. Genetic tournament selection. 115-dim feature space. Realistic paper trading with Kraken fee models (0.26% taker).</p>
     <div class="cta">
       <a href="live.html" class="primary" id="heroCta">📊 Live Dashboard</a>
       <a href="pricing.html" class="secondary">💰 Pricing</a>
@@ -243,7 +256,7 @@
       <p>Multi-source data pipeline feeding a real-time genetic evolution engine.</p>
     </div>
     <div class="card-grid">
-      <div class="card animate-in"><span class="feature-icon">🧬</span><h3>Genetic Evolution</h3><p>10,000 agent genomes with crossover, mutation, and tournament selection. Pareto-optimal genomes evolve in real-time against shifting market regimes.</p><span class="badge green">Active</span></div>
+      <div class="card animate-in"><span class="feature-icon">🧬</span><h3>Genetic Architecture</h3><p>10,000 agent genomes with crossover, mutation, and tournament selection. Genomes are initialized with Xavier weights — evolution kicks in as training cycles accumulate.</p><span class="badge blue">10K Agents</span></div>
       <div class="card animate-in"><span class="feature-icon">📡</span><h3>Multi-Source Data</h3><p>Data sources across crypto, equities, forex, on-chain metrics, sentiment (GDELT), prediction markets, and economic indicators — all in C.</p><span class="badge blue">12+ Sources</span></div>
       <div class="card animate-in"><span class="feature-icon">🎯</span><h3>Multi-Market Training</h3><p>Cross-asset training across crypto, equities, forex, commodities, and prediction markets with 16 differentiated room strategies.</p><span class="badge orange">16 Rooms</span></div>
       <div class="card animate-in"><span class="feature-icon">⚡</span><h3>Real-Time Inference</h3><p>Sub-millisecond inference per agent. Feature extraction, signal generation, and capital allocation all in C with zero Python overhead.</p><span class="badge green">~5ms/cycle</span></div>
@@ -319,6 +332,11 @@
   </div>
 </footer>
 
+<!-- Cookie notice -->
+<div id="cookieNotice" style="display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);padding:12px 20px;z-index:9999;font-size:12px;color:var(--text-tertiary);text-align:center">No tracking cookies used. Data from simulated paper trading only. <a href="privacy.html" style="color:var(--accent)">Privacy</a> <span onclick="this.parentElement.style.display='none'" style="cursor:pointer;color:var(--accent);margin-left:12px;font-weight:600">Dismiss</span></div>
+<script>
+if(!localStorage.getItem('cookieDismissed')){document.getElementById('cookieNotice').style.display='block';}
+</script>
 <script>
 /* ═══════════════════════════════════════════
  * Money Room — Client Engine
@@ -435,7 +453,17 @@ function updateTickerDuplicates(){
   });
 }
 
-function loadTicker(){
+async function loadTicker() {
+  try {
+    var s = await fetchData("data/stats.json");
+    if (s && s.capital) setEl("capitalDisplay", "$" + Math.round(s.capital).toLocaleString());
+    if (s && s.cycle) setEl("cycleCount", s.cycle.toLocaleString());
+    if (s && s.agents) setEl("agentCount", s.agents.toLocaleString());
+    if (s && s.trades) setEl("tradeCount", s.trades.toLocaleString());
+  } catch(e) { showError("capitalDisplay"); }
+
+  // Original ticker loading follows
+  try {
   fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true',{cache:'no-store'})
     .then(function(r){return r.ok?r.json():Promise.reject();})
     .then(function(d){

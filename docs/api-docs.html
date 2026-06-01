@@ -1,0 +1,16 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Money Room API documentation — access market data, engine metrics, and predictions."><title>API Docs — Money Room</title><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="style.css"><style>pre{background:var(--surface);padding:16px;border-radius:8px;overflow-x:auto;font-size:12px;border:1px solid var(--border)}.endpoint{font-family:"JetBrains Mono",monospace;color:var(--accent)}.method{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-right:8px}.get{background:rgba(0,229,255,0.15);color:var(--accent)}</style></head><body>
+<nav><div class="container"><a href="." class="logo"><span class="dot"></span> Money <span>Room</span></a><div class="nav-links"><a href=".">Live</a><a href="pricing.html">Pricing</a><a href="register.html" style="background:transparent;color:var(--accent);border:1px solid var(--accent);padding:6px 16px;border-radius:8px;font-size:12px;font-weight:600">Get API Key</a></div></div></nav>
+<div class="page-header"><div class="container"><h1>📖 API Documentation</h1><p>REST endpoints for market data, engine metrics, and predictions</p></div></div>
+<section style="padding-bottom:60px"><div class="container" style="max-width:700px">
+<h2>Authentication</h2><p style="color:var(--text-tertiary);font-size:13px">All API requests require a valid API key passed as the <code>X-API-Key</code> header.</p>
+<pre><span class="method get">GET</span> <span class="endpoint">/api/v1/market-data</span>
+<span style="color:var(--text-tertiary)"># Get latest market data for all tracked assets</span>
+X-API-Key: your-key-here</pre>
+<h2>Endpoints</h2>
+<p><span class="method get">GET</span> <span class="endpoint">/api/v1/engine/status</span><br><span style="font-size:13px;color:var(--text-tertiary)">Current engine cycle, agent count, capital, win rate</span></p>
+<p><span class="method get">GET</span> <span class="endpoint">/api/v1/engine/agents</span><br><span style="font-size:13px;color:var(--text-tertiary)">Top agents with PnL, win rate, genome weights</span></p>
+<p><span class="method get">GET</span> <span class="endpoint">/api/v1/market/prices</span><br><span style="font-size:13px;color:var(--text-tertiary)">Latest prices for BTC, ETH, SPY, VIX, gold, forex</span></p>
+<p><span class="method get">GET</span> <span class="endpoint">/api/v1/paper/stats</span><br><span style="font-size:13px;color:var(--text-tertiary)">Paper trading statistics per market</span></p>
+<div style="margin-top:24px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--text-tertiary)">API is in early access. Rate limits apply. Get a key from the <a href="register.html" style="color:var(--accent)">registration page</a>.</div>
+</div></section>
+</body></html>

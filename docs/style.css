@@ -111,6 +111,8 @@ nav {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
+@media (max-width: 768px) { .nav-links { display: none; flex-direction: column; position: absolute; top: 56px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px; gap: 8px; } .nav-links a { padding: 8px; } nav .container > button { display: block !important; } }
+
 nav .container { display: flex; align-items: center; justify-content: space-between; width: 100%; }
 nav .logo {
   font-size: 20px; font-weight: 700; color: var(--text-primary);
@@ -291,6 +293,9 @@ nav .nav-links .nav-cta:hover { background: var(--accent-hover); color: var(--bg
   display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
+.card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+
 .card {
   background: var(--bg-panel);
   border: 1px solid var(--border-subtle);
@@ -530,7 +535,13 @@ nav .nav-links .nav-cta:hover { background: var(--accent-hover); color: var(--bg
 .status-badge.bearish { background: rgba(255, 56, 96, 0.12); color: var(--bearish); }
 .status-badge.neutral { background: rgba(122, 134, 154, 0.12); color: var(--neutral); }
 
-/* ── Footer ── */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+@media print { body { background: #fff; color: #000; } .live-banner, nav, .nav-cta { display: none; } }
+
+@keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+.loading-pulse { animation: pulse 1.5s ease-in-out infinite; }
+
+/* Footer */
 .footer {
   padding: 48px 0; border-top: 1px solid var(--border-subtle);
   margin-top: 40px; position: relative; z-index: 1;

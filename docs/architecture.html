@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+<meta name="description" content="System architecture: C engine, collector pipeline, multi-market training, and 16 strategy rooms.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Money Room — Architecture Diagram</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -246,7 +248,7 @@
           <h3>Engine Stats</h3>
         </div>
         <ul>
-          <li>• 10,000 agents per room</li>
+          <li>• 10,000 agents (MAX_AGENTS), 2,500 active in paper mode</li>
           <li>• 16 differentiated rooms</li>
           <li>• 115 feature fields (18 active)</li>
           <li>• 722K BTC 1-min candles</li>
@@ -261,7 +263,7 @@
         <ul>
           <li>• 68 compiled C binaries</li>
           <li>• 27 dedicated collectors</li>
-          <li>• 24 cron jobs</li>
+          <li>• 24 cron jobs + system crontab (55+ total)</li>
           <li>• $0/month API costs</li>
           <li>• Heartbeat every 6h</li>
         </ul>
